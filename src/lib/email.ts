@@ -17,9 +17,8 @@ function getResend(): Resend {
   return _resend;
 }
 
-// Use verified domain sender in production, fallback to Resend's test sender
-const FROM_EMAIL =
-  process.env.EMAIL_FROM || "AccessGuard <onboarding@resend.dev>";
+// Verified domain sender
+const FROM_EMAIL = "AccessGuard <noreply@accessguard.dev>";
 
 // ---------------------------------------------------------------------------
 // Welcome email
