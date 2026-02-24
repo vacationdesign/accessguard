@@ -8,6 +8,25 @@ import {
   updateSubscription,
 } from "@/lib/db";
 
+// Stripe SDK v20 removed current_period_start/end from the TS types
+// but the API still returns them. This helper safely extracts them.
+function getSubscriptionPeriod(sub: unknown): {
+  currentPeriodStart?: Date;
+  currentPeriodEnd?: Date;
+} {
+  const s = sub as Record<string, unknown>;
+  return {
+    currentPeriodStart:
+      typeof s.current_period_start === "number"
+        ? new Date(s.current_period_start * 1000)
+        : undefined,
+    currentPeriodEnd:
+      typeof s.current_period_end === "number"
+        ? new Date(s.current_period_end * 1000)
+        : undefined,
+  };
+}
+
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
 export async function POST(request: NextRequest) {
@@ -74,16 +93,13 @@ export async function POST(request: NextRequest) {
           await stripe.subscriptions.retrieve(stripeSubscriptionId);
 
         // Create the subscription record in our database
+        const period = getSubscriptionPeriod(stripeSubscription);
         await createSubscription(user.id, {
           stripeSubscriptionId,
           status: stripeSubscription.status,
           plan,
-          currentPeriodStart: new Date(
-            stripeSubscription.current_period_start * 1000
-          ),
-          currentPeriodEnd: new Date(
-            stripeSubscription.current_period_end * 1000
-          ),
+          currentPeriodStart: period.currentPeriodStart,
+          currentPeriodEnd: period.currentPeriodEnd,
           trialStart: stripeSubscription.trial_start
             ? new Date(stripeSubscription.trial_start * 1000)
             : undefined,
@@ -115,15 +131,12 @@ export async function POST(request: NextRequest) {
           plan = "agency";
         }
 
+        const subPeriod = getSubscriptionPeriod(subscription);
         await updateSubscription(subscription.id, {
           status: subscription.status,
           plan,
-          currentPeriodStart: new Date(
-            subscription.current_period_start * 1000
-          ),
-          currentPeriodEnd: new Date(
-            subscription.current_period_end * 1000
-          ),
+          currentPeriodStart: subPeriod.currentPeriodStart,
+          currentPeriodEnd: subPeriod.currentPeriodEnd,
           trialStart: subscription.trial_start
             ? new Date(subscription.trial_start * 1000)
             : undefined,
@@ -192,14 +205,11 @@ export async function POST(request: NextRequest) {
             invoice.subscription as string
           );
 
+          const invoicePeriod = getSubscriptionPeriod(stripeSubscription);
           await updateSubscription(stripeSubscription.id, {
             status: stripeSubscription.status,
-            currentPeriodStart: new Date(
-              stripeSubscription.current_period_start * 1000
-            ),
-            currentPeriodEnd: new Date(
-              stripeSubscription.current_period_end * 1000
-            ),
+            currentPeriodStart: invoicePeriod.currentPeriodStart,
+            currentPeriodEnd: invoicePeriod.currentPeriodEnd,
           });
 
           console.log(
