@@ -1,14 +1,31 @@
 "use client";
 
+import { useState } from "react";
 import ScoreGauge from "./ScoreGauge";
 import ViolationCard from "./ViolationCard";
 import { ScanResult } from "@/lib/scanner";
 
 interface ScanReportProps {
   result: ScanResult;
+  onCheckout: (plan: "pro" | "agency") => void;
+  checkoutLoading: string | null;
 }
 
-export default function ScanReport({ result }: ScanReportProps) {
+export default function ScanReport({ result, onCheckout, checkoutLoading }: ScanReportProps) {
+  const [pdfLoading, setPdfLoading] = useState(false);
+
+  const handleDownloadPdf = async () => {
+    setPdfLoading(true);
+    try {
+      const { generatePdfReport } = await import("@/lib/pdf-report");
+      generatePdfReport(result);
+    } catch (err) {
+      console.error("PDF generation failed:", err);
+      alert("Failed to generate PDF. Please try again.");
+    } finally {
+      setPdfLoading(false);
+    }
+  };
   const criticalCount = result.violations.filter(
     (v) => v.impact === "critical"
   ).length;
@@ -97,8 +114,12 @@ export default function ScanReport({ result }: ScanReportProps) {
             ADA website lawsuits increased 300% since 2018. Get full-site
             monitoring and automated fix reports.
           </p>
-          <button className="bg-white text-primary font-bold px-8 py-3 rounded-xl hover:bg-blue-50 transition-colors cursor-pointer">
-            Start Full Site Audit — $49/month
+          <button
+            onClick={() => onCheckout("pro")}
+            disabled={checkoutLoading !== null}
+            className="bg-white text-primary font-bold px-8 py-3 rounded-xl hover:bg-blue-50 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {checkoutLoading ? "Redirecting..." : "Start Full Site Audit — $49/month"}
           </button>
         </div>
       )}
@@ -140,11 +161,19 @@ export default function ScanReport({ result }: ScanReportProps) {
           team fix-ready code snippets.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <button className="bg-primary text-white font-bold px-8 py-3 rounded-xl hover:bg-primary-dark transition-colors cursor-pointer">
-            Try Pro Free for 14 Days
+          <button
+            onClick={() => onCheckout("pro")}
+            disabled={checkoutLoading !== null}
+            className="bg-primary text-white font-bold px-8 py-3 rounded-xl hover:bg-primary-dark transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {checkoutLoading === "pro" ? "Redirecting..." : "Try Pro Free for 14 Days"}
           </button>
-          <button className="border-2 border-gray-200 text-foreground font-bold px-8 py-3 rounded-xl hover:bg-gray-50 transition-colors cursor-pointer">
-            Download PDF Report
+          <button
+            onClick={handleDownloadPdf}
+            disabled={pdfLoading}
+            className="border-2 border-gray-200 text-foreground font-bold px-8 py-3 rounded-xl hover:bg-gray-50 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {pdfLoading ? "Generating..." : "Download PDF Report"}
           </button>
         </div>
       </div>

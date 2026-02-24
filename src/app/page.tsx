@@ -217,7 +217,7 @@ export default function Home() {
       {/* Scan Results */}
       {scanResult && (
         <section className="max-w-6xl mx-auto px-6 pb-16">
-          <ScanReport result={scanResult} />
+          <ScanReport result={scanResult} onCheckout={handleCheckout} checkoutLoading={checkoutLoading} />
         </section>
       )}
 
