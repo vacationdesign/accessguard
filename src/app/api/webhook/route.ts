@@ -10,6 +10,7 @@ import {
   createSubscription,
   updateSubscription,
 } from "@/lib/db";
+import { sendWelcomeEmail } from "@/lib/email";
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
@@ -94,6 +95,18 @@ export async function POST(request: NextRequest) {
         console.log(
           `User ${user.email} subscribed to ${plan} plan (subscription: ${stripeSubscriptionId})`
         );
+
+        // Send welcome email (non-blocking — failures are logged, not thrown)
+        sendWelcomeEmail({
+          to: customerEmail,
+          plan,
+          trialEndDate: stripeSubscription.trial_end
+            ? new Date(stripeSubscription.trial_end * 1000)
+            : null,
+        }).catch((err) => {
+          console.error("Welcome email failed (non-blocking):", err);
+        });
+
         break;
       }
 
