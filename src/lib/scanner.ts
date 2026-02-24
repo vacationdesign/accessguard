@@ -30,7 +30,7 @@ export interface ViolationNode {
 }
 
 const CHROMIUM_REMOTE_URL =
-  "https://github.com/nichochar/sparticuz-chromium-bin/raw/main/chromium-v143.0.1-pack.tar";
+  "https://github.com/Sparticuz/chromium/releases/download/v143.0.0/chromium-v143.0.0-pack.x64.tar";
 
 async function getBrowser() {
   if (process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME) {
