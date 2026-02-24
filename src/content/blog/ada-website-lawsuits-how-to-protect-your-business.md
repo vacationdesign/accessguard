@@ -175,4 +175,4 @@ The businesses that avoid ADA website lawsuits are the ones that take accessibil
 
 **AccessGuard's free website accessibility scanner** gives you an instant snapshot of the accessibility issues on your site. In minutes, you can identify the violations that put your business at legal risk and get actionable guidance on how to fix them.
 
-Do not wait for a plaintiff's attorney to audit your website for you. [Run your free scan with AccessGuard now](/scanner) and take control of your compliance before it becomes someone else's decision.
+Do not wait for a plaintiff's attorney to audit your website for you. [Run your free scan with AccessGuard now](/) and take control of your compliance before it becomes someone else's decision.

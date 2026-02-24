@@ -235,4 +235,4 @@ Once you have resolved the violations from your automated scan, do not stop ther
 
 Fixing scan results is step one. Keeping your site compliant as it evolves requires ongoing monitoring. [AccessGuard](/) provides automated WCAG 2.1 scanning that you can run on demand or schedule weekly. Every scan generates a prioritized report with specific element references and code-level remediation guidance.
 
-[Run a free scan now](/) to see your current violation count, or explore [AccessGuard's Pro plan](/pricing) for scheduled monitoring, trend tracking, and team collaboration features that keep accessibility on track across every deployment.
+[Run a free scan now](/) to see your current violation count, or explore [AccessGuard's Pro plan](/#pricing) for scheduled monitoring, trend tracking, and team collaboration features that keep accessibility on track across every deployment.

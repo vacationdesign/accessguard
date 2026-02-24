@@ -108,7 +108,7 @@ If you work with a web development agency, include WCAG 2.1 AA compliance as an 
 
 Accessibility is not a one-time project. Every time you add a page, change a design, or update content, you can introduce new accessibility issues. Regular scanning catches regressions before they become legal liabilities.
 
-[AccessGuard's Pro plan](/pricing) offers weekly automated scans that monitor your entire site and alert you to new violations. For a small business, this kind of continuous monitoring is the most cost-effective way to maintain compliance and demonstrate good faith if you ever receive a demand letter.
+[AccessGuard's Pro plan](/#pricing) offers weekly automated scans that monitor your entire site and alert you to new violations. For a small business, this kind of continuous monitoring is the most cost-effective way to maintain compliance and demonstrate good faith if you ever receive a demand letter.
 
 ## What If You Receive an ADA Demand Letter?
 
@@ -125,4 +125,4 @@ The strongest legal defense is a genuine, documented effort to make your website
 
 You do not need to hire an expensive consultant or overhaul your entire website overnight. Start by understanding where you stand. [Run a free AccessGuard scan](/) right now. It takes 30 seconds, requires no signup, and gives you a clear, prioritized list of the accessibility issues on your site.
 
-From there, work through the fixes systematically, starting with the critical violations. If you want ongoing protection, [explore AccessGuard's plans](/pricing) for automated weekly monitoring that keeps your small business compliant as your site evolves.
+From there, work through the fixes systematically, starting with the critical violations. If you want ongoing protection, [explore AccessGuard's plans](/#pricing) for automated weekly monitoring that keeps your small business compliant as your site evolves.

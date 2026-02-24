@@ -19,7 +19,7 @@ This guide walks you through the ten most common accessibility issues, explains 
 
 Before diving into the fixes, it helps to understand the stakes. Accessibility failures affect real people: screen reader users who cannot parse your navigation, keyboard-only users who get trapped inside a modal, and users with low vision who cannot read light-gray text on a white background. Beyond the ethical imperative, inaccessible sites face legal risk under the ADA and the European Accessibility Act, and they lose search ranking signals that Google ties to Core Web Vitals and semantic HTML.
 
-Every fix below maps to one or more WCAG 2.2 success criteria. Where relevant, the criterion is noted so you can cross-reference your own audit.
+Every fix below maps to one or more WCAG 2.1 success criteria. Where relevant, the criterion is noted so you can cross-reference your own audit.
 
 ## 1. Missing Alt Text on Images
 
@@ -539,4 +539,4 @@ Work through these ten items in order. Issues one through six can typically be f
 
 Manual testing is essential — especially keyboard and screen reader testing — but automated scanners catch the low-hanging fruit instantly. Running a scanner after every deployment ensures that new code does not reintroduce resolved issues.
 
-**AccessGuard's free accessibility scanner** analyzes your pages against WCAG 2.2, flags every issue covered in this guide, and gives you prioritized, code-level fix suggestions so your team spends less time diagnosing and more time shipping. Try it today at [accessguard.io](https://accessguard.io) and fix accessibility issues on your website before your users — or their lawyers — find them first.
+**AccessGuard's free accessibility scanner** analyzes your pages against WCAG 2.1, flags every issue covered in this guide, and gives you prioritized, code-level fix suggestions so your team spends less time diagnosing and more time shipping. Try it today at [accessguard.dev](https://www.accessguard.dev) and fix accessibility issues on your website before your users — or their lawyers — find them first.

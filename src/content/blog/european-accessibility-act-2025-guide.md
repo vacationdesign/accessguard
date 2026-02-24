@@ -104,7 +104,7 @@ The EAA requires economic operators to be able to demonstrate compliance. Mainta
 
 Accessibility is not a one-time fix. Every code deployment, content update, and design change can introduce new barriers. Schedule regular automated scans and periodic manual audits to maintain compliance over time.
 
-[AccessGuard's Pro plan](/pricing) provides scheduled weekly scans, historical trend reporting, and exportable compliance reports that serve as documentation for regulatory purposes. Ongoing monitoring is the only reliable way to prevent regression and demonstrate continuous compliance.
+[AccessGuard's Pro plan](/#pricing) provides scheduled weekly scans, historical trend reporting, and exportable compliance reports that serve as documentation for regulatory purposes. Ongoing monitoring is the only reliable way to prevent regression and demonstrate continuous compliance.
 
 ## The EAA and Non-EU Businesses
 
@@ -114,4 +114,4 @@ This means US, UK, and other non-EU businesses with EU-facing websites need to c
 
 ## Start Your EAA Compliance Assessment Today
 
-The enforcement deadline has already passed. If you have not assessed your website's accessibility, the time to act is now. [Run a free AccessGuard scan](/) to identify your current WCAG 2.1 violations and get a clear picture of the remediation work ahead. For ongoing compliance monitoring and audit-ready documentation, explore [AccessGuard's pricing plans](/pricing).
+The enforcement deadline has already passed. If you have not assessed your website's accessibility, the time to act is now. [Run a free AccessGuard scan](/) to identify your current WCAG 2.1 violations and get a clear picture of the remediation work ahead. For ongoing compliance monitoring and audit-ready documentation, explore [AccessGuard's pricing plans](/#pricing).

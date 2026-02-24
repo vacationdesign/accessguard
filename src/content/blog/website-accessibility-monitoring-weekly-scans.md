@@ -110,6 +110,6 @@ If you are not currently monitoring your website's accessibility on a regular ba
 
 Start with a baseline. [Run a free AccessGuard scan](/) right now to see your current WCAG 2.1 violation count across your site. The scan takes seconds and requires no account or credit card.
 
-Then set up continuous monitoring. [AccessGuard's Pro plan](/pricing) includes weekly scheduled scans across all your pages, historical trend tracking, regression detection, prioritized remediation guidance, and exportable reports. It is the most efficient way to maintain accessibility compliance as your website evolves.
+Then set up continuous monitoring. [AccessGuard's Pro plan](/#pricing) includes weekly scheduled scans across all your pages, historical trend tracking, regression detection, prioritized remediation guidance, and exportable reports. It is the most efficient way to maintain accessibility compliance as your website evolves.
 
 One-time fixes are not enough. Your website changes every week. Your accessibility monitoring should too.

@@ -526,4 +526,4 @@ Working through a WCAG compliance checklist manually is essential, but it does n
 
 Whether you are starting your first audit or maintaining an already-accessible site, AccessGuard helps you catch regressions, track progress over time, and demonstrate compliance with confidence.
 
-[Run your free accessibility scan now](https://www.accessguard.io/free-scan) and see how your site measures up against this WCAG compliance checklist.
+[Run your free accessibility scan now](/) and see how your site measures up against this WCAG compliance checklist.

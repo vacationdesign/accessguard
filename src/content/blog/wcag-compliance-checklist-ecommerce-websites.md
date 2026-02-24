@@ -107,6 +107,6 @@ Auto-rotating homepage carousels must include pause, stop, and navigation contro
 
 The fastest way to identify WCAG 2.1 violations on your online store is to run an automated scan that flags issues across your product pages, cart, and checkout. [AccessGuard's free scanner](/) analyzes your site against WCAG 2.1 AA criteria and delivers a prioritized report in seconds.
 
-Automated scanning catches approximately 30-40% of accessibility issues. For a comprehensive audit, combine scanning with manual keyboard testing and screen reader verification. If you need ongoing coverage, [AccessGuard's Pro plan](/pricing) offers weekly scheduled scans with detailed trend reporting so you can catch regressions before they become legal liabilities.
+Automated scanning catches approximately 30-40% of accessibility issues. For a comprehensive audit, combine scanning with manual keyboard testing and screen reader verification. If you need ongoing coverage, [AccessGuard's Pro plan](/#pricing) offers weekly scheduled scans with detailed trend reporting so you can catch regressions before they become legal liabilities.
 
 Start with a free scan today and see exactly where your e-commerce site stands.
