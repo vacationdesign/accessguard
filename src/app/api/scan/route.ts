@@ -1,41 +1,26 @@
 import { NextRequest, NextResponse } from "next/server";
 import { scanUrl, ScanResult } from "@/lib/scanner";
-
-// Rate limiting - simple in-memory store (replace with Redis in production)
-const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
-const RATE_LIMIT = 5; // scans per window
-const RATE_WINDOW = 60 * 60 * 1000; // 1 hour
-
-function checkRateLimit(ip: string): boolean {
-  const now = Date.now();
-  const record = rateLimitMap.get(ip);
-
-  if (!record || now > record.resetTime) {
-    rateLimitMap.set(ip, { count: 1, resetTime: now + RATE_WINDOW });
-    return true;
-  }
-
-  if (record.count >= RATE_LIMIT) {
-    return false;
-  }
-
-  record.count++;
-  return true;
-}
+import { canUserScan, logScan } from "@/lib/db";
 
 export async function POST(request: NextRequest) {
   try {
     // Get client IP for rate limiting
     const ip =
-      request.headers.get("x-forwarded-for") ||
+      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
       request.headers.get("x-real-ip") ||
       "unknown";
 
-    // Check rate limit
-    if (!checkRateLimit(ip)) {
+    // Check rate limit (free tier: 5 scans/hour by IP, paid: unlimited)
+    // Note: userId is null for now since we don't have auth yet.
+    // Once auth is added, extract userId from the session and pass it here.
+    const userId: string | null = null;
+    const allowed = await canUserScan(ip, userId);
+
+    if (!allowed) {
       return NextResponse.json(
         {
-          error: "Rate limit exceeded. Free tier allows 5 scans per hour.",
+          error:
+            "Rate limit exceeded. Free tier allows 5 scans per hour. Upgrade to Pro or Agency for unlimited scans.",
           upgrade: true,
         },
         { status: 429 }
@@ -68,7 +53,21 @@ export async function POST(request: NextRequest) {
     const normalizedUrl = url.startsWith("http") ? url : `https://${url}`;
 
     // Run the scan
+    const scanStart = Date.now();
     const result: ScanResult = await scanUrl(normalizedUrl);
+    const scanDurationMs = Date.now() - scanStart;
+
+    // Log the scan asynchronously (don't block the response)
+    logScan(
+      userId,
+      normalizedUrl,
+      ip,
+      result.score ?? 0,
+      result.violations?.length ?? 0,
+      scanDurationMs
+    ).catch((err) => {
+      console.error("Failed to log scan:", err);
+    });
 
     return NextResponse.json(result);
   } catch (error: any) {
