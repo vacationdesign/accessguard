@@ -8,6 +8,32 @@ export default function Home() {
   const [scanResult, setScanResult] = useState<any>(null);
   const [isScanning, setIsScanning] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [checkoutLoading, setCheckoutLoading] = useState<string | null>(null);
+
+  const handleCheckout = async (plan: "pro" | "agency") => {
+    try {
+      setCheckoutLoading(plan);
+      const response = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ plan }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to create checkout session");
+      }
+
+      if (data.url) {
+        window.location.href = data.url;
+      }
+    } catch (err: any) {
+      alert(err.message || "Something went wrong. Please try again.");
+    } finally {
+      setCheckoutLoading(null);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
@@ -44,8 +70,12 @@ export default function Home() {
           >
             Pricing
           </a>
-          <button className="bg-primary text-white text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-primary-dark transition-colors cursor-pointer">
-            Start Free Trial
+          <button
+            onClick={() => handleCheckout("pro")}
+            disabled={checkoutLoading !== null}
+            className="bg-primary text-white text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-primary-dark transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {checkoutLoading ? "Redirecting..." : "Start Free Trial"}
           </button>
         </div>
       </nav>
@@ -363,7 +393,10 @@ export default function Home() {
                   Fix suggestions
                 </li>
               </ul>
-              <button className="w-full py-3 border-2 border-gray-200 rounded-xl font-semibold hover:bg-gray-50 transition-colors cursor-pointer">
+              <button
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                className="w-full py-3 border-2 border-gray-200 rounded-xl font-semibold hover:bg-gray-50 transition-colors cursor-pointer"
+              >
                 Scan Now — Free
               </button>
             </div>
@@ -469,8 +502,12 @@ export default function Home() {
                   Email alerts for new issues
                 </li>
               </ul>
-              <button className="w-full py-3 bg-primary text-white rounded-xl font-semibold hover:bg-primary-dark transition-colors cursor-pointer">
-                Start 14-Day Free Trial
+              <button
+                onClick={() => handleCheckout("pro")}
+                disabled={checkoutLoading === "pro"}
+                className="w-full py-3 bg-primary text-white rounded-xl font-semibold hover:bg-primary-dark transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {checkoutLoading === "pro" ? "Redirecting..." : "Start 14-Day Free Trial"}
               </button>
             </div>
 
@@ -558,8 +595,12 @@ export default function Home() {
                   Priority support
                 </li>
               </ul>
-              <button className="w-full py-3 border-2 border-gray-200 rounded-xl font-semibold hover:bg-gray-50 transition-colors cursor-pointer">
-                Contact Us
+              <button
+                onClick={() => handleCheckout("agency")}
+                disabled={checkoutLoading === "agency"}
+                className="w-full py-3 border-2 border-gray-200 rounded-xl font-semibold hover:bg-gray-50 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {checkoutLoading === "agency" ? "Redirecting..." : "Start 14-Day Free Trial"}
               </button>
             </div>
           </div>
