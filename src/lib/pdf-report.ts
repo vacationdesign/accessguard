@@ -171,21 +171,44 @@ export function generatePdfReport(result: ScanResult): void {
       // Show first few affected elements
       const nodesToShow = violation.nodes.slice(0, 3);
       nodesToShow.forEach((node) => {
-        addPageIfNeeded(16);
-        doc.setFillColor(250, 250, 250);
-        doc.roundedRect(margin + 4, y, contentWidth - 8, 10, 1, 1, "F");
+        // Prepare text lines
+        const htmlSnippet = node.html.replace(/\s+/g, " ").trim();
+        doc.setFontSize(5.5);
+        doc.setFont("helvetica", "bold");
+        const htmlLines = doc.splitTextToSize(htmlSnippet, contentWidth - 14);
+        const htmlLineCount = Math.min(htmlLines.length, 2); // max 2 lines
+
         doc.setFontSize(6);
-        doc.setTextColor(60, 60, 60);
-        doc.setFont("courier", "normal");
-        const htmlSnippet = node.html.substring(0, 90) + (node.html.length > 90 ? "..." : "");
-        doc.text(htmlSnippet, margin + 6, y + 4);
         doc.setFont("helvetica", "normal");
-        doc.setTextColor(100, 100, 100);
         const fixText = node.fixSuggestion
-          ? node.fixSuggestion.substring(0, 100) + (node.fixSuggestion.length > 100 ? "..." : "")
-          : node.failureSummary.substring(0, 100);
-        doc.text(fixText, margin + 6, y + 8);
-        y += 12;
+          ? node.fixSuggestion.substring(0, 120) + (node.fixSuggestion.length > 120 ? "..." : "")
+          : node.failureSummary.substring(0, 120);
+        const fixLines = doc.splitTextToSize(fixText, contentWidth - 14);
+        const fixLineCount = Math.min(fixLines.length, 2);
+
+        const boxHeight = 4 + htmlLineCount * 3.5 + 2 + fixLineCount * 3.5 + 2;
+        addPageIfNeeded(boxHeight + 4);
+
+        // Background box
+        doc.setFillColor(248, 248, 248);
+        doc.setDrawColor(230, 230, 230);
+        doc.roundedRect(margin + 4, y, contentWidth - 8, boxHeight, 1, 1, "FD");
+
+        // HTML snippet (use helvetica bold instead of courier to avoid spacing bug)
+        let textY = y + 3.5;
+        doc.setFontSize(5.5);
+        doc.setFont("helvetica", "bold");
+        doc.setTextColor(50, 50, 50);
+        doc.text(htmlLines.slice(0, htmlLineCount), margin + 6, textY);
+        textY += htmlLineCount * 3.5 + 1.5;
+
+        // Fix suggestion
+        doc.setFontSize(6);
+        doc.setFont("helvetica", "normal");
+        doc.setTextColor(22, 163, 74);
+        doc.text(fixLines.slice(0, fixLineCount), margin + 6, textY);
+
+        y += boxHeight + 3;
       });
 
       if (violation.nodes.length > 3) {
