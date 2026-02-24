@@ -80,7 +80,7 @@ export function generatePdfReport(result: ScanResult): void {
     minute: "2-digit",
   });
   safeText(
-    `Duration: ${(result.scanDuration / 1000).toFixed(1)}s  \u2022  ${scanTs}`,
+    `Duration: ${(result.scanDuration / 1000).toFixed(1)}s  |  ${scanTs}`,
     margin,
     y
   );
@@ -181,7 +181,7 @@ export function generatePdfReport(result: ScanResult): void {
   doc.setFontSize(8);
   doc.setFont("helvetica", "normal");
   safeText(
-    `Passed: ${result.passes}  \u2022  Needs Review: ${result.incomplete}`,
+    `Passed: ${result.passes}  |  Needs Review: ${result.incomplete}`,
     margin,
     y
   );
@@ -246,7 +246,7 @@ export function generatePdfReport(result: ScanResult): void {
       doc.setFontSize(7);
       doc.setTextColor(140, 140, 140);
       safeText(
-        `${violation.nodes.length} element(s) affected  \u2022  Rule: ${violation.id}`,
+        `${violation.nodes.length} element(s) affected  |  Rule: ${violation.id}`,
         margin + 5,
         y
       );
@@ -254,23 +254,26 @@ export function generatePdfReport(result: ScanResult): void {
 
       // Show first few affected elements
       const nodesToShow = violation.nodes.slice(0, 3);
+      const boxInnerWidth = contentWidth - 14;
       nodesToShow.forEach((node) => {
-        // Truncate and clean HTML snippet
+        // Clean HTML snippet
         const rawHtml = node.html.replace(/\s+/g, " ").trim();
-        const htmlSnippet =
-          rawHtml.length > 80 ? rawHtml.substring(0, 77) + "..." : rawHtml;
+
+        // Use helvetica normal (courier has unfixable spacing bugs in jsPDF)
+        doc.setFontSize(6);
+        doc.setFont("helvetica", "normal");
+        const htmlLines = doc.splitTextToSize(rawHtml, boxInnerWidth);
+        const htmlLineCount = Math.min(htmlLines.length, 2);
 
         // Fix suggestion text
         const fixRaw = node.fixSuggestion || node.failureSummary;
-        const fixText =
-          fixRaw.length > 100 ? fixRaw.substring(0, 97) + "..." : fixRaw;
-
         doc.setFontSize(6.5);
-        doc.setFont("helvetica", "normal");
-        const fixLines = doc.splitTextToSize(`\u2192 ${fixText}`, contentWidth - 18);
+        const fixLines = doc.splitTextToSize(`Fix: ${fixRaw}`, boxInnerWidth);
         const fixLineCount = Math.min(fixLines.length, 2);
 
-        const boxHeight = 5 + fixLineCount * 3 + 2;
+        const htmlH = htmlLineCount * 3;
+        const fixH = fixLineCount * 3.2;
+        const boxHeight = 3 + htmlH + 2 + fixH + 3;
         addPageIfNeeded(boxHeight + 4);
 
         // Code block background
@@ -278,18 +281,19 @@ export function generatePdfReport(result: ScanResult): void {
         doc.setDrawColor(209, 213, 219);
         doc.roundedRect(margin + 5, y, contentWidth - 10, boxHeight, 1, 1, "FD");
 
-        // HTML snippet in monospace with charSpace fix
-        doc.setCharSpace(0);
+        // HTML snippet (helvetica normal, gray - no courier)
+        let innerY = y + 3.5;
         doc.setFontSize(6);
-        doc.setFont("courier", "normal");
-        doc.setTextColor(55, 65, 81);
-        safeText(htmlSnippet, margin + 7, y + 3.5);
-
-        // Fix suggestion
         doc.setFont("helvetica", "normal");
+        doc.setTextColor(55, 65, 81);
+        safeText(htmlLines.slice(0, htmlLineCount), margin + 7, innerY);
+        innerY += htmlH + 1.5;
+
+        // Fix suggestion in green
         doc.setFontSize(6.5);
+        doc.setFont("helvetica", "normal");
         doc.setTextColor(22, 101, 52);
-        safeText(fixLines.slice(0, fixLineCount), margin + 7, y + 3.5 + 4);
+        safeText(fixLines.slice(0, fixLineCount), margin + 7, innerY);
 
         y += boxHeight + 2;
       });
