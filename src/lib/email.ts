@@ -2,10 +2,20 @@ import { Resend } from "resend";
 import { PLANS, PlanKey } from "@/lib/stripe";
 
 // ---------------------------------------------------------------------------
-// Resend client
+// Resend client (lazy init to avoid build-time errors when env var is missing)
 // ---------------------------------------------------------------------------
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+let _resend: Resend | null = null;
+
+function getResend(): Resend {
+  if (!_resend) {
+    if (!process.env.RESEND_API_KEY) {
+      throw new Error("RESEND_API_KEY environment variable is not set");
+    }
+    _resend = new Resend(process.env.RESEND_API_KEY);
+  }
+  return _resend;
+}
 
 // Use verified domain sender in production, fallback to Resend's test sender
 const FROM_EMAIL =
@@ -138,7 +148,7 @@ export async function sendWelcomeEmail({
 </html>`;
 
   try {
-    const { error } = await resend.emails.send({
+    const { error } = await getResend().emails.send({
       from: FROM_EMAIL,
       to,
       subject,
