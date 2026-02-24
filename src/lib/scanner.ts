@@ -85,9 +85,14 @@ export async function scanUrl(url: string): Promise<ScanResult> {
       timeout: 30000,
     });
 
-    // Inject axe-core and run analysis
-    const axeSource = require("axe-core").source;
-    await page.evaluate(axeSource);
+    // Inject axe-core from CDN (avoids bundler issues in serverless)
+    await page.addScriptTag({
+      url: "https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.10.2/axe.min.js",
+    });
+    // Wait for axe to be available
+    await page.waitForFunction(() => typeof (window as any).axe !== "undefined", {
+      timeout: 10000,
+    });
 
     const axeResults: AxeResults = await page.evaluate(() => {
       return (window as any).axe.run(document, {
