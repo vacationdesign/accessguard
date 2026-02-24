@@ -29,16 +29,17 @@ export interface ViolationNode {
   fixSuggestion: string;
 }
 
+const CHROMIUM_REMOTE_URL =
+  "https://github.com/nichochar/sparticuz-chromium-bin/raw/main/chromium-v143.0.1-pack.tar";
+
 async function getBrowser() {
   if (process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME) {
     // Serverless environment (Vercel, AWS Lambda)
-    const chromium = (await import("@sparticuz/chromium")).default;
-    (chromium as any).setHeadlessMode = true;
-    (chromium as any).setGraphicsMode = false;
+    const chromium = (await import("@sparticuz/chromium-min")).default;
     return puppeteerCore.launch({
       args: chromium.args,
       defaultViewport: { width: 1280, height: 720 },
-      executablePath: await chromium.executablePath(),
+      executablePath: await chromium.executablePath(CHROMIUM_REMOTE_URL),
       headless: true,
     });
   } else {

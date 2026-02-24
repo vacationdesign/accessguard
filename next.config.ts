@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   // Optimize for serverless deployment
-  serverExternalPackages: ["puppeteer-core", "@sparticuz/chromium"],
+  serverExternalPackages: ["puppeteer-core", "@sparticuz/chromium-min"],
 
   // Increase serverless function timeout for scanning
   experimental: {
