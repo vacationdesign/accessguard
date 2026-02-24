@@ -730,6 +730,16 @@ export default function Home() {
                   </li>
                 </ul>
               </div>
+              <div className="space-y-3">
+                <p className="text-white font-semibold text-sm">Legal</p>
+                <ul className="space-y-2 text-sm">
+                  <li>
+                    <a href="/tokushoho" className="hover:text-white transition-colors">
+                      特定商取引法に基づく表記
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-sm text-center">
