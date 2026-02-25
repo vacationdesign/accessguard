@@ -54,7 +54,7 @@ export default function Home() {
             />
           </svg>
           <span className="text-xl font-bold text-foreground">
-            AccessGuard
+            A11yScope
           </span>
         </div>
         <div className="flex items-center gap-6">
@@ -231,7 +231,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center space-y-4 mb-16">
             <h2 className="text-3xl sm:text-4xl font-extrabold text-foreground">
-              Why teams choose AccessGuard
+              Why teams choose A11yScope
             </h2>
             <p className="text-lg text-muted max-w-2xl mx-auto">
               More than a scanner. A complete accessibility compliance platform.
@@ -622,19 +622,19 @@ export default function Home() {
             {[
               {
                 quote:
-                  "AccessGuard found 23 critical issues on our homepage that we had no idea about. Fixed them all in a day.",
+                  "A11yScope found 23 critical issues on our homepage that we had no idea about. Fixed them all in a day.",
                 name: "Sarah Chen",
                 role: "Frontend Lead, TechStartup",
               },
               {
                 quote:
-                  "We use AccessGuard for every client project. The PDF reports save us hours of manual auditing.",
+                  "We use A11yScope for every client project. The PDF reports save us hours of manual auditing.",
                 name: "Marcus Johnson",
                 role: "Owner, WebCraft Agency",
               },
               {
                 quote:
-                  "After an ADA demand letter, we needed a fast solution. AccessGuard paid for itself immediately.",
+                  "After an ADA demand letter, we needed a fast solution. A11yScope paid for itself immediately.",
                 name: "Lisa Park",
                 role: "COO, E-commerce Brand",
               },
@@ -687,7 +687,7 @@ export default function Home() {
                     d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"
                   />
                 </svg>
-                <span className="font-bold">AccessGuard</span>
+                <span className="font-bold">A11yScope</span>
               </div>
               <p className="text-sm max-w-xs">
                 Making the web accessible for everyone. WCAG 2.1 compliance
@@ -748,7 +748,7 @@ export default function Home() {
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-sm text-center">
-            &copy; 2026 AccessGuard. All rights reserved.
+            &copy; 2026 A11yScope. All rights reserved.
           </div>
         </div>
       </footer>

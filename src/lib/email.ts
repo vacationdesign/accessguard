@@ -18,10 +18,10 @@ function getResend(): Resend {
 }
 
 // Verified domain sender
-const FROM_EMAIL = "AccessGuard <noreply@accessguard.dev>";
+const FROM_EMAIL = "A11yScope <noreply@a11yscope.com>";
 
 // Admin notification recipient (forwards to owner's Gmail)
-const ADMIN_EMAIL = "support@accessguard.dev";
+const ADMIN_EMAIL = "support@a11yscope.com";
 
 // ---------------------------------------------------------------------------
 // Welcome email
@@ -101,7 +101,7 @@ export async function sendWelcomeEmail({
                 </p>
                 <p style="margin:0;color:#475569;font-size:14px;line-height:1.6;">
                   Run as many WCAG compliance scans as you need with no hourly limits.
-                  Visit <a href="https://www.accessguard.dev" style="color:#2563eb;text-decoration:none;">www.accessguard.dev</a>, enter any URL, and get a detailed report in seconds.
+                  Visit <a href="https://www.a11yscope.com" style="color:#2563eb;text-decoration:none;">www.a11yscope.com</a>, enter any URL, and get a detailed report in seconds.
                 </p>
               </div>
 
@@ -122,7 +122,7 @@ export async function sendWelcomeEmail({
                   Weekly Automated Monitoring
                 </p>
                 <p style="margin:0;color:#475569;font-size:14px;line-height:1.6;">
-                  Every week, AccessGuard automatically scans your registered sites and sends you a summary report by email &mdash; so you can catch new issues before they become problems.
+                  Every week, A11yScope automatically scans your registered sites and sends you a summary report by email &mdash; so you can catch new issues before they become problems.
                 </p>
               </div>
 
@@ -140,7 +140,7 @@ export async function sendWelcomeEmail({
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                 <tr>
                   <td align="center" style="padding:8px 0 24px;">
-                    <a href="https://www.accessguard.dev" style="display:inline-block;background-color:#2563eb;color:#ffffff;font-size:16px;font-weight:600;text-decoration:none;padding:14px 32px;border-radius:8px;">
+                    <a href="https://www.a11yscope.com" style="display:inline-block;background-color:#2563eb;color:#ffffff;font-size:16px;font-weight:600;text-decoration:none;padding:14px 32px;border-radius:8px;">
                       Start Scanning Now
                     </a>
                   </td>
@@ -151,7 +151,7 @@ export async function sendWelcomeEmail({
 
               <p style="margin:0;color:#94a3b8;font-size:13px;line-height:1.6;">
                 Questions? Contact us anytime at
-                <a href="mailto:support@accessguard.dev" style="color:#2563eb;text-decoration:none;">support@accessguard.dev</a>.
+                <a href="mailto:support@a11yscope.com" style="color:#2563eb;text-decoration:none;">support@a11yscope.com</a>.
               </p>
             </td>
           </tr>
@@ -160,8 +160,8 @@ export async function sendWelcomeEmail({
           <tr>
             <td style="background-color:#f8fafc;padding:20px 40px;text-align:center;border-top:1px solid #e2e8f0;">
               <p style="margin:0;color:#94a3b8;font-size:12px;">
-                &copy; 2026 AccessGuard. All rights reserved.<br>
-                <a href="https://www.accessguard.dev" style="color:#94a3b8;text-decoration:none;">www.accessguard.dev</a>
+                &copy; 2026 A11yScope. All rights reserved.<br>
+                <a href="https://www.a11yscope.com" style="color:#94a3b8;text-decoration:none;">www.a11yscope.com</a>
               </p>
             </td>
           </tr>
@@ -216,7 +216,7 @@ export async function sendWeeklySummaryEmail({
   sites,
   scanDate,
 }: WeeklySummaryParams): Promise<void> {
-  const subject = `AccessGuard Weekly Report — ${scanDate}`;
+  const subject = `A11yScope Weekly Report — ${scanDate}`;
 
   const siteRows = sites
     .map((site) => {
@@ -282,7 +282,7 @@ export async function sendWeeklySummaryEmail({
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top:24px;">
                 <tr>
                   <td align="center">
-                    <a href="https://www.accessguard.dev/login" style="display:inline-block;background-color:#2563eb;color:#ffffff;font-size:15px;font-weight:600;text-decoration:none;padding:12px 28px;border-radius:8px;">
+                    <a href="https://www.a11yscope.com/login" style="display:inline-block;background-color:#2563eb;color:#ffffff;font-size:15px;font-weight:600;text-decoration:none;padding:12px 28px;border-radius:8px;">
                       View Full Reports
                     </a>
                   </td>
@@ -291,8 +291,8 @@ export async function sendWeeklySummaryEmail({
 
               <hr style="border:none;border-top:1px solid #e2e8f0;margin:24px 0 16px;">
               <p style="margin:0;color:#94a3b8;font-size:12px;text-align:center;">
-                You're receiving this because you have active site monitoring on AccessGuard.<br>
-                <a href="https://www.accessguard.dev/dashboard/settings" style="color:#94a3b8;">Manage settings</a>
+                You're receiving this because you have active site monitoring on A11yScope.<br>
+                <a href="https://www.a11yscope.com/dashboard/settings" style="color:#94a3b8;">Manage settings</a>
               </p>
             </td>
           </tr>
@@ -416,7 +416,7 @@ export async function sendAdminNotification({
     const { error } = await getResend().emails.send({
       from: FROM_EMAIL,
       to: ADMIN_EMAIL,
-      subject: `[AccessGuard] ${emoji} ${subject}`,
+      subject: `[A11yScope] ${emoji} ${subject}`,
       html,
     });
 

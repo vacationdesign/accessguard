@@ -2,7 +2,7 @@
 title: "Website Accessibility Monitoring: Why Weekly Scans Matter"
 description: "Learn why one-time accessibility audits are not enough and how weekly automated scanning catches WCAG regressions before they become legal liabilities or user complaints."
 date: 2026-02-15
-author: AccessGuard Team
+author: A11yScope Team
 tags: Monitoring, Accessibility, WCAG
 ---
 
@@ -108,8 +108,8 @@ This layered approach provides both breadth (automated) and depth (manual) while
 
 If you are not currently monitoring your website's accessibility on a regular basis, you are operating with an incomplete picture of your compliance posture and your legal risk.
 
-Start with a baseline. [Run a free AccessGuard scan](/) right now to see your current WCAG 2.1 violation count across your site. The scan takes seconds and requires no account or credit card.
+Start with a baseline. [Run a free A11yScope scan](/) right now to see your current WCAG 2.1 violation count across your site. The scan takes seconds and requires no account or credit card.
 
-Then set up continuous monitoring. [AccessGuard's Pro plan](/#pricing) includes weekly scheduled scans across all your pages, historical trend tracking, regression detection, prioritized remediation guidance, and exportable reports. It is the most efficient way to maintain accessibility compliance as your website evolves.
+Then set up continuous monitoring. [A11yScope's Pro plan](/#pricing) includes weekly scheduled scans across all your pages, historical trend tracking, regression detection, prioritized remediation guidance, and exportable reports. It is the most efficient way to maintain accessibility compliance as your website evolves.
 
 One-time fixes are not enough. Your website changes every week. Your accessibility monitoring should too.

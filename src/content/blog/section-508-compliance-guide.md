@@ -2,7 +2,7 @@
 title: "Section 508 Compliance: What It Requires and How It Differs From WCAG"
 description: "Understand Section 508 compliance requirements for federal agencies and contractors. Learn how it maps to WCAG and what your organization must do."
 date: 2026-02-25
-author: AccessGuard Team
+author: A11yScope Team
 tags: [Section 508, Compliance, WCAG, Government]
 ---
 
@@ -123,7 +123,7 @@ Before you can plan remediation, you need to understand your current state of co
 
 **Manual testing** covers what automation cannot: keyboard navigation behavior, screen reader compatibility, logical reading order, the quality and accuracy of alt text and labels, and the usability of complex interactive components like data tables, forms, and modal dialogs.
 
-Start your automated audit with [AccessGuard's free scanner](/). It tests your web content against WCAG 2.1 AA criteria and delivers a prioritized report of violations with specific guidance on how to fix each one. For organizations with large sites or multiple properties, the [Pro plan](/#pricing) supports ongoing monitoring across your entire digital footprint.
+Start your automated audit with [A11yScope's free scanner](/). It tests your web content against WCAG 2.1 AA criteria and delivers a prioritized report of violations with specific guidance on how to fix each one. For organizations with large sites or multiple properties, the [Pro plan](/#pricing) supports ongoing monitoring across your entire digital footprint.
 
 ### Step 3: Create and Submit VPATs
 
@@ -192,7 +192,7 @@ Accessibility is not a fixed state. Every content update, design change, or thir
 
 The foundation of any Section 508 compliance program is understanding where your technology stands right now. You cannot plan remediation, prepare accurate VPATs, or demonstrate good faith without a clear and current picture of your conformance status.
 
-[AccessGuard's free scanner](/) gives you that picture in minutes. Enter your URL and get a detailed, prioritized report of every automatically detectable WCAG violation on your site, with specific explanations of what each issue means, which WCAG success criteria it violates, and how to fix it.
+[A11yScope's free scanner](/) gives you that picture in minutes. Enter your URL and get a detailed, prioritized report of every automatically detectable WCAG violation on your site, with specific explanations of what each issue means, which WCAG success criteria it violates, and how to fix it.
 
 For organizations managing multiple federal-facing properties or maintaining ongoing 508 conformance across large sites, the [Pro plan](/#pricing) provides automated weekly scans, historical trend tracking, and exportable reports that support your VPAT documentation and demonstrate continuous compliance monitoring to your agency clients.
 

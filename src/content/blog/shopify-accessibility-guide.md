@@ -2,7 +2,7 @@
 title: "Shopify Accessibility: How to Make Your Shopify Store WCAG Compliant"
 description: "Make your Shopify store accessible and WCAG compliant. Fix common accessibility issues in themes, product pages, checkout, and third-party apps."
 date: 2026-02-25
-author: AccessGuard Team
+author: A11yScope Team
 tags: [Shopify, Accessibility, WCAG, E-commerce]
 ---
 
@@ -19,7 +19,7 @@ Shopify deserves credit for building certain accessibility foundations into the 
 - **Semantic HTML structure.** Shopify's Liquid templates use semantic elements like `<header>`, `<nav>`, `<main>`, and `<footer>` to define page regions that screen readers rely on for navigation.
 - **Mobile-responsive framework.** All current Shopify themes support responsive layouts and pinch-to-zoom, meeting WCAG requirements around content reflow.
 - **Structured product data.** Shopify separates structured fields (title, price, variants, description) from presentation, making it possible for themes to output accessible markup.
-- **Alt text field for images.** Every product image, collection image, and blog post image has a dedicated alt text field in the admin. The platform gives you the tool — it just does not require you to use it.
+- **Alt text field for images.** Every product image, collection image, and blog post image has a dedicated alt text field in the admin. The platform gives you the tool  Eit just does not require you to use it.
 
 These foundations are real, but not enough on their own. Here is where the limitations start.
 
@@ -68,7 +68,7 @@ Before investing time in individual fixes, assess where your current theme stand
 1. **Navigate your entire store using only the keyboard.** Use Tab, Shift+Tab, Enter, Escape, and Arrow keys. Can you reach every link, button, menu, and form field? Can you open and close modals and menus? Can you add a product to the cart and reach the checkout?
 2. **Check focus visibility.** As you tab through the site, is every focused element visibly highlighted? If focus disappears at any point, your theme is suppressing focus styles.
 3. **Test with a screen reader.** VoiceOver on macOS or NVDA on Windows will reveal issues that visual testing cannot, such as missing button labels, unnamed form fields, and image links with no alt text.
-4. **Run an automated scan.** [AccessGuard's free scanner](/) will flag contrast failures, missing alt text, missing form labels, and other detectable WCAG violations across your store in seconds. This gives you a prioritized starting point.
+4. **Run an automated scan.** [A11yScope's free scanner](/) will flag contrast failures, missing alt text, missing form labels, and other detectable WCAG violations across your store in seconds. This gives you a prioritized starting point.
 
 ## Fixing Product Pages: Alt Text, Variant Selectors, and Price Announcements
 
@@ -86,7 +86,7 @@ Shopify gives you an alt text field for every product image, but it does not fla
 - For lifestyle images, describe the relevant context.
 - Each image of a product should have unique alt text reflecting what that specific shot shows.
 
-**Bulk-editing alt text:** For large catalogs, Shopify's CSV export/import can update alt text in bulk — export your products, fill in the `Image Alt Text` column, and re-import.
+**Bulk-editing alt text:** For large catalogs, Shopify's CSV export/import can update alt text in bulk  Eexport your products, fill in the `Image Alt Text` column, and re-import.
 
 ### Variant Selectors
 
@@ -119,7 +119,7 @@ On most plans, the checkout pages are hosted and rendered by Shopify. You cannot
 - **Step-by-step progress.** Shopify's multi-step checkout communicates the current step, though the implementation quality has varied across checkout versions.
 - **Auto-complete and address suggestions.** These features are built into the checkout and include basic accessibility support.
 
-Shopify's checkout is not flawless — there have been reported issues with focus management between steps and screen reader announcement of dynamic price updates — but because Shopify controls this code, these issues are fixed (or not) by Shopify, not by you.
+Shopify's checkout is not flawless  Ethere have been reported issues with focus management between steps and screen reader announcement of dynamic price updates  Ebut because Shopify controls this code, these issues are fixed (or not) by Shopify, not by you.
 
 ### What You Control
 
@@ -210,7 +210,7 @@ The `:focus-visible` pseudo-class applies the outline only during keyboard navig
 </div>
 ```
 
-**Label icon-only buttons.** Search your theme for buttons containing only an SVG icon and no text — cart icons, search buttons, close buttons, menu toggles. Add `aria-label` attributes:
+**Label icon-only buttons.** Search your theme for buttons containing only an SVG icon and no text  Ecart icons, search buttons, close buttons, menu toggles. Add `aria-label` attributes:
 
 ```html
 <button aria-label="Search">{% render 'icon-search' %}</button>
@@ -219,11 +219,11 @@ The `:focus-visible` pseudo-class applies the outline only during keyboard navig
 
 ## Scanning Your Shopify Store for Accessibility Issues
 
-Manual testing with a keyboard and screen reader catches issues that no automated tool can detect, but manual testing does not scale to every page of a store with hundreds of products. Automated scanning provides the baseline, catching the most common WCAG violations — missing alt text, contrast failures, missing form labels, empty links, and broken heading hierarchy — across your entire store in seconds.
+Manual testing with a keyboard and screen reader catches issues that no automated tool can detect, but manual testing does not scale to every page of a store with hundreds of products. Automated scanning provides the baseline, catching the most common WCAG violations  Emissing alt text, contrast failures, missing form labels, empty links, and broken heading hierarchy  Eacross your entire store in seconds.
 
-[Run a free scan on your Shopify store with AccessGuard](/) to get a prioritized list of WCAG 2.1 AA violations, organized by severity and by page. You will see exactly which elements fail, what WCAG criterion they violate, and specific guidance on how to fix each one. No signup required.
+[Run a free scan on your Shopify store with A11yScope](/) to get a prioritized list of WCAG 2.1 AA violations, organized by severity and by page. You will see exactly which elements fail, what WCAG criterion they violate, and specific guidance on how to fix each one. No signup required.
 
-For stores that are actively publishing new products, updating themes, or installing apps, a single scan is a snapshot. Accessibility regressions happen every time content changes. AccessGuard's [Pro plan](/#pricing) provides weekly automated scans across your entire Shopify store, with trend reporting that shows whether your accessibility posture is improving or degrading over time. You get alerts when new violations appear, so you can catch and fix issues before they reach customers or attract legal attention.
+For stores that are actively publishing new products, updating themes, or installing apps, a single scan is a snapshot. Accessibility regressions happen every time content changes. A11yScope's [Pro plan](/#pricing) provides weekly automated scans across your entire Shopify store, with trend reporting that shows whether your accessibility posture is improving or degrading over time. You get alerts when new violations appear, so you can catch and fix issues before they reach customers or attract legal attention.
 
 If your store also sells through other channels or you operate a custom-built site alongside Shopify, our [e-commerce WCAG checklist](/blog/wcag-compliance-checklist-ecommerce-websites) covers the full range of accessibility requirements for online retail. And if you are concerned about legal exposure specifically, our [ADA compliance guide](/blog/ada-website-compliance-guide-small-businesses) explains the regulatory landscape and practical steps for small businesses.
 
@@ -237,4 +237,4 @@ Accessibility on Shopify is not a one-time checklist. Every new product, app ins
 - **Scan regularly.** Monthly at minimum, weekly if your store changes frequently. Automated scanning is the fastest way to catch the issues that accumulate over time.
 - **Educate your team.** If multiple people manage your store's content, share basic guidelines on alt text, heading structure, and link text. The most common accessibility failures come from content, not code.
 
-Shopify gives you a functional platform. Making it accessible to all your customers is your responsibility — and it is achievable with the right awareness, the right tools, and a consistent effort to get the details right.
+Shopify gives you a functional platform. Making it accessible to all your customers is your responsibility  Eand it is achievable with the right awareness, the right tools, and a consistent effort to get the details right.

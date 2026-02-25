@@ -42,7 +42,7 @@ function parsePost(filename: string): BlogPost | null {
     title: meta.title || "",
     description: meta.description || "",
     date: meta.date || "",
-    author: meta.author || "AccessGuard Team",
+    author: meta.author || "A11yScope Team",
     tags: meta.tags
       ? meta.tags
           .replace(/^\[|\]$/g, "")

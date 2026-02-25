@@ -2,7 +2,7 @@
 title: "Accessibility and SEO: How WCAG Compliance Improves Your Search Rankings"
 description: "Discover how WCAG accessibility compliance directly improves your SEO and search rankings. Learn the overlapping best practices that boost both."
 date: 2026-02-25
-author: AccessGuard Team
+author: A11yScope Team
 tags:
   - Accessibility
   - SEO
@@ -111,7 +111,7 @@ WCAG 2.4.2 compliance means every page needs a unique, descriptive `<title>`. Fo
 <title>Page 3</title>
 
 <!-- Strong for both -->
-<title>Accessibility and SEO: How WCAG Improves Rankings | AccessGuard</title>
+<title>Accessibility and SEO: How WCAG Improves Rankings | A11yScope</title>
 ```
 
 ### Practice 3: Meaningful Alt Text on All Informative Images
@@ -130,7 +130,7 @@ Compliance with WCAG 1.1.1 means every image that conveys information has descri
 <img src="report.png" alt="SEO SEO report SEO analytics SEO dashboard">
 
 <!-- Descriptive: good for both -->
-<img src="report.png" alt="AccessGuard scan report showing 12 accessibility issues resolved across 4 pages">
+<img src="report.png" alt="A11yScope scan report showing 12 accessibility issues resolved across 4 pages">
 ```
 
 ### Practice 4: Accessible, Descriptive Link Text
@@ -223,7 +223,7 @@ CLS measures unexpected layout shifts during page load. The target is 0.1 or les
 - Avoid inserting content above existing content after initial render
 - Use `font-display: swap` with proper font size fallbacks to prevent text shift
 
-Run your site through [AccessGuard's free scanner](/) to get a baseline reading on both accessibility issues and the technical factors that affect Core Web Vitals. Many of the issues the scanner flags, such as missing image dimensions, absent alt text, and improper heading structure, directly impact both your accessibility compliance and your page experience signals.
+Run your site through [A11yScope's free scanner](/) to get a baseline reading on both accessibility issues and the technical factors that affect Core Web Vitals. Many of the issues the scanner flags, such as missing image dimensions, absent alt text, and improper heading structure, directly impact both your accessibility compliance and your page experience signals.
 
 ## How Screen Reader Optimization Improves Crawlability
 
@@ -281,7 +281,7 @@ The pattern is consistent. Accessibility and SEO are not parallel tracks. They a
 
 The most effective approach is to begin with a comprehensive scan that identifies both accessibility violations and the structural issues that affect SEO.
 
-1. **Run an automated scan.** Use [AccessGuard's free scanner](/) to identify WCAG violations across your site. Many of the issues it flags, including missing alt text, broken heading hierarchies, absent labels, and missing language attributes, are the same issues holding back your search rankings.
+1. **Run an automated scan.** Use [A11yScope's free scanner](/) to identify WCAG violations across your site. Many of the issues it flags, including missing alt text, broken heading hierarchies, absent labels, and missing language attributes, are the same issues holding back your search rankings.
 2. **Prioritize by overlap.** Start with the fixes that address both accessibility and SEO simultaneously. Missing alt text, broken heading structure, and absent page titles are the highest-impact starting points.
 3. **Fix and verify.** Implement the changes, then rescan to confirm the issues are resolved. Use our guide on [how to fix accessibility issues](/blog/how-to-fix-accessibility-issues-on-your-website) for step-by-step instructions on the most common problems.
 4. **Monitor continuously.** Accessibility and SEO are not one-time projects. New content, design changes, and third-party scripts can introduce regressions. A monitoring solution that scans on a regular schedule catches issues before they compound.

@@ -19,13 +19,13 @@ export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
 
 export const PLANS = {
   pro: {
-    name: "AccessGuard Pro",
+    name: "A11yScope Pro",
     priceId: process.env.STRIPE_PRO_PRICE_ID,
     price: 49,
     trialDays: 14,
   },
   agency: {
-    name: "AccessGuard Agency",
+    name: "A11yScope Agency",
     priceId: process.env.STRIPE_AGENCY_PRICE_ID,
     price: 149,
     trialDays: 14,

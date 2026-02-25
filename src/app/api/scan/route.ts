@@ -7,8 +7,8 @@ import { getCurrentUser } from "@/lib/auth";
 export const maxDuration = 60;
 
 const ALLOWED_ORIGINS = [
-  "https://www.accessguard.dev",
-  "https://accessguard.dev",
+  "https://www.a11yscope.com",
+  "https://a11yscope.com",
   ...(process.env.NODE_ENV === "development" ? ["http://localhost:3000"] : []),
 ];
 

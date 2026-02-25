@@ -2,7 +2,7 @@
 title: "Screen Reader Testing for Developers: A Practical Getting Started Guide"
 description: "Learn screen reader testing with NVDA and VoiceOver. A practical guide for developers to manually test website accessibility beyond automated scans."
 date: 2026-02-25
-author: AccessGuard Team
+author: A11yScope Team
 tags: [Screen Reader, Testing, NVDA, VoiceOver, Accessibility]
 ---
 
@@ -38,7 +38,7 @@ If you build a custom dropdown, accordion, or modal, automated tools can check t
 
 A form field can have a valid `<label>` element and still be confusing to a screen reader user. If your label says "Name" but there are three fields on the page labeled "Name" (one for the user, one for a billing contact, one for a shipping contact), the screen reader user has no way to know which "Name" they are currently editing without surrounding context that may not be programmatically associated.
 
-The takeaway is straightforward: automated scanners and screen reader testing are complementary. Automated tools give you speed and coverage. Screen reader testing gives you accuracy and confidence. You need both. If you have not yet run an automated scan, start there. [AccessGuard's free scanner](/) will give you a baseline report in minutes. Then use this guide to go deeper.
+The takeaway is straightforward: automated scanners and screen reader testing are complementary. Automated tools give you speed and coverage. Screen reader testing gives you accuracy and confidence. You need both. If you have not yet run an automated scan, start there. [A11yScope's free scanner](/) will give you a baseline report in minutes. Then use this guide to go deeper.
 
 ## Setting Up Your Screen Reader
 
@@ -63,19 +63,19 @@ NVDA (NonVisual Desktop Access) is a free, open-source screen reader for Windows
 
 **Core NVDA keyboard commands:**
 
-- `NVDA + Space` — Toggle between browse mode (read content) and focus mode (interact with controls).
-- `Tab` / `Shift + Tab` — Move to the next or previous focusable element.
-- `Up Arrow` / `Down Arrow` — In browse mode, read the previous or next line.
-- `H` / `Shift + H` — Jump to the next or previous heading.
-- `D` / `Shift + D` — Jump to the next or previous landmark region.
-- `K` — Jump to the next link.
-- `F` — Jump to the next form field.
-- `T` — Jump to the next table.
-- `Enter` — Activate a link or button.
-- `Space` — Activate a button or toggle a control.
-- `NVDA + F7` — Open the Elements List (links, headings, form fields, buttons, or landmarks on the page).
-- `Ctrl` — Stop speech immediately.
-- `NVDA + Q` — Quit NVDA.
+- `NVDA + Space`  EToggle between browse mode (read content) and focus mode (interact with controls).
+- `Tab` / `Shift + Tab`  EMove to the next or previous focusable element.
+- `Up Arrow` / `Down Arrow`  EIn browse mode, read the previous or next line.
+- `H` / `Shift + H`  EJump to the next or previous heading.
+- `D` / `Shift + D`  EJump to the next or previous landmark region.
+- `K`  EJump to the next link.
+- `F`  EJump to the next form field.
+- `T`  EJump to the next table.
+- `Enter`  EActivate a link or button.
+- `Space`  EActivate a button or toggle a control.
+- `NVDA + F7`  EOpen the Elements List (links, headings, form fields, buttons, or landmarks on the page).
+- `Ctrl`  EStop speech immediately.
+- `NVDA + Q`  EQuit NVDA.
 
 **Testing browser:** Use NVDA with Firefox for best compatibility. Chrome also works well for most scenarios.
 
@@ -93,17 +93,17 @@ VoiceOver commands use a modifier called the "VO key," which is `Ctrl + Option` 
 
 **Core VoiceOver keyboard commands:**
 
-- `VO + Right Arrow` / `VO + Left Arrow` — Move to the next or previous element.
-- `VO + Space` — Activate the current element.
-- `Tab` / `Shift + Tab` — Move to the next or previous focusable element.
-- `VO + U` — Open the Rotor (VoiceOver's equivalent of NVDA's Elements List). Use Left/Right arrows to switch categories, Up/Down to navigate within a category.
-- `VO + Cmd + H` / `VO + Cmd + Shift + H` — Jump to the next or previous heading.
-- `VO + Cmd + L` — Jump to the next link.
-- `VO + Cmd + J` — Jump to the next form control.
-- `VO + Cmd + T` — Jump to the next table.
-- `Ctrl` — Stop speech immediately.
-- `VO + A` — Start reading from the current position.
-- `Cmd + F5` — Turn off VoiceOver.
+- `VO + Right Arrow` / `VO + Left Arrow`  EMove to the next or previous element.
+- `VO + Space`  EActivate the current element.
+- `Tab` / `Shift + Tab`  EMove to the next or previous focusable element.
+- `VO + U`  EOpen the Rotor (VoiceOver's equivalent of NVDA's Elements List). Use Left/Right arrows to switch categories, Up/Down to navigate within a category.
+- `VO + Cmd + H` / `VO + Cmd + Shift + H`  EJump to the next or previous heading.
+- `VO + Cmd + L`  EJump to the next link.
+- `VO + Cmd + J`  EJump to the next form control.
+- `VO + Cmd + T`  EJump to the next table.
+- `Ctrl`  EStop speech immediately.
+- `VO + A`  EStart reading from the current position.
+- `Cmd + F5`  ETurn off VoiceOver.
 
 **Testing browser:** Use VoiceOver with Safari. Apple develops VoiceOver and Safari together, and the combination has the best ARIA support on macOS.
 
@@ -123,10 +123,10 @@ When you load a page, the screen reader announces the `<title>` element. Verify 
 
 Use landmark navigation (`D` in NVDA, or the Rotor landmarks category in VoiceOver) to move through the page's landmark regions. A well-structured page should have:
 
-- **banner** — The site header (`<header>` as a direct child of `<body>`).
-- **navigation** — The primary navigation (`<nav>`). Multiple nav elements should each have a unique `aria-label`.
-- **main** — The main content area (`<main>`). There should be exactly one.
-- **contentinfo** — The site footer (`<footer>` as a direct child of `<body>`).
+- **banner**  EThe site header (`<header>` as a direct child of `<body>`).
+- **navigation**  EThe primary navigation (`<nav>`). Multiple nav elements should each have a unique `aria-label`.
+- **main**  EThe main content area (`<main>`). There should be exactly one.
+- **contentinfo**  EThe site footer (`<footer>` as a direct child of `<body>`).
 
 Missing landmarks or multiple navigation landmarks with no distinguishing labels are findings to document.
 
@@ -249,7 +249,7 @@ The most effective workflow uses automated scanning as the foundation and screen
 
 Run your site through an automated scanner first. This catches missing alt text, empty links, form label issues, color contrast failures, and invalid ARIA attributes. Fix these before manual testing. There is no point in firing up a screen reader to find issues a scanner catches in milliseconds.
 
-If you are not already running automated scans, [AccessGuard's free scanner](/) will analyze your pages against WCAG 2.1 and give you a prioritized violation list. Address automated findings first, then move to the manual testing workflow in this guide.
+If you are not already running automated scans, [A11yScope's free scanner](/) will analyze your pages against WCAG 2.1 and give you a prioritized violation list. Address automated findings first, then move to the manual testing workflow in this guide.
 
 ### Layer in screen reader testing
 
@@ -264,7 +264,7 @@ After developers implement fixes, retest with the screen reader. A scanner can v
 - **During development:** Test new components with a screen reader before merging. It takes five minutes.
 - **During QA:** Include screen reader checkpoints in your QA checklist.
 - **During client handoffs:** Include screen reader testing notes in your accessibility documentation.
-- **Ongoing monitoring:** AccessGuard's [Pro plan](/#pricing) provides continuous automated monitoring that alerts you when new issues appear, so you know when to run manual verification again.
+- **Ongoing monitoring:** A11yScope's [Pro plan](/#pricing) provides continuous automated monitoring that alerts you when new issues appear, so you know when to run manual verification again.
 
 For a practical guide on fixing automated scanner findings before beginning manual testing, see our article on how to [fix accessibility issues](/blog/fix-accessibility-issues-automated-scanners) found by automated scanners.
 
@@ -275,7 +275,7 @@ You do not need to become a screen reader expert overnight. Start with these ste
 1. **Install NVDA or turn on VoiceOver.** Spend ten minutes navigating a website you know well. Get comfortable with Tab, arrow keys, heading jumps, and the elements list or Rotor.
 2. **Test one page on a current project.** Follow the seven-step workflow in this guide. Document every issue you find.
 3. **Fix the critical issues.** Then retest to confirm the fixes work.
-4. **Run an automated scan.** Use [AccessGuard's free scanner](/) to catch everything the screen reader testing did not cover, and compare the two sets of results.
+4. **Run an automated scan.** Use [A11yScope's free scanner](/) to catch everything the screen reader testing did not cover, and compare the two sets of results.
 5. **Make it routine.** Add screen reader testing to your definition of done for new components and features. Five minutes of testing during development saves hours of remediation after launch.
 
 Screen reader testing is a skill that improves with practice. The first time you use a screen reader, it will feel slow and unfamiliar. By your tenth session, you will be navigating pages fluently and spotting issues instantly. The developers who invest in learning this skill deliver genuinely accessible websites, not just websites that pass an automated scan.

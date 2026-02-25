@@ -9,7 +9,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title:
-    "AccessGuard - Free Website Accessibility Checker | WCAG 2.1 Compliance Scanner",
+    "A11yScope - Free Website Accessibility Checker | WCAG 2.1 Compliance Scanner",
   description:
     "Scan your website for accessibility issues in seconds. Get actionable fixes for WCAG 2.1 compliance. Avoid ADA lawsuits. Free instant scan.",
   other: {
@@ -27,17 +27,17 @@ export const metadata: Metadata = {
     "web accessibility testing",
   ],
   openGraph: {
-    title: "AccessGuard - Free Website Accessibility Checker",
+    title: "A11yScope - Free Website Accessibility Checker",
     description:
       "Scan your website for accessibility issues in seconds. Get actionable fixes for WCAG 2.1 compliance.",
     type: "website",
     locale: "en_US",
-    url: "https://www.accessguard.dev",
-    siteName: "AccessGuard",
+    url: "https://www.a11yscope.com",
+    siteName: "A11yScope",
   },
   twitter: {
     card: "summary",
-    title: "AccessGuard - Free Website Accessibility Checker",
+    title: "A11yScope - Free Website Accessibility Checker",
     description:
       "Scan your website for accessibility issues in seconds. Get actionable fixes for WCAG 2.1 compliance.",
   },

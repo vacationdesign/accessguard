@@ -156,7 +156,7 @@ export default function ScanReport({ result, onCheckout, checkoutLoading }: Scan
           This was just one page.
         </h3>
         <p className="text-muted max-w-lg mx-auto">
-          Most websites have accessibility issues on every page. AccessGuard Pro
+          Most websites have accessibility issues on every page. A11yScope Pro
           scans your entire site, monitors for new issues weekly, and gives your
           team fix-ready code snippets.
         </p>

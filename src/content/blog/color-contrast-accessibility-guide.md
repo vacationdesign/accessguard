@@ -2,7 +2,7 @@
 title: "Color Contrast and Accessibility: A Complete Guide to WCAG Contrast Requirements"
 description: "Master WCAG color contrast requirements. Learn the 4.5:1 and 3:1 ratios, check your site for contrast failures, and fix common issues step by step."
 date: 2026-02-25
-author: AccessGuard Team
+author: A11yScope Team
 tags:
   - Color Contrast
   - Accessibility
@@ -104,7 +104,7 @@ These tools are perfect during the design phase. Check every color combination i
 
 For comprehensive coverage across an entire website, automated scanners are essential. A scanner crawls your pages, evaluates every text element and UI component against WCAG contrast thresholds, and produces a prioritized report of failures.
 
-[AccessGuard's free scanner](/) can check your site for contrast violations across multiple pages in minutes. Automated scanning is the fastest way to get a complete picture of your contrast health, especially on large sites where manual page-by-page inspection is impractical.
+[A11yScope's free scanner](/) can check your site for contrast violations across multiple pages in minutes. Automated scanning is the fastest way to get a complete picture of your contrast health, especially on large sites where manual page-by-page inspection is impractical.
 
 When evaluating any scanner, look for one that:
 
@@ -336,7 +336,7 @@ Achieving compliant color contrast is essential, but contrast alone does not mak
 
 You now know the ratios, the criteria, the tools, and the fix patterns. The next step is to find out where your own site stands. Manual spot-checks are valuable, but they cannot cover every page, every component state, and every color combination at scale.
 
-[AccessGuard's free scanner](/) crawls your site, tests every text element and UI component against WCAG 2.1 AA contrast thresholds, and delivers a prioritized report showing exactly which elements fail, what the computed ratio is, and which WCAG success criterion applies. You get results in minutes, not hours.
+[A11yScope's free scanner](/) crawls your site, tests every text element and UI component against WCAG 2.1 AA contrast thresholds, and delivers a prioritized report showing exactly which elements fail, what the computed ratio is, and which WCAG success criterion applies. You get results in minutes, not hours.
 
 For ongoing monitoring, the [Pro plan](/#pricing) runs scheduled weekly scans so that new content, design changes, and CMS updates never reintroduce contrast regressions without you knowing. Every scan checks SC 1.4.3, SC 1.4.11, and dozens of other WCAG criteria to give you a complete picture of your accessibility posture.
 

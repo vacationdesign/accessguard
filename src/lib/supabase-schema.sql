@@ -1,5 +1,5 @@
 -- ============================================================================
--- AccessGuard Supabase Schema
+-- A11yScope Supabase Schema
 -- Run this in your Supabase SQL Editor (https://supabase.com/dashboard)
 -- ============================================================================
 

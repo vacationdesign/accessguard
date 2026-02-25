@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Checkout Cancelled - AccessGuard",
+  title: "Checkout Cancelled - A11yScope",
   description: "Your checkout was cancelled. You can try again anytime.",
 };
 
@@ -124,10 +124,10 @@ export default function CheckoutCancelPage() {
         <p className="text-sm text-muted">
           Have questions? Email us at{" "}
           <a
-            href="mailto:support@accessguard.dev"
+            href="mailto:support@a11yscope.com"
             className="text-primary hover:underline"
           >
-            support@accessguard.dev
+            support@a11yscope.com
           </a>
         </p>
       </div>

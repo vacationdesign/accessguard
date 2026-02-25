@@ -2,7 +2,7 @@
 title: "PDF Accessibility: How to Create and Remediate Accessible PDF Documents"
 description: "Learn how to create and fix accessible PDF documents. Cover tag structure, alt text, reading order, and forms to meet WCAG and ADA requirements."
 date: 2026-02-25
-author: AccessGuard Team
+author: A11yScope Team
 tags: [PDF, Accessibility, WCAG, Documents]
 ---
 
@@ -50,7 +50,7 @@ The problem is not just that alt text is missing. Most PDF creation workflows do
 
 ### Form Fields Without Labels
 
-Fillable PDF forms present a specific challenge. Each form field — text input, checkbox, radio button, dropdown — must have a programmatic label that a screen reader can announce. Without labels, a screen reader user hears something like "edit text" with no indication of what information the field expects. They cannot independently complete the form.
+Fillable PDF forms present a specific challenge. Each form field  Etext input, checkbox, radio button, dropdown  Emust have a programmatic label that a screen reader can announce. Without labels, a screen reader user hears something like "edit text" with no indication of what information the field expects. They cannot independently complete the form.
 
 Many organizations create PDF forms by placing text visually next to a form field and assuming the association is obvious. It is obvious to a sighted user, but there is no programmatic connection between the text and the field. The label must be explicitly associated with the form field in the PDF's tag structure and field properties.
 
@@ -152,7 +152,7 @@ Creating or remediating a PDF is only half the work. You need to test the result
 
 **PAC (PDF Accessibility Checker)** is a free tool developed by the Access For All Foundation that performs a thorough automated check against the PDF/UA standard. It is more rigorous than Acrobat's built-in checker and generates detailed reports showing exactly which tags and elements have issues. PAC is available for Windows and is widely used by accessibility professionals.
 
-Automated checkers verify structural requirements — the presence of tags, alt text attributes, language settings, tab order, and table headers. They cannot verify quality. They can confirm that an image has alt text but not that the alt text is accurate, and that tags exist but not that the reading order makes sense.
+Automated checkers verify structural requirements  Ethe presence of tags, alt text attributes, language settings, tab order, and table headers. They cannot verify quality. They can confirm that an image has alt text but not that the alt text is accurate, and that tags exist but not that the reading order makes sense.
 
 ### Manual Testing With a Screen Reader
 
@@ -168,13 +168,13 @@ As you test, ask yourself: Can you tell what the document is about from the titl
 
 PDF accessibility maps to specific WCAG success criteria. The most relevant criteria for PDF documents include:
 
-- **1.1.1 Non-text Content** — all meaningful images have alt text
-- **1.3.1 Info and Relationships** — document structure is conveyed through tags
-- **1.3.2 Meaningful Sequence** — reading order is correct
-- **2.1.1 Keyboard** — forms and interactive elements work with keyboard alone
-- **2.4.2 Page Titled** — document has a meaningful title
-- **3.1.1 Language of Page** — document language is set
-- **3.3.2 Labels or Instructions** — form fields are labeled
+- **1.1.1 Non-text Content**  Eall meaningful images have alt text
+- **1.3.1 Info and Relationships**  Edocument structure is conveyed through tags
+- **1.3.2 Meaningful Sequence**  Ereading order is correct
+- **2.1.1 Keyboard**  Eforms and interactive elements work with keyboard alone
+- **2.4.2 Page Titled**  Edocument has a meaningful title
+- **3.1.1 Language of Page**  Edocument language is set
+- **3.3.2 Labels or Instructions**  Eform fields are labeled
 
 For a complete list of applicable criteria, see our [WCAG checklist](/blog/wcag-compliance-checklist-2026).
 
@@ -182,12 +182,12 @@ For a complete list of applicable criteria, see our [WCAG checklist](/blog/wcag-
 
 Even a perfectly accessible PDF causes problems if the web page linking to it does not handle the link properly. Users should know they are about to open a PDF before they click. Best practice is to indicate the file type and size in the link text, such as "Download the annual report (PDF, 2.4 MB)."
 
-If a PDF contains information that is critical to your site's purpose — application forms, legal disclosures, pricing documents, policy statements — consider whether that content should also be available as an accessible HTML page. HTML is inherently more accessible than PDF when built correctly, and it adapts better to different screen sizes and user preferences.
+If a PDF contains information that is critical to your site's purpose  Eapplication forms, legal disclosures, pricing documents, policy statements  Econsider whether that content should also be available as an accessible HTML page. HTML is inherently more accessible than PDF when built correctly, and it adapts better to different screen sizes and user preferences.
 
 ### Scan Your Website for Accessibility Issues
 
 PDF accessibility is one piece of a larger compliance picture. The web pages that host your PDFs must also be accessible. Navigation, link text, color contrast, keyboard operability, and every other WCAG criterion applies to your HTML pages.
 
-[AccessGuard's free scanner](/) checks your website against WCAG 2.1 Level AA criteria and identifies issues across your pages in seconds. It gives you a prioritized list of violations with clear explanations of what each issue means and how to fix it. For ongoing monitoring, scheduled scans, and detailed reporting across your entire site, the [Pro plan](/#pricing) provides continuous coverage so new accessibility issues are caught before they become complaints.
+[A11yScope's free scanner](/) checks your website against WCAG 2.1 Level AA criteria and identifies issues across your pages in seconds. It gives you a prioritized list of violations with clear explanations of what each issue means and how to fix it. For ongoing monitoring, scheduled scans, and detailed reporting across your entire site, the [Pro plan](/#pricing) provides continuous coverage so new accessibility issues are caught before they become complaints.
 
-Accessible PDFs and accessible web pages together form a complete, compliant digital presence. Start with your website, extend that commitment to every document you publish, and your users — all of your users — will be able to engage with your content fully and independently.
+Accessible PDFs and accessible web pages together form a complete, compliant digital presence. Start with your website, extend that commitment to every document you publish, and your users  Eall of your users  Ewill be able to engage with your content fully and independently.

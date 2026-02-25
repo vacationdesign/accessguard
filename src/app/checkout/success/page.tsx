@@ -3,8 +3,8 @@ import { redirect } from "next/navigation";
 import { stripe } from "@/lib/stripe";
 
 export const metadata = {
-  title: "Welcome to AccessGuard Pro - Subscription Confirmed",
-  description: "Your AccessGuard subscription is now active. Start scanning your websites for accessibility issues.",
+  title: "Welcome to A11yScope Pro - Subscription Confirmed",
+  description: "Your A11yScope subscription is now active. Start scanning your websites for accessibility issues.",
 };
 
 interface CheckoutSuccessPageProps {
@@ -63,7 +63,7 @@ export default async function CheckoutSuccessPage({ searchParams }: CheckoutSucc
         {/* Message */}
         <div className="space-y-3">
           <h1 className="text-3xl font-extrabold text-foreground">
-            Welcome to AccessGuard {plan}!
+            Welcome to A11yScope {plan}!
           </h1>
           <p className="text-lg text-muted">
             Your subscription is now active. Your 14-day free trial has started
@@ -123,10 +123,10 @@ export default async function CheckoutSuccessPage({ searchParams }: CheckoutSucc
         <p className="text-sm text-muted">
           Need help getting started? Reach out at{" "}
           <a
-            href="mailto:support@accessguard.dev"
+            href="mailto:support@a11yscope.com"
             className="text-primary hover:underline"
           >
-            support@accessguard.dev
+            support@a11yscope.com
           </a>
         </p>
       </div>

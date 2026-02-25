@@ -107,7 +107,7 @@ export default function Sidebar({
             />
           </svg>
           <span className="text-lg font-bold text-foreground">
-            AccessGuard
+            A11yScope
           </span>
         </Link>
       </div>

@@ -2,7 +2,7 @@
 title: "How to Fix Common Accessibility Issues Found by Automated Scanners"
 description: "Just ran an accessibility scan? Learn how to fix the most common WCAG issues that automated scanners detect, with step-by-step code fixes for each violation."
 date: 2026-02-21
-author: AccessGuard Team
+author: A11yScope Team
 tags: Accessibility, Automated Testing, WCAG
 ---
 
@@ -10,7 +10,7 @@ tags: Accessibility, Automated Testing, WCAG
 
 You just ran an automated accessibility scan on your website and the report came back with dozens, maybe hundreds, of violations. The list looks overwhelming, but here is the good news: most automated scanners flag the same core set of issues, and every one of them has a straightforward fix. This guide walks you through the most frequently reported violations in the exact order you should tackle them, with code examples you can implement immediately.
 
-Automated accessibility scanners like AccessGuard, axe-core, and Lighthouse can detect roughly 30-40% of all WCAG 2.1 issues. The issues they catch tend to be the most common and most impactful, which means fixing your scan results is the single highest-leverage accessibility improvement you can make.
+Automated accessibility scanners like A11yScope, axe-core, and Lighthouse can detect roughly 30-40% of all WCAG 2.1 issues. The issues they catch tend to be the most common and most impactful, which means fixing your scan results is the single highest-leverage accessibility improvement you can make.
 
 ## Understanding Your Scan Report
 
@@ -33,7 +33,7 @@ This is the single most common violation on the web. Every `<img>` element needs
 <img src="team-photo.jpg">
 
 <!-- After -->
-<img src="team-photo.jpg" alt="The AccessGuard engineering team at the 2026 company retreat">
+<img src="team-photo.jpg" alt="The A11yScope engineering team at the 2026 company retreat">
 ```
 
 **Decorative images** that add no information should use an empty alt attribute:
@@ -73,7 +73,7 @@ For links that only contain an image, the image alt text becomes the link's acce
 <a href="/home"><img src="logo.png"></a>
 
 <!-- After -->
-<a href="/home"><img src="logo.png" alt="AccessGuard home page"></a>
+<a href="/home"><img src="logo.png" alt="A11yScope home page"></a>
 ```
 
 If a link wraps both text and an icon, the text already provides the accessible name. Mark the icon as decorative with `aria-hidden="true"` to prevent screen readers from announcing it redundantly.
@@ -233,6 +233,6 @@ Once you have resolved the violations from your automated scan, do not stop ther
 
 ## Automate Your Accessibility Monitoring
 
-Fixing scan results is step one. Keeping your site compliant as it evolves requires ongoing monitoring. [AccessGuard](/) provides automated WCAG 2.1 scanning that you can run on demand or schedule weekly. Every scan generates a prioritized report with specific element references and code-level remediation guidance.
+Fixing scan results is step one. Keeping your site compliant as it evolves requires ongoing monitoring. [A11yScope](/) provides automated WCAG 2.1 scanning that you can run on demand or schedule weekly. Every scan generates a prioritized report with specific element references and code-level remediation guidance.
 
-[Run a free scan now](/) to see your current violation count, or explore [AccessGuard's Pro plan](/#pricing) for scheduled monitoring, trend tracking, and team collaboration features that keep accessibility on track across every deployment.
+[Run a free scan now](/) to see your current violation count, or explore [A11yScope's Pro plan](/#pricing) for scheduled monitoring, trend tracking, and team collaboration features that keep accessibility on track across every deployment.

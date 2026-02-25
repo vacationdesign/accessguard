@@ -5,8 +5,8 @@ import DashboardShell from "@/components/dashboard/DashboardShell";
 
 export const metadata = {
   title: {
-    template: "%s | AccessGuard",
-    default: "Dashboard | AccessGuard",
+    template: "%s | A11yScope",
+    default: "Dashboard | A11yScope",
   },
 };
 

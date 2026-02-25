@@ -54,7 +54,7 @@ export default function LoginPage() {
             />
           </svg>
           <span className="text-xl font-bold text-foreground">
-            AccessGuard
+            A11yScope
           </span>
         </a>
       </nav>
@@ -108,7 +108,7 @@ export default function LoginPage() {
             <div className="bg-white rounded-2xl shadow-lg border border-blue-100 p-8 space-y-6">
               <div className="text-center space-y-2">
                 <h1 className="text-2xl font-bold text-foreground">
-                  Sign in to AccessGuard
+                  Sign in to A11yScope
                 </h1>
                 <p className="text-muted">
                   Enter your email to receive a secure sign-in link.
@@ -198,7 +198,7 @@ export default function LoginPage() {
               href="/"
               className="text-sm text-muted hover:text-foreground transition-colors"
             >
-              &larr; Back to AccessGuard
+              &larr; Back to A11yScope
             </a>
           </div>
         </div>

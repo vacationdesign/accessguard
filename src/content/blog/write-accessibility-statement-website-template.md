@@ -2,7 +2,7 @@
 title: "How to Write an Accessibility Statement for Your Website (With Template)"
 description: "Write an effective accessibility statement for your website with our free template. Cover conformance status, known limitations, and contact details."
 date: 2026-02-25
-author: AccessGuard Team
+author: A11yScope Team
 tags: [Accessibility, Statement, Compliance, Template]
 ---
 
@@ -213,7 +213,7 @@ The most reliable way to keep your accessibility statement accurate is to connec
 - Have new issues appeared after a redesign or content update? Add them.
 - Has your conformance status changed? Update the conformance section.
 
-[AccessGuard's free scanner](/) can run automated WCAG checks across your site, giving you a clear picture of your current status whenever you need it. Use the scan results as the source of truth for your statement's Known Limitations section.
+[A11yScope's free scanner](/) can run automated WCAG checks across your site, giving you a clear picture of your current status whenever you need it. Use the scan results as the source of truth for your statement's Known Limitations section.
 
 ### Set a Review Cadence
 
@@ -240,7 +240,7 @@ Writing the accessibility statement is straightforward once you know the format.
 
 That is the problem automated scanning solves. Rather than manually auditing hundreds of pages every quarter, you can run a comprehensive scan that identifies issues across your entire site and tracks changes over time.
 
-AccessGuard is built for exactly this workflow. The free tier lets you scan your site and identify issues. The [Pro plan](/#pricing) adds scheduled weekly scans, historical tracking, and detailed reports that map directly to the sections of your accessibility statement. When your scan shows 14 images missing alt text on your product pages, you know exactly what to put in the Known Limitations table. When next month's scan shows you have fixed 12 of them, you know it is time to update the statement.
+A11yScope is built for exactly this workflow. The free tier lets you scan your site and identify issues. The [Pro plan](/#pricing) adds scheduled weekly scans, historical tracking, and detailed reports that map directly to the sections of your accessibility statement. When your scan shows 14 images missing alt text on your product pages, you know exactly what to put in the Known Limitations table. When next month's scan shows you have fixed 12 of them, you know it is time to update the statement.
 
 Start with a scan. Write your statement using the template above. Then keep both your site and your statement improving over time.
 

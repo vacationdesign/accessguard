@@ -5,8 +5,8 @@ import AdminShell from "@/components/admin/AdminShell";
 
 export const metadata = {
   title: {
-    template: "%s | Admin | AccessGuard",
-    default: "Admin | AccessGuard",
+    template: "%s | Admin | A11yScope",
+    default: "Admin | A11yScope",
   },
 };
 

@@ -55,7 +55,7 @@ export default function AdminSidebar({
           </svg>
           <div className="flex flex-col">
             <span className="text-lg font-bold text-foreground leading-tight">
-              AccessGuard
+              A11yScope
             </span>
             <span className="text-xs font-medium text-orange-600 -mt-0.5">
               Admin

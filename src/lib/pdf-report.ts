@@ -39,7 +39,7 @@ export function generatePdfReport(result: ScanResult): void {
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(20);
   doc.setFont("helvetica", "bold");
-  safeText("AccessGuard", margin, 16);
+  safeText("A11yScope", margin, 16);
 
   doc.setFontSize(10);
   doc.setFont("helvetica", "normal");
@@ -352,7 +352,7 @@ export function generatePdfReport(result: ScanResult): void {
       289,
       { align: "right" }
     );
-    doc.text("accessguard.dev", margin, 289);
+    doc.text("a11yscope.dev", margin, 289);
 
     // Tiny branding
     doc.setFontSize(6);
@@ -370,5 +370,5 @@ export function generatePdfReport(result: ScanResult): void {
     .replace(/https?:\/\//, "")
     .replace(/[^a-zA-Z0-9]/g, "-")
     .substring(0, 40);
-  doc.save(`accessguard-report-${urlSlug}.pdf`);
+  doc.save(`a11yscope-report-${urlSlug}.pdf`);
 }

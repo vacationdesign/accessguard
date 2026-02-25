@@ -2,7 +2,7 @@
 title: "WCAG 2.1 Compliance Checklist for E-commerce Websites"
 description: "A complete WCAG 2.1 compliance checklist built specifically for e-commerce websites. Covers product pages, checkout flows, shopping carts, and more to help online stores avoid accessibility lawsuits."
 date: 2026-02-23
-author: AccessGuard Team
+author: A11yScope Team
 tags: WCAG, E-commerce, Compliance
 ---
 
@@ -105,8 +105,8 @@ Auto-rotating homepage carousels must include pause, stop, and navigation contro
 
 ## Run a Free Accessibility Scan on Your E-commerce Site
 
-The fastest way to identify WCAG 2.1 violations on your online store is to run an automated scan that flags issues across your product pages, cart, and checkout. [AccessGuard's free scanner](/) analyzes your site against WCAG 2.1 AA criteria and delivers a prioritized report in seconds.
+The fastest way to identify WCAG 2.1 violations on your online store is to run an automated scan that flags issues across your product pages, cart, and checkout. [A11yScope's free scanner](/) analyzes your site against WCAG 2.1 AA criteria and delivers a prioritized report in seconds.
 
-Automated scanning catches approximately 30-40% of accessibility issues. For a comprehensive audit, combine scanning with manual keyboard testing and screen reader verification. If you need ongoing coverage, [AccessGuard's Pro plan](/#pricing) offers weekly scheduled scans with detailed trend reporting so you can catch regressions before they become legal liabilities.
+Automated scanning catches approximately 30-40% of accessibility issues. For a comprehensive audit, combine scanning with manual keyboard testing and screen reader verification. If you need ongoing coverage, [A11yScope's Pro plan](/#pricing) offers weekly scheduled scans with detailed trend reporting so you can catch regressions before they become legal liabilities.
 
 Start with a free scan today and see exactly where your e-commerce site stands.

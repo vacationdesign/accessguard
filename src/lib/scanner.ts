@@ -174,7 +174,7 @@ export async function scanUrl(url: string): Promise<ScanResult> {
     const page = await browser.newPage();
     await page.setViewport({ width: 1280, height: 720 });
     await page.setUserAgent(
-      "AccessGuard/1.0 (Accessibility Scanner; +https://accessguard.dev)"
+      "A11yScope/1.0 (Accessibility Scanner; +https://a11yscope.com)"
     );
 
     // Navigate with timeout

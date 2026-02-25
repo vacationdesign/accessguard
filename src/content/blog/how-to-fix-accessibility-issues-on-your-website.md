@@ -2,7 +2,7 @@
 title: "How to Fix Accessibility Issues on Your Website: A Practical Guide to the Top 10 Problems"
 description: "Learn how to fix accessibility issues on your website with code examples for the 10 most common problems, from missing alt text to ARIA landmarks."
 date: 2026-02-20
-author: AccessGuard Team
+author: A11yScope Team
 tags:
   - Accessibility
   - Tutorial
@@ -57,7 +57,7 @@ For **informative images**, write alt text that communicates the same informatio
 For **decorative images** that add no information, use an empty alt attribute so screen readers skip them entirely:
 
 ```html
-<!-- Decorative image — intentionally empty alt -->
+<!-- Decorative image  Eintentionally empty alt -->
 <img src="decorative-swirl.svg" alt="">
 ```
 
@@ -80,13 +80,13 @@ Use the Chrome DevTools color picker: inspect any text element, click the color 
 Adjust your foreground or background color until the ratio meets the threshold:
 
 ```css
-/* Bad — ratio approximately 2.5:1 */
+/* Bad  Eratio approximately 2.5:1 */
 .subtle-text {
   color: #999999;
   background-color: #ffffff;
 }
 
-/* Good — ratio approximately 7:1 */
+/* Good  Eratio approximately 7:1 */
 .subtle-text {
   color: #595959;
   background-color: #ffffff;
@@ -188,12 +188,12 @@ If you absolutely must use a non-interactive element, add `tabindex="0"`, a `rol
 And never remove the focus outline globally:
 
 ```css
-/* Bad — hides focus for everyone */
+/* Bad  Ehides focus for everyone */
 *:focus {
   outline: none;
 }
 
-/* Good — custom focus style that is still visible */
+/* Good  Ecustom focus style that is still visible */
 *:focus-visible {
   outline: 3px solid #1a73e8;
   outline-offset: 2px;
@@ -219,11 +219,11 @@ console.log(document.title || 'NO TITLE SET');
 
 ### How to Fix It
 
-Each page should have a unique, descriptive title that follows the pattern **Specific Page — Site Name**:
+Each page should have a unique, descriptive title that follows the pattern **Specific Page  ESite Name**:
 
 ```html
 <head>
-  <title>Pricing Plans — AccessGuard</title>
+  <title>Pricing Plans  EA11yScope</title>
 </head>
 ```
 
@@ -234,7 +234,7 @@ import { useEffect } from 'react';
 
 function PricingPage() {
   useEffect(() => {
-    document.title = 'Pricing Plans — AccessGuard';
+    document.title = 'Pricing Plans  EA11yScope';
   }, []);
 
   return <main>...</main>;
@@ -328,7 +328,7 @@ For links that wrap only an image, ensure the image has alt text:
 <a href="/"><img src="logo.png"></a>
 
 <!-- Good -->
-<a href="/"><img src="logo.png" alt="AccessGuard home page"></a>
+<a href="/"><img src="logo.png" alt="A11yScope home page"></a>
 ```
 
 Notice that the SVG icon in the button example gets `aria-hidden="true"` to prevent the screen reader from trying to announce the SVG markup itself.
@@ -391,7 +391,7 @@ Custom dropdown menus, modals, tabs, and accordions built from generic `<div>` e
 
 Attempt to use every custom interactive component with only the keyboard. Then turn on a screen reader (VoiceOver on macOS, NVDA on Windows) and verify that the role, state, and value of each component are announced correctly.
 
-### How to Fix It — Accessible Modal Example
+### How to Fix It  EAccessible Modal Example
 
 A modal needs three things: focus trapping, Escape to close, and appropriate ARIA roles.
 
@@ -471,7 +471,7 @@ Wherever possible, consider using the native `<dialog>` element, which handles f
 
 ### What It Is
 
-ARIA landmark roles — or their equivalent HTML5 semantic elements — let screen reader users jump between major sections of the page. Without them, navigating a page is like reading a book with no chapter headings.
+ARIA landmark roles  Eor their equivalent HTML5 semantic elements  Elet screen reader users jump between major sections of the page. Without them, navigating a page is like reading a book with no chapter headings.
 
 **WCAG criterion:** 1.3.1 Info and Relationships (Level A)
 
@@ -494,14 +494,14 @@ If any of these return zero, you have missing landmarks.
 Replace generic `<div>` wrappers with semantic elements:
 
 ```html
-<!-- Bad — div soup -->
+<!-- Bad  Ediv soup -->
 <div id="header">...</div>
 <div id="navigation">...</div>
 <div id="content">...</div>
 <div id="sidebar">...</div>
 <div id="footer">...</div>
 
-<!-- Good — semantic landmarks -->
+<!-- Good  Esemantic landmarks -->
 <header>...</header>
 <nav aria-label="Main navigation">...</nav>
 <main>...</main>
@@ -522,21 +522,21 @@ This simple structural change gives screen reader users a "table of contents" fo
 
 Here is a quick-reference checklist you can use on any project:
 
-1. **Images** — Every `<img>` has an `alt` attribute (descriptive or empty).
-2. **Contrast** — All text meets a 4.5:1 ratio (3:1 for large text).
-3. **Form labels** — Every input has an associated `<label>`, `aria-label`, or `aria-labelledby`.
-4. **Keyboard** — Every interactive element is reachable and operable via keyboard, with visible focus styles.
-5. **Page title** — Each page has a unique, descriptive `<title>`.
-6. **Language** — The `<html>` element has a valid `lang` attribute.
-7. **Links and buttons** — Every link and button has a non-empty accessible name.
-8. **Skip navigation** — A skip link is the first focusable element on the page.
-9. **Custom components** — Modals trap focus, accordions use proper ARIA, and all widgets work with keyboard alone.
-10. **Landmarks** — The page uses `<header>`, `<nav>`, `<main>`, `<aside>`, and `<footer>` appropriately.
+1. **Images**  EEvery `<img>` has an `alt` attribute (descriptive or empty).
+2. **Contrast**  EAll text meets a 4.5:1 ratio (3:1 for large text).
+3. **Form labels**  EEvery input has an associated `<label>`, `aria-label`, or `aria-labelledby`.
+4. **Keyboard**  EEvery interactive element is reachable and operable via keyboard, with visible focus styles.
+5. **Page title**  EEach page has a unique, descriptive `<title>`.
+6. **Language**  EThe `<html>` element has a valid `lang` attribute.
+7. **Links and buttons**  EEvery link and button has a non-empty accessible name.
+8. **Skip navigation**  EA skip link is the first focusable element on the page.
+9. **Custom components**  EModals trap focus, accordions use proper ARIA, and all widgets work with keyboard alone.
+10. **Landmarks**  EThe page uses `<header>`, `<nav>`, `<main>`, `<aside>`, and `<footer>` appropriately.
 
 Work through these ten items in order. Issues one through six can typically be fixed in a single sitting. Issues seven through ten may require refactoring components, but every fix you ship makes the experience better for real users.
 
 ## Automate What You Can
 
-Manual testing is essential — especially keyboard and screen reader testing — but automated scanners catch the low-hanging fruit instantly. Running a scanner after every deployment ensures that new code does not reintroduce resolved issues.
+Manual testing is essential  Eespecially keyboard and screen reader testing  Ebut automated scanners catch the low-hanging fruit instantly. Running a scanner after every deployment ensures that new code does not reintroduce resolved issues.
 
-**AccessGuard's free accessibility scanner** analyzes your pages against WCAG 2.1, flags every issue covered in this guide, and gives you prioritized, code-level fix suggestions so your team spends less time diagnosing and more time shipping. Try it today at [accessguard.dev](https://www.accessguard.dev) and fix accessibility issues on your website before your users — or their lawyers — find them first.
+**A11yScope's free accessibility scanner** analyzes your pages against WCAG 2.1, flags every issue covered in this guide, and gives you prioritized, code-level fix suggestions so your team spends less time diagnosing and more time shipping. Try it today at [a11yscope.com](https://www.a11yscope.com) and fix accessibility issues on your website before your users  Eor their lawyers  Efind them first.

@@ -2,7 +2,7 @@
 title: "EU European Accessibility Act 2025: What Website Owners Need to Know"
 description: "The European Accessibility Act (EAA) took effect in June 2025. Learn what it requires, who must comply, the penalties for non-compliance, and how to prepare your website for EU accessibility regulations."
 date: 2026-02-19
-author: AccessGuard Team
+author: A11yScope Team
 tags: EAA, European Union, Compliance
 ---
 
@@ -90,7 +90,7 @@ Review the list of covered products and services. If you operate an e-commerce w
 
 Run a comprehensive accessibility audit against WCAG 2.1 Level AA. Start with an automated scan to identify the most common violations, then supplement with manual testing including keyboard navigation and screen reader verification.
 
-[AccessGuard's free scanner](/) can give you an immediate baseline assessment of your WCAG 2.1 compliance status. The scan identifies specific violations, maps them to WCAG success criteria, and provides remediation guidance.
+[A11yScope's free scanner](/) can give you an immediate baseline assessment of your WCAG 2.1 compliance status. The scan identifies specific violations, maps them to WCAG success criteria, and provides remediation guidance.
 
 ### Step 3: Remediate and Prioritize
 
@@ -104,7 +104,7 @@ The EAA requires economic operators to be able to demonstrate compliance. Mainta
 
 Accessibility is not a one-time fix. Every code deployment, content update, and design change can introduce new barriers. Schedule regular automated scans and periodic manual audits to maintain compliance over time.
 
-[AccessGuard's Pro plan](/#pricing) provides scheduled weekly scans, historical trend reporting, and exportable compliance reports that serve as documentation for regulatory purposes. Ongoing monitoring is the only reliable way to prevent regression and demonstrate continuous compliance.
+[A11yScope's Pro plan](/#pricing) provides scheduled weekly scans, historical trend reporting, and exportable compliance reports that serve as documentation for regulatory purposes. Ongoing monitoring is the only reliable way to prevent regression and demonstrate continuous compliance.
 
 ## The EAA and Non-EU Businesses
 
@@ -114,4 +114,4 @@ This means US, UK, and other non-EU businesses with EU-facing websites need to c
 
 ## Start Your EAA Compliance Assessment Today
 
-The enforcement deadline has already passed. If you have not assessed your website's accessibility, the time to act is now. [Run a free AccessGuard scan](/) to identify your current WCAG 2.1 violations and get a clear picture of the remediation work ahead. For ongoing compliance monitoring and audit-ready documentation, explore [AccessGuard's pricing plans](/#pricing).
+The enforcement deadline has already passed. If you have not assessed your website's accessibility, the time to act is now. [Run a free A11yScope scan](/) to identify your current WCAG 2.1 violations and get a clear picture of the remediation work ahead. For ongoing compliance monitoring and audit-ready documentation, explore [A11yScope's pricing plans](/#pricing).

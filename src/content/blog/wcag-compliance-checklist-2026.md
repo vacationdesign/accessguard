@@ -2,7 +2,7 @@
 title: "The Complete WCAG Compliance Checklist for 2026: Audit Your Website Step by Step"
 description: "Use this WCAG compliance checklist to audit your website against WCAG 2.1 AA standards. Practical fixes, code examples, and actionable steps for developers."
 date: 2026-02-24
-author: AccessGuard Team
+author: A11yScope Team
 tags:
   - WCAG
   - Compliance
@@ -518,12 +518,12 @@ The most successful accessibility programs are not audit-driven. They are proces
 
 ---
 
-## Start Your Audit Today with AccessGuard
+## Start Your Audit Today with A11yScope
 
 Working through a WCAG compliance checklist manually is essential, but it does not scale across hundreds or thousands of pages. That is where automation fills the gap.
 
-**AccessGuard's free website accessibility scanner** crawls your site, tests against WCAG 2.1 AA criteria, and delivers a prioritized report of issues with specific code-level remediation guidance. You get a clear picture of where you stand in minutes, not weeks.
+**A11yScope's free website accessibility scanner** crawls your site, tests against WCAG 2.1 AA criteria, and delivers a prioritized report of issues with specific code-level remediation guidance. You get a clear picture of where you stand in minutes, not weeks.
 
-Whether you are starting your first audit or maintaining an already-accessible site, AccessGuard helps you catch regressions, track progress over time, and demonstrate compliance with confidence.
+Whether you are starting your first audit or maintaining an already-accessible site, A11yScope helps you catch regressions, track progress over time, and demonstrate compliance with confidence.
 
 [Run your free accessibility scan now](/) and see how your site measures up against this WCAG compliance checklist.

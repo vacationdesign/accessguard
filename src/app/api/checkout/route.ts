@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { stripe, PLANS, PlanKey } from "@/lib/stripe";
 
 const ALLOWED_ORIGINS = [
-  "https://www.accessguard.dev",
-  "https://accessguard.dev",
+  "https://www.a11yscope.com",
+  "https://a11yscope.com",
   ...(process.env.NODE_ENV === "development" ? ["http://localhost:3000"] : []),
 ];
 

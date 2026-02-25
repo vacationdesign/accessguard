@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Legal Disclosure - AccessGuard",
+  title: "Legal Disclosure - A11yScope",
   description: "Legal disclosure under the Act on Specified Commercial Transactions (特定商取引法に基づく表記)",
 };
 
@@ -24,7 +24,7 @@ export default function TokushohoPage() {
                 d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"
               />
             </svg>
-            <span className="font-bold text-lg">AccessGuard</span>
+            <span className="font-bold text-lg">A11yScope</span>
           </a>
           <a
             href="/"
@@ -53,7 +53,7 @@ export default function TokushohoPage() {
                   <span className="text-xs font-normal text-gray-500">事業者名</span>
                 </th>
                 <td className="px-6 py-4 text-sm text-gray-700">
-                  AccessGuard (Sole Proprietorship)
+                  A11yScope (Sole Proprietorship)
                 </td>
               </tr>
               <tr>
@@ -84,7 +84,7 @@ export default function TokushohoPage() {
                   <span className="text-xs font-normal text-gray-500">連絡先</span>
                 </th>
                 <td className="px-6 py-4 text-sm text-gray-700">
-                  Email: support@accessguard.dev
+                  Email: support@a11yscope.com
                 </td>
               </tr>
               <tr>
@@ -94,8 +94,8 @@ export default function TokushohoPage() {
                   <span className="text-xs font-normal text-gray-500">販売URL</span>
                 </th>
                 <td className="px-6 py-4 text-sm text-gray-700">
-                  <a href="https://www.accessguard.dev" className="text-blue-600 hover:underline">
-                    https://www.accessguard.dev
+                  <a href="https://www.a11yscope.com" className="text-blue-600 hover:underline">
+                    https://www.a11yscope.com
                   </a>
                 </td>
               </tr>
@@ -106,7 +106,7 @@ export default function TokushohoPage() {
                   <span className="text-xs font-normal text-gray-500">商品等の名称</span>
                 </th>
                 <td className="px-6 py-4 text-sm text-gray-700">
-                  AccessGuard Web Accessibility Scanning Service (SaaS)
+                  A11yScope Web Accessibility Scanning Service (SaaS)
                 </td>
               </tr>
               <tr>
@@ -200,7 +200,7 @@ export default function TokushohoPage() {
 
       <footer className="bg-gray-900 text-gray-400 py-8 mt-12">
         <div className="max-w-4xl mx-auto px-4 text-sm text-center">
-          &copy; 2026 AccessGuard. All rights reserved.
+          &copy; 2026 A11yScope. All rights reserved.
         </div>
       </footer>
     </div>

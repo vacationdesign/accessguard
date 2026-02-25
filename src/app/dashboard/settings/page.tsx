@@ -62,7 +62,7 @@ export default async function SettingsPage() {
       <div className="bg-white rounded-xl border border-gray-200 p-6">
         <h2 className="font-semibold text-foreground mb-2">Sign Out</h2>
         <p className="text-sm text-muted mb-4">
-          Sign out of your AccessGuard account on this device.
+          Sign out of your A11yScope account on this device.
         </p>
         <form action="/api/auth/signout" method="POST" className="inline">
           <button

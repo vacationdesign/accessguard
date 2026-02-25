@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://www.accessguard.dev/sitemap.xml",
+    sitemap: "https://www.a11yscope.com/sitemap.xml",
   };
 }

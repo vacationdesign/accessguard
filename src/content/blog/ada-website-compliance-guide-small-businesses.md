@@ -2,7 +2,7 @@
 title: "ADA Website Compliance: A Complete Guide for Small Businesses"
 description: "A plain-language guide to ADA website compliance for small business owners. Learn what the law requires, how to avoid costly lawsuits, and the practical steps to make your website accessible."
 date: 2026-02-17
-author: AccessGuard Team
+author: A11yScope Team
 tags: ADA, Small Business, Compliance
 ---
 
@@ -77,7 +77,7 @@ The good news is that achieving a reasonable level of ADA compliance is not as e
 
 The first step is to understand where you stand. An automated scan will identify the most common and most detectable accessibility violations on your website. This gives you a clear list of issues to address.
 
-[AccessGuard's free scanner](/) checks your website against WCAG 2.1 Level AA criteria and delivers a report in seconds. No signup is required. You will get a prioritized list of violations with explanations of what each issue means and how to fix it.
+[A11yScope's free scanner](/) checks your website against WCAG 2.1 Level AA criteria and delivers a report in seconds. No signup is required. You will get a prioritized list of violations with explanations of what each issue means and how to fix it.
 
 ### Step 2: Fix the Critical Issues First
 
@@ -108,7 +108,7 @@ If you work with a web development agency, include WCAG 2.1 AA compliance as an 
 
 Accessibility is not a one-time project. Every time you add a page, change a design, or update content, you can introduce new accessibility issues. Regular scanning catches regressions before they become legal liabilities.
 
-[AccessGuard's Pro plan](/#pricing) offers weekly automated scans that monitor your entire site and alert you to new violations. For a small business, this kind of continuous monitoring is the most cost-effective way to maintain compliance and demonstrate good faith if you ever receive a demand letter.
+[A11yScope's Pro plan](/#pricing) offers weekly automated scans that monitor your entire site and alert you to new violations. For a small business, this kind of continuous monitoring is the most cost-effective way to maintain compliance and demonstrate good faith if you ever receive a demand letter.
 
 ## What If You Receive an ADA Demand Letter?
 
@@ -123,6 +123,6 @@ The strongest legal defense is a genuine, documented effort to make your website
 
 ## Take the First Step Now
 
-You do not need to hire an expensive consultant or overhaul your entire website overnight. Start by understanding where you stand. [Run a free AccessGuard scan](/) right now. It takes 30 seconds, requires no signup, and gives you a clear, prioritized list of the accessibility issues on your site.
+You do not need to hire an expensive consultant or overhaul your entire website overnight. Start by understanding where you stand. [Run a free A11yScope scan](/) right now. It takes 30 seconds, requires no signup, and gives you a clear, prioritized list of the accessibility issues on your site.
 
-From there, work through the fixes systematically, starting with the critical violations. If you want ongoing protection, [explore AccessGuard's plans](/#pricing) for automated weekly monitoring that keeps your small business compliant as your site evolves.
+From there, work through the fixes systematically, starting with the critical violations. If you want ongoing protection, [explore A11yScope's plans](/#pricing) for automated weekly monitoring that keeps your small business compliant as your site evolves.

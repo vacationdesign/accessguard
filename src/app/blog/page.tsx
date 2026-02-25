@@ -3,7 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Accessibility Blog | AccessGuard - WCAG Tips, Guides & Best Practices",
+  title: "Accessibility Blog | A11yScope - WCAG Tips, Guides & Best Practices",
   description:
     "Learn about web accessibility, WCAG 2.1 compliance, ADA lawsuits, and how to make your website accessible. Practical guides and actionable tips.",
 };
@@ -29,7 +29,7 @@ export default function BlogIndex() {
               d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"
             />
           </svg>
-          <span className="text-xl font-bold text-foreground">AccessGuard</span>
+          <span className="text-xl font-bold text-foreground">A11yScope</span>
         </Link>
         <Link
           href="/"

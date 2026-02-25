@@ -2,7 +2,7 @@
 title: "How to Conduct a Website Accessibility Audit: Step-by-Step Guide"
 description: "Learn how to conduct a website accessibility audit step by step. Covers automated testing, manual testing, WCAG documentation, and ongoing monitoring."
 date: 2026-02-25
-author: AccessGuard Team
+author: A11yScope Team
 tags:
   - Accessibility
   - Audit
@@ -104,7 +104,7 @@ This is why a website accessibility audit that relies solely on automated scanni
 
 ### Running your automated scan
 
-Start with a full-site scan using [AccessGuard's free scanner](/) or a comparable tool. A full-site scan crawls multiple pages and gives you a comprehensive baseline of detectable violations. Supplement this with page-level scans using a browser extension like axe DevTools on your highest-traffic and highest-risk pages for more granular element-level detail.
+Start with a full-site scan using [A11yScope's free scanner](/) or a comparable tool. A full-site scan crawls multiple pages and gives you a comprehensive baseline of detectable violations. Supplement this with page-level scans using a browser extension like axe DevTools on your highest-traffic and highest-risk pages for more granular element-level detail.
 
 Record the total number of violations, the breakdown by severity (critical, serious, moderate, minor), and the specific WCAG success criteria referenced. This becomes the automated portion of your audit report.
 
@@ -247,12 +247,12 @@ Accessibility checks should be part of your continuous integration pipeline. Run
 
 Supplement your automated monitoring with manual audits on a quarterly or semi-annual basis. Manual testing catches the 60-70% of issues that automation misses and verifies that the overall user experience for people with disabilities is actually functional, not just technically compliant.
 
-## Start Your Audit with AccessGuard
+## Start Your Audit with A11yScope
 
 If you have read this far, you understand what a website accessibility audit involves and why it matters. The next step is to run one.
 
-[AccessGuard's free scanner](/) gives you an immediate baseline. It crawls your site, tests against WCAG 2.1 AA criteria, and delivers a prioritized report with specific element references and remediation guidance. You will know exactly where your site stands in minutes.
+[A11yScope's free scanner](/) gives you an immediate baseline. It crawls your site, tests against WCAG 2.1 AA criteria, and delivers a prioritized report with specific element references and remediation guidance. You will know exactly where your site stands in minutes.
 
-For ongoing protection, [AccessGuard's Pro plan](/#pricing) includes scheduled weekly scans, historical trend tracking, regression alerts, and exportable compliance reports. It is built for both agencies managing multiple client sites and business owners who need to stay compliant without hiring a full-time accessibility specialist.
+For ongoing protection, [A11yScope's Pro plan](/#pricing) includes scheduled weekly scans, historical trend tracking, regression alerts, and exportable compliance reports. It is built for both agencies managing multiple client sites and business owners who need to stay compliant without hiring a full-time accessibility specialist.
 
 A website accessibility audit is not a one-time checkbox. It is the starting point of an ongoing commitment to an inclusive web. Run your first scan today and take the first step.

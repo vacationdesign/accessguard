@@ -2,7 +2,7 @@
 title: "WCAG 2.2: What's New and How to Prepare Your Website"
 description: "WCAG 2.2 introduces 9 new success criteria. Learn what changed from WCAG 2.1, which criteria affect your site, and how to prepare for compliance."
 date: 2026-02-25
-author: AccessGuard Team
+author: A11yScope Team
 tags:
   - WCAG 2.2
   - Accessibility
@@ -286,7 +286,7 @@ Ensure your authentication forms use correct `autocomplete` attributes, allow pa
 
 ### 7. Run a Full Scan
 
-Automated testing tools can detect many of these issues, including missing focus styles, missing autocomplete attributes, and duplicate-ID problems related to the now-removed SC 4.1.1. Use [AccessGuard's free scanner](/) to run a baseline scan of your site and identify issues across the full WCAG 2.2 criteria set.
+Automated testing tools can detect many of these issues, including missing focus styles, missing autocomplete attributes, and duplicate-ID problems related to the now-removed SC 4.1.1. Use [A11yScope's free scanner](/) to run a baseline scan of your site and identify issues across the full WCAG 2.2 criteria set.
 
 ---
 
@@ -308,10 +308,10 @@ The nine new success criteria are not theoretical. They address real usability p
 
 ### How to Transition
 
-1. **Run a gap analysis.** Scan your site against the WCAG 2.2 criteria to identify which new requirements you already meet and where you have gaps. [AccessGuard's free scanner](/) provides automated detection for many of these issues.
+1. **Run a gap analysis.** Scan your site against the WCAG 2.2 criteria to identify which new requirements you already meet and where you have gaps. [A11yScope's free scanner](/) provides automated detection for many of these issues.
 2. **Prioritize by impact.** Start with Level A criteria (2.4.11 and 2.5.7) since they represent the minimum baseline, then address the Level AA criteria that are most likely to affect your users.
 3. **Integrate into your workflow.** Add the new criteria to your design review checklists, QA testing scripts, and CI/CD pipeline checks. Accessibility is not a one-time project -- it is a continuous practice.
-4. **Monitor continuously.** Requirements do not stay fixed, and neither does your website. New pages, new features, and content updates can introduce regressions. Use [AccessGuard's Pro plan](/#pricing) for ongoing automated monitoring that alerts you when new accessibility issues are detected.
+4. **Monitor continuously.** Requirements do not stay fixed, and neither does your website. New pages, new features, and content updates can introduce regressions. Use [A11yScope's Pro plan](/#pricing) for ongoing automated monitoring that alerts you when new accessibility issues are detected.
 
 If you are building your compliance program from scratch, start with our [WCAG 2.1 checklist](/blog/wcag-compliance-checklist-2026) for a comprehensive foundation, then layer in the WCAG 2.2 additions covered in this guide.
 
@@ -339,6 +339,6 @@ WCAG 2.2 is not a distant future requirement -- it is the current W3C standard, 
 
 The good news is that most of the new criteria address issues you can fix with straightforward CSS changes, HTML attribute corrections, and design pattern updates. You do not need to rebuild your site. You need to audit, prioritize, and incrementally improve.
 
-Start with a scan. [AccessGuard's free scanner](/) evaluates your site against WCAG 2.2 criteria automatically, giving you a clear picture of where you stand and what needs attention. For organizations that need continuous monitoring, scheduled scans, and detailed reporting, the [Pro plan](/#pricing) provides the infrastructure to keep your site compliant as it evolves.
+Start with a scan. [A11yScope's free scanner](/) evaluates your site against WCAG 2.2 criteria automatically, giving you a clear picture of where you stand and what needs attention. For organizations that need continuous monitoring, scheduled scans, and detailed reporting, the [Pro plan](/#pricing) provides the infrastructure to keep your site compliant as it evolves.
 
 Accessibility is not a checkbox you tick once. It is a commitment to ensuring that every person who visits your website can use it effectively. WCAG 2.2 raises the standard, and your site should rise with it.

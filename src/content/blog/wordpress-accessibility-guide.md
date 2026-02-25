@@ -2,7 +2,7 @@
 title: "WordPress Accessibility: How to Make Your WordPress Site WCAG Compliant"
 description: "Learn how to improve WordPress accessibility with actionable steps for choosing themes, auditing plugins, and editing content to meet WCAG 2.1 AA compliance."
 date: 2026-02-25
-author: AccessGuard Team
+author: A11yScope Team
 tags: [WordPress, Accessibility, WCAG, CMS]
 ---
 
@@ -10,7 +10,7 @@ tags: [WordPress, Accessibility, WCAG, CMS]
 
 WordPress powers a massive share of the web, and that reach comes with a responsibility that most site owners are not meeting. The platform itself has made real strides toward accessibility in its core software, but the moment you install a third-party theme, add a handful of plugins, and start publishing content, you inherit accessibility problems that WordPress core cannot prevent. The result is that the vast majority of WordPress sites fail basic WCAG 2.1 Level AA checks, often in ways that completely block users who rely on screen readers, keyboards, or other assistive technologies.
 
-This guide is for web agencies managing client WordPress sites and for small business owners running their own. It covers the areas where WordPress accessibility breaks down most often — themes, plugins, and content — and gives you concrete steps to fix each one.
+This guide is for web agencies managing client WordPress sites and for small business owners running their own. It covers the areas where WordPress accessibility breaks down most often  Ethemes, plugins, and content  Eand gives you concrete steps to fix each one.
 
 ## The State of WordPress Accessibility
 
@@ -31,7 +31,7 @@ The most common WCAG failures on WordPress sites include:
 - **Missing skip navigation links**, even in themes that claim to be "accessibility ready."
 - **Auto-playing media** in hero sliders and background video sections.
 
-These are not theoretical problems. They are the issues that show up repeatedly when you scan WordPress sites with an automated accessibility tool. If you have not scanned your own site recently, that is the first step — but more on that at the end.
+These are not theoretical problems. They are the issues that show up repeatedly when you scan WordPress sites with an automated accessibility tool. If you have not scanned your own site recently, that is the first step  Ebut more on that at the end.
 
 ## Choosing an Accessible WordPress Theme
 
@@ -69,7 +69,7 @@ The default WordPress themes (Twenty Twenty-Four, Twenty Twenty-Five, and their 
 
 ## Plugin Accessibility: The Hidden Liability
 
-Themes get the most attention in accessibility discussions, but plugins are often the bigger problem. Plugins inject their own markup, styles, and scripts into the front end, and they frequently override or conflict with the theme's accessibility features. The plugin ecosystem has no equivalent of the "accessibility-ready" review for themes — there is no accessibility gate that a plugin must pass before being listed in the directory.
+Themes get the most attention in accessibility discussions, but plugins are often the bigger problem. Plugins inject their own markup, styles, and scripts into the front end, and they frequently override or conflict with the theme's accessibility features. The plugin ecosystem has no equivalent of the "accessibility-ready" review for themes  Ethere is no accessibility gate that a plugin must pass before being listed in the directory.
 
 ### Contact Form Plugins
 
@@ -101,7 +101,7 @@ Page builders like Elementor, Beaver Builder, and WPBakery generate the HTML str
 - **Custom widgets** with missing ARIA attributes. Tabs, accordions, and toggle components built into page builders may lack the keyboard interactions and ARIA roles required for accessibility.
 - **Inline styles** that override theme-level accessibility features like focus indicators.
 
-**What to do:** If you use a page builder, test every custom layout with a keyboard and verify the heading hierarchy using a browser extension or [AccessGuard's free scanner](/). Elementor has made notable improvements to its accessibility output in recent versions, but the quality of the final HTML depends heavily on how the builder is used. Pay attention to heading levels, use semantic elements where the builder allows it, and test interactive components individually.
+**What to do:** If you use a page builder, test every custom layout with a keyboard and verify the heading hierarchy using a browser extension or [A11yScope's free scanner](/). Elementor has made notable improvements to its accessibility output in recent versions, but the quality of the final HTML depends heavily on how the builder is used. Pay attention to heading levels, use semantic elements where the builder allows it, and test interactive components individually.
 
 ### Other Plugins to Audit
 
@@ -190,15 +190,15 @@ Maintain a staging environment where theme updates, plugin updates, and major co
 
 ### Conduct Regular Scans
 
-Manual testing is important but does not scale across dozens of client sites with hundreds of pages. Automated scanning catches the most common violations — missing alt text, contrast failures, missing labels, broken heading hierarchy — across your entire site on a regular schedule.
+Manual testing is important but does not scale across dozens of client sites with hundreds of pages. Automated scanning catches the most common violations  Emissing alt text, contrast failures, missing labels, broken heading hierarchy  Eacross your entire site on a regular schedule.
 
-This is where [AccessGuard's free scanner](/) fits into your workflow. Run a scan against any WordPress site to get a prioritized list of WCAG 2.1 AA violations with specific element references and remediation guidance. A single scan gives you a clear picture of where the site stands.
+This is where [A11yScope's free scanner](/) fits into your workflow. Run a scan against any WordPress site to get a prioritized list of WCAG 2.1 AA violations with specific element references and remediation guidance. A single scan gives you a clear picture of where the site stands.
 
-For ongoing monitoring, AccessGuard's [Pro plan](/#pricing) runs weekly automated scans across your entire site and alerts you to new violations as they appear. For agencies, this means you can track accessibility health across all client sites without relying on manual audits. For business owners, it means your site stays compliant even as you publish new content, update plugins, and change themes.
+For ongoing monitoring, A11yScope's [Pro plan](/#pricing) runs weekly automated scans across your entire site and alerts you to new violations as they appear. For agencies, this means you can track accessibility health across all client sites without relying on manual audits. For business owners, it means your site stays compliant even as you publish new content, update plugins, and change themes.
 
 ## What About Accessibility Overlay Plugins?
 
-You may have encountered WordPress plugins that promise to make your site accessible by adding an overlay widget — a toolbar that lets users adjust font sizes, colors, and spacing. These overlay tools do not make your site WCAG compliant.
+You may have encountered WordPress plugins that promise to make your site accessible by adding an overlay widget  Ea toolbar that lets users adjust font sizes, colors, and spacing. These overlay tools do not make your site WCAG compliant.
 
 Overlays do not fix the underlying HTML issues that cause accessibility failures. A missing form label is still missing. An inaccessible navigation menu is still inaccessible. A keyboard trap in a slider is still a trap. The overlay simply adds a surface-level widget that does not integrate with assistive technologies the way users actually rely on them.
 
@@ -210,7 +210,7 @@ The only reliable path to WordPress accessibility is fixing the source: choosing
 
 WordPress gives you the tools to build an accessible website, but those tools require deliberate effort to use correctly. The gap between what WordPress makes possible and what most WordPress sites actually deliver is significant.
 
-Start by understanding where your site stands today. [Run a free AccessGuard scan](/) on your WordPress site right now. You will get a detailed report of WCAG 2.1 AA violations, organized by severity, with specific guidance on what to fix first. No signup required.
+Start by understanding where your site stands today. [Run a free A11yScope scan](/) on your WordPress site right now. You will get a detailed report of WCAG 2.1 AA violations, organized by severity, with specific guidance on what to fix first. No signup required.
 
 If you are working through a broader accessibility initiative, our guides on [ADA compliance for small businesses](/blog/ada-website-compliance-guide-small-businesses) and [how to fix accessibility issues](/blog/how-to-fix-accessibility-issues-on-your-website) provide additional context and code-level remediation steps that apply directly to WordPress sites.
 
