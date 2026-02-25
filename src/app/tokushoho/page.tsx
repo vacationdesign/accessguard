@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "特定商取引法に基づく表記 - AccessGuard",
-  description: "特定商取引法に基づく表記（Disclosure under the Act on Specified Commercial Transactions）",
+  title: "Legal Disclosure - AccessGuard",
+  description: "Legal disclosure under the Act on Specified Commercial Transactions (特定商取引法に基づく表記)",
 };
 
 export default function TokushohoPage() {
@@ -36,11 +36,11 @@ export default function TokushohoPage() {
       </header>
 
       <main className="max-w-4xl mx-auto px-4 py-12">
-        <h1 className="text-2xl font-bold text-gray-900 mb-8">
-          特定商取引法に基づく表記
+        <h1 className="text-2xl font-bold text-gray-900 mb-2">
+          Legal Disclosure
         </h1>
         <p className="text-sm text-gray-500 mb-8">
-          Disclosure under the Act on Specified Commercial Transactions
+          Disclosure under the Act on Specified Commercial Transactions (特定商取引法に基づく表記)
         </p>
 
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
@@ -48,51 +48,50 @@ export default function TokushohoPage() {
             <tbody className="divide-y divide-gray-200">
               <tr>
                 <th className="px-6 py-4 bg-gray-50 text-left text-sm font-semibold text-gray-900 w-1/3 align-top">
-                  事業者名
+                  Business Name
                   <br />
-                  <span className="text-xs font-normal text-gray-500">Business Name</span>
+                  <span className="text-xs font-normal text-gray-500">事業者名</span>
                 </th>
                 <td className="px-6 py-4 text-sm text-gray-700">
-                  AccessGuard（個人事業）
+                  AccessGuard (Sole Proprietorship)
                 </td>
               </tr>
               <tr>
                 <th className="px-6 py-4 bg-gray-50 text-left text-sm font-semibold text-gray-900 w-1/3 align-top">
-                  代表者
+                  Representative
                   <br />
-                  <span className="text-xs font-normal text-gray-500">Representative</span>
+                  <span className="text-xs font-normal text-gray-500">代表者</span>
                 </th>
                 <td className="px-6 py-4 text-sm text-gray-700">
-                  斎藤 龍生
+                  Ryusei Saito
                 </td>
               </tr>
               <tr>
                 <th className="px-6 py-4 bg-gray-50 text-left text-sm font-semibold text-gray-900 w-1/3 align-top">
-                  所在地
+                  Address
                   <br />
-                  <span className="text-xs font-normal text-gray-500">Address</span>
+                  <span className="text-xs font-normal text-gray-500">所在地</span>
                 </th>
                 <td className="px-6 py-4 text-sm text-gray-700">
-                  東京都武蔵野市<br />
-                  <span className="text-gray-500 text-xs">※詳細な所在地は、ご請求いただければ遅滞なく開示いたします</span>
+                  Musashino City, Tokyo, Japan<br />
+                  <span className="text-gray-500 text-xs">Full address will be disclosed upon request.</span>
                 </td>
               </tr>
               <tr>
                 <th className="px-6 py-4 bg-gray-50 text-left text-sm font-semibold text-gray-900 w-1/3 align-top">
-                  連絡先
+                  Contact
                   <br />
-                  <span className="text-xs font-normal text-gray-500">Contact</span>
+                  <span className="text-xs font-normal text-gray-500">連絡先</span>
                 </th>
                 <td className="px-6 py-4 text-sm text-gray-700">
-                  メール: support@accessguard.dev<br />
-                  <span className="text-gray-500 text-xs">※お問い合わせはメールにてお願いいたします</span>
+                  Email: support@accessguard.dev
                 </td>
               </tr>
               <tr>
                 <th className="px-6 py-4 bg-gray-50 text-left text-sm font-semibold text-gray-900 w-1/3 align-top">
-                  販売URL
+                  Website
                   <br />
-                  <span className="text-xs font-normal text-gray-500">Website</span>
+                  <span className="text-xs font-normal text-gray-500">販売URL</span>
                 </th>
                 <td className="px-6 py-4 text-sm text-gray-700">
                   <a href="https://www.accessguard.dev" className="text-blue-600 hover:underline">
@@ -102,96 +101,96 @@ export default function TokushohoPage() {
               </tr>
               <tr>
                 <th className="px-6 py-4 bg-gray-50 text-left text-sm font-semibold text-gray-900 w-1/3 align-top">
-                  商品等の名称
+                  Product / Service
                   <br />
-                  <span className="text-xs font-normal text-gray-500">Product Name</span>
+                  <span className="text-xs font-normal text-gray-500">商品等の名称</span>
                 </th>
                 <td className="px-6 py-4 text-sm text-gray-700">
-                  AccessGuard ウェブアクセシビリティスキャンサービス（SaaS）
+                  AccessGuard Web Accessibility Scanning Service (SaaS)
                 </td>
               </tr>
               <tr>
                 <th className="px-6 py-4 bg-gray-50 text-left text-sm font-semibold text-gray-900 w-1/3 align-top">
-                  販売価格
+                  Pricing
                   <br />
-                  <span className="text-xs font-normal text-gray-500">Pricing</span>
+                  <span className="text-xs font-normal text-gray-500">販売価格</span>
                 </th>
                 <td className="px-6 py-4 text-sm text-gray-700">
-                  Pro プラン: 月額 $49 USD<br />
-                  Agency プラン: 月額 $149 USD<br />
-                  <span className="text-gray-500 text-xs">※価格はすべて税込です。為替レートにより日本円での請求額は変動する場合があります。</span>
+                  Pro Plan: $49 USD / month<br />
+                  Agency Plan: $149 USD / month<br />
+                  <span className="text-gray-500 text-xs">All prices are tax-inclusive.</span>
                 </td>
               </tr>
               <tr>
                 <th className="px-6 py-4 bg-gray-50 text-left text-sm font-semibold text-gray-900 w-1/3 align-top">
-                  商品代金以外の必要料金
+                  Additional Fees
                   <br />
-                  <span className="text-xs font-normal text-gray-500">Additional Fees</span>
+                  <span className="text-xs font-normal text-gray-500">商品代金以外の必要料金</span>
                 </th>
                 <td className="px-6 py-4 text-sm text-gray-700">
-                  なし<br />
-                  <span className="text-gray-500 text-xs">※インターネット接続料金はお客様のご負担となります</span>
+                  None.<br />
+                  <span className="text-gray-500 text-xs">Internet connection costs are borne by the customer.</span>
                 </td>
               </tr>
               <tr>
                 <th className="px-6 py-4 bg-gray-50 text-left text-sm font-semibold text-gray-900 w-1/3 align-top">
-                  支払方法
+                  Payment Method
                   <br />
-                  <span className="text-xs font-normal text-gray-500">Payment Method</span>
+                  <span className="text-xs font-normal text-gray-500">支払方法</span>
                 </th>
                 <td className="px-6 py-4 text-sm text-gray-700">
-                  クレジットカード（Visa, Mastercard, American Express, JCB）<br />
-                  <span className="text-gray-500 text-xs">※決済処理はStripe, Inc.を通じて行われます</span>
+                  Credit card (Visa, Mastercard, American Express, JCB)<br />
+                  <span className="text-gray-500 text-xs">Payment processing is handled by Stripe, Inc.</span>
                 </td>
               </tr>
               <tr>
                 <th className="px-6 py-4 bg-gray-50 text-left text-sm font-semibold text-gray-900 w-1/3 align-top">
-                  支払時期
+                  Payment Timing
                   <br />
-                  <span className="text-xs font-normal text-gray-500">Payment Timing</span>
+                  <span className="text-xs font-normal text-gray-500">支払時期</span>
                 </th>
                 <td className="px-6 py-4 text-sm text-gray-700">
-                  サブスクリプション開始時（チェックアウト時）に初回課金。以降、毎月自動更新時に課金されます。
+                  First charge at checkout when the subscription begins. Subsequent charges are billed automatically on each monthly renewal date.
                 </td>
               </tr>
               <tr>
                 <th className="px-6 py-4 bg-gray-50 text-left text-sm font-semibold text-gray-900 w-1/3 align-top">
-                  サービス提供時期
+                  Service Delivery
                   <br />
-                  <span className="text-xs font-normal text-gray-500">Service Delivery</span>
+                  <span className="text-xs font-normal text-gray-500">サービス提供時期</span>
                 </th>
                 <td className="px-6 py-4 text-sm text-gray-700">
-                  お支払い完了後、即時ご利用いただけます。
+                  Available immediately after payment is completed.
                 </td>
               </tr>
               <tr>
                 <th className="px-6 py-4 bg-gray-50 text-left text-sm font-semibold text-gray-900 w-1/3 align-top">
-                  キャンセル・解約
+                  Cancellation
                   <br />
-                  <span className="text-xs font-normal text-gray-500">Cancellation</span>
+                  <span className="text-xs font-normal text-gray-500">キャンセル・解約</span>
                 </th>
                 <td className="px-6 py-4 text-sm text-gray-700">
-                  サブスクリプションはいつでも解約可能です。解約後は現在の請求期間の終了まで引き続きサービスをご利用いただけます。日割り返金は行っておりません。
+                  You may cancel your subscription at any time. After cancellation, you will retain access to the service until the end of the current billing period. No prorated refunds are provided.
                 </td>
               </tr>
               <tr>
                 <th className="px-6 py-4 bg-gray-50 text-left text-sm font-semibold text-gray-900 w-1/3 align-top">
-                  返品・返金
+                  Refund Policy
                   <br />
-                  <span className="text-xs font-normal text-gray-500">Refund Policy</span>
+                  <span className="text-xs font-normal text-gray-500">返品・返金</span>
                 </th>
                 <td className="px-6 py-4 text-sm text-gray-700">
-                  デジタルサービスの性質上、サービス提供開始後の返品はお受けしておりません。サービスに重大な不具合がある場合は、個別にご対応いたしますのでメールにてお問い合わせください。
+                  Due to the nature of digital services, refunds are not available once the service has been provided. If you experience a critical issue, please contact us by email and we will address it on a case-by-case basis.
                 </td>
               </tr>
               <tr>
                 <th className="px-6 py-4 bg-gray-50 text-left text-sm font-semibold text-gray-900 w-1/3 align-top">
-                  動作環境
+                  System Requirements
                   <br />
-                  <span className="text-xs font-normal text-gray-500">System Requirements</span>
+                  <span className="text-xs font-normal text-gray-500">動作環境</span>
                 </th>
                 <td className="px-6 py-4 text-sm text-gray-700">
-                  インターネットに接続可能なウェブブラウザ（Chrome, Firefox, Safari, Edge の最新版を推奨）
+                  A modern web browser with internet access (latest versions of Chrome, Firefox, Safari, or Edge recommended).
                 </td>
               </tr>
             </tbody>
