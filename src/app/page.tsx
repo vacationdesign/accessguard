@@ -719,12 +719,12 @@ export default function Home() {
                     </a>
                   </li>
                   <li>
-                    <a href="#" className="hover:text-white transition-colors">
+                    <a href="/blog/wcag-compliance-checklist-2026" className="hover:text-white transition-colors">
                       WCAG Guide
                     </a>
                   </li>
                   <li>
-                    <a href="#" className="hover:text-white transition-colors">
+                    <a href="/blog/ada-website-compliance-guide-small-businesses" className="hover:text-white transition-colors">
                       ADA Compliance
                     </a>
                   </li>
