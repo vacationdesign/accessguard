@@ -106,16 +106,16 @@ export default async function CheckoutSuccessPage({ searchParams }: CheckoutSucc
         {/* CTA */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
-            href="/"
+            href="/login"
             className="inline-flex items-center justify-center px-6 py-3 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-colors"
           >
-            Start Scanning
+            Go to Dashboard
           </Link>
           <Link
             href="/"
             className="inline-flex items-center justify-center px-6 py-3 border-2 border-gray-200 font-semibold rounded-xl hover:bg-gray-50 transition-colors"
           >
-            Go to Dashboard
+            Back to Home
           </Link>
         </div>
 

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { scanUrl, ScanResult } from "@/lib/scanner";
 import { canUserScan, logScan } from "@/lib/db";
+import { getCurrentUser } from "@/lib/auth";
 
 // Vercel serverless function config: scanning needs up to 60s
 export const maxDuration = 60;
@@ -29,9 +30,9 @@ export async function POST(request: NextRequest) {
       "unknown";
 
     // Check rate limit (free tier: 5 scans/hour by IP, paid: unlimited)
-    // Note: userId is null for now since we don't have auth yet.
-    // Once auth is added, extract userId from the session and pass it here.
-    const userId: string | null = null;
+    // Try to get authenticated user — null for anonymous LP scans
+    const appUser = await getCurrentUser().catch(() => null);
+    const userId: string | null = appUser?.id ?? null;
     const allowed = await canUserScan(ip, userId);
 
     if (!allowed) {
@@ -82,7 +83,10 @@ export async function POST(request: NextRequest) {
       ip,
       result.score ?? 0,
       result.violations?.length ?? 0,
-      scanDurationMs
+      scanDurationMs,
+      result.violations ?? undefined,
+      result.passes ?? undefined,
+      result.incomplete ?? undefined
     ).catch((err) => {
       console.error("Failed to log scan:", err);
     });

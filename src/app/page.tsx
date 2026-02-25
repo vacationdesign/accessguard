@@ -70,6 +70,12 @@ export default function Home() {
           >
             Pricing
           </a>
+          <a
+            href="/login"
+            className="text-sm text-muted hover:text-foreground transition-colors hidden sm:block"
+          >
+            Sign In
+          </a>
           <button
             onClick={() => handleCheckout("pro")}
             disabled={checkoutLoading !== null}
