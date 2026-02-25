@@ -29,6 +29,31 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   };
 }
 
+function escapeHtmlAttr(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function sanitizeHtml(html: string): string {
+  // Strip dangerous HTML tags and attributes
+  return html
+    // Remove script tags and their content
+    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "")
+    // Remove event handler attributes (onclick, onerror, onload, etc.)
+    .replace(/\s+on\w+\s*=\s*["'][^"']*["']/gi, "")
+    .replace(/\s+on\w+\s*=\s*\S+/gi, "")
+    // Remove iframe, object, embed, form tags
+    .replace(/<\s*\/?\s*(iframe|object|embed|form|textarea|input|button)\b[^>]*>/gi, "")
+    // Remove style tags with content
+    .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, "")
+    // Remove base tags (can redirect all relative URLs)
+    .replace(/<\s*\/?\s*base\b[^>]*>/gi, "");
+}
+
 function renderMarkdown(content: string): string {
   // Simple markdown to HTML renderer
   let html = content
@@ -49,10 +74,23 @@ function renderMarkdown(content: string): string {
       /`(.*?)`/g,
       '<code class="bg-gray-100 text-red-700 px-1.5 py-0.5 rounded text-sm">$1</code>'
     )
-    // Links
+    // Links — block javascript: and data: protocol links, HTML-encode URLs
     .replace(
       /\[([^\]]+)\]\(([^)]+)\)/g,
-      '<a href="$2" class="text-primary hover:text-primary-dark underline" target="_blank" rel="noopener noreferrer">$1</a>'
+      (_match: string, text: string, url: string) => {
+        const trimmedUrl = url.trim().toLowerCase();
+        if (
+          trimmedUrl.startsWith("javascript:") ||
+          trimmedUrl.startsWith("data:") ||
+          trimmedUrl.startsWith("vbscript:")
+        ) {
+          return text; // Strip dangerous links, keep text only
+        }
+        // Encode URL in href attribute to prevent attribute injection
+        const safeUrl = escapeHtmlAttr(url.trim());
+        const safeText = text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        return `<a href="${safeUrl}" class="text-primary hover:text-primary-dark underline" target="_blank" rel="noopener noreferrer">${safeText}</a>`;
+      }
     )
     // Unordered lists
     .replace(/^- (.*$)/gm, '<li class="ml-4">$1</li>')
@@ -69,6 +107,9 @@ function renderMarkdown(content: string): string {
     /(<li class="ml-4">.*?<\/li>\n?)+/g,
     '<ul class="list-disc space-y-2 my-4 pl-4">$&</ul>'
   );
+
+  // Final sanitization pass
+  html = sanitizeHtml(html);
 
   return html;
 }

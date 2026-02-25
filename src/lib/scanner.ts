@@ -1,6 +1,101 @@
 import puppeteer from "puppeteer";
 import puppeteerCore from "puppeteer-core";
 import { AxeResults } from "axe-core";
+import dns from "dns/promises";
+
+// ---------------------------------------------------------------------------
+// SSRF protection: block private/internal IPs and cloud metadata endpoints
+// ---------------------------------------------------------------------------
+
+const BLOCKED_HOSTNAMES = [
+  "localhost",
+  "metadata.google.internal",
+  "metadata.google",
+];
+
+function isPrivateIPv4(ip: string): boolean {
+  // IPv4 private ranges, loopback, link-local, cloud metadata
+  const parts = ip.split(".").map(Number);
+  if (parts.length !== 4 || parts.some((p) => isNaN(p) || p < 0 || p > 255)) return false;
+
+  const [a, b] = parts;
+
+  return (
+    a === 10 ||                              // 10.0.0.0/8
+    (a === 172 && b >= 16 && b <= 31) ||      // 172.16.0.0/12
+    (a === 192 && b === 168) ||               // 192.168.0.0/16
+    a === 127 ||                              // 127.0.0.0/8 (loopback)
+    (a === 169 && b === 254) ||               // 169.254.0.0/16 (link-local / AWS metadata)
+    a === 0                                   // 0.0.0.0/8
+  );
+}
+
+function isPrivateIPv6(ip: string): boolean {
+  const normalized = ip.toLowerCase().replace(/^\[|\]$/g, "");
+
+  if (
+    normalized === "::1" ||                   // IPv6 loopback
+    normalized === "::" ||                    // Unspecified address
+    normalized.startsWith("fc") ||            // fc00::/7 unique local
+    normalized.startsWith("fd") ||            // fc00::/7 unique local
+    normalized.startsWith("fe80") ||          // fe80::/10 link-local
+    normalized.startsWith("::ffff:127.") ||   // IPv4-mapped loopback
+    normalized.startsWith("::ffff:10.") ||    // IPv4-mapped private Class A
+    normalized.startsWith("::ffff:192.168.") || // IPv4-mapped private Class C
+    normalized.startsWith("::ffff:169.254.") || // IPv4-mapped link-local
+    normalized.startsWith("::ffff:0.")        // IPv4-mapped 0.0.0.0/8
+  ) {
+    return true;
+  }
+
+  // Check IPv4-mapped 172.16.0.0/12 (172.16.x.x - 172.31.x.x)
+  const mapped172 = normalized.match(/^::ffff:172\.(\d+)\./);
+  if (mapped172) {
+    const second = parseInt(mapped172[1], 10);
+    if (second >= 16 && second <= 31) return true;
+  }
+
+  return false;
+}
+
+function isPrivateIP(ip: string): boolean {
+  return isPrivateIPv4(ip) || isPrivateIPv6(ip);
+}
+
+async function validateUrlSafety(url: URL): Promise<void> {
+  const hostname = url.hostname.toLowerCase().replace(/^\[|\]$/g, "");
+
+  // Block known dangerous hostnames
+  if (BLOCKED_HOSTNAMES.includes(hostname)) {
+    throw new Error("Scanning internal or reserved addresses is not allowed");
+  }
+
+  // Block IPv6 loopback/private used directly as hostname
+  if (hostname.includes(":") && isPrivateIPv6(hostname)) {
+    throw new Error("Scanning private or internal IP addresses is not allowed");
+  }
+
+  // Block IPv4 addresses directly used as hostnames (including octal/hex/decimal encoding)
+  if (/^[\d.]+$/.test(hostname) || /^0x/i.test(hostname)) {
+    // Try to detect non-standard IP encoding (octal: 0177.0.0.1, hex: 0x7f000001, decimal: 2130706433)
+    if (isPrivateIPv4(hostname)) {
+      throw new Error("Scanning private or internal IP addresses is not allowed");
+    }
+  }
+
+  // Resolve hostname and check the resolved IP (prevents DNS rebinding and encoded IPs)
+  try {
+    const results = await dns.lookup(hostname, { all: true });
+    for (const result of results) {
+      if (isPrivateIP(result.address)) {
+        throw new Error("Scanning private or internal IP addresses is not allowed");
+      }
+    }
+  } catch (err: any) {
+    if (err.message?.includes("not allowed")) throw err;
+    // DNS resolution failure — let the browser handle it (will fail with timeout)
+  }
+}
 
 export interface ScanResult {
   url: string;
@@ -69,6 +164,9 @@ export async function scanUrl(url: string): Promise<ScanResult> {
   } catch {
     throw new Error("Invalid URL provided");
   }
+
+  // SSRF protection: block private IPs, cloud metadata, localhost
+  await validateUrlSafety(validUrl);
 
   const browser = await getBrowser();
 

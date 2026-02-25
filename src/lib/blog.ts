@@ -69,8 +69,16 @@ export function getAllPosts(): BlogPost[] {
 }
 
 export function getPostBySlug(slug: string): BlogPost | null {
+  // Sanitize slug: allow only alphanumeric, hyphens, and underscores
+  if (!/^[a-zA-Z0-9_-]+$/.test(slug)) return null;
+
   const filename = `${slug}.md`;
   const filePath = path.join(BLOG_DIR, filename);
+
+  // Path traversal protection: ensure resolved path stays within BLOG_DIR
+  const resolvedPath = path.resolve(filePath);
+  if (!resolvedPath.startsWith(path.resolve(BLOG_DIR))) return null;
+
   if (!fs.existsSync(filePath)) return null;
   return parsePost(filename);
 }

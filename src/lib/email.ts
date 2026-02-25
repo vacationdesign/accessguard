@@ -124,7 +124,7 @@ export async function sendWelcomeEmail({
 
               <p style="margin:0;color:#94a3b8;font-size:13px;line-height:1.6;">
                 Questions? Reply to this email or contact us at
-                <a href="mailto:g550139@gmail.com" style="color:#2563eb;text-decoration:none;">g550139@gmail.com</a>.
+                <a href="mailto:support@accessguard.dev" style="color:#2563eb;text-decoration:none;">support@accessguard.dev</a>.
               </p>
             </td>
           </tr>
@@ -159,7 +159,7 @@ export async function sendWelcomeEmail({
       return;
     }
 
-    console.log(`Welcome email sent to ${to} for ${planInfo.name}`);
+    console.log(`Welcome email sent for ${planInfo.name} plan`);
   } catch (err) {
     // Log but don't throw — email failures should not break the webhook
     console.error("Error sending welcome email:", err);

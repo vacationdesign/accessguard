@@ -84,7 +84,7 @@ export default function TokushohoPage() {
                   <span className="text-xs font-normal text-gray-500">Contact</span>
                 </th>
                 <td className="px-6 py-4 text-sm text-gray-700">
-                  メール: g550139@gmail.com<br />
+                  メール: support@accessguard.dev<br />
                   <span className="text-gray-500 text-xs">※お問い合わせはメールにてお願いいたします</span>
                 </td>
               </tr>

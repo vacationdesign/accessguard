@@ -1,8 +1,23 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe, PLANS, PlanKey } from "@/lib/stripe";
 
+const ALLOWED_ORIGINS = [
+  "https://www.accessguard.dev",
+  "https://accessguard.dev",
+  ...(process.env.NODE_ENV === "development" ? ["http://localhost:3000"] : []),
+];
+
 export async function POST(request: NextRequest) {
   try {
+    // CSRF protection: validate Origin header
+    const origin = request.headers.get("origin");
+    if (origin && !ALLOWED_ORIGINS.includes(origin)) {
+      return NextResponse.json(
+        { error: "Forbidden" },
+        { status: 403 }
+      );
+    }
+
     const body = await request.json();
     const { plan } = body as { plan: string };
 
@@ -23,7 +38,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+    if (!baseUrl) {
+      console.error("NEXT_PUBLIC_BASE_URL is not configured");
+      return NextResponse.json(
+        { error: "Server configuration error. Please try again later." },
+        { status: 500 }
+      );
+    }
 
     // Create a Stripe Checkout session
     const session = await stripe.checkout.sessions.create({
@@ -49,7 +71,7 @@ export async function POST(request: NextRequest) {
   } catch (error: any) {
     console.error("Stripe checkout error:", error);
     return NextResponse.json(
-      { error: error.message || "Failed to create checkout session." },
+      { error: "Failed to create checkout session. Please try again later." },
       { status: 500 }
     );
   }

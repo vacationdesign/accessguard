@@ -1,11 +1,43 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { stripe } from "@/lib/stripe";
 
 export const metadata = {
   title: "Welcome to AccessGuard Pro - Subscription Confirmed",
   description: "Your AccessGuard subscription is now active. Start scanning your websites for accessibility issues.",
 };
 
-export default function CheckoutSuccessPage() {
+interface CheckoutSuccessPageProps {
+  searchParams: Promise<{ session_id?: string }>;
+}
+
+export default async function CheckoutSuccessPage({ searchParams }: CheckoutSuccessPageProps) {
+  const { session_id } = await searchParams;
+
+  // If no session_id provided, redirect to home
+  if (!session_id || typeof session_id !== "string") {
+    redirect("/");
+  }
+
+  // Verify the session with Stripe
+  let plan = "Pro";
+  try {
+    const session = await stripe.checkout.sessions.retrieve(session_id);
+
+    // Only show success page if the checkout was actually completed
+    if (session.status !== "complete") {
+      redirect("/");
+    }
+
+    // Get the plan name from metadata
+    if (session.metadata?.plan === "agency") {
+      plan = "Agency";
+    }
+  } catch {
+    // Invalid or expired session_id — redirect to home
+    redirect("/");
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex items-center justify-center px-6">
       <div className="max-w-lg w-full text-center space-y-8">
@@ -31,7 +63,7 @@ export default function CheckoutSuccessPage() {
         {/* Message */}
         <div className="space-y-3">
           <h1 className="text-3xl font-extrabold text-foreground">
-            Welcome to AccessGuard!
+            Welcome to AccessGuard {plan}!
           </h1>
           <p className="text-lg text-muted">
             Your subscription is now active. Your 14-day free trial has started

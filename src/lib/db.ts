@@ -343,8 +343,9 @@ export async function getRecentScanCount(
 
   if (error) {
     console.error("Error counting recent scans:", error.message);
-    // Fail open -- if we can't check, allow the scan rather than blocking users
-    return 0;
+    // Fail closed -- if we can't check rate limits, assume limit is reached
+    // This prevents abuse if the database is temporarily unreachable
+    return Infinity;
   }
 
   return count ?? 0;

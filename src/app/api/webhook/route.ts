@@ -57,7 +57,6 @@ export async function POST(request: NextRequest) {
 
         console.log("Checkout session completed:", {
           sessionId: session.id,
-          customerEmail,
           plan,
           subscriptionId: stripeSubscriptionId,
         });
@@ -93,7 +92,7 @@ export async function POST(request: NextRequest) {
         });
 
         console.log(
-          `User ${user.email} subscribed to ${plan} plan (subscription: ${stripeSubscriptionId})`
+          `User ${user.id} subscribed to ${plan} plan (subscription: ${stripeSubscriptionId})`
         );
 
         // Send welcome email (non-blocking — failures are logged, not thrown)
@@ -178,7 +177,7 @@ export async function POST(request: NextRequest) {
             .eq("id", user.id);
 
           console.log(
-            `User ${user.email} downgraded to free plan after subscription cancellation`
+            `User ${user.id} downgraded to free plan after subscription cancellation`
           );
         }
         break;
@@ -233,10 +232,9 @@ export async function POST(request: NextRequest) {
             status: stripeSubscription.status, // Stripe sets this to "past_due"
           });
 
-          // Log the failure for monitoring
-          const user = await getUserByStripeCustomerId(customerId);
+          // Log the failure for monitoring (no PII in logs)
           console.error(
-            `Payment failed for user ${user?.email ?? customerId} ` +
+            `Payment failed for customer ${customerId} ` +
               `(invoice: ${invoice.id}, attempt: ${invoice.attempt_count}). ` +
               `Subscription status: ${stripeSubscription.status}`
           );

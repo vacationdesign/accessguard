@@ -2,8 +2,26 @@ import { NextRequest, NextResponse } from "next/server";
 import { scanUrl, ScanResult } from "@/lib/scanner";
 import { canUserScan, logScan } from "@/lib/db";
 
+// Vercel serverless function config: scanning needs up to 60s
+export const maxDuration = 60;
+
+const ALLOWED_ORIGINS = [
+  "https://www.accessguard.dev",
+  "https://accessguard.dev",
+  ...(process.env.NODE_ENV === "development" ? ["http://localhost:3000"] : []),
+];
+
 export async function POST(request: NextRequest) {
   try {
+    // CSRF protection: validate Origin header
+    const origin = request.headers.get("origin");
+    if (origin && !ALLOWED_ORIGINS.includes(origin)) {
+      return NextResponse.json(
+        { error: "Forbidden" },
+        { status: 403 }
+      );
+    }
+
     // Get client IP for rate limiting
     const ip =
       request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
@@ -76,6 +94,13 @@ export async function POST(request: NextRequest) {
     if (error.message === "Invalid URL provided") {
       return NextResponse.json(
         { error: "Invalid URL provided" },
+        { status: 400 }
+      );
+    }
+
+    if (error.message?.includes("not allowed")) {
+      return NextResponse.json(
+        { error: "This URL cannot be scanned for security reasons." },
         { status: 400 }
       );
     }
