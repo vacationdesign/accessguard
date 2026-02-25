@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "a11yscope-dev",
-      "runtimeExecutable": "cmd",
-      "runtimeArgs": ["/c", "cd /d C:\\Users\\g5501\\dev\\accessguard && npm run dev"],
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["next", "dev"],
       "port": 3000
     }
   ]
