@@ -174,7 +174,7 @@ export async function scanUrl(url: string): Promise<ScanResult> {
     const page = await browser.newPage();
     await page.setViewport({ width: 1280, height: 720 });
     await page.setUserAgent(
-      "A11yScope/1.0 (Accessibility Scanner; +https://a11yscope.com)"
+      "A11yScope/1.0 (Accessibility Scanner; +https://www.a11yscope.com)"
     );
 
     // Navigate with timeout
@@ -210,18 +210,23 @@ export async function scanUrl(url: string): Promise<ScanResult> {
 
     const scanDuration = Date.now() - startTime;
 
+    // Null safety: ensure arrays exist even if axe returns unexpected shape
+    const violations = axeResults.violations ?? [];
+    const passes = axeResults.passes ?? [];
+    const incomplete = axeResults.incomplete ?? [];
+
     // Calculate accessibility score (0-100)
     const totalChecks =
-      axeResults.violations.length +
-      axeResults.passes.length +
-      axeResults.incomplete.length;
+      violations.length +
+      passes.length +
+      incomplete.length;
     const score =
       totalChecks > 0
-        ? Math.round((axeResults.passes.length / totalChecks) * 100)
+        ? Math.round((passes.length / totalChecks) * 100)
         : 100;
 
     // Map violations to our format
-    const violations: Violation[] = axeResults.violations.map((v) => ({
+    const mappedViolations: Violation[] = violations.map((v) => ({
       id: v.id,
       impact: v.impact as Violation["impact"],
       description: v.description,
@@ -238,16 +243,16 @@ export async function scanUrl(url: string): Promise<ScanResult> {
 
     // Sort by impact severity
     const impactOrder = { critical: 0, serious: 1, moderate: 2, minor: 3 };
-    violations.sort(
+    mappedViolations.sort(
       (a, b) => impactOrder[a.impact] - impactOrder[b.impact]
     );
 
     return {
       url: validUrl.toString(),
       timestamp: new Date().toISOString(),
-      violations,
-      passes: axeResults.passes.length,
-      incomplete: axeResults.incomplete.length,
+      violations: mappedViolations,
+      passes: passes.length,
+      incomplete: incomplete.length,
       score,
       scanDuration,
     };

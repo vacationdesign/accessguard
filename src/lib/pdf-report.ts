@@ -352,7 +352,7 @@ export function generatePdfReport(result: ScanResult): void {
       289,
       { align: "right" }
     );
-    doc.text("a11yscope.dev", margin, 289);
+    doc.text("a11yscope.com", margin, 289);
 
     // Tiny branding
     doc.setFontSize(6);

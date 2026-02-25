@@ -182,20 +182,41 @@ export async function getAllUsers(options: {
     throw new Error(`Error fetching users: ${error.message}`);
   }
 
-  // Get scan counts for these users
   const userList = (users ?? []) as AdminUser[];
+  const userIds = userList.map((u) => u.id);
 
-  // Fetch scan count for each user (N+1, but fine for small user base)
-  const enriched = await Promise.all(
-    userList.map(async (user) => {
-      const { count: scanCount } = await supabase
-        .from("scan_logs")
-        .select("*", { count: "exact", head: true })
-        .eq("user_id", user.id);
+  // Single query to get scan counts for all users in the page
+  let scanCountMap: Record<string, number> = {};
+  if (userIds.length > 0) {
+    const { data: countRows } = await supabase
+      .rpc("get_scan_counts_by_users", { user_ids: userIds });
 
-      return { ...user, scan_count: scanCount ?? 0 };
-    })
-  );
+    // Falls back to N+1 if the RPC doesn't exist yet
+    if (countRows && Array.isArray(countRows)) {
+      for (const row of countRows) {
+        scanCountMap[row.user_id] = row.scan_count;
+      }
+    } else {
+      // Fallback: batch via individual counts (parallel)
+      const counts = await Promise.all(
+        userIds.map(async (id) => {
+          const { count: c } = await supabase
+            .from("scan_logs")
+            .select("*", { count: "exact", head: true })
+            .eq("user_id", id);
+          return { id, count: c ?? 0 };
+        })
+      );
+      for (const { id, count: c } of counts) {
+        scanCountMap[id] = c;
+      }
+    }
+  }
+
+  const enriched = userList.map((user) => ({
+    ...user,
+    scan_count: scanCountMap[user.id] ?? 0,
+  }));
 
   return {
     users: enriched,

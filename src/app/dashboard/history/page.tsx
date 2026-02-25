@@ -18,7 +18,7 @@ export default async function ScanHistoryPage({
 
   const params = await searchParams;
   const isFree = user.plan === "free";
-  const currentPage = isFree ? 1 : Math.max(1, parseInt(params.page || "1", 10));
+  const currentPage = isFree ? 1 : Math.min(1000, Math.max(1, parseInt(params.page || "1", 10) || 1));
   const siteFilter = isFree ? undefined : params.site || undefined;
   const limit = isFree ? 3 : 20;
 

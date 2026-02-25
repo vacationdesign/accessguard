@@ -21,6 +21,7 @@ export default function SitesPage() {
   const [error, setError] = useState<string | null>(null);
   const [fetchError, setFetchError] = useState<string | null>(null);
   const [deleting, setDeleting] = useState<string | null>(null);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
   const [plan, setPlan] = useState<string>("free");
   const [siteLimit, setSiteLimit] = useState<number>(0);
 
@@ -78,6 +79,7 @@ export default function SitesPage() {
     if (!confirm("Remove this site? Scan history will be preserved.")) return;
 
     setDeleting(siteId);
+    setDeleteError(null);
     try {
       const res = await fetch("/api/sites", {
         method: "DELETE",
@@ -89,10 +91,10 @@ export default function SitesPage() {
         setSites((prev) => prev.filter((s) => s.id !== siteId));
       } else {
         const data = await res.json().catch(() => ({}));
-        alert(data.error || "Failed to remove site. Please try again.");
+        setDeleteError(data.error || "Failed to remove site. Please try again.");
       }
     } catch {
-      alert("Network error. Please check your connection and try again.");
+      setDeleteError("Network error. Please check your connection and try again.");
     } finally {
       setDeleting(null);
     }
@@ -206,6 +208,13 @@ export default function SitesPage() {
       {fetchError && (
         <div className="bg-red-50 border border-red-200 rounded-xl px-5 py-4 text-sm text-red-800">
           {fetchError}
+        </div>
+      )}
+
+      {/* Delete Error */}
+      {deleteError && (
+        <div className="bg-red-50 border border-red-200 rounded-xl px-5 py-4 text-sm text-red-800">
+          {deleteError}
         </div>
       )}
 

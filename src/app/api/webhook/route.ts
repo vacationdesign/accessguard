@@ -4,6 +4,7 @@ import Stripe from "stripe";
 import {
   getOrCreateUser,
   getUserByStripeCustomerId,
+  getActiveSubscription,
   createSubscription,
   updateSubscription,
 } from "@/lib/db";
@@ -68,6 +69,15 @@ export async function POST(request: NextRequest) {
 
         // Create or update the user record with the Stripe customer ID
         const user = await getOrCreateUser(customerEmail, stripeCustomerId);
+
+        // Idempotency: skip if this subscription already exists (webhook replay)
+        const existingSub = await getActiveSubscription(user.id);
+        if (existingSub?.stripe_subscription_id === stripeSubscriptionId) {
+          console.log(
+            `Subscription ${stripeSubscriptionId} already exists — skipping duplicate webhook`
+          );
+          break;
+        }
 
         // Fetch the full subscription from Stripe to get period dates
         const stripeSubscription =

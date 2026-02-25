@@ -51,11 +51,16 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  // Protect admin routes
+  // Protect admin routes — require authentication + admin email
   if (pathname.startsWith("/admin")) {
     if (!user) {
       const loginUrl = new URL("/login", request.url);
       return NextResponse.redirect(loginUrl);
+    }
+    const adminEmail = process.env.ADMIN_EMAIL;
+    if (!adminEmail || user.email?.toLowerCase() !== adminEmail.toLowerCase()) {
+      const dashboardUrl = new URL("/dashboard", request.url);
+      return NextResponse.redirect(dashboardUrl);
     }
   }
 

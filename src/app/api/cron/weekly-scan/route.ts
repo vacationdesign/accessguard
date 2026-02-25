@@ -75,7 +75,7 @@ export async function GET(request: NextRequest) {
             "cron",
             result.score ?? 0,
             result.violations?.length ?? 0,
-            0, // no duration tracking for cron
+            result.scanDuration ?? 0,
             result.violations ?? undefined,
             result.passes ?? undefined,
             result.incomplete ?? undefined
