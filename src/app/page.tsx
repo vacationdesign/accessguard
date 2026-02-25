@@ -76,13 +76,12 @@ export default function Home() {
           >
             Sign In
           </a>
-          <button
-            onClick={() => handleCheckout("pro")}
-            disabled={checkoutLoading !== null}
-            className="bg-primary text-white text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-primary-dark transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+          <a
+            href="/dashboard"
+            className="bg-primary text-white text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-primary-dark transition-colors"
           >
-            {checkoutLoading ? "Redirecting..." : "Start Free Trial"}
-          </button>
+            Dashboard
+          </a>
         </div>
       </nav>
 
