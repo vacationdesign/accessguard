@@ -1,6 +1,3 @@
-// @ts-nocheck — Stripe SDK v20 types are out of sync with the actual API response
-// (e.g. current_period_start, invoice.subscription were removed from TS types).
-// The code is correct at runtime; this suppresses false type errors.
 import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
 import Stripe from "stripe";
@@ -38,8 +35,8 @@ export async function POST(request: NextRequest) {
 
     try {
       event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
-    } catch (err: any) {
-      console.error("Webhook signature verification failed:", err.message);
+    } catch (err: unknown) {
+      console.error("Webhook signature verification failed:", (err as Error).message);
       return NextResponse.json(
         { error: "Webhook signature verification failed." },
         { status: 400 }
@@ -77,17 +74,19 @@ export async function POST(request: NextRequest) {
           await stripe.subscriptions.retrieve(stripeSubscriptionId);
 
         // Create the subscription record in our database
+        // Note: Stripe SDK v20 removed some fields from TS types but they exist at runtime
+        const subAny = stripeSubscription as any;
         await createSubscription(user.id, {
           stripeSubscriptionId,
           status: stripeSubscription.status,
           plan,
-          currentPeriodStart: new Date(stripeSubscription.current_period_start * 1000),
-          currentPeriodEnd: new Date(stripeSubscription.current_period_end * 1000),
-          trialStart: stripeSubscription.trial_start
-            ? new Date(stripeSubscription.trial_start * 1000)
+          currentPeriodStart: new Date(subAny.current_period_start * 1000),
+          currentPeriodEnd: new Date(subAny.current_period_end * 1000),
+          trialStart: subAny.trial_start
+            ? new Date(subAny.trial_start * 1000)
             : undefined,
-          trialEnd: stripeSubscription.trial_end
-            ? new Date(stripeSubscription.trial_end * 1000)
+          trialEnd: subAny.trial_end
+            ? new Date(subAny.trial_end * 1000)
             : undefined,
         });
 
@@ -99,8 +98,8 @@ export async function POST(request: NextRequest) {
         sendWelcomeEmail({
           to: customerEmail,
           plan,
-          trialEndDate: stripeSubscription.trial_end
-            ? new Date(stripeSubscription.trial_end * 1000)
+          trialEndDate: subAny.trial_end
+            ? new Date(subAny.trial_end * 1000)
             : null,
         }).catch((err) => {
           console.error("Welcome email failed (non-blocking):", err);
@@ -111,8 +110,8 @@ export async function POST(request: NextRequest) {
           event: "new_subscription",
           customerEmail,
           plan: plan === "agency" ? "Agency ($149/mo)" : "Pro ($49/mo)",
-          details: stripeSubscription.trial_end
-            ? `14-day trial until ${new Date(stripeSubscription.trial_end * 1000).toLocaleDateString("en-US")}`
+          details: subAny.trial_end
+            ? `14-day trial until ${new Date(subAny.trial_end * 1000).toLocaleDateString("en-US")}`
             : "No trial — charged immediately",
         }).catch((err) => {
           console.error("Admin notification failed (non-blocking):", err);
@@ -123,6 +122,7 @@ export async function POST(request: NextRequest) {
 
       case "customer.subscription.updated": {
         const subscription = event.data.object as Stripe.Subscription;
+        const updSubAny = subscription as any;
         console.log("Subscription updated:", {
           subscriptionId: subscription.id,
           status: subscription.status,
@@ -141,19 +141,19 @@ export async function POST(request: NextRequest) {
         await updateSubscription(subscription.id, {
           status: subscription.status,
           plan,
-          currentPeriodStart: new Date(subscription.current_period_start * 1000),
-          currentPeriodEnd: new Date(subscription.current_period_end * 1000),
-          trialStart: subscription.trial_start
-            ? new Date(subscription.trial_start * 1000)
+          currentPeriodStart: new Date(updSubAny.current_period_start * 1000),
+          currentPeriodEnd: new Date(updSubAny.current_period_end * 1000),
+          trialStart: updSubAny.trial_start
+            ? new Date(updSubAny.trial_start * 1000)
             : undefined,
-          trialEnd: subscription.trial_end
-            ? new Date(subscription.trial_end * 1000)
+          trialEnd: updSubAny.trial_end
+            ? new Date(updSubAny.trial_end * 1000)
             : undefined,
-          cancelAt: subscription.cancel_at
-            ? new Date(subscription.cancel_at * 1000)
+          cancelAt: updSubAny.cancel_at
+            ? new Date(updSubAny.cancel_at * 1000)
             : null,
-          canceledAt: subscription.canceled_at
-            ? new Date(subscription.canceled_at * 1000)
+          canceledAt: updSubAny.canceled_at
+            ? new Date(updSubAny.canceled_at * 1000)
             : null,
         });
 
@@ -205,24 +205,27 @@ export async function POST(request: NextRequest) {
 
       case "invoice.payment_succeeded": {
         const invoice = event.data.object as Stripe.Invoice;
+        const invAny = invoice as any;
         const customerId = invoice.customer as string;
 
         console.log("Payment succeeded:", {
           invoiceId: invoice.id,
           customerId,
-          amountPaid: invoice.amount_paid,
+          amountPaid: invAny.amount_paid,
         });
 
         // If this invoice is tied to a subscription, update the period dates
-        if (invoice.subscription) {
+        const succSubId = invAny.subscription;
+        if (succSubId) {
           const stripeSubscription = await stripe.subscriptions.retrieve(
-            invoice.subscription as string
+            succSubId as string
           );
+          const succSubAny = stripeSubscription as any;
 
           await updateSubscription(stripeSubscription.id, {
             status: stripeSubscription.status,
-            currentPeriodStart: new Date(stripeSubscription.current_period_start * 1000),
-            currentPeriodEnd: new Date(stripeSubscription.current_period_end * 1000),
+            currentPeriodStart: new Date(succSubAny.current_period_start * 1000),
+            currentPeriodEnd: new Date(succSubAny.current_period_end * 1000),
           });
 
           console.log(
@@ -234,18 +237,20 @@ export async function POST(request: NextRequest) {
 
       case "invoice.payment_failed": {
         const invoice = event.data.object as Stripe.Invoice;
+        const failInvAny = invoice as any;
         const customerId = invoice.customer as string;
 
         console.log("Payment failed:", {
           invoiceId: invoice.id,
           customerId,
-          attemptCount: invoice.attempt_count,
+          attemptCount: failInvAny.attempt_count,
         });
 
         // Update subscription status to reflect the payment issue
-        if (invoice.subscription) {
+        const failSubId = failInvAny.subscription;
+        if (failSubId) {
           const stripeSubscription = await stripe.subscriptions.retrieve(
-            invoice.subscription as string
+            failSubId as string
           );
 
           await updateSubscription(stripeSubscription.id, {
@@ -255,7 +260,7 @@ export async function POST(request: NextRequest) {
           // Log the failure for monitoring (no PII in logs)
           console.error(
             `Payment failed for customer ${customerId} ` +
-              `(invoice: ${invoice.id}, attempt: ${invoice.attempt_count}). ` +
+              `(invoice: ${invoice.id}, attempt: ${failInvAny.attempt_count}). ` +
               `Subscription status: ${stripeSubscription.status}`
           );
 
@@ -264,7 +269,7 @@ export async function POST(request: NextRequest) {
           sendAdminNotification({
             event: "payment_failed",
             customerEmail: failedUser?.email ?? customerId,
-            details: `Attempt ${invoice.attempt_count} — status: ${stripeSubscription.status}`,
+            details: `Attempt ${failInvAny.attempt_count} — status: ${stripeSubscription.status}`,
           }).catch((err) => {
             console.error("Admin notification failed (non-blocking):", err);
           });
@@ -277,7 +282,7 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json({ received: true });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Webhook handler error:", error);
     return NextResponse.json(
       { error: "Webhook handler failed." },

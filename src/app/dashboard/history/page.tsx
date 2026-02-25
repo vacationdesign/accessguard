@@ -1,7 +1,12 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
 import { getUserScanHistory, getUserSites } from "@/lib/db";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Scan History",
+};
 
 export default async function ScanHistoryPage({
   searchParams,
@@ -155,7 +160,7 @@ export default async function ScanHistoryPage({
       </div>
 
       {/* Pagination (paid plans only) */}
-      {!isFree && scans.length >= limit && (
+      {!isFree && totalScans > currentPage * limit && (
         <div className="flex justify-center gap-2">
           {currentPage > 1 && (
             <Link

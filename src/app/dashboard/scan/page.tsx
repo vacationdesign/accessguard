@@ -17,8 +17,8 @@ interface RecentScan {
   id: string;
   url: string;
   score: number;
-  violation_count: number;
-  scan_duration_ms: number;
+  violations_count: number | null;
+  scan_duration_ms: number | null;
   created_at: string;
 }
 
@@ -290,8 +290,10 @@ export default function DashboardScanPage() {
                     {scan.url}
                   </p>
                   <p className="text-xs text-muted mt-0.5">
-                    {new Date(scan.created_at).toLocaleString()} &middot;{" "}
-                    {(scan.scan_duration_ms / 1000).toFixed(1)}s
+                    {new Date(scan.created_at).toLocaleString()}
+                    {scan.scan_duration_ms != null && (
+                      <> &middot; {(scan.scan_duration_ms / 1000).toFixed(1)}s</>
+                    )}
                   </p>
                 </div>
                 <div className="flex items-center gap-3 ml-4 flex-shrink-0">
@@ -306,9 +308,9 @@ export default function DashboardScanPage() {
                   >
                     {scan.score}%
                   </span>
-                  {scan.violation_count > 0 && (
+                  {scan.violations_count != null && scan.violations_count > 0 && (
                     <span className="text-xs bg-red-50 text-red-700 px-2 py-0.5 rounded-full">
-                      {scan.violation_count} issues
+                      {scan.violations_count} issues
                     </span>
                   )}
                   <svg

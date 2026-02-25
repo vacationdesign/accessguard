@@ -19,21 +19,25 @@ export default function SitesPage() {
   const [name, setName] = useState("");
   const [adding, setAdding] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [fetchError, setFetchError] = useState<string | null>(null);
   const [deleting, setDeleting] = useState<string | null>(null);
   const [plan, setPlan] = useState<string>("free");
   const [siteLimit, setSiteLimit] = useState<number>(0);
 
   const fetchSites = useCallback(async () => {
     try {
+      setFetchError(null);
       const res = await fetch("/api/sites");
       const data = await res.json();
       if (res.ok) {
         setSites(data.sites || []);
         if (data.plan) setPlan(data.plan);
         if (data.siteLimit !== undefined) setSiteLimit(data.siteLimit);
+      } else {
+        setFetchError(data.error || "Failed to load sites.");
       }
     } catch {
-      // silently fail
+      setFetchError("Network error. Please check your connection and try again.");
     } finally {
       setLoading(false);
     }
@@ -83,9 +87,12 @@ export default function SitesPage() {
 
       if (res.ok) {
         setSites((prev) => prev.filter((s) => s.id !== siteId));
+      } else {
+        const data = await res.json().catch(() => ({}));
+        alert(data.error || "Failed to remove site. Please try again.");
       }
     } catch {
-      // silently fail
+      alert("Network error. Please check your connection and try again.");
     } finally {
       setDeleting(null);
     }
@@ -195,11 +202,18 @@ export default function SitesPage() {
         )}
       </div>
 
+      {/* Fetch Error */}
+      {fetchError && (
+        <div className="bg-red-50 border border-red-200 rounded-xl px-5 py-4 text-sm text-red-800">
+          {fetchError}
+        </div>
+      )}
+
       {/* Sites List */}
       <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
         {loading ? (
           <div className="px-6 py-12 text-center text-muted">Loading...</div>
-        ) : sites.length === 0 ? (
+        ) : sites.length === 0 && !fetchError ? (
           <div className="px-6 py-12 text-center">
             <p className="text-muted">
               {canAddSites

@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { createSupabaseServerClient } from "./supabase-server";
 import { getSupabaseClient } from "./supabase";
 
@@ -29,8 +30,10 @@ export interface AppUserWithSubscription extends AppUser {
 /**
  * Get the currently authenticated user's application record.
  * Returns null if not authenticated or user not found.
+ * Wrapped in React cache() to deduplicate calls within the same request
+ * (e.g. layout + page both calling getCurrentUser).
  */
-export async function getCurrentUser(): Promise<AppUserWithSubscription | null> {
+export const getCurrentUser = cache(async (): Promise<AppUserWithSubscription | null> => {
   const supabase = await createSupabaseServerClient();
   const {
     data: { user },
@@ -52,7 +55,7 @@ export async function getCurrentUser(): Promise<AppUserWithSubscription | null> 
   }
 
   return (data as AppUserWithSubscription) || null;
-}
+});
 
 /**
  * Link a Supabase Auth user to an existing application user record.

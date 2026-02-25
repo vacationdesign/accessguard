@@ -1,44 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
-import { getUserByEmail } from "@/lib/db";
-
-const ALLOWED_ORIGINS = [
-  "https://www.accessguard.dev",
-  "https://accessguard.dev",
-  ...(process.env.NODE_ENV === "development" ? ["http://localhost:3000"] : []),
-];
+import { getCurrentUser } from "@/lib/auth";
 
 export async function POST(request: NextRequest) {
   try {
-    // CSRF protection: validate Origin header
-    const origin = request.headers.get("origin");
-    if (origin && !ALLOWED_ORIGINS.includes(origin)) {
-      return NextResponse.json(
-        { error: "Forbidden" },
-        { status: 403 }
-      );
+    // Authenticate: only logged-in users can access their own portal
+    const user = await getCurrentUser();
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const body = await request.json();
-    const { email } = body as { email: string };
-
-    if (!email || typeof email !== "string") {
+    if (!user.stripe_customer_id) {
       return NextResponse.json(
-        { error: "Email is required." },
-        { status: 400 }
-      );
-    }
-
-    // Normalize email to prevent enumeration via casing
-    const normalizedEmail = email.trim().toLowerCase();
-
-    // Find the user and their Stripe customer ID
-    const user = await getUserByEmail(normalizedEmail);
-
-    if (!user || !user.stripe_customer_id) {
-      // Use a generic message to prevent user enumeration
-      return NextResponse.json(
-        { error: "Unable to create portal session. Please contact support if you believe this is an error." },
+        { error: "No active subscription found." },
         { status: 404 }
       );
     }
@@ -52,9 +26,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create a Stripe Customer Portal session
+    // Create a Stripe Customer Portal session using the authenticated user's customer ID
     const session = await stripe.billingPortal.sessions.create({
-      customer: user.stripe_customer_id,
+      customer: user.stripe_customer_id!,
       return_url: baseUrl,
     });
 

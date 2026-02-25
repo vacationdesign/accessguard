@@ -32,9 +32,11 @@ export const metadata: Metadata = {
       "Scan your website for accessibility issues in seconds. Get actionable fixes for WCAG 2.1 compliance.",
     type: "website",
     locale: "en_US",
+    url: "https://www.accessguard.dev",
+    siteName: "AccessGuard",
   },
   twitter: {
-    card: "summary_large_image",
+    card: "summary",
     title: "AccessGuard - Free Website Accessibility Checker",
     description:
       "Scan your website for accessibility issues in seconds. Get actionable fixes for WCAG 2.1 compliance.",

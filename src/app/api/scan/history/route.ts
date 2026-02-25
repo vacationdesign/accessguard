@@ -7,15 +7,23 @@ import { getUserScanHistory } from "@/lib/db";
  * Returns recent scan history for the authenticated user.
  */
 export async function GET(request: NextRequest) {
-  const user = await getCurrentUser();
-  if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  try {
+    const user = await getCurrentUser();
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const { searchParams } = new URL(request.url);
+    const limit = Math.min(Number(searchParams.get("limit") || "3"), 20);
+
+    const { scans } = await getUserScanHistory(user.id, { limit });
+
+    return NextResponse.json({ scans });
+  } catch (error: unknown) {
+    console.error("Scan history error:", error);
+    return NextResponse.json(
+      { error: "Failed to fetch scan history." },
+      { status: 500 }
+    );
   }
-
-  const { searchParams } = new URL(request.url);
-  const limit = Math.min(Number(searchParams.get("limit") || "3"), 20);
-
-  const { scans } = await getUserScanHistory(user.id, { limit });
-
-  return NextResponse.json({ scans });
 }

@@ -3,7 +3,10 @@ import { getCurrentUser } from "@/lib/auth";
 import DashboardShell from "@/components/dashboard/DashboardShell";
 
 export const metadata = {
-  title: "Dashboard | AccessGuard",
+  title: {
+    template: "%s | AccessGuard",
+    default: "Dashboard | AccessGuard",
+  },
 };
 
 export default async function DashboardLayout({

@@ -1,7 +1,12 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
 import { getDashboardStats, getUserScanHistory } from "@/lib/db";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Overview",
+};
 
 export default async function DashboardOverview() {
   const user = await getCurrentUser();

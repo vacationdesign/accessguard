@@ -63,12 +63,14 @@ export default function DashboardShell({
             <span className="text-sm text-muted hidden sm:block">
               {userEmail}
             </span>
-            <a
-              href="/api/auth/signout"
-              className="text-sm text-muted hover:text-foreground transition-colors"
-            >
-              Sign out
-            </a>
+            <form action="/api/auth/signout" method="POST" className="inline">
+              <button
+                type="submit"
+                className="text-sm text-muted hover:text-foreground transition-colors cursor-pointer"
+              >
+                Sign out
+              </button>
+            </form>
           </div>
         </header>
 

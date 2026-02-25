@@ -2,11 +2,7 @@
 
 import { useState } from "react";
 
-export default function ManageSubscriptionButton({
-  email,
-}: {
-  email: string;
-}) {
+export default function ManageSubscriptionButton() {
   const [loading, setLoading] = useState(false);
 
   const handleManage = async () => {
@@ -14,8 +10,6 @@ export default function ManageSubscriptionButton({
     try {
       const res = await fetch("/api/portal", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
       });
 
       const data = await res.json();

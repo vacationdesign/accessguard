@@ -1,7 +1,12 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
 import Link from "next/link";
 import ManageSubscriptionButton from "./ManageSubscriptionButton";
+
+export const metadata: Metadata = {
+  title: "Billing",
+};
 
 export default async function BillingPage() {
   const user = await getCurrentUser();
@@ -108,7 +113,7 @@ export default async function BillingPage() {
             )}
           </div>
           {user.stripe_customer_id ? (
-            <ManageSubscriptionButton email={user.email} />
+            <ManageSubscriptionButton />
           ) : user.plan === "free" ? (
             <Link
               href="/#pricing"

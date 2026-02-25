@@ -1,5 +1,10 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
+
+export const metadata: Metadata = {
+  title: "Settings",
+};
 
 export default async function SettingsPage() {
   const user = await getCurrentUser();
@@ -59,12 +64,14 @@ export default async function SettingsPage() {
         <p className="text-sm text-muted mb-4">
           Sign out of your AccessGuard account on this device.
         </p>
-        <a
-          href="/api/auth/signout"
-          className="inline-block bg-white border border-gray-200 text-foreground text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-gray-50 transition-colors"
-        >
-          Sign Out
-        </a>
+        <form action="/api/auth/signout" method="POST" className="inline">
+          <button
+            type="submit"
+            className="bg-white border border-gray-200 text-foreground text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer"
+          >
+            Sign Out
+          </button>
+        </form>
       </div>
     </div>
   );
