@@ -12,14 +12,15 @@ export default async function ScanHistoryPage({
   if (!user) redirect("/login");
 
   const params = await searchParams;
-  const currentPage = Math.max(1, parseInt(params.page || "1", 10));
-  const siteFilter = params.site || undefined;
-  const limit = 20;
+  const isFree = user.plan === "free";
+  const currentPage = isFree ? 1 : Math.max(1, parseInt(params.page || "1", 10));
+  const siteFilter = isFree ? undefined : params.site || undefined;
+  const limit = isFree ? 3 : 20;
 
   const [scanResult, sites] = await Promise.all([
     getUserScanHistory(user.id, {
       limit,
-      offset: (currentPage - 1) * limit,
+      offset: isFree ? 0 : (currentPage - 1) * limit,
       siteId: siteFilter,
     }),
     getUserSites(user.id),
@@ -44,8 +45,23 @@ export default async function ScanHistoryPage({
         </Link>
       </div>
 
+      {/* Free plan limit banner */}
+      {isFree && totalScans > 3 && (
+        <div className="bg-blue-50 border border-blue-200 rounded-xl px-5 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <p className="text-sm text-blue-800">
+            Free plan shows your last 3 scans. Upgrade to view full history ({totalScans} scans total).
+          </p>
+          <Link
+            href="/dashboard/billing"
+            className="bg-primary text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-primary-dark transition-colors whitespace-nowrap"
+          >
+            Upgrade
+          </Link>
+        </div>
+      )}
+
       {/* Site Filter */}
-      {sites.length > 0 && (
+      {!isFree && sites.length > 0 && (
         <div className="flex flex-wrap gap-2">
           <Link
             href="/dashboard/history"
@@ -138,8 +154,8 @@ export default async function ScanHistoryPage({
         )}
       </div>
 
-      {/* Pagination */}
-      {scans.length >= limit && (
+      {/* Pagination (paid plans only) */}
+      {!isFree && scans.length >= limit && (
         <div className="flex justify-center gap-2">
           {currentPage > 1 && (
             <Link

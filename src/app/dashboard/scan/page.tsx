@@ -13,12 +13,32 @@ interface ScanResult {
   scanDuration: number;
 }
 
+interface RecentScan {
+  id: string;
+  url: string;
+  score: number;
+  violation_count: number;
+  scan_duration_ms: number;
+  created_at: string;
+}
+
 export default function DashboardScanPage() {
   const searchParams = useSearchParams();
   const [url, setUrl] = useState(searchParams.get("url") || "");
   const [scanning, setScanning] = useState(false);
   const [result, setResult] = useState<ScanResult | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [recentScans, setRecentScans] = useState<RecentScan[]>([]);
+
+  // Load recent scans on mount
+  useEffect(() => {
+    fetch("/api/scan/history?limit=3")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.scans) setRecentScans(data.scans);
+      })
+      .catch(() => {});
+  }, []);
 
   // Update URL from search params when they change
   useEffect(() => {
@@ -48,6 +68,14 @@ export default function DashboardScanPage() {
       }
 
       setResult(data);
+
+      // Refresh recent scans after a successful scan
+      fetch("/api/scan/history?limit=3")
+        .then((res) => res.json())
+        .then((d) => {
+          if (d.scans) setRecentScans(d.scans);
+        })
+        .catch(() => {});
     } catch (err: any) {
       setError(err.message || "Something went wrong. Please try again.");
     } finally {
@@ -239,6 +267,73 @@ export default function DashboardScanPage() {
               className="text-sm text-primary hover:text-primary-dark font-medium"
             >
               View all scans in history &rarr;
+            </Link>
+          </div>
+        </div>
+      )}
+
+      {/* Recent Scans */}
+      {recentScans.length > 0 && (
+        <div className="space-y-3">
+          <h2 className="text-lg font-semibold text-foreground">
+            Recent Scans
+          </h2>
+          <div className="bg-white rounded-xl border border-gray-200 divide-y divide-gray-100">
+            {recentScans.map((scan) => (
+              <Link
+                key={scan.id}
+                href={`/dashboard/history/${scan.id}`}
+                className="flex items-center justify-between px-5 py-4 hover:bg-gray-50 transition-colors"
+              >
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm font-medium text-foreground truncate">
+                    {scan.url}
+                  </p>
+                  <p className="text-xs text-muted mt-0.5">
+                    {new Date(scan.created_at).toLocaleString()} &middot;{" "}
+                    {(scan.scan_duration_ms / 1000).toFixed(1)}s
+                  </p>
+                </div>
+                <div className="flex items-center gap-3 ml-4 flex-shrink-0">
+                  <span
+                    className={`text-sm font-bold ${
+                      scan.score >= 90
+                        ? "text-green-600"
+                        : scan.score >= 70
+                        ? "text-yellow-600"
+                        : "text-red-600"
+                    }`}
+                  >
+                    {scan.score}%
+                  </span>
+                  {scan.violation_count > 0 && (
+                    <span className="text-xs bg-red-50 text-red-700 px-2 py-0.5 rounded-full">
+                      {scan.violation_count} issues
+                    </span>
+                  )}
+                  <svg
+                    className="h-4 w-4 text-gray-400"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                    />
+                  </svg>
+                </div>
+              </Link>
+            ))}
+          </div>
+          <div className="text-center">
+            <Link
+              href="/dashboard/history"
+              className="text-sm text-primary hover:text-primary-dark font-medium"
+            >
+              View all scan history &rarr;
             </Link>
           </div>
         </div>
