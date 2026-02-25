@@ -95,7 +95,15 @@ export default async function ScanDetailPage({
       </div>
 
       {/* Violations Detail */}
-      <ScanDetailClient violations={scan.violations} url={scan.url} score={scan.score} />
+      <ScanDetailClient
+        violations={
+          typeof scan.violations === "string"
+            ? JSON.parse(scan.violations)
+            : scan.violations
+        }
+        url={scan.url}
+        score={scan.score}
+      />
     </div>
   );
 }

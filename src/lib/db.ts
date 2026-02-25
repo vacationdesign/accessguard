@@ -348,7 +348,7 @@ export async function logScan(
     score,
     violations_count: violationsCount,
     scan_duration_ms: scanDurationMs || null,
-    violations: violations ? JSON.stringify(violations) : null,
+    violations: violations ?? null,
     passes: passes ?? null,
     incomplete: incomplete ?? null,
     site_id: siteId,
