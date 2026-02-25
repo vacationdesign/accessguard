@@ -6,9 +6,11 @@ import Sidebar from "./Sidebar";
 export default function DashboardShell({
   children,
   userEmail,
+  isAdmin = false,
 }: {
   children: React.ReactNode;
   userEmail: string;
+  isAdmin?: boolean;
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -28,7 +30,7 @@ export default function DashboardShell({
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <Sidebar onClose={() => setSidebarOpen(false)} />
+        <Sidebar onClose={() => setSidebarOpen(false)} isAdmin={isAdmin} />
       </div>
 
       {/* Main content */}

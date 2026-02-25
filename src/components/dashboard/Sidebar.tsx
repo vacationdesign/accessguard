@@ -81,8 +81,10 @@ const navItems = [
 
 export default function Sidebar({
   onClose,
+  isAdmin = false,
 }: {
   onClose?: () => void;
+  isAdmin?: boolean;
 }) {
   const pathname = usePathname();
 
@@ -144,6 +146,32 @@ export default function Sidebar({
           );
         })}
       </nav>
+
+      {/* Admin link — only visible to admin users */}
+      {isAdmin && (
+        <div className="px-3 py-4 border-t border-gray-100">
+          <Link
+            href="/admin"
+            onClick={onClose}
+            className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-orange-600 hover:bg-orange-50 transition-colors"
+          >
+            <svg
+              className="h-5 w-5 flex-shrink-0"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75"
+              />
+            </svg>
+            Admin
+          </Link>
+        </div>
+      )}
     </aside>
   );
 }

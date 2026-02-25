@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
+import { isAdminEmail } from "@/lib/admin";
 import DashboardShell from "@/components/dashboard/DashboardShell";
 
 export const metadata = {
@@ -21,7 +22,7 @@ export default async function DashboardLayout({
   }
 
   return (
-    <DashboardShell userEmail={user.email}>
+    <DashboardShell userEmail={user.email} isAdmin={isAdminEmail(user.email)}>
       {children}
     </DashboardShell>
   );
