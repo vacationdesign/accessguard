@@ -2,9 +2,10 @@ import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 
 /**
- * Middleware — protects /dashboard/* routes, redirects auth flows.
+ * Middleware — protects /dashboard/* and /admin/* routes, redirects auth flows.
  *
  * - /dashboard/*  → if not authenticated, redirect to /login
+ * - /admin/*      → if not authenticated, redirect to /login
  * - /login        → if already authenticated, redirect to /dashboard
  * - All other routes (LP, blog, API, etc.) are unaffected.
  */
@@ -50,6 +51,14 @@ export async function middleware(request: NextRequest) {
     }
   }
 
+  // Protect admin routes
+  if (pathname.startsWith("/admin")) {
+    if (!user) {
+      const loginUrl = new URL("/login", request.url);
+      return NextResponse.redirect(loginUrl);
+    }
+  }
+
   // Redirect authenticated users away from login
   if (pathname === "/login") {
     if (user) {
@@ -64,6 +73,7 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     "/dashboard/:path*",
+    "/admin/:path*",
     "/login",
     "/api/scan/:path*",
     "/api/sites/:path*",
