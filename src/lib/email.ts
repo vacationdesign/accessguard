@@ -89,28 +89,52 @@ export async function sendWelcomeEmail({
                   : ""
               }
 
-              <!-- What you can do now -->
+              <!-- What's included -->
               <h2 style="margin:0 0 12px;color:#1e293b;font-size:18px;font-weight:600;">
-                What you can do right now
+                What&rsquo;s included in your plan
               </h2>
-              <ul style="margin:0 0 24px;padding-left:20px;color:#475569;font-size:14px;line-height:1.8;">
-                <li><strong>Unlimited accessibility scans</strong> &mdash; no hourly limits</li>
-                <li>Scan any URL at <a href="https://www.accessguard.dev" style="color:#2563eb;text-decoration:none;">www.accessguard.dev</a></li>
-              </ul>
 
-              <!-- Coming soon -->
-              <h2 style="margin:0 0 12px;color:#1e293b;font-size:18px;font-weight:600;">
-                Coming soon
-              </h2>
-              <ul style="margin:0 0 24px;padding-left:20px;color:#475569;font-size:14px;line-height:1.8;">
-                <li><strong>Pro Dashboard</strong> &mdash; manage monitored sites, view scan history and trends</li>
-                <li><strong>Weekly monitoring</strong> &mdash; automated scans with email reports</li>
-                <li><strong>PDF compliance reports</strong> &mdash; export and share with stakeholders</li>
-              </ul>
+              <!-- 1. Unlimited scans -->
+              <div style="margin:0 0 16px;padding:16px;background-color:#f8fafc;border-radius:8px;">
+                <p style="margin:0 0 4px;color:#1e293b;font-size:15px;font-weight:600;">
+                  Unlimited Accessibility Scans
+                </p>
+                <p style="margin:0;color:#475569;font-size:14px;line-height:1.6;">
+                  Run as many WCAG compliance scans as you need with no hourly limits.
+                  Visit <a href="https://www.accessguard.dev" style="color:#2563eb;text-decoration:none;">www.accessguard.dev</a>, enter any URL, and get a detailed report in seconds.
+                </p>
+              </div>
 
-              <p style="margin:0 0 24px;color:#475569;font-size:14px;line-height:1.6;">
-                We'll notify you by email as these features become available. In the meantime, weekly scan reports will be delivered directly to this email address.
-              </p>
+              <!-- 2. Pro Dashboard -->
+              <div style="margin:0 0 16px;padding:16px;background-color:#f8fafc;border-radius:8px;">
+                <p style="margin:0 0 4px;color:#1e293b;font-size:15px;font-weight:600;">
+                  Pro Dashboard
+                </p>
+                <p style="margin:0;color:#475569;font-size:14px;line-height:1.6;">
+                  Your dedicated dashboard to register the sites you want to monitor, review past scan results, and track accessibility trends over time.
+                  You&rsquo;ll receive an email with your login link once your dashboard is ready.
+                </p>
+              </div>
+
+              <!-- 3. Weekly monitoring -->
+              <div style="margin:0 0 16px;padding:16px;background-color:#f8fafc;border-radius:8px;">
+                <p style="margin:0 0 4px;color:#1e293b;font-size:15px;font-weight:600;">
+                  Weekly Automated Monitoring
+                </p>
+                <p style="margin:0;color:#475569;font-size:14px;line-height:1.6;">
+                  Every week, AccessGuard automatically scans your registered sites and sends you a summary report by email &mdash; so you can catch new issues before they become problems.
+                </p>
+              </div>
+
+              <!-- 4. PDF reports -->
+              <div style="margin:0 0 24px;padding:16px;background-color:#f8fafc;border-radius:8px;">
+                <p style="margin:0 0 4px;color:#1e293b;font-size:15px;font-weight:600;">
+                  PDF Compliance Reports
+                </p>
+                <p style="margin:0;color:#475569;font-size:14px;line-height:1.6;">
+                  Export any scan result as a branded PDF report you can share with your team, clients, or stakeholders to demonstrate compliance progress.
+                </p>
+              </div>
 
               <!-- CTA -->
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
@@ -126,7 +150,7 @@ export async function sendWelcomeEmail({
               <hr style="border:none;border-top:1px solid #e2e8f0;margin:0 0 24px;">
 
               <p style="margin:0;color:#94a3b8;font-size:13px;line-height:1.6;">
-                Questions? Reply to this email or contact us at
+                Questions? Contact us anytime at
                 <a href="mailto:support@accessguard.dev" style="color:#2563eb;text-decoration:none;">support@accessguard.dev</a>.
               </p>
             </td>
