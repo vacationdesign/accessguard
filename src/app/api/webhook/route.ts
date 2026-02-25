@@ -10,7 +10,7 @@ import {
   createSubscription,
   updateSubscription,
 } from "@/lib/db";
-import { sendWelcomeEmail } from "@/lib/email";
+import { sendWelcomeEmail, sendAdminNotification } from "@/lib/email";
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
@@ -106,6 +106,18 @@ export async function POST(request: NextRequest) {
           console.error("Welcome email failed (non-blocking):", err);
         });
 
+        // Notify admin of new subscription
+        sendAdminNotification({
+          event: "new_subscription",
+          customerEmail,
+          plan: plan === "agency" ? "Agency ($149/mo)" : "Pro ($49/mo)",
+          details: stripeSubscription.trial_end
+            ? `14-day trial until ${new Date(stripeSubscription.trial_end * 1000).toLocaleDateString("en-US")}`
+            : "No trial — charged immediately",
+        }).catch((err) => {
+          console.error("Admin notification failed (non-blocking):", err);
+        });
+
         break;
       }
 
@@ -179,6 +191,14 @@ export async function POST(request: NextRequest) {
           console.log(
             `User ${user.id} downgraded to free plan after subscription cancellation`
           );
+
+          // Notify admin of cancellation
+          sendAdminNotification({
+            event: "subscription_canceled",
+            customerEmail: user.email,
+          }).catch((err) => {
+            console.error("Admin notification failed (non-blocking):", err);
+          });
         }
         break;
       }
@@ -238,6 +258,16 @@ export async function POST(request: NextRequest) {
               `(invoice: ${invoice.id}, attempt: ${invoice.attempt_count}). ` +
               `Subscription status: ${stripeSubscription.status}`
           );
+
+          // Notify admin of payment failure
+          const failedUser = await getUserByStripeCustomerId(customerId);
+          sendAdminNotification({
+            event: "payment_failed",
+            customerEmail: failedUser?.email ?? customerId,
+            details: `Attempt ${invoice.attempt_count} — status: ${stripeSubscription.status}`,
+          }).catch((err) => {
+            console.error("Admin notification failed (non-blocking):", err);
+          });
         }
         break;
       }

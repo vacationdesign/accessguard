@@ -20,6 +20,9 @@ function getResend(): Resend {
 // Verified domain sender
 const FROM_EMAIL = "AccessGuard <noreply@accessguard.dev>";
 
+// Admin notification recipient (forwards to owner's Gmail)
+const ADMIN_EMAIL = "support@accessguard.dev";
+
 // ---------------------------------------------------------------------------
 // Welcome email
 // ---------------------------------------------------------------------------
@@ -163,5 +166,115 @@ export async function sendWelcomeEmail({
   } catch (err) {
     // Log but don't throw — email failures should not break the webhook
     console.error("Error sending welcome email:", err);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Admin notification emails (sent to owner)
+// ---------------------------------------------------------------------------
+
+interface AdminNotifyParams {
+  event: "new_subscription" | "subscription_canceled" | "payment_failed" | "payment_succeeded";
+  customerEmail: string;
+  plan?: string;
+  details?: string;
+}
+
+export async function sendAdminNotification({
+  event,
+  customerEmail,
+  plan,
+  details,
+}: AdminNotifyParams): Promise<void> {
+  const eventLabels: Record<AdminNotifyParams["event"], { emoji: string; subject: string; color: string }> = {
+    new_subscription: {
+      emoji: "🎉",
+      subject: `New subscriber: ${plan ?? "Unknown"} plan`,
+      color: "#16a34a",
+    },
+    subscription_canceled: {
+      emoji: "⚠️",
+      subject: "Subscription canceled",
+      color: "#dc2626",
+    },
+    payment_failed: {
+      emoji: "🚨",
+      subject: "Payment failed",
+      color: "#dc2626",
+    },
+    payment_succeeded: {
+      emoji: "💰",
+      subject: "Payment received",
+      color: "#2563eb",
+    },
+  };
+
+  const { emoji, subject, color } = eventLabels[event];
+  const timestamp = new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" });
+
+  const html = `
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:0;background-color:#f1f5f9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="padding:32px 16px;">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="480" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.1);">
+          <tr>
+            <td style="background-color:${color};padding:20px 28px;">
+              <h2 style="margin:0;color:#fff;font-size:18px;">${emoji} ${subject}</h2>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:24px 28px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td style="padding:6px 0;color:#64748b;font-size:13px;width:100px;">Customer</td>
+                  <td style="padding:6px 0;color:#0f172a;font-size:14px;font-weight:600;">${customerEmail}</td>
+                </tr>
+                ${plan ? `<tr>
+                  <td style="padding:6px 0;color:#64748b;font-size:13px;">Plan</td>
+                  <td style="padding:6px 0;color:#0f172a;font-size:14px;font-weight:600;">${plan}</td>
+                </tr>` : ""}
+                ${details ? `<tr>
+                  <td style="padding:6px 0;color:#64748b;font-size:13px;">Details</td>
+                  <td style="padding:6px 0;color:#0f172a;font-size:14px;">${details}</td>
+                </tr>` : ""}
+                <tr>
+                  <td style="padding:6px 0;color:#64748b;font-size:13px;">Time</td>
+                  <td style="padding:6px 0;color:#0f172a;font-size:14px;">${timestamp}</td>
+                </tr>
+              </table>
+              <hr style="border:none;border-top:1px solid #e2e8f0;margin:20px 0 16px;">
+              <p style="margin:0;text-align:center;">
+                <a href="https://dashboard.stripe.com" style="color:#2563eb;font-size:13px;text-decoration:none;">Open Stripe Dashboard →</a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
+
+  try {
+    const { error } = await getResend().emails.send({
+      from: FROM_EMAIL,
+      to: ADMIN_EMAIL,
+      subject: `[AccessGuard] ${emoji} ${subject}`,
+      html,
+    });
+
+    if (error) {
+      console.error("Failed to send admin notification:", error);
+      return;
+    }
+
+    console.log(`Admin notification sent: ${event}`);
+  } catch (err) {
+    // Non-blocking — admin notification failures should never break webhooks
+    console.error("Error sending admin notification:", err);
   }
 }
