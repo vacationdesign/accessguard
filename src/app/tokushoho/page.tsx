@@ -73,8 +73,8 @@ export default function TokushohoPage() {
                   <span className="text-xs font-normal text-gray-500">Address</span>
                 </th>
                 <td className="px-6 py-4 text-sm text-gray-700">
-                  〒180-0006<br />
-                  東京都武蔵野市中町2-18-10
+                  東京都武蔵野市<br />
+                  <span className="text-gray-500 text-xs">※詳細な所在地は、ご請求いただければ遅滞なく開示いたします</span>
                 </td>
               </tr>
               <tr>
