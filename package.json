@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@sparticuz/chromium-min": "^143.0.4",
+    "@supabase/ssr": "^0.8.0",
     "@supabase/supabase-js": "^2.97.0",
     "axe-core": "^4.11.1",
     "jspdf": "^4.2.0",

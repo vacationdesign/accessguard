@@ -9,6 +9,7 @@ export interface User {
   email: string;
   stripe_customer_id: string | null;
   plan: "free" | "pro" | "agency";
+  auth_id: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -37,6 +38,10 @@ export interface ScanLog {
   score: number | null;
   violations_count: number;
   scan_duration_ms: number | null;
+  violations: unknown[] | null;
+  passes: number | null;
+  incomplete: number | null;
+  site_id: string | null;
   created_at: string;
 }
 
@@ -297,7 +302,7 @@ export async function getActiveSubscription(
 // ---------------------------------------------------------------------------
 
 /**
- * Log a completed scan for analytics and rate-limiting purposes.
+ * Log a completed scan for analytics, rate-limiting, and history.
  */
 export async function logScan(
   userId: string | null,
@@ -305,9 +310,36 @@ export async function logScan(
   ip: string,
   score: number,
   violationsCount: number,
-  scanDurationMs?: number
+  scanDurationMs?: number,
+  violations?: unknown[],
+  passes?: number,
+  incomplete?: number
 ): Promise<void> {
   const supabase = getSupabaseClient();
+
+  // Try to match URL to a registered site
+  let siteId: string | null = null;
+  if (userId) {
+    const { data: site } = await supabase
+      .from("sites")
+      .select("id")
+      .eq("user_id", userId)
+      .eq("url", url)
+      .single();
+
+    siteId = site?.id ?? null;
+
+    // Update site's last scan info
+    if (siteId) {
+      await supabase
+        .from("sites")
+        .update({
+          last_scan_score: score,
+          last_scan_at: new Date().toISOString(),
+        })
+        .eq("id", siteId);
+    }
+  }
 
   const { error } = await supabase.from("scan_logs").insert({
     user_id: userId || null,
@@ -316,6 +348,10 @@ export async function logScan(
     score,
     violations_count: violationsCount,
     scan_duration_ms: scanDurationMs || null,
+    violations: violations ? JSON.stringify(violations) : null,
+    passes: passes ?? null,
+    incomplete: incomplete ?? null,
+    site_id: siteId,
   });
 
   if (error) {
@@ -384,4 +420,229 @@ export async function canUserScan(
   const recentCount = await getRecentScanCount(ip, WINDOW_HOURS);
 
   return recentCount < FREE_LIMIT;
+}
+
+// ---------------------------------------------------------------------------
+// Site helpers
+// ---------------------------------------------------------------------------
+
+export interface Site {
+  id: string;
+  user_id: string;
+  url: string;
+  name: string | null;
+  last_scan_score: number | null;
+  last_scan_at: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+const SITE_LIMITS: Record<string, number> = {
+  free: 0,
+  pro: 3,
+  agency: 10,
+};
+
+/**
+ * Get the maximum number of sites a user can register based on their plan.
+ */
+export function getSiteLimit(plan: string): number {
+  return SITE_LIMITS[plan] ?? 0;
+}
+
+/**
+ * Get all sites for a user.
+ */
+export async function getUserSites(userId: string): Promise<Site[]> {
+  const supabase = getSupabaseClient();
+
+  const { data, error } = await supabase
+    .from("sites")
+    .select("*")
+    .eq("user_id", userId)
+    .order("created_at", { ascending: true });
+
+  if (error) {
+    throw new Error(`Error fetching sites: ${error.message}`);
+  }
+
+  return (data as Site[]) || [];
+}
+
+/**
+ * Add a new site for a user. Enforces plan-based limits.
+ */
+export async function addSite(
+  userId: string,
+  plan: string,
+  url: string,
+  name?: string
+): Promise<Site> {
+  const supabase = getSupabaseClient();
+  const limit = getSiteLimit(plan);
+
+  // Check current count
+  const { count, error: countError } = await supabase
+    .from("sites")
+    .select("*", { count: "exact", head: true })
+    .eq("user_id", userId);
+
+  if (countError) {
+    throw new Error(`Error counting sites: ${countError.message}`);
+  }
+
+  if ((count ?? 0) >= limit) {
+    throw new Error(
+      `Site limit reached. Your ${plan} plan allows up to ${limit} sites.`
+    );
+  }
+
+  const { data, error } = await supabase
+    .from("sites")
+    .insert({
+      user_id: userId,
+      url,
+      name: name || null,
+    })
+    .select("*")
+    .single();
+
+  if (error) {
+    if (error.code === "23505") {
+      throw new Error("This URL is already registered.");
+    }
+    throw new Error(`Error adding site: ${error.message}`);
+  }
+
+  return data as Site;
+}
+
+/**
+ * Remove a site by ID (must belong to user).
+ */
+export async function removeSite(
+  siteId: string,
+  userId: string
+): Promise<void> {
+  const supabase = getSupabaseClient();
+
+  const { error } = await supabase
+    .from("sites")
+    .delete()
+    .eq("id", siteId)
+    .eq("user_id", userId);
+
+  if (error) {
+    throw new Error(`Error removing site: ${error.message}`);
+  }
+}
+
+/**
+ * Get scan history for a user, with optional site filter and pagination.
+ */
+export async function getUserScanHistory(
+  userId: string,
+  options: {
+    siteId?: string;
+    limit?: number;
+    offset?: number;
+  } = {}
+): Promise<{ scans: ScanLog[]; total: number }> {
+  const supabase = getSupabaseClient();
+  const { siteId, limit = 20, offset = 0 } = options;
+
+  let query = supabase
+    .from("scan_logs")
+    .select("*", { count: "exact" })
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false })
+    .range(offset, offset + limit - 1);
+
+  if (siteId) {
+    query = query.eq("site_id", siteId);
+  }
+
+  const { data, count, error } = await query;
+
+  if (error) {
+    throw new Error(`Error fetching scan history: ${error.message}`);
+  }
+
+  return {
+    scans: (data as ScanLog[]) || [],
+    total: count ?? 0,
+  };
+}
+
+/**
+ * Get a single scan log by ID (must belong to user).
+ */
+export async function getScanById(
+  scanId: string,
+  userId: string
+): Promise<ScanLog | null> {
+  const supabase = getSupabaseClient();
+
+  const { data, error } = await supabase
+    .from("scan_logs")
+    .select("*")
+    .eq("id", scanId)
+    .eq("user_id", userId)
+    .single();
+
+  if (error && error.code !== "PGRST116") {
+    throw new Error(`Error fetching scan: ${error.message}`);
+  }
+
+  return (data as ScanLog) || null;
+}
+
+/**
+ * Get dashboard stats for a user.
+ */
+export async function getDashboardStats(userId: string): Promise<{
+  sitesCount: number;
+  scansThisMonth: number;
+  averageScore: number | null;
+}> {
+  const supabase = getSupabaseClient();
+
+  // Sites count
+  const { count: sitesCount } = await supabase
+    .from("sites")
+    .select("*", { count: "exact", head: true })
+    .eq("user_id", userId);
+
+  // Scans this month
+  const startOfMonth = new Date();
+  startOfMonth.setDate(1);
+  startOfMonth.setHours(0, 0, 0, 0);
+
+  const { count: scansThisMonth } = await supabase
+    .from("scan_logs")
+    .select("*", { count: "exact", head: true })
+    .eq("user_id", userId)
+    .gte("created_at", startOfMonth.toISOString());
+
+  // Average score from latest scan per site
+  const { data: scores } = await supabase
+    .from("sites")
+    .select("last_scan_score")
+    .eq("user_id", userId)
+    .not("last_scan_score", "is", null);
+
+  let averageScore: number | null = null;
+  if (scores && scores.length > 0) {
+    const sum = scores.reduce(
+      (acc, s) => acc + (s.last_scan_score || 0),
+      0
+    );
+    averageScore = Math.round(sum / scores.length);
+  }
+
+  return {
+    sitesCount: sitesCount ?? 0,
+    scansThisMonth: scansThisMonth ?? 0,
+    averageScore,
+  };
 }
