@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getCurrentUser } from "@/lib/auth";
-import { getUserSites, addSite, removeSite } from "@/lib/db";
+import { getUserSites, addSite, removeSite, getSiteLimit } from "@/lib/db";
 
 /**
  * GET /api/sites — List authenticated user's sites
@@ -13,7 +13,8 @@ export async function GET() {
     }
 
     const sites = await getUserSites(user.id);
-    return NextResponse.json({ sites });
+    const siteLimit = getSiteLimit(user.plan);
+    return NextResponse.json({ sites, plan: user.plan, siteLimit });
   } catch (error: any) {
     console.error("Error fetching sites:", error.message);
     return NextResponse.json(

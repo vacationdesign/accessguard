@@ -492,8 +492,13 @@ export async function addSite(
   }
 
   if ((count ?? 0) >= limit) {
+    if (limit === 0) {
+      throw new Error(
+        "Site monitoring is available on Pro and Agency plans. Upgrade to start registering sites."
+      );
+    }
     throw new Error(
-      `Site limit reached. Your ${plan} plan allows up to ${limit} sites.`
+      `Site limit reached. Your ${plan} plan allows up to ${limit} sites. Upgrade for more.`
     );
   }
 

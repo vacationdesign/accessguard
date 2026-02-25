@@ -20,6 +20,8 @@ export default function SitesPage() {
   const [adding, setAdding] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [deleting, setDeleting] = useState<string | null>(null);
+  const [plan, setPlan] = useState<string>("free");
+  const [siteLimit, setSiteLimit] = useState<number>(0);
 
   const fetchSites = useCallback(async () => {
     try {
@@ -27,6 +29,8 @@ export default function SitesPage() {
       const data = await res.json();
       if (res.ok) {
         setSites(data.sites || []);
+        if (data.plan) setPlan(data.plan);
+        if (data.siteLimit !== undefined) setSiteLimit(data.siteLimit);
       }
     } catch {
       // silently fail
@@ -87,6 +91,9 @@ export default function SitesPage() {
     }
   };
 
+  const canAddSites = siteLimit > 0;
+  const limitReached = sites.length >= siteLimit && siteLimit > 0;
+
   return (
     <div className="space-y-8">
       <div>
@@ -96,35 +103,95 @@ export default function SitesPage() {
         </p>
       </div>
 
-      {/* Add Site Form */}
+      {/* Add Site Form or Upgrade CTA */}
       <div className="bg-white rounded-xl border border-gray-200 p-6">
-        <h2 className="font-semibold text-foreground mb-4">Add a Site</h2>
-        <form onSubmit={handleAdd} className="flex flex-col sm:flex-row gap-3">
-          <input
-            type="url"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            placeholder="https://example.com"
-            required
-            className="flex-1 px-4 py-2.5 border border-gray-200 rounded-lg text-foreground placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-          />
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Site name (optional)"
-            className="sm:w-48 px-4 py-2.5 border border-gray-200 rounded-lg text-foreground placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-          />
-          <button
-            type="submit"
-            disabled={adding || !url.trim()}
-            className="bg-primary text-white text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-primary-dark transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
-          >
-            {adding ? "Adding..." : "Add Site"}
-          </button>
-        </form>
-        {error && (
-          <p className="text-danger text-sm mt-3">{error}</p>
+        {!canAddSites ? (
+          /* Free plan — show upgrade prompt */
+          <div className="text-center py-4">
+            <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-50 rounded-full mb-3">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-6 h-6 text-primary"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                />
+              </svg>
+            </div>
+            <h2 className="font-semibold text-foreground mb-1">
+              Site Monitoring — Pro Feature
+            </h2>
+            <p className="text-muted text-sm mb-4 max-w-md mx-auto">
+              Register and monitor your websites for accessibility compliance
+              over time. Upgrade to Pro to track up to 3 sites, or Agency for
+              up to 10.
+            </p>
+            <Link
+              href="/dashboard/billing"
+              className="inline-block bg-primary text-white text-sm font-semibold px-6 py-2.5 rounded-lg hover:bg-primary-dark transition-colors"
+            >
+              Upgrade Plan
+            </Link>
+          </div>
+        ) : (
+          /* Paid plan — show form */
+          <>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="font-semibold text-foreground">Add a Site</h2>
+              <span className="text-xs text-muted">
+                {sites.length} / {siteLimit} sites
+              </span>
+            </div>
+            {limitReached ? (
+              <div className="text-center py-4">
+                <p className="text-muted text-sm mb-3">
+                  You&apos;ve reached the {siteLimit}-site limit on your{" "}
+                  <span className="capitalize">{plan}</span> plan.
+                </p>
+                <Link
+                  href="/dashboard/billing"
+                  className="text-primary hover:text-primary-dark text-sm font-medium"
+                >
+                  Upgrade for more sites →
+                </Link>
+              </div>
+            ) : (
+              <form
+                onSubmit={handleAdd}
+                className="flex flex-col sm:flex-row gap-3"
+              >
+                <input
+                  type="url"
+                  value={url}
+                  onChange={(e) => setUrl(e.target.value)}
+                  placeholder="https://example.com"
+                  required
+                  className="flex-1 px-4 py-2.5 border border-gray-200 rounded-lg text-foreground placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                />
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Site name (optional)"
+                  className="sm:w-48 px-4 py-2.5 border border-gray-200 rounded-lg text-foreground placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                />
+                <button
+                  type="submit"
+                  disabled={adding || !url.trim()}
+                  className="bg-primary text-white text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-primary-dark transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+                >
+                  {adding ? "Adding..." : "Add Site"}
+                </button>
+              </form>
+            )}
+            {error && <p className="text-danger text-sm mt-3">{error}</p>}
+          </>
         )}
       </div>
 
@@ -134,10 +201,24 @@ export default function SitesPage() {
           <div className="px-6 py-12 text-center text-muted">Loading...</div>
         ) : sites.length === 0 ? (
           <div className="px-6 py-12 text-center">
-            <p className="text-muted">No sites registered yet.</p>
-            <p className="text-sm text-muted mt-1">
-              Add a URL above to start monitoring.
+            <p className="text-muted">
+              {canAddSites
+                ? "No sites registered yet."
+                : "You can still run individual scans from the New Scan page."}
             </p>
+            {canAddSites && (
+              <p className="text-sm text-muted mt-1">
+                Add a URL above to start monitoring.
+              </p>
+            )}
+            {!canAddSites && (
+              <Link
+                href="/dashboard/scan"
+                className="inline-block text-primary hover:text-primary-dark text-sm font-medium mt-2"
+              >
+                Go to New Scan →
+              </Link>
+            )}
           </div>
         ) : (
           <div className="overflow-x-auto">
