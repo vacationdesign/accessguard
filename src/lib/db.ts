@@ -629,20 +629,18 @@ export async function getDashboardStats(userId: string): Promise<{
     .eq("user_id", userId)
     .gte("created_at", startOfMonth.toISOString());
 
-  // Average score from latest scan per site
-  const { data: scores } = await supabase
-    .from("sites")
-    .select("last_scan_score")
+  // Average score from all scans this month
+  const { data: scans } = await supabase
+    .from("scan_logs")
+    .select("score")
     .eq("user_id", userId)
-    .not("last_scan_score", "is", null);
+    .gte("created_at", startOfMonth.toISOString())
+    .not("score", "is", null);
 
   let averageScore: number | null = null;
-  if (scores && scores.length > 0) {
-    const sum = scores.reduce(
-      (acc, s) => acc + (s.last_scan_score || 0),
-      0
-    );
-    averageScore = Math.round(sum / scores.length);
+  if (scans && scans.length > 0) {
+    const sum = scans.reduce((acc, s) => acc + (s.score || 0), 0);
+    averageScore = Math.round(sum / scans.length);
   }
 
   return {
