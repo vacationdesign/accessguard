@@ -735,7 +735,7 @@ export default function Home() {
                 <ul className="space-y-2 text-sm">
                   <li>
                     <a href="/tokushoho" className="hover:text-white transition-colors">
-                      特定商取引法に基づく表記
+                      Legal Disclosure
                     </a>
                   </li>
                 </ul>
