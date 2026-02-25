@@ -1,12 +1,15 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient } from "@supabase/ssr";
+import { linkAuthToUser } from "@/lib/auth";
 
 /**
  * Auth Callback Route Handler
  *
  * When a user clicks the magic link in their email, Supabase redirects to
- * /auth/callback?code=<code>. This handler exchanges the code for a session
- * and redirects to /dashboard.
+ * /auth/callback?code=<code>. This handler:
+ * 1. Exchanges the code for a session
+ * 2. Links the auth user to the application users table (or creates one)
+ * 3. Redirects to /dashboard
  */
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url);
@@ -36,6 +39,15 @@ export async function GET(request: NextRequest) {
     const { error } = await supabase.auth.exchangeCodeForSession(code);
 
     if (!error) {
+      // Link auth user to application users table (or create new free user)
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (user?.id && user?.email) {
+        await linkAuthToUser(user.id, user.email);
+      }
+
       return response;
     }
   }
