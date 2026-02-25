@@ -194,6 +194,135 @@ export async function sendWelcomeEmail({
 }
 
 // ---------------------------------------------------------------------------
+// Weekly scan summary email
+// ---------------------------------------------------------------------------
+
+interface SiteScanSummary {
+  siteName: string;
+  url: string;
+  score: number | null;
+  violationsCount: number;
+  previousScore: number | null;
+}
+
+interface WeeklySummaryParams {
+  to: string;
+  sites: SiteScanSummary[];
+  scanDate: string;
+}
+
+export async function sendWeeklySummaryEmail({
+  to,
+  sites,
+  scanDate,
+}: WeeklySummaryParams): Promise<void> {
+  const subject = `AccessGuard Weekly Report — ${scanDate}`;
+
+  const siteRows = sites
+    .map((site) => {
+      const scoreColor =
+        site.score !== null && site.score >= 90
+          ? "#16a34a"
+          : site.score !== null && site.score >= 70
+          ? "#d97706"
+          : "#dc2626";
+      const scoreText = site.score !== null ? `${site.score}%` : "Failed";
+      const trend =
+        site.previousScore !== null && site.score !== null
+          ? site.score > site.previousScore
+            ? `<span style="color:#16a34a;">+${site.score - site.previousScore}</span>`
+            : site.score < site.previousScore
+            ? `<span style="color:#dc2626;">${site.score - site.previousScore}</span>`
+            : `<span style="color:#64748b;">—</span>`
+          : "";
+
+      return `
+        <tr>
+          <td style="padding:12px 16px;border-bottom:1px solid #e2e8f0;">
+            <strong style="color:#1e293b;font-size:14px;">${site.siteName}</strong><br>
+            <span style="color:#64748b;font-size:12px;">${site.url}</span>
+          </td>
+          <td style="padding:12px 16px;border-bottom:1px solid #e2e8f0;text-align:center;">
+            <span style="color:${scoreColor};font-weight:700;font-size:18px;">${scoreText}</span>
+            ${trend ? `<br><span style="font-size:12px;">${trend}</span>` : ""}
+          </td>
+          <td style="padding:12px 16px;border-bottom:1px solid #e2e8f0;text-align:center;color:#dc2626;font-weight:600;">
+            ${site.violationsCount}
+          </td>
+        </tr>`;
+    })
+    .join("");
+
+  const html = `
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+<body style="margin:0;padding:0;background-color:#f8fafc;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f8fafc;padding:40px 20px;">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.1);">
+          <tr>
+            <td style="background-color:#1e40af;padding:28px 40px;text-align:center;">
+              <h1 style="margin:0;color:#ffffff;font-size:22px;font-weight:700;">Weekly Accessibility Report</h1>
+              <p style="margin:8px 0 0;color:#93c5fd;font-size:14px;">${scanDate}</p>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:24px 32px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e2e8f0;border-radius:8px;overflow:hidden;">
+                <tr style="background-color:#f1f5f9;">
+                  <th style="padding:10px 16px;text-align:left;color:#64748b;font-size:12px;font-weight:600;text-transform:uppercase;">Site</th>
+                  <th style="padding:10px 16px;text-align:center;color:#64748b;font-size:12px;font-weight:600;text-transform:uppercase;">Score</th>
+                  <th style="padding:10px 16px;text-align:center;color:#64748b;font-size:12px;font-weight:600;text-transform:uppercase;">Violations</th>
+                </tr>
+                ${siteRows}
+              </table>
+
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top:24px;">
+                <tr>
+                  <td align="center">
+                    <a href="https://www.accessguard.dev/login" style="display:inline-block;background-color:#2563eb;color:#ffffff;font-size:15px;font-weight:600;text-decoration:none;padding:12px 28px;border-radius:8px;">
+                      View Full Reports
+                    </a>
+                  </td>
+                </tr>
+              </table>
+
+              <hr style="border:none;border-top:1px solid #e2e8f0;margin:24px 0 16px;">
+              <p style="margin:0;color:#94a3b8;font-size:12px;text-align:center;">
+                You're receiving this because you have active site monitoring on AccessGuard.<br>
+                <a href="https://www.accessguard.dev/dashboard/settings" style="color:#94a3b8;">Manage settings</a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
+
+  try {
+    const { error } = await getResend().emails.send({
+      from: FROM_EMAIL,
+      to,
+      subject,
+      html,
+    });
+
+    if (error) {
+      console.error("Failed to send weekly summary email:", error);
+      return;
+    }
+
+    console.log(`Weekly summary email sent to ${to}`);
+  } catch (err) {
+    console.error("Error sending weekly summary email:", err);
+  }
+}
+
+// ---------------------------------------------------------------------------
 // Admin notification emails (sent to owner)
 // ---------------------------------------------------------------------------
 

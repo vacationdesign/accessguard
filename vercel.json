@@ -3,6 +3,16 @@
     "src/app/api/scan/route.ts": {
       "memory": 1024,
       "maxDuration": 60
+    },
+    "src/app/api/cron/weekly-scan/route.ts": {
+      "memory": 1024,
+      "maxDuration": 300
     }
-  }
+  },
+  "crons": [
+    {
+      "path": "/api/cron/weekly-scan",
+      "schedule": "0 9 * * 1"
+    }
+  ]
 }
