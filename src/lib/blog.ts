@@ -43,7 +43,13 @@ function parsePost(filename: string): BlogPost | null {
     description: meta.description || "",
     date: meta.date || "",
     author: meta.author || "AccessGuard Team",
-    tags: meta.tags ? meta.tags.split(",").map((t) => t.trim()) : [],
+    tags: meta.tags
+      ? meta.tags
+          .replace(/^\[|\]$/g, "")
+          .split(",")
+          .map((t) => t.trim())
+          .filter(Boolean)
+      : [],
     content,
     readingTime,
   };
