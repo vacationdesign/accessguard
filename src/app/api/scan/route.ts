@@ -76,20 +76,23 @@ export async function POST(request: NextRequest) {
     const result: ScanResult = await scanUrl(normalizedUrl);
     const scanDurationMs = Date.now() - scanStart;
 
-    // Log the scan asynchronously (don't block the response)
-    logScan(
-      userId,
-      normalizedUrl,
-      ip,
-      result.score ?? 0,
-      result.violations?.length ?? 0,
-      scanDurationMs,
-      result.violations ?? undefined,
-      result.passes ?? undefined,
-      result.incomplete ?? undefined
-    ).catch((err) => {
+    // Log the scan to the database (must await to prevent Vercel from
+    // terminating the function before the write completes)
+    try {
+      await logScan(
+        userId,
+        normalizedUrl,
+        ip,
+        result.score ?? 0,
+        result.violations?.length ?? 0,
+        scanDurationMs,
+        result.violations ?? undefined,
+        result.passes ?? undefined,
+        result.incomplete ?? undefined
+      );
+    } catch (err) {
       console.error("Failed to log scan:", err);
-    });
+    }
 
     return NextResponse.json(result);
   } catch (error: any) {
