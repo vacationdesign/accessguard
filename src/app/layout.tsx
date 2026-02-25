@@ -12,6 +12,9 @@ export const metadata: Metadata = {
     "AccessGuard - Free Website Accessibility Checker | WCAG 2.1 Compliance Scanner",
   description:
     "Scan your website for accessibility issues in seconds. Get actionable fixes for WCAG 2.1 compliance. Avoid ADA lawsuits. Free instant scan.",
+  other: {
+    google: "notranslate",
+  },
   keywords: [
     "accessibility checker",
     "WCAG compliance",
@@ -51,7 +54,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" translate="no" className="notranslate">
       <body className={`${inter.variable} antialiased`}>{children}</body>
     </html>
   );
