@@ -581,7 +581,7 @@ export default function Home() {
             {[
               { value: "38+", label: "WCAG rules checked" },
               { value: "~6s", label: "Average scan time" },
-              { value: "97", label: "Our own A11yScope score" },
+              { value: "98", label: "Our own A11yScope score" },
               { value: "$0", label: "Cost to get started" },
             ].map((metric, i) => (
               <div key={i} className="text-center">
