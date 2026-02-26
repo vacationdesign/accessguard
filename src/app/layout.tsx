@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import ProductHuntBadge from "@/components/ProductHuntBadge";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -92,6 +93,7 @@ export default function RootLayout({
           }}
         />
         {children}
+        <ProductHuntBadge />
       </body>
     </html>
   );
