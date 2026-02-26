@@ -177,6 +177,10 @@ export async function scanUrl(url: string): Promise<ScanResult> {
       "A11yScope/1.0 (Accessibility Scanner; +https://www.a11yscope.com)"
     );
 
+    // Bypass CSP so we can inject axe-core from CDN regardless of the
+    // target page's Content-Security-Policy (many sites block external scripts).
+    await page.setBypassCSP(true);
+
     // Navigate with timeout
     await page.goto(validUrl.toString(), {
       waitUntil: "networkidle2",
