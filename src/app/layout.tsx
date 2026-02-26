@@ -8,6 +8,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.a11yscope.com"),
   title:
     "A11yScope - Free Website Accessibility Checker | WCAG 2.1 Compliance Scanner",
   description:
@@ -26,6 +27,9 @@ export const metadata: Metadata = {
     "a11y checker",
     "web accessibility testing",
   ],
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "A11yScope - Free Website Accessibility Checker",
     description:
@@ -36,7 +40,7 @@ export const metadata: Metadata = {
     siteName: "A11yScope",
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "A11yScope - Free Website Accessibility Checker",
     description:
       "Scan your website for accessibility issues in seconds. Get actionable fixes for WCAG 2.1 compliance.",
@@ -50,6 +54,23 @@ export const metadata: Metadata = {
   },
 };
 
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "A11yScope",
+  url: "https://www.a11yscope.com",
+  logo: "https://www.a11yscope.com/favicon.ico",
+  description:
+    "Free website accessibility checker and WCAG 2.1 compliance scanner.",
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "A11yScope",
+  url: "https://www.a11yscope.com",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -57,7 +78,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" translate="no" className="notranslate">
-      <body className={`${inter.variable} antialiased`}>{children}</body>
+      <body className={`${inter.variable} antialiased`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationJsonLd),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteJsonLd),
+          }}
+        />
+        {children}
+      </body>
     </html>
   );
 }

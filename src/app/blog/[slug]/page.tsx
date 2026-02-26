@@ -1,4 +1,5 @@
 import { getPostBySlug, getAllPosts } from "@/lib/blog";
+import { JsonLd } from "@/components/JsonLd";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -20,11 +21,21 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   return {
     title: `${post.title} | A11yScope Blog`,
     description: post.description,
+    alternates: {
+      canonical: `/blog/${slug}`,
+    },
     openGraph: {
       title: post.title,
       description: post.description,
       type: "article",
       publishedTime: post.date,
+      authors: [post.author],
+      tags: post.tags,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.description,
     },
   };
 }
@@ -124,6 +135,51 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <div className="min-h-screen bg-white">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "Article",
+          headline: post.title,
+          description: post.description,
+          datePublished: post.date,
+          author: { "@type": "Organization", name: post.author },
+          publisher: {
+            "@type": "Organization",
+            name: "A11yScope",
+            url: "https://www.a11yscope.com",
+          },
+          mainEntityOfPage: {
+            "@type": "WebPage",
+            "@id": `https://www.a11yscope.com/blog/${slug}`,
+          },
+        }}
+      />
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: "Home",
+              item: "https://www.a11yscope.com",
+            },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Blog",
+              item: "https://www.a11yscope.com/blog",
+            },
+            {
+              "@type": "ListItem",
+              position: 3,
+              name: post.title,
+              item: `https://www.a11yscope.com/blog/${slug}`,
+            },
+          ],
+        }}
+      />
       {/* Navigation */}
       <nav className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between border-b border-gray-100">
         <Link href="/" className="flex items-center gap-2">

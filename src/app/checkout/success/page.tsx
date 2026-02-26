@@ -5,6 +5,10 @@ import { stripe } from "@/lib/stripe";
 export const metadata = {
   title: "Welcome to A11yScope Pro - Subscription Confirmed",
   description: "Your A11yScope subscription is now active. Start scanning your websites for accessibility issues.",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 interface CheckoutSuccessPageProps {

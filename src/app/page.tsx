@@ -35,8 +35,28 @@ export default function Home() {
     }
   };
 
+  const softwareAppJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "A11yScope",
+    url: "https://www.a11yscope.com",
+    applicationCategory: "DeveloperApplication",
+    operatingSystem: "Web",
+    description:
+      "Scan your website for accessibility issues in seconds. Get actionable fixes for WCAG 2.1 compliance.",
+    offers: [
+      { "@type": "Offer", price: "0", priceCurrency: "USD", name: "Free" },
+      { "@type": "Offer", price: "49", priceCurrency: "USD", name: "Pro" },
+      { "@type": "Offer", price: "149", priceCurrency: "USD", name: "Agency" },
+    ],
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppJsonLd) }}
+      />
       {/* Navigation */}
       <nav className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
@@ -85,6 +105,7 @@ export default function Home() {
         </div>
       </nav>
 
+      <main>
       {/* Hero Section */}
       <section className="max-w-6xl mx-auto px-6 pt-16 pb-20 text-center space-y-8">
         <div className="space-y-4">
@@ -667,6 +688,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      </main>
 
       {/* Footer */}
       <footer className="bg-gray-900 text-gray-400 py-12">

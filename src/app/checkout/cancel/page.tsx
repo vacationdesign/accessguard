@@ -3,6 +3,10 @@ import Link from "next/link";
 export const metadata = {
   title: "Checkout Cancelled - A11yScope",
   description: "Your checkout was cancelled. You can try again anytime.",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function CheckoutCancelPage() {

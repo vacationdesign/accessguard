@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: "Accessibility Blog | A11yScope - WCAG Tips, Guides & Best Practices",
   description:
     "Learn about web accessibility, WCAG 2.1 compliance, ADA lawsuits, and how to make your website accessible. Practical guides and actionable tips.",
+  alternates: {
+    canonical: "/blog",
+  },
 };
 
 export default function BlogIndex() {

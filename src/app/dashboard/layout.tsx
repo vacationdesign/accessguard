@@ -8,6 +8,10 @@ export const metadata = {
     template: "%s | A11yScope",
     default: "Dashboard | A11yScope",
   },
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default async function DashboardLayout({
