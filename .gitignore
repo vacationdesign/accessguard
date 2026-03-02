@@ -40,7 +40,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-# OpenClaw — memory and soul contain runtime/personal data
-MEMORY.md
-SOUL.md
