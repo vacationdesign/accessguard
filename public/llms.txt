@@ -1,0 +1,73 @@
+# A11yScope
+
+> Free WCAG 2.1 website accessibility checker powered by axe-core. Scan any URL and get an actionable compliance report with fix-ready code snippets in seconds.
+
+## About
+
+A11yScope is a web accessibility scanning tool that checks websites against WCAG 2.1 Level AA standards. It uses axe-core, the world's most trusted accessibility testing engine, to analyze pages and generate detailed reports with specific code fixes.
+
+- Website: https://www.a11yscope.com
+- Free scan: https://www.a11yscope.com (enter any URL on the homepage)
+- Blog: https://www.a11yscope.com/blog
+
+## Key Features
+
+- Instant WCAG 2.1 AA scanning (average ~6 seconds)
+- 38+ accessibility rules checked per scan
+- Fix-ready code snippets for every issue found
+- Accessibility score out of 100
+- PDF report export
+- Continuous monitoring (Pro plan)
+- Multi-site management (Agency plan)
+
+## Pricing
+
+- Free: 3 scans/month, basic report
+- Pro ($19/month): Unlimited scans, PDF export, monitoring, priority support
+- Agency ($49/month): Everything in Pro + 10 sites, team access, white-label reports
+
+## Guides and Resources
+
+- [WCAG 2.2: What's New](https://www.a11yscope.com/blog/wcag-2-2-whats-new): Overview of the 9 new success criteria in WCAG 2.2
+- [How to Fix Accessibility Issues on Your Website](https://www.a11yscope.com/blog/how-to-fix-accessibility-issues-on-your-website): Top 10 common issues with step-by-step code fixes
+- [WCAG Compliance Checklist 2026](https://www.a11yscope.com/blog/wcag-compliance-checklist-2026): Complete audit checklist for WCAG 2.1 AA
+- [ADA Website Compliance Guide for Small Businesses](https://www.a11yscope.com/blog/ada-website-compliance-guide-small-businesses): What ADA requires and how to avoid lawsuits
+- [Color Contrast Accessibility Guide](https://www.a11yscope.com/blog/color-contrast-accessibility-guide): WCAG contrast ratio requirements (4.5:1 and 3:1)
+- [React Accessibility Guide](https://www.a11yscope.com/blog/react-accessibility-guide-spa): Building accessible single-page applications
+- [Screen Reader Testing Guide](https://www.a11yscope.com/blog/screen-reader-testing-guide-for-developers): Getting started with NVDA and VoiceOver
+- [European Accessibility Act 2025 Guide](https://www.a11yscope.com/blog/european-accessibility-act-2025-guide): EAA compliance requirements and deadlines
+- [Section 508 Compliance Guide](https://www.a11yscope.com/blog/section-508-compliance-guide): Federal accessibility standards
+- [Website Accessibility Audit Guide](https://www.a11yscope.com/blog/website-accessibility-audit-guide): How to conduct a thorough accessibility audit
+- [Accessibility Testing Tools Compared](https://www.a11yscope.com/blog/website-accessibility-testing-tools-compared): Comparison of popular accessibility tools
+- [Do Accessibility Overlays Work?](https://www.a11yscope.com/blog/accessibility-overlay-widgets-do-they-work): Why overlay widgets are not a real solution
+- [How Much Does Website Accessibility Cost?](https://www.a11yscope.com/blog/how-much-does-website-accessibility-cost): Cost breakdown and ROI analysis
+- [ADA Website Lawsuits Guide](https://www.a11yscope.com/blog/ada-website-lawsuits-how-to-protect-your-business): Legal landscape and protection strategies
+- [PDF Accessibility Guide](https://www.a11yscope.com/blog/pdf-accessibility-guide): Making PDFs accessible and WCAG compliant
+- [WordPress Accessibility Guide](https://www.a11yscope.com/blog/wordpress-accessibility-guide): Accessible themes, plugins, and best practices
+- [Shopify Accessibility Guide](https://www.a11yscope.com/blog/shopify-accessibility-guide): E-commerce accessibility for Shopify stores
+- [How to Write an Accessibility Statement](https://www.a11yscope.com/blog/write-accessibility-statement-website-template): Template and guide for accessibility statements
+- [Accessibility & SEO](https://www.a11yscope.com/blog/accessibility-and-seo-how-wcag-improves-search-rankings): How WCAG compliance improves search rankings
+- [Accessibility for Web Agencies](https://www.a11yscope.com/blog/accessibility-for-web-agencies-sell-services): Selling accessibility services to clients
+- [E-commerce Accessibility Checklist](https://www.a11yscope.com/blog/wcag-compliance-checklist-ecommerce-websites): WCAG checklist specific to online stores
+- [Website Accessibility Monitoring](https://www.a11yscope.com/blog/website-accessibility-monitoring-weekly-scans): Why continuous monitoring matters
+- [Fixing Issues Found by Automated Scanners](https://www.a11yscope.com/blog/how-to-fix-accessibility-issues-automated-scanners): Code fixes for common scanner findings
+
+## FAQ
+
+Q: What is WCAG 2.1?
+A: WCAG 2.1 (Web Content Accessibility Guidelines) is the international standard for web accessibility published by the W3C. It defines how to make web content more accessible to people with disabilities, organized into four principles: Perceivable, Operable, Understandable, and Robust.
+
+Q: Is A11yScope free?
+A: Yes, A11yScope offers a free tier with 3 scans per month. No account or credit card is required to start scanning.
+
+Q: How does A11yScope scan websites?
+A: A11yScope uses a headless browser (Puppeteer) to fully render your page including JavaScript, then runs axe-core — the same engine used by major accessibility tools — to check against 38+ WCAG 2.1 AA rules.
+
+Q: What's the difference between automated and manual accessibility testing?
+A: Automated tools like A11yScope can detect about 30-40% of WCAG issues (missing alt text, contrast errors, missing labels, etc.). The remaining issues require manual testing with screen readers and keyboard navigation. A11yScope covers the automated portion thoroughly and flags areas needing manual review.
+
+Q: Do I need WCAG compliance for my website?
+A: If you operate in the US, ADA Title III has been interpreted to cover websites. In the EU, the European Accessibility Act (EAA) requires digital accessibility by June 2025. Many lawsuits have been filed — over 4,000 ADA web accessibility cases in 2023 alone.
+
+Q: What is axe-core?
+A: axe-core is an open-source accessibility testing engine maintained by Deque Systems. It's the industry standard used by Google Lighthouse, Microsoft Accessibility Insights, and many other tools. A11yScope is built on axe-core.

@@ -35,6 +35,61 @@ export default function Home() {
     }
   };
 
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "What is WCAG 2.1 and why does it matter?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "WCAG 2.1 (Web Content Accessibility Guidelines) is the international standard for web accessibility published by the W3C. It defines how to make web content accessible to people with disabilities, covering visual, auditory, motor, and cognitive impairments. Compliance is increasingly required by law — ADA in the US, European Accessibility Act in the EU, and Section 508 for government sites.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "How does A11yScope scan websites for accessibility issues?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "A11yScope uses a headless browser to fully render your page including JavaScript, then runs axe-core — the industry-standard accessibility testing engine by Deque Systems — to check against 38+ WCAG 2.1 AA rules. Results are returned in about 6 seconds with specific code fixes for each issue found.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Is A11yScope free to use?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes. A11yScope offers a free tier with 3 scans per month. No account or credit card required. For unlimited scans, PDF reports, and monitoring, the Pro plan is $19/month. The Agency plan at $49/month adds multi-site management and white-label reports.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What's the difference between automated and manual accessibility testing?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Automated tools like A11yScope can detect approximately 30-40% of WCAG issues — including missing alt text, color contrast failures, missing form labels, and keyboard traps. The remaining issues require manual testing with screen readers (like NVDA or VoiceOver) and keyboard navigation. A11yScope covers the automated portion thoroughly and highlights areas needing manual review.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Do I legally need WCAG compliance for my website?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "In the US, ADA Title III has been interpreted by courts to cover websites, and over 4,000 web accessibility lawsuits were filed in 2023. In the EU, the European Accessibility Act (EAA) mandates digital accessibility from June 2025. Government websites in the US must comply with Section 508. Even without legal requirements, WCAG compliance improves SEO, user experience, and reaches 15% of the global population living with disabilities.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What is axe-core and why does A11yScope use it?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "axe-core is an open-source accessibility testing engine maintained by Deque Systems. It's the industry standard used by Google Lighthouse, Microsoft Accessibility Insights, and many other tools. A11yScope uses axe-core because of its proven accuracy, comprehensive rule coverage, and zero false-positive commitment.",
+        },
+      },
+    ],
+  };
+
   const softwareAppJsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -56,6 +111,10 @@ export default function Home() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       {/* Navigation */}
       <nav className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -622,6 +681,39 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* FAQ */}
+      <section className="py-24 bg-background">
+        <div className="max-w-3xl mx-auto px-6">
+          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-12">
+            Frequently Asked Questions
+          </h2>
+          <div className="space-y-6">
+            {faqJsonLd.mainEntity.map((item: any, i: number) => (
+              <details
+                key={i}
+                className="group bg-white rounded-xl border border-gray-100 shadow-sm"
+              >
+                <summary className="flex items-center justify-between gap-4 p-6 cursor-pointer text-left font-semibold text-foreground hover:text-primary transition-colors list-none [&::-webkit-details-marker]:hidden">
+                  <span>{item.name}</span>
+                  <svg
+                    className="h-5 w-5 shrink-0 text-muted group-open:rotate-180 transition-transform"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                  </svg>
+                </summary>
+                <div className="px-6 pb-6 text-muted text-[15px] leading-relaxed -mt-2">
+                  {item.acceptedAnswer.text}
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
       </main>
 
       {/* Footer */}
@@ -687,6 +779,11 @@ export default function Home() {
                   <li>
                     <a href="/blog/ada-website-compliance-guide-small-businesses" className="hover:text-white transition-colors">
                       ADA Compliance
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/faq" className="hover:text-white transition-colors">
+                      FAQ
                     </a>
                   </li>
                 </ul>
