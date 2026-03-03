@@ -10,7 +10,7 @@ tags: Accessibility, Automated Testing, WCAG
 
 You just ran an automated accessibility scan on your website and the report came back with dozens, maybe hundreds, of violations. The list looks overwhelming, but here is the good news: most automated scanners flag the same core set of issues, and every one of them has a straightforward fix. This guide walks you through the most frequently reported violations in the exact order you should tackle them, with code examples you can implement immediately.
 
-Automated accessibility scanners like A11yScope, axe-core, and Lighthouse can detect roughly 30-40% of all WCAG 2.1 issues. The issues they catch tend to be the most common and most impactful, which means fixing your scan results is the single highest-leverage accessibility improvement you can make.
+Automated accessibility scanners like A11yScope, axe-core, and Lighthouse can detect roughly 30-40% of all WCAG 2.1 issues. The issues they catch tend to be the most common and most impactful, which means fixing your scan results is the single highest-leverage accessibility improvement you can make. If you are not sure which tool to use, our [comparison of accessibility testing tools](/blog/website-accessibility-testing-tools-compared) covers the strengths and limitations of each option.
 
 ## Understanding Your Scan Report
 
@@ -98,7 +98,7 @@ The fix is simple but sometimes requires design coordination. Check each flagged
 }
 ```
 
-Use a contrast calculator to verify your changes. Tools like the WebAIM Contrast Checker let you enter foreground and background colors and see the exact ratio. For text overlaid on images or gradients, test the lowest-contrast combination that occurs.
+Use a contrast calculator to verify your changes. Tools like the WebAIM Contrast Checker let you enter foreground and background colors and see the exact ratio. For text overlaid on images or gradients, test the lowest-contrast combination that occurs. For a deeper dive into contrast requirements including large text exceptions and UI component rules, see our [color contrast accessibility guide](/blog/color-contrast-accessibility-guide).
 
 ## Missing Form Labels
 
@@ -225,11 +225,11 @@ Data tables must have `<th>` elements that label each column and/or row. Scanner
 
 ## What To Do After Fixing Scanner Results
 
-Once you have resolved the violations from your automated scan, do not stop there. Automated tools catch only a fraction of accessibility issues. The next steps are:
+Once you have resolved the violations from your automated scan, do not stop there. Automated tools catch only a fraction of accessibility issues. For a systematic approach to combining automated and manual testing, read our [website accessibility audit guide](/blog/website-accessibility-audit-guide). The next steps are:
 
 1. **Keyboard testing.** Tab through every page and verify that all interactive elements are reachable, operable, and have visible focus indicators.
-2. **Screen reader testing.** Test with at least one screen reader (NVDA on Windows is free) to verify that the content makes sense when read linearly.
-3. **Rescan regularly.** New code deployments can introduce regressions. Schedule recurring scans to catch issues before they reach users.
+2. **Screen reader testing.** Test with at least one screen reader (NVDA on Windows is free) to verify that the content makes sense when read linearly. Our [screen reader testing guide](/blog/screen-reader-testing-guide-for-developers) walks through the basics of NVDA and VoiceOver.
+3. **Rescan regularly.** New code deployments can introduce regressions. Schedule recurring scans to catch issues before they reach users. Learn why [continuous accessibility monitoring](/blog/website-accessibility-monitoring-weekly-scans) matters.
 
 ## Automate Your Accessibility Monitoring
 

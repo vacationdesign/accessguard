@@ -16,7 +16,7 @@ This guide is written in plain language for small business owners who are not we
 
 The Americans with Disabilities Act (ADA) is a federal civil rights law that prohibits discrimination against people with disabilities. Title III of the ADA requires that "places of public accommodation" be accessible. Courts have increasingly ruled that websites qualify as places of public accommodation, which means your business website must be usable by people with disabilities, including those who are blind, deaf, have motor impairments, or have cognitive disabilities.
 
-There is no separate "ADA website law." The obligation comes from Title III's general accessibility requirement as applied to digital properties. The standard that courts, regulators, and plaintiff attorneys use to evaluate website accessibility is the Web Content Accessibility Guidelines (WCAG) 2.1, Level AA. Meeting this standard is the clearest path to legal compliance.
+There is no separate "ADA website law." The obligation comes from Title III's general accessibility requirement as applied to digital properties. The standard that courts, regulators, and plaintiff attorneys use to evaluate website accessibility is the Web Content Accessibility Guidelines (WCAG) 2.1, Level AA. Meeting this standard is the clearest path to legal compliance. If you want a step-by-step breakdown of what WCAG 2.1 AA covers, our [WCAG compliance checklist](/blog/wcag-compliance-checklist-2026) walks through every requirement.
 
 ## Why Small Businesses Are at Risk
 
@@ -67,7 +67,7 @@ The financial consequences of ADA non-compliance can be severe for a small busin
 - **Court-ordered remediation** requires you to fix the website on an accelerated timeline, often under monitoring by the plaintiff's accessibility consultant at your expense.
 - **Repeat litigation** is common. If you settle one lawsuit but do not actually fix your website, another plaintiff can file a new action. Some businesses have faced multiple ADA complaints within the same year.
 
-Beyond the direct financial costs, there is the time and stress burden. Small business owners who are already stretched thin find themselves dealing with legal proceedings instead of running their business.
+Beyond the direct financial costs, there is the time and stress burden. Small business owners who are already stretched thin find themselves dealing with legal proceedings instead of running their business. For a deeper look at what accessibility remediation actually costs, see our guide on [how much website accessibility costs](/blog/how-much-does-website-accessibility-cost).
 
 ## How to Make Your Small Business Website ADA Compliant
 
@@ -119,7 +119,7 @@ If you receive a demand letter alleging that your website violates the ADA, do n
 3. **Immediately begin remediating your website.** Run a scan, document the results, and start fixing issues. Demonstrating active remediation efforts strengthens your legal position.
 4. **Keep records of everything** you do to improve accessibility, including scan reports, developer invoices, and timeline documentation.
 
-The strongest legal defense is a genuine, documented effort to make your website accessible. Courts and plaintiffs' attorneys are more likely to accept reasonable settlement terms when they can see that a business is taking accessibility seriously and making real progress.
+The strongest legal defense is a genuine, documented effort to make your website accessible. Courts and plaintiffs' attorneys are more likely to accept reasonable settlement terms when they can see that a business is taking accessibility seriously and making real progress. For a comprehensive look at the legal landscape and proven defense strategies, read our detailed guide on [ADA website lawsuits and how to protect your business](/blog/ada-website-lawsuits-how-to-protect-your-business).
 
 ## Take the First Step Now
 

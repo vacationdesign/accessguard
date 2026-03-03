@@ -18,7 +18,7 @@ This guide breaks down every change in **WCAG 2.2**, explains the practical impl
 
 ## Why WCAG 2.2 Matters
 
-WCAG is the global benchmark for web accessibility, referenced by virtually every major accessibility law and regulation worldwide. The ADA, the European Accessibility Act, Section 508, and EN 301 549 all point back to WCAG as the technical standard that defines what an accessible website looks like.
+WCAG is the global benchmark for web accessibility, referenced by virtually every major accessibility law and regulation worldwide. The [ADA](/blog/ada-website-compliance-guide-small-businesses), the [European Accessibility Act](/blog/european-accessibility-act-2025-guide), [Section 508](/blog/section-508-compliance-guide), and EN 301 549 all point back to WCAG as the technical standard that defines what an accessible website looks like.
 
 WCAG 2.2 was developed to address gaps in 2.1, particularly for users with cognitive and learning disabilities, users with low vision, and users with motor impairments. The Accessibility Guidelines Working Group (AG WG) identified real-world interaction patterns that were not adequately covered by the previous version, and the nine new success criteria close those gaps.
 
@@ -258,7 +258,7 @@ Note that if you are still conforming to WCAG 2.1 (rather than updating to 2.2),
 
 ## Practical Impact: What to Change on Your Site
 
-With the nine new criteria defined, here is a consolidated list of the most common changes websites need to make to move from WCAG 2.1 AA to WCAG 2.2 AA conformance.
+With the nine new criteria defined, here is a consolidated list of the most common changes websites need to make to move from WCAG 2.1 AA to WCAG 2.2 AA conformance. For step-by-step guidance on fixing the issues your scanner finds, see our guide on [fixing common accessibility issues found by automated scanners](/blog/fix-accessibility-issues-automated-scanners).
 
 ### 1. Audit Your Fixed and Sticky Elements
 
@@ -270,7 +270,7 @@ Inventory every feature on your site that uses drag-and-drop. For each one, ensu
 
 ### 3. Redesign Your Focus Indicators
 
-Inspect every interactive element's focus style. Replace thin, low-contrast, or suppressed focus indicators with outlines that are at least 2 CSS pixels thick and have a contrast ratio of at least 3:1. This addresses 2.4.13.
+Inspect every interactive element's focus style. Replace thin, low-contrast, or suppressed focus indicators with outlines that are at least 2 CSS pixels thick and have a contrast ratio of at least 3:1. Our [color contrast accessibility guide](/blog/color-contrast-accessibility-guide) covers WCAG contrast ratio requirements in detail. This addresses 2.4.13.
 
 ### 4. Standardize Your Help Mechanisms
 
@@ -309,7 +309,7 @@ The nine new success criteria are not theoretical. They address real usability p
 ### How to Transition
 
 1. **Run a gap analysis.** Scan your site against the WCAG 2.2 criteria to identify which new requirements you already meet and where you have gaps. [A11yScope's free scanner](/) provides automated detection for many of these issues.
-2. **Prioritize by impact.** Start with Level A criteria (2.4.11 and 2.5.7) since they represent the minimum baseline, then address the Level AA criteria that are most likely to affect your users.
+2. **Prioritize by impact.** Start with Level A criteria (2.4.11 and 2.5.7) since they represent the minimum baseline, then address the Level AA criteria that are most likely to affect your users. A [structured accessibility audit](/blog/website-accessibility-audit-guide) helps you combine automated and manual testing methodically.
 3. **Integrate into your workflow.** Add the new criteria to your design review checklists, QA testing scripts, and CI/CD pipeline checks. Accessibility is not a one-time project -- it is a continuous practice.
 4. **Monitor continuously.** Requirements do not stay fixed, and neither does your website. New pages, new features, and content updates can introduce regressions. Use [A11yScope's Pro plan](/#pricing) for ongoing automated monitoring that alerts you when new accessibility issues are detected.
 

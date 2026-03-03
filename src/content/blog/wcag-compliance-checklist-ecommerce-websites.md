@@ -10,13 +10,13 @@ tags: WCAG, E-commerce, Compliance
 
 E-commerce websites face unique accessibility challenges that generic checklists rarely address. When a customer with a disability cannot complete a purchase on your online store, the result is lost revenue and serious legal exposure. ADA website lawsuits targeting e-commerce businesses have risen sharply year over year, with plaintiffs' attorneys specifically focusing on shopping carts, product filters, and checkout flows that exclude screen reader users and keyboard-only navigators.
 
-This checklist is designed specifically for online store owners, Shopify merchants, WooCommerce administrators, and e-commerce developers who need a focused, actionable guide to WCAG 2.1 Level AA compliance across every stage of the shopping experience.
+This checklist is designed specifically for online store owners, Shopify merchants, WooCommerce administrators, and e-commerce developers who need a focused, actionable guide to WCAG 2.1 Level AA compliance across every stage of the shopping experience. If you run a Shopify store specifically, our dedicated [Shopify accessibility guide](/blog/shopify-accessibility-guide) covers platform-specific settings and theme considerations.
 
 ## Why E-commerce Accessibility Is a Legal Priority
 
 Online retail is one of the most heavily targeted sectors in ADA digital accessibility litigation. The reasons are straightforward: e-commerce sites are clearly "places of public accommodation" under Title III of the ADA, they process financial transactions that directly affect consumers, and their accessibility failures are easy to document and reproduce.
 
-The European Accessibility Act, which took effect in June 2025, adds another layer of obligation for any store selling to EU customers. If your e-commerce site is not WCAG 2.1 AA compliant, you are exposed on both sides of the Atlantic.
+The European Accessibility Act, which took effect in June 2025, adds another layer of obligation for any store selling to EU customers. If your e-commerce site is not WCAG 2.1 AA compliant, you are exposed on both sides of the Atlantic. Our [general WCAG compliance checklist](/blog/wcag-compliance-checklist-2026) covers the full standard beyond e-commerce-specific requirements.
 
 Beyond the legal dimension, accessible e-commerce is simply good business. An estimated 1.3 billion people worldwide live with some form of disability, and their collective spending power exceeds $13 trillion annually. Every accessibility barrier you remove is a barrier to revenue you are eliminating.
 

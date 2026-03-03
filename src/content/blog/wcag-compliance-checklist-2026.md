@@ -475,11 +475,11 @@ When the modal opens, move focus to the first interactive element inside it. Whe
 
 ## Testing Your WCAG Compliance Checklist
 
-A thorough audit combines multiple approaches:
+A thorough audit combines multiple approaches. For a dedicated walkthrough of the entire audit process, see our [website accessibility audit guide](/blog/website-accessibility-audit-guide).
 
 ### Automated Testing
 
-Run a scanner to catch low-hanging fruit: missing alt text, contrast failures, missing labels, and invalid ARIA. Automated tools are excellent for catching structural issues at scale, but they cannot evaluate whether alt text is meaningful or whether focus order makes logical sense.
+Run a scanner to catch low-hanging fruit: missing alt text, contrast failures, missing labels, and invalid ARIA. Automated tools are excellent for catching structural issues at scale, but they cannot evaluate whether alt text is meaningful or whether focus order makes logical sense. For a comparison of popular scanners, see [accessibility testing tools compared](/blog/website-accessibility-testing-tools-compared).
 
 ### Manual Keyboard Testing
 
@@ -492,7 +492,7 @@ Unplug your mouse and navigate through every page. Verify that:
 
 ### Screen Reader Testing
 
-Test with at least one screen reader. NVDA (free, Windows) or VoiceOver (built into macOS and iOS) are the most common choices. Listen for:
+Test with at least one screen reader. NVDA (free, Windows) or VoiceOver (built into macOS and iOS) are the most common choices. Our [screen reader testing guide for developers](/blog/screen-reader-testing-guide-for-developers) covers setup and essential commands. Listen for:
 
 - Meaningful announcements on every interactive element.
 - Correct reading order.
@@ -508,7 +508,7 @@ Test with at least one screen reader. NVDA (free, Windows) or VoiceOver (built i
 
 ## Building Accessibility Into Your Workflow
 
-The most successful accessibility programs are not audit-driven. They are process-driven. Here is how to shift left:
+The most successful accessibility programs are not audit-driven. They are process-driven. If you are also preparing for WCAG 2.2, check our guide on [what's new in WCAG 2.2](/blog/wcag-2-2-whats-new) for the nine additional success criteria. Here is how to shift left:
 
 1. **Design phase**: Use contrast-checked color palettes. Annotate designs with heading levels, focus order, and alternative text.
 2. **Development phase**: Use semantic HTML by default. Lint for accessibility issues with tools like axe-linter or eslint-plugin-jsx-a11y.

@@ -51,7 +51,7 @@ The EAA provides a limited exemption for microenterprises providing services. Un
 
 The EAA does not prescribe a specific technical standard in the directive text itself. Instead, it defines functional accessibility requirements that products and services must meet. In practice, the European Commission has designated the harmonized European standard **EN 301 549** as the presumption-of-conformity standard for the EAA.
 
-EN 301 549 directly incorporates WCAG 2.1 Level AA for web content. This means that if your website conforms to WCAG 2.1 AA, you are substantially aligned with the EAA's technical requirements for web-based services.
+EN 301 549 directly incorporates WCAG 2.1 Level AA for web content. This means that if your website conforms to WCAG 2.1 AA, you are substantially aligned with the EAA's technical requirements for web-based services. For a detailed walkthrough of every WCAG success criterion you need to meet, see our [WCAG compliance checklist](/blog/wcag-compliance-checklist-2026).
 
 The key accessibility requirements in the EAA include:
 
@@ -60,7 +60,7 @@ The key accessibility requirements in the EAA include:
 - **Understandability:** Content and navigation must be clear and predictable. Forms should provide clear instructions and error messages.
 - **Robustness:** Content must be compatible with assistive technologies and different user agents, including screen readers and magnification software.
 
-These map directly to the four WCAG principles (POUR), which is not a coincidence. WCAG has been the de facto global web accessibility standard for over a decade, and the EU standards framework deliberately aligns with it.
+These map directly to the four WCAG principles (POUR), which is not a coincidence. WCAG has been the de facto global web accessibility standard for over a decade, and the EU standards framework deliberately aligns with it. If you want to understand the latest additions to the standard, our overview of [what is new in WCAG 2.2](/blog/wcag-2-2-whats-new) covers the changes you should be aware of.
 
 ## How the EAA Differs From the Web Accessibility Directive
 

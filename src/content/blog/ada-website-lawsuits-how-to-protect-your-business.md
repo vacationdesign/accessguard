@@ -50,7 +50,7 @@ These numbers do not capture the full picture. Many disputes are resolved throug
 A common misconception is that only large companies get targeted. The reality is quite different:
 
 - **E-commerce businesses** of all sizes are frequent targets, because online stores have clear commercial functions that courts readily classify as places of public accommodation.
-- **Small and mid-sized businesses** are often preferred targets for serial plaintiffs because smaller companies are more likely to settle quickly rather than endure expensive litigation.
+- **Small and mid-sized businesses** are often preferred targets for serial plaintiffs because smaller companies are more likely to settle quickly rather than endure expensive litigation. Our [ADA compliance guide for small businesses](/blog/ada-website-compliance-guide-small-businesses) covers the specific steps smaller companies should take.
 - **Restaurants, hotels, and service providers** with online booking or ordering systems face elevated risk because their websites are direct extensions of their physical operations.
 - **Healthcare providers** face both ADA exposure and additional regulatory pressure around patient portal accessibility.
 
@@ -120,9 +120,9 @@ The most effective defense against an ADA website lawsuit is straightforward: ma
 
 ### Step 1: Conduct a Comprehensive Accessibility Audit
 
-You cannot fix what you have not identified. Start with a thorough audit of your website against WCAG 2.1 Level AA criteria. This should combine automated scanning tools  Ewhich can efficiently detect many technical violations  Ewith manual testing that evaluates the real user experience for people who rely on assistive technology.
+You cannot fix what you have not identified. Start with a thorough audit of your website against WCAG 2.1 Level AA criteria. Our [WCAG compliance checklist](/blog/wcag-compliance-checklist-2026) provides a structured framework for this audit. This should combine automated scanning tools  Ewhich can efficiently detect many technical violations  Ewith manual testing that evaluates the real user experience for people who rely on assistive technology.
 
-Automated tools alone are not sufficient. Industry research consistently indicates that automated scanners can detect only a portion of WCAG violations. The remaining issues require human judgment to identify.
+Automated tools alone are not sufficient. Industry research consistently indicates that automated scanners can detect only a portion of WCAG violations. The remaining issues require human judgment to identify. For practical guidance on addressing the issues scanners find, see our guide on [fixing accessibility issues found by automated scanners](/blog/fix-accessibility-issues-automated-scanners).
 
 ### Step 2: Prioritize and Remediate Critical Issues
 

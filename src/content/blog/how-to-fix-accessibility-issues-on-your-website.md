@@ -19,7 +19,7 @@ This guide walks you through the ten most common accessibility issues, explains 
 
 Before diving into the fixes, it helps to understand the stakes. Accessibility failures affect real people: screen reader users who cannot parse your navigation, keyboard-only users who get trapped inside a modal, and users with low vision who cannot read light-gray text on a white background. Beyond the ethical imperative, inaccessible sites face legal risk under the ADA and the European Accessibility Act, and they lose search ranking signals that Google ties to Core Web Vitals and semantic HTML.
 
-Every fix below maps to one or more WCAG 2.1 success criteria. Where relevant, the criterion is noted so you can cross-reference your own audit.
+Every fix below maps to one or more WCAG 2.1 success criteria. Where relevant, the criterion is noted so you can cross-reference your own audit. If you have not conducted an audit yet, our [website accessibility audit guide](/blog/website-accessibility-audit-guide) explains how to run one effectively.
 
 ## 1. Missing Alt Text on Images
 
@@ -93,7 +93,7 @@ Adjust your foreground or background color until the ratio meets the threshold:
 }
 ```
 
-If your brand palette includes colors that fail contrast checks, create an accessible variant for text use while keeping the original for large decorative elements where the 3:1 threshold applies.
+If your brand palette includes colors that fail contrast checks, create an accessible variant for text use while keeping the original for large decorative elements where the 3:1 threshold applies. For a comprehensive deep-dive into contrast requirements including tools, formulas, and edge cases, see our [color contrast accessibility guide](/blog/color-contrast-accessibility-guide).
 
 A useful tip: define contrast-safe CSS custom properties so that every component references them:
 
@@ -389,7 +389,7 @@ Custom dropdown menus, modals, tabs, and accordions built from generic `<div>` e
 
 ### How to Find It
 
-Attempt to use every custom interactive component with only the keyboard. Then turn on a screen reader (VoiceOver on macOS, NVDA on Windows) and verify that the role, state, and value of each component are announced correctly.
+Attempt to use every custom interactive component with only the keyboard. Then turn on a screen reader (VoiceOver on macOS, NVDA on Windows) and verify that the role, state, and value of each component are announced correctly. If you are new to screen reader testing, our [screen reader testing guide for developers](/blog/screen-reader-testing-guide-for-developers) walks through the setup and workflow step by step.
 
 ### How to Fix It  EAccessible Modal Example
 
