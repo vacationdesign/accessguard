@@ -104,7 +104,7 @@ This is why a website accessibility audit that relies solely on automated scanni
 
 ### Running your automated scan
 
-Start with a full-site scan using [A11yScope's free scanner](/) or a comparable tool. A full-site scan crawls multiple pages and gives you a comprehensive baseline of detectable violations. Supplement this with page-level scans using a browser extension like axe DevTools on your highest-traffic and highest-risk pages for more granular element-level detail.
+Start with a full-site scan using [A11yScope's free scanner](/) or a comparable tool. If you need a walkthrough of the complete free testing process, see our guide on [how to check website accessibility for free](/blog/how-to-check-website-accessibility-free). A full-site scan crawls multiple pages and gives you a comprehensive baseline of detectable violations. Supplement this with page-level scans using a browser extension like axe DevTools on your highest-traffic and highest-risk pages for more granular element-level detail.
 
 Record the total number of violations, the breakdown by severity (critical, serious, moderate, minor), and the specific WCAG success criteria referenced. This becomes the automated portion of your audit report.
 

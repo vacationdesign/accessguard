@@ -522,7 +522,7 @@ The most successful accessibility programs are not audit-driven. They are proces
 
 Working through a WCAG compliance checklist manually is essential, but it does not scale across hundreds or thousands of pages. That is where automation fills the gap.
 
-**A11yScope's free website accessibility scanner** crawls your site, tests against WCAG 2.1 AA criteria, and delivers a prioritized report of issues with specific code-level remediation guidance. You get a clear picture of where you stand in minutes, not weeks.
+**A11yScope's free website accessibility scanner** crawls your site, tests against WCAG 2.1 AA criteria, and delivers a prioritized report of issues with specific code-level remediation guidance. You get a clear picture of where you stand in minutes, not weeks. For a complete walkthrough of free testing methods beyond automated scanning, see [how to check your website accessibility for free](/blog/how-to-check-website-accessibility-free).
 
 Whether you are starting your first audit or maintaining an already-accessible site, A11yScope helps you catch regressions, track progress over time, and demonstrate compliance with confidence.
 

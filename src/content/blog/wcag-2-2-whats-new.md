@@ -339,6 +339,6 @@ WCAG 2.2 is not a distant future requirement -- it is the current W3C standard, 
 
 The good news is that most of the new criteria address issues you can fix with straightforward CSS changes, HTML attribute corrections, and design pattern updates. You do not need to rebuild your site. You need to audit, prioritize, and incrementally improve.
 
-Start with a scan. [A11yScope's free scanner](/) evaluates your site against WCAG 2.2 criteria automatically, giving you a clear picture of where you stand and what needs attention. For organizations that need continuous monitoring, scheduled scans, and detailed reporting, the [Pro plan](/#pricing) provides the infrastructure to keep your site compliant as it evolves.
+Start with a scan. Our guide on [how to check your website accessibility for free](/blog/how-to-check-website-accessibility-free) walks through the complete process from automated scanning to manual testing. Or go straight to [A11yScope's free scanner](/) for an instant WCAG 2.2 audit. For organizations that need continuous monitoring, scheduled scans, and detailed reporting, the [Pro plan](/#pricing) provides the infrastructure to keep your site compliant as it evolves.
 
 Accessibility is not a checkbox you tick once. It is a commitment to ensuring that every person who visits your website can use it effectively. WCAG 2.2 raises the standard, and your site should rise with it.
