@@ -73,7 +73,7 @@ const faqCategories = [
       },
       {
         q: "Is A11yScope free to use?",
-        a: "Yes. A11yScope offers a free tier with 3 scans per month. No account or credit card is required. Simply enter a URL on the homepage and get your accessibility report in seconds. For unlimited scans, PDF report export, and continuous monitoring, the Pro plan is available at $19/month. The Agency plan at $49/month adds multi-site management, team access, and white-label reports.",
+        a: "Yes. A11yScope offers a free tier with 3 scans per month. No account or credit card is required. Simply enter a URL on the homepage and get your accessibility report in seconds. For unlimited scans, PDF report export, and continuous monitoring, the Pro plan is available at $49/month. The Agency plan at $149/month adds multi-site management, team access, and white-label reports.",
       },
       {
         q: "What is axe-core and why does A11yScope use it?",

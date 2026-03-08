@@ -23,8 +23,8 @@ A11yScope is a web accessibility scanning tool that checks websites against WCAG
 ## Pricing
 
 - Free: 3 scans/month, basic report
-- Pro ($19/month): Unlimited scans, PDF export, monitoring, priority support
-- Agency ($49/month): Everything in Pro + 10 sites, team access, white-label reports
+- Pro ($49/month): Unlimited scans, PDF export, monitoring, priority support
+- Agency ($149/month): Everything in Pro + 10 sites, team access, white-label reports
 
 ## Guides and Resources
 

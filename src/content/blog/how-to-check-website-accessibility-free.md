@@ -193,7 +193,7 @@ For teams that want automated monitoring without manual effort, [A11yScope's Pro
 
 The free tools covered in this guide are genuinely powerful. Here is what changes when you move to a paid solution:
 
-| Capability | Free Tools | A11yScope Pro ($19/mo) |
+| Capability | Free Tools | A11yScope Pro ($49/mo) |
 |---|---|---|
 | Automated WCAG scanning | Yes (3 scans/mo on A11yScope) | Unlimited scans |
 | Code fix suggestions | Yes | Yes, with priority support |
