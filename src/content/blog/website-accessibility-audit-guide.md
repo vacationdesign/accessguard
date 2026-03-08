@@ -104,7 +104,7 @@ This is why a website accessibility audit that relies solely on automated scanni
 
 ### Running your automated scan
 
-Start with a full-site scan using [A11yScope's free scanner](/) or a comparable tool. If you need a walkthrough of the complete free testing process, see our guide on [how to check website accessibility for free](/blog/how-to-check-website-accessibility-free). A full-site scan crawls multiple pages and gives you a comprehensive baseline of detectable violations. Supplement this with page-level scans using a browser extension like axe DevTools on your highest-traffic and highest-risk pages for more granular element-level detail.
+Start with a full-site scan using [A11yScope's free scanner](/) or a comparable tool. If you need a walkthrough of the complete free testing process, see our guide on [how to check website accessibility for free](/blog/how-to-check-website-accessibility-free). For help choosing the right scanner for your needs, our [accessibility testing tools comparison](/blog/website-accessibility-testing-tools-compared) breaks down the major options by coverage, ease of use, and cost. A full-site scan crawls multiple pages and gives you a comprehensive baseline of detectable violations. Supplement this with page-level scans using a browser extension like axe DevTools on your highest-traffic and highest-risk pages for more granular element-level detail.
 
 Record the total number of violations, the breakdown by severity (critical, serious, moderate, minor), and the specific WCAG success criteria referenced. This becomes the automated portion of your audit report.
 
@@ -233,7 +233,7 @@ The organizations that maintain accessibility over time are the ones that treat 
 
 ### Automated scheduled scanning
 
-Set up automated scans that run on a regular cadence, ideally weekly. Each scan should cover your full site and compare results against the previous scan so you can immediately see regressions. A weekly scan aligned with your development sprint cycle catches most regressions within days of introduction. For more on why weekly cadence matters, read our guide on [weekly monitoring](/blog/website-accessibility-monitoring-weekly-scans).
+Set up automated scans that run on a regular cadence, ideally weekly. Each scan should cover your full site and compare results against the previous scan so you can immediately see regressions. If you have not yet chosen a scanning tool, our [comparison of accessibility testing tools](/blog/website-accessibility-testing-tools-compared) can help you find the right fit for your team and budget. A weekly scan aligned with your development sprint cycle catches most regressions within days of introduction. For more on why weekly cadence matters, read our guide on [weekly monitoring](/blog/website-accessibility-monitoring-weekly-scans).
 
 ### Regression detection
 

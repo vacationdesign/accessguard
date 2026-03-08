@@ -102,13 +102,15 @@ The optimal monitoring strategy combines weekly automated scanning with periodic
 - **Quarterly manual audits** evaluate the issues that automation cannot detect, providing a deeper assessment of the user experience for people with disabilities.
 - **Pre-release testing** integrates accessibility checks into your deployment pipeline so that critical violations are caught before code reaches production.
 
+If you are just getting started and need to establish your first baseline before setting up monitoring, our [free accessibility checking guide](/blog/how-to-check-website-accessibility-free) covers the full process using tools that cost nothing.
+
 This layered approach provides both breadth (automated) and depth (manual) while keeping costs manageable.
 
 ## Start Monitoring Your Website Today
 
 If you are not currently monitoring your website's accessibility on a regular basis, you are operating with an incomplete picture of your compliance posture and your legal risk.
 
-Start with a baseline. [Run a free A11yScope scan](/) right now to see your current WCAG 2.1 violation count across your site. The scan takes seconds and requires no account or credit card.
+Start with a baseline. [Run a free A11yScope scan](/) right now to see your current WCAG 2.1 violation count across your site. The scan takes seconds and requires no account or credit card. If you want a broader approach that combines automated scanning with manual checks, our guide on [how to check your website accessibility for free](/blog/how-to-check-website-accessibility-free) walks through the complete process step by step.
 
 Then set up continuous monitoring. [A11yScope's Pro plan](/#pricing) includes weekly scheduled scans across all your pages, historical trend tracking, regression detection, prioritized remediation guidance, and exportable reports. It is the most efficient way to maintain accessibility compliance as your website evolves.
 

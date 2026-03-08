@@ -50,6 +50,8 @@ WAVE from WebAIM is a free browser extension that overlays accessibility informa
 
 WAVE is particularly good for visual inspection because it annotates the page itself rather than just listing violations in a separate panel.
 
+Each of these tools has different strengths depending on your workflow and technical level. If you want a deeper look at how they compare, including CI/CD integrations and monitoring platforms, see our [full testing tools comparison](/blog/website-accessibility-testing-tools-compared).
+
 ## Step 2: Test Keyboard Navigation
 
 Automated scanners catch roughly 30-40% of accessibility issues. Keyboard testing is the single most important manual check you can do, and it is completely free.
@@ -191,7 +193,7 @@ For teams that want automated monitoring without manual effort, [A11yScope's Pro
 
 ## Free vs. Paid Accessibility Testing: What You Get
 
-The free tools covered in this guide are genuinely powerful. Here is what changes when you move to a paid solution:
+The free tools covered in this guide are genuinely powerful. For a detailed side-by-side comparison of both free and paid options, see our [accessibility testing tools comparison](/blog/website-accessibility-testing-tools-compared). Here is what changes when you move to a paid solution:
 
 | Capability | Free Tools | A11yScope Pro ($49/mo) |
 |---|---|---|

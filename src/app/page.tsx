@@ -60,7 +60,7 @@ export default function Home() {
         name: "Is A11yScope free to use?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes. A11yScope offers a free tier with 3 scans per month. No account or credit card required. For unlimited scans, PDF reports, and monitoring, the Pro plan is $49/month. The Agency plan at $149/month adds multi-site management and white-label reports.",
+          text: "Yes. A11yScope offers a free tier with 3 scans per month. No account or credit card required. For unlimited scans, PDF report export, and continuous monitoring, the Pro plan is $49/month. The Agency plan at $149/month adds multi-site management, team access, and white-label reports.",
         },
       },
       {
