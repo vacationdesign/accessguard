@@ -1,7 +1,7 @@
 ---
 title: "WCAG 2.2: What's New and How to Prepare Your Website"
 description: "WCAG 2.2 introduces 9 new success criteria. Learn what changed from WCAG 2.1, which criteria affect your site, and how to prepare for compliance."
-date: 2026-02-25
+date: 2026-03-08
 author: A11yScope Team
 tags:
   - WCAG 2.2
@@ -11,6 +11,13 @@ tags:
 ---
 
 # WCAG 2.2: What's New and How to Prepare Your Website
+
+**Key Takeaways:**
+- WCAG 2.2 adds **9 new success criteria** and removes 1 (SC 4.1.1 Parsing)
+- 5 of the 9 new criteria are at **Level AA** — the standard most laws reference
+- Major focus areas: **focus management**, **authentication**, **cognitive accessibility**, and **dragging alternatives**
+- WCAG 2.2 is backward-compatible — if you meet 2.2, you also meet 2.1
+- Most fixes involve **CSS changes**, **HTML attributes**, and **design pattern updates** — no full rebuilds needed
 
 The Web Content Accessibility Guidelines (WCAG) 2.2 became an official W3C Recommendation on October 5, 2023, marking the first major update to the standard since WCAG 2.1 was published in June 2018. If your website currently targets WCAG 2.1 conformance, the update introduces nine new success criteria you need to evaluate, removes one existing criterion, and raises the bar in areas that directly affect everyday user interactions -- particularly around focus management, authentication, and cognitive accessibility.
 
