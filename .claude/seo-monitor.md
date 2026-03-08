@@ -65,6 +65,18 @@ Use Chrome MCP tools to access these dashboards and extract data:
   8. Recommendations for next run
 - If any changes were made, commit with a descriptive message and push
 
+### 7. Verification (after any code changes)
+If any code was modified during this run:
+- Start the dev server: run `npx next dev -p 3001` in the background via Bash
+- Wait for it to be ready, then use Chrome MCP browser automation to:
+  - Open `http://localhost:3001` and verify the homepage loads without errors
+  - Check any pages affected by the changes (blog posts, FAQ, etc.)
+  - Verify JSON-LD structured data and meta tags are correct
+  - Confirm no console errors in the browser
+- Stop the dev server after verification
+- Note: `preview_start` does not work on this Windows environment — always use Bash background process + Chrome MCP instead
+- Note: Blog posts may 404 on dev server — this is a known dev-only issue. Verify blog changes on production after push instead.
+
 ## Important Notes
 - Always read files before editing them
 - Keep changes focused and minimal
