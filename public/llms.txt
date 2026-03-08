@@ -45,6 +45,8 @@ A11yScope is a web accessibility scanning tool that checks websites against WCAG
 - [PDF Accessibility Guide](https://www.a11yscope.com/blog/pdf-accessibility-guide): Making PDFs accessible and WCAG compliant
 - [WordPress Accessibility Guide](https://www.a11yscope.com/blog/wordpress-accessibility-guide): Accessible themes, plugins, and best practices
 - [Shopify Accessibility Guide](https://www.a11yscope.com/blog/shopify-accessibility-guide): E-commerce accessibility for Shopify stores
+- [Webflow Accessibility Guide](https://www.a11yscope.com/blog/webflow-accessibility-guide): Making Webflow sites WCAG compliant
+- [Fix Empty Links and Buttons](https://www.a11yscope.com/blog/fix-empty-links-buttons-accessibility): Comprehensive guide to fixing empty interactive elements
 - [How to Write an Accessibility Statement](https://www.a11yscope.com/blog/write-accessibility-statement-website-template): Template and guide for accessibility statements
 - [Accessibility & SEO](https://www.a11yscope.com/blog/accessibility-and-seo-how-wcag-improves-search-rankings): How WCAG compliance improves search rankings
 - [Accessibility for Web Agencies](https://www.a11yscope.com/blog/accessibility-for-web-agencies-sell-services): Selling accessibility services to clients

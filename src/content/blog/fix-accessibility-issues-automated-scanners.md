@@ -76,7 +76,7 @@ For links that only contain an image, the image alt text becomes the link's acce
 <a href="/home"><img src="logo.png" alt="A11yScope home page"></a>
 ```
 
-If a link wraps both text and an icon, the text already provides the accessible name. Mark the icon as decorative with `aria-hidden="true"` to prevent screen readers from announcing it redundantly.
+If a link wraps both text and an icon, the text already provides the accessible name. Mark the icon as decorative with `aria-hidden="true"` to prevent screen readers from announcing it redundantly. For a comprehensive guide covering every common pattern — icon links, social media icons, CSS-only buttons, and framework-specific fixes — see our [complete guide to fixing empty links and buttons](/blog/fix-empty-links-buttons-accessibility).
 
 ## Insufficient Color Contrast
 

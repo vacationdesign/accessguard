@@ -331,7 +331,7 @@ For links that wrap only an image, ensure the image has alt text:
 <a href="/"><img src="logo.png" alt="A11yScope home page"></a>
 ```
 
-Notice that the SVG icon in the button example gets `aria-hidden="true"` to prevent the screen reader from trying to announce the SVG markup itself.
+Notice that the SVG icon in the button example gets `aria-hidden="true"` to prevent the screen reader from trying to announce the SVG markup itself. For a comprehensive guide covering social media icons, CSS-only buttons, React components, and more patterns, see our [complete empty links and buttons fix guide](/blog/fix-empty-links-buttons-accessibility).
 
 ## 8. Missing Skip Navigation
 

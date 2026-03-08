@@ -79,7 +79,7 @@ Automated tools are reliable at detecting structural and code-level violations:
 - **Color contrast failures.** It can calculate the contrast ratio between text and background colors defined in CSS.
 - **Missing document language.** It can check for the `lang` attribute on the `<html>` element.
 - **Heading hierarchy violations.** It can verify that heading levels are sequential and none are skipped.
-- **Empty links and buttons.** It can detect interactive elements that lack an accessible name.
+- **Empty links and buttons.** It can detect interactive elements that lack an accessible name. See our [guide to fixing empty links and buttons](/blog/fix-empty-links-buttons-accessibility) for every common pattern and fix.
 - **Missing ARIA attributes.** It can verify that custom widgets have the required ARIA roles and properties.
 - **Duplicate IDs.** It can scan the DOM for ID values that are used more than once, which breaks label associations and ARIA references.
 

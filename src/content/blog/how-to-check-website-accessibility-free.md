@@ -206,6 +206,8 @@ The free tools covered in this guide are genuinely powerful. For a detailed side
 
 For small sites and personal projects, the free approach described in this guide is sufficient. For businesses that need ongoing compliance documentation, scheduled monitoring, and team workflows, a paid tool saves significant time.
 
+If you use a specific platform, we have dedicated guides with platform-specific fixes: [Shopify](/blog/shopify-accessibility-guide), [WordPress](/blog/wordpress-accessibility-guide), and [Webflow](/blog/webflow-accessibility-guide).
+
 ## Start Your Free Accessibility Check Now
 
 The simplest first step is an automated scan. [Enter your URL on A11yScope's homepage](/) and you will have a detailed accessibility report in under 10 seconds — free, no sign-up required.
