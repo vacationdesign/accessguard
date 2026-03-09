@@ -189,6 +189,9 @@ Organize your findings in a format that serves both technical and non-technical 
 - **Detailed findings table** with every individual issue, sortable by severity and WCAG criterion
 - **Remediation roadmap** with recommended fix order and effort estimates
 - **Testing methodology** section describing the tools, screen readers, and browsers used
+- **Accessibility statement** documenting your commitment and contact information — see our [accessibility statement template and guide](/blog/write-accessibility-statement-website-template)
+
+If your audit includes PDF documents, forms, or downloadable reports, those need separate testing. Our [PDF accessibility guide](/blog/pdf-accessibility-guide) covers the specific requirements for making PDFs WCAG compliant.
 
 ## Step 5: Prioritizing Remediation
 

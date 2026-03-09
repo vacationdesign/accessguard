@@ -191,7 +191,9 @@ The agency workflow:
 3. **Post-launch:** A11yScope scheduled scans run weekly across every client site, catching regressions from content updates, third-party script changes, and design tweaks.
 4. **Client reporting:** Export A11yScope reports and deliver them as part of regular maintenance updates.
 
-Issues are caught at the earliest and cheapest point in the lifecycle. Anything that slips through development and CI is caught by monitoring before it persists for weeks or months.
+Issues are caught at the earliest and cheapest point in the lifecycle. Anything that slips through development and CI is caught by monitoring before it persists for weeks or months. For a deeper look at building accessibility into your agency offering, see our guide on [how web agencies can sell accessibility services](/blog/accessibility-for-web-agencies-sell-services).
+
+If your agency works with specific platforms, our platform-specific guides cover the common issues and fixes: [Shopify](/blog/shopify-accessibility-guide), [WordPress](/blog/wordpress-accessibility-guide), and [Webflow](/blog/webflow-accessibility-guide).
 
 ### Small or Mid-Size Business Owner
 

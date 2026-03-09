@@ -156,7 +156,7 @@ Some businesses turn to accessibility overlay widgets  EJavaScript tools that 
 
 Multiple major accessibility advocacy organizations have publicly criticized overlay products. Overlays generally cannot fix underlying code-level accessibility problems. They may interfere with the assistive technology that users already rely on. And critically, overlay widgets have not prevented businesses from being sued. Several companies have faced ADA lawsuits specifically while using overlay products on their websites.
 
-Genuine accessibility requires fixing your website's code, content, and design  Enot layering a cosmetic tool on top of existing barriers.
+Genuine accessibility requires fixing your website's code, content, and design  Enot layering a cosmetic tool on top of existing barriers. For a detailed analysis of why overlays fall short, see our guide on [accessibility overlay widgets and whether they actually work](/blog/accessibility-overlay-widgets-do-they-work).
 
 ## The Legal Landscape Is Only Getting Stricter
 

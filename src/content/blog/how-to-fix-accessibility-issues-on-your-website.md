@@ -17,7 +17,7 @@ This guide walks you through the ten most common accessibility issues, explains 
 
 ## Why Fixing Accessibility Issues Matters
 
-Before diving into the fixes, it helps to understand the stakes. Accessibility failures affect real people: screen reader users who cannot parse your navigation, keyboard-only users who get trapped inside a modal, and users with low vision who cannot read light-gray text on a white background. Beyond the ethical imperative, inaccessible sites face legal risk under the ADA and the European Accessibility Act, and they lose search ranking signals that Google ties to Core Web Vitals and semantic HTML.
+Before diving into the fixes, it helps to understand the stakes. Accessibility failures affect real people: screen reader users who cannot parse your navigation, keyboard-only users who get trapped inside a modal, and users with low vision who cannot read light-gray text on a white background. Beyond the ethical imperative, inaccessible sites face legal risk under the ADA and the European Accessibility Act, and they lose search ranking signals that Google ties to Core Web Vitals and semantic HTML. In fact, [accessibility and SEO share significant overlap](/blog/accessibility-and-seo-how-wcag-improves-search-rankings) — fixing accessibility issues often improves your search rankings at the same time.
 
 Every fix below maps to one or more WCAG 2.1 success criteria. Where relevant, the criterion is noted so you can cross-reference your own audit. If you have not conducted an audit yet, our [website accessibility audit guide](/blog/website-accessibility-audit-guide) explains how to run one effectively.
 

@@ -52,7 +52,8 @@ A11yScope is a web accessibility scanning tool that checks websites against WCAG
 - [Accessibility for Web Agencies](https://www.a11yscope.com/blog/accessibility-for-web-agencies-sell-services): Selling accessibility services to clients
 - [E-commerce Accessibility Checklist](https://www.a11yscope.com/blog/wcag-compliance-checklist-ecommerce-websites): WCAG checklist specific to online stores
 - [Website Accessibility Monitoring](https://www.a11yscope.com/blog/website-accessibility-monitoring-weekly-scans): Why continuous monitoring matters
-- [Fixing Issues Found by Automated Scanners](https://www.a11yscope.com/blog/how-to-fix-accessibility-issues-automated-scanners): Code fixes for common scanner findings
+- [Fixing Issues Found by Automated Scanners](https://www.a11yscope.com/blog/fix-accessibility-issues-automated-scanners): Code fixes for common scanner findings
+- [How to Check Website Accessibility for Free](https://www.a11yscope.com/blog/how-to-check-website-accessibility-free): Step-by-step guide to free accessibility testing
 
 ## FAQ
 
