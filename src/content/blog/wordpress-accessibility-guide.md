@@ -212,6 +212,6 @@ WordPress gives you the tools to build an accessible website, but those tools re
 
 Start by understanding where your site stands today. [Run a free A11yScope scan](/) on your WordPress site right now. You will get a detailed report of WCAG 2.1 AA violations, organized by severity, with specific guidance on what to fix first. No signup required.
 
-If you are working through a broader accessibility initiative, our guides on [ADA compliance for small businesses](/blog/ada-website-compliance-guide-small-businesses) and [how to fix accessibility issues](/blog/how-to-fix-accessibility-issues-on-your-website) provide additional context and code-level remediation steps that apply directly to WordPress sites.
+If you are working through a broader accessibility initiative, our guides on [ADA compliance for small businesses](/blog/ada-website-compliance-guide-small-businesses) and [how to fix accessibility issues](/blog/how-to-fix-accessibility-issues-on-your-website) provide additional context and code-level remediation steps that apply directly to WordPress sites. Accessibility work also has a direct positive impact on search rankings — learn more in our guide on [how accessibility improves SEO](/blog/accessibility-and-seo-how-wcag-improves-search-rankings).
 
 Accessibility is not a one-time project. Every theme update, plugin change, and new blog post can introduce regressions. Make scanning a regular part of your WordPress maintenance workflow, and your site will stay accessible as it evolves.

@@ -104,7 +104,7 @@ Defending an ADA website lawsuit typically costs tens of thousands of dollars in
 
 ### Injunctive Relief and Remediation Deadlines
 
-Courts and settlement agreements typically require the defendant to bring their website into WCAG conformance within a fixed timeline, often six months to a year. Rushed remediation under legal pressure is almost always more expensive than proactive compliance work done on your own schedule.
+Courts and settlement agreements typically require the defendant to bring their website into WCAG conformance within a fixed timeline, often six months to a year. Rushed remediation under legal pressure is almost always more expensive than proactive compliance work done on your own schedule. For a detailed breakdown of what accessibility costs at each level, see our [website accessibility cost guide](/blog/how-much-does-website-accessibility-cost).
 
 ### Reputational Damage
 
