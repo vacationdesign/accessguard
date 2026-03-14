@@ -47,6 +47,7 @@ A11yScope is a web accessibility scanning tool that checks websites against WCAG
 - [Shopify Accessibility Guide](https://www.a11yscope.com/blog/shopify-accessibility-guide): E-commerce accessibility for Shopify stores
 - [Webflow Accessibility Guide](https://www.a11yscope.com/blog/webflow-accessibility-guide): Making Webflow sites WCAG compliant
 - [Fix Empty Links and Buttons](https://www.a11yscope.com/blog/fix-empty-links-buttons-accessibility): Comprehensive guide to fixing empty interactive elements
+- [Form Accessibility and Missing Labels](https://www.a11yscope.com/blog/form-accessibility-missing-labels-guide): How to fix missing form labels, build accessible forms, and handle error messages
 - [How to Write an Accessibility Statement](https://www.a11yscope.com/blog/write-accessibility-statement-website-template): Template and guide for accessibility statements
 - [Accessibility & SEO](https://www.a11yscope.com/blog/accessibility-and-seo-how-wcag-improves-search-rankings): How WCAG compliance improves search rankings
 - [Accessibility for Web Agencies](https://www.a11yscope.com/blog/accessibility-for-web-agencies-sell-services): Selling accessibility services to clients
@@ -61,16 +62,37 @@ Q: What is WCAG 2.1?
 A: WCAG 2.1 (Web Content Accessibility Guidelines) is the international standard for web accessibility published by the W3C. It defines how to make web content more accessible to people with disabilities, organized into four principles: Perceivable, Operable, Understandable, and Robust.
 
 Q: Is A11yScope free?
-A: Yes, A11yScope offers a free tier with 3 scans per month. No account or credit card is required to start scanning.
+A: Yes, A11yScope offers a free tier with 3 scans per month. No account or credit card is required to start scanning. Just enter any URL on the homepage and get your accessibility report in about 6 seconds.
 
 Q: How does A11yScope scan websites?
-A: A11yScope uses a headless browser (Puppeteer) to fully render your page including JavaScript, then runs axe-core — the same engine used by major accessibility tools — to check against 38+ WCAG 2.1 AA rules.
+A: A11yScope uses a headless browser (Puppeteer) to fully render your page including JavaScript, then runs axe-core — the same engine used by major accessibility tools — to check against 38+ WCAG 2.1 AA rules. It catches issues like missing alt text, low color contrast, empty links and buttons, missing form labels, and more.
 
 Q: What's the difference between automated and manual accessibility testing?
 A: Automated tools like A11yScope can detect about 30-40% of WCAG issues (missing alt text, contrast errors, missing labels, etc.). The remaining issues require manual testing with screen readers and keyboard navigation. A11yScope covers the automated portion thoroughly and flags areas needing manual review.
 
 Q: Do I need WCAG compliance for my website?
-A: If you operate in the US, ADA Title III has been interpreted to cover websites. In the EU, the European Accessibility Act (EAA) requires digital accessibility by June 2025. Many lawsuits have been filed — over 4,000 ADA web accessibility cases in 2023 alone.
+A: If you operate in the US, ADA Title III has been interpreted to cover websites. In the EU, the European Accessibility Act (EAA) requires digital accessibility by June 2025. Many lawsuits have been filed — over 4,000 ADA web accessibility cases in 2023 alone. Proactive compliance is far cheaper than remediation after a lawsuit.
 
 Q: What is axe-core?
 A: axe-core is an open-source accessibility testing engine maintained by Deque Systems. It's the industry standard used by Google Lighthouse, Microsoft Accessibility Insights, and many other tools. A11yScope is built on axe-core.
+
+Q: What are the most common accessibility issues on websites?
+A: According to the WebAIM Million study, the top 6 issues affecting 96% of homepages are: low contrast text (81%), missing alt text for images (54.5%), missing form input labels (48.2%), empty links (45.4%), empty buttons (29.6%), and missing document language (17.1%). A11yScope detects all of these automatically.
+
+Q: How do I fix low color contrast on my website?
+A: WCAG requires a contrast ratio of at least 4.5:1 for normal text and 3:1 for large text (18px+ bold or 24px+ regular). Use tools like the WebAIM Contrast Checker or A11yScope's scanner to identify failing elements, then adjust foreground or background colors to meet the ratio. See our full guide: https://www.a11yscope.com/blog/color-contrast-accessibility-guide
+
+Q: How do I fix empty links and empty buttons?
+A: Empty links and buttons lack accessible names, making them invisible to screen readers. For icon links, add aria-label or visually hidden text. For image links, add alt text to the image. For icon buttons, add aria-label describing the action. See our full guide: https://www.a11yscope.com/blog/fix-empty-links-buttons-accessibility
+
+Q: Can A11yScope scan WordPress, Shopify, or Webflow sites?
+A: Yes. A11yScope scans any publicly accessible URL regardless of the platform. We also have platform-specific guides for WordPress (https://www.a11yscope.com/blog/wordpress-accessibility-guide), Shopify (https://www.a11yscope.com/blog/shopify-accessibility-guide), and Webflow (https://www.a11yscope.com/blog/webflow-accessibility-guide).
+
+Q: What is the difference between A11yScope Free, Pro, and Agency plans?
+A: Free gives you 3 scans per month with a basic report. Pro ($49/month) adds unlimited scans, PDF export, weekly automated monitoring, and priority support. Agency ($149/month) adds multi-site management for up to 10 sites, team access, and white-label reports. All plans use the same axe-core scanning engine.
+
+Q: How often should I scan my website for accessibility?
+A: We recommend scanning after every major content update, design change, or plugin/theme update. For ongoing compliance, the Pro plan runs automatic weekly scans and alerts you to new issues. This is important because CMS updates, new blog posts, and plugin changes can introduce accessibility regressions at any time.
+
+Q: Is A11yScope suitable for web agencies?
+A: Yes. The Agency plan is designed for web agencies managing multiple client sites. It includes multi-site dashboards, white-label PDF reports you can share with clients, and team access. Many agencies use A11yScope to offer accessibility auditing as an additional service. See our guide: https://www.a11yscope.com/blog/accessibility-for-web-agencies-sell-services

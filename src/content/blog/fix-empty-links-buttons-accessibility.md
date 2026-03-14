@@ -21,7 +21,7 @@ tags:
 
 Every interactive element on a web page needs a name. When a link or button does not have one, assistive technologies like screen readers announce it without any context. A screen reader user hears "link" or "button" — nothing more. They have no idea what the link goes to or what the button does. This is not a minor inconvenience. It makes parts of your website completely unusable for people who rely on assistive technology.
 
-Empty links and empty buttons are two of the six most common WCAG accessibility errors detected across the web. The [WebAIM Million 2025 analysis](https://webaim.org/projects/million/) found empty links on 45.4% of home pages and empty buttons on 29.6%. Together with [low-contrast text](/blog/color-contrast-accessibility-guide), missing image alt text, missing form labels, and missing document language, these six issues account for the vast majority of detectable accessibility failures.
+Empty links and empty buttons are two of the six most common WCAG accessibility errors detected across the web. The [WebAIM Million 2025 analysis](https://webaim.org/projects/million/) found empty links on 45.4% of home pages and empty buttons on 29.6%. Together with [low-contrast text](/blog/color-contrast-accessibility-guide), missing image alt text, [missing form labels](/blog/form-accessibility-missing-labels-guide), and missing document language, these six issues account for the vast majority of detectable accessibility failures.
 
 The good news is that both problems are straightforward to fix once you understand what causes them.
 

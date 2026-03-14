@@ -131,7 +131,7 @@ If your design requires visually hidden labels, use a CSS class that hides the l
 }
 ```
 
-Never rely on `placeholder` alone. Placeholder text disappears when the user starts typing, leaving them with no reference for what the field expects.
+Never rely on `placeholder` alone. Placeholder text disappears when the user starts typing, leaving them with no reference for what the field expects. For a comprehensive guide covering every form pattern including fieldsets, error handling, and framework-specific fixes, see our [form accessibility guide](/blog/form-accessibility-missing-labels-guide).
 
 ## Missing Document Language
 
