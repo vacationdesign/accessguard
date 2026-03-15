@@ -202,7 +202,7 @@ You may have encountered WordPress plugins that promise to make your site access
 
 Overlays do not fix the underlying HTML issues that cause accessibility failures. A missing form label is still missing. An inaccessible navigation menu is still inaccessible. A keyboard trap in a slider is still a trap. The overlay simply adds a surface-level widget that does not integrate with assistive technologies the way users actually rely on them.
 
-The accessibility community, including advocacy organizations representing people with disabilities, has been vocal in opposing overlay solutions. Multiple lawsuits have been filed against websites that used overlay plugins, demonstrating that the legal community does not view overlays as a substitute for actual remediation.
+The accessibility community, including advocacy organizations representing people with disabilities, has been vocal in opposing overlay solutions. Multiple lawsuits have been filed against websites that used overlay plugins, demonstrating that the legal community does not view overlays as a substitute for actual remediation. For a detailed technical breakdown of why overlays fail and what to do instead, see our [complete guide to accessibility overlay widgets](/blog/accessibility-overlay-widgets-do-they-work).
 
 The only reliable path to WordPress accessibility is fixing the source: choosing an accessible theme, auditing your plugins, publishing content correctly, and scanning regularly for regressions.
 

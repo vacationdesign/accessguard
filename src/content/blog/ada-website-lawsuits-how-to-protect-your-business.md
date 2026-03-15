@@ -49,7 +49,7 @@ These numbers do not capture the full picture. Many disputes are resolved throug
 
 A common misconception is that only large companies get targeted. The reality is quite different:
 
-- **E-commerce businesses** of all sizes are frequent targets, because online stores have clear commercial functions that courts readily classify as places of public accommodation.
+- **E-commerce businesses** of all sizes are frequent targets, because online stores have clear commercial functions that courts readily classify as places of public accommodation. If you run an online store, our [WCAG accessibility checklist for e-commerce websites](/blog/wcag-compliance-checklist-ecommerce-websites) covers the specific requirements for product pages, checkout flows, and cart interactions.
 - **Small and mid-sized businesses** are often preferred targets for serial plaintiffs because smaller companies are more likely to settle quickly rather than endure expensive litigation. Our [ADA compliance guide for small businesses](/blog/ada-website-compliance-guide-small-businesses) covers the specific steps smaller companies should take.
 - **Restaurants, hotels, and service providers** with online booking or ordering systems face elevated risk because their websites are direct extensions of their physical operations.
 - **Healthcare providers** face both ADA exposure and additional regulatory pressure around patient portal accessibility.
