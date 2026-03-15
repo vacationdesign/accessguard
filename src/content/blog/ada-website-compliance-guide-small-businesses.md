@@ -117,7 +117,7 @@ If you receive a demand letter alleging that your website violates the ADA, do n
 1. **Consult an attorney** who has experience with ADA digital accessibility cases. Many business attorneys are not familiar with this area of law.
 2. **Do not respond to the demand letter yourself** before getting legal advice.
 3. **Immediately begin remediating your website.** Run a scan, document the results, and start fixing issues. Demonstrating active remediation efforts strengthens your legal position.
-4. **Keep records of everything** you do to improve accessibility, including scan reports, developer invoices, and timeline documentation.
+4. **Keep records of everything** you do to improve accessibility, including scan reports, developer invoices, and timeline documentation. Publishing an [accessibility statement](/blog/write-accessibility-statement-guide) on your website also demonstrates commitment and provides a contact channel for users who encounter barriers.
 
 The strongest legal defense is a genuine, documented effort to make your website accessible. Courts and plaintiffs' attorneys are more likely to accept reasonable settlement terms when they can see that a business is taking accessibility seriously and making real progress. For a comprehensive look at the legal landscape and proven defense strategies, read our detailed guide on [ADA website lawsuits and how to protect your business](/blog/ada-website-lawsuits-how-to-protect-your-business).
 
