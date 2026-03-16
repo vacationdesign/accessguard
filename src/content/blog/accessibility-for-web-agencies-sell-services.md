@@ -84,7 +84,7 @@ This is your entry point. Offer a comprehensive WCAG 2.1 Level AA audit that com
 - Executive summary written for non-technical stakeholders
 - White-label PDF report branded with your agency's logo
 
-**Pricing guidance:** Audit pricing depends on site size and complexity. Small business sites with under 50 pages typically support audit fees in the range of a few hundred to a few thousand dollars. Larger sites with hundreds of pages, complex forms, and custom interactive components warrant higher pricing that reflects the manual testing effort involved.
+**Pricing guidance:** Audit pricing depends on site size and complexity. Small business sites with under 50 pages typically support audit fees in the range of a few hundred to a few thousand dollars. Larger sites with hundreds of pages, complex forms, and custom interactive components warrant higher pricing that reflects the manual testing effort involved. For a detailed breakdown of typical project costs across audit, remediation, and monitoring tiers, see our guide on [how much website accessibility costs](/blog/how-much-does-website-accessibility-cost).
 
 The audit is a loss leader in the best sense: it generates a list of problems that leads directly to remediation work.
 

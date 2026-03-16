@@ -1,6 +1,6 @@
 ---
 title: "WCAG 2.2: What's New and How to Prepare Your Website"
-description: "WCAG 2.2 adds 9 new requirements: focus appearance (2.4.13), accessible authentication (3.3.8), dragging alternatives (2.5.7), and more. See exactly what changed from 2.1 and how to fix your site."
+description: "WCAG 2.2 adds 9 new requirements your site may not meet. Learn what changed from 2.1, find your gaps, and apply ready-to-use CSS and HTML fixes — no full site rebuild needed."
 date: 2026-03-08
 author: A11yScope Team
 tags:
