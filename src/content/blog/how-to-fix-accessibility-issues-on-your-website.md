@@ -243,7 +243,7 @@ function PricingPage() {
 }
 ```
 
-For frameworks like Next.js or Astro, use the built-in `<Head>` or frontmatter title fields so this is handled automatically.
+For frameworks like Next.js or Astro, use the built-in `<Head>` or frontmatter title fields so this is handled automatically. If you are building a React application or single-page app, our [React and SPA accessibility guide](/blog/react-accessibility-guide-spa) covers routing focus management, live regions, and other patterns that are unique to component-based architectures.
 
 ## 6. Missing Language Attribute
 

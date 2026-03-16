@@ -178,7 +178,7 @@ Some organizations prepare VPATs that overstate conformance or use vague languag
 
 ### Ignoring Document Accessibility
 
-Web accessibility receives the most attention, but Section 508 also applies to electronic documents. PDFs, Word documents, spreadsheets, and presentations must be accessible when published in a federal context, with proper heading structure, tagged content, data table markup, and correct reading order. Document accessibility is frequently overlooked and is a common source of 508 complaints.
+Web accessibility receives the most attention, but Section 508 also applies to electronic documents. PDFs, Word documents, spreadsheets, and presentations must be accessible when published in a federal context, with proper heading structure, tagged content, data table markup, and correct reading order. Document accessibility is frequently overlooked and is a common source of 508 complaints. For a detailed walkthrough of how to create and remediate accessible PDFs, see our [PDF accessibility guide](/blog/pdf-accessibility-guide).
 
 ### Overlooking Third-Party Content
 
