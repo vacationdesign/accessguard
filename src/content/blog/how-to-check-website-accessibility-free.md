@@ -216,4 +216,4 @@ Combine that scan with 10 minutes of keyboard testing and a quick screen reader 
 
 If you want a structured checklist to work through, our [WCAG compliance checklist for 2026](/blog/wcag-compliance-checklist-2026) covers every Level AA requirement with code examples. For businesses concerned about legal exposure, our [ADA compliance guide for small businesses](/blog/ada-website-compliance-guide-small-businesses) explains the legal landscape and what steps to take.
 
-Web accessibility matters — for your users, your business, and increasingly, the law. Start checking today.
+Web accessibility matters — for your users, your business, and increasingly, the law. It also has a measurable impact on search rankings: semantic HTML, heading structure, and descriptive link text are accessibility requirements that search engines reward. For a detailed breakdown, see our guide on [how WCAG compliance improves SEO](/blog/accessibility-and-seo-how-wcag-improves-search-rankings). Start checking today.

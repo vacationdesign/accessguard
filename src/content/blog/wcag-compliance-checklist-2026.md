@@ -524,6 +524,6 @@ Working through a WCAG compliance checklist manually is essential, but it does n
 
 **A11yScope's free website accessibility scanner** crawls your site, tests against WCAG 2.1 AA criteria, and delivers a prioritized report of issues with specific code-level remediation guidance. You get a clear picture of where you stand in minutes, not weeks. For a complete walkthrough of free testing methods beyond automated scanning, see [how to check your website accessibility for free](/blog/how-to-check-website-accessibility-free).
 
-Whether you are starting your first audit or maintaining an already-accessible site, A11yScope helps you catch regressions, track progress over time, and demonstrate compliance with confidence.
+Whether you are starting your first audit or maintaining an already-accessible site, A11yScope helps you catch regressions, track progress over time, and demonstrate compliance with confidence. Accessibility compliance also delivers measurable SEO benefits: the same semantic markup, heading hierarchy, and descriptive link text that WCAG requires are signals that search engines use to rank pages. See how the two connect in our [guide on how WCAG compliance improves search rankings](/blog/accessibility-and-seo-how-wcag-improves-search-rankings).
 
 [Run your free accessibility scan now](/) and see how your site measures up against this WCAG compliance checklist.

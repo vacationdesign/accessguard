@@ -1,6 +1,6 @@
 ---
 title: "WCAG 2.2: What's New and How to Prepare Your Website"
-description: "WCAG 2.2 introduces 9 new success criteria. Learn what changed from WCAG 2.1, which criteria affect your site, and how to prepare for compliance."
+description: "WCAG 2.2 adds 9 new requirements: focus appearance (2.4.13), accessible authentication (3.3.8), dragging alternatives (2.5.7), and more. See exactly what changed from 2.1 and how to fix your site."
 date: 2026-03-08
 author: A11yScope Team
 tags:
