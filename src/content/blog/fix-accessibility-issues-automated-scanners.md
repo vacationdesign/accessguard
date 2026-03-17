@@ -1,6 +1,6 @@
 ---
 title: "How to Fix Common Accessibility Issues Found by Automated Scanners"
-description: "Just ran an accessibility scan? Learn how to fix the most common WCAG issues that automated scanners detect, with step-by-step code fixes for each violation."
+description: "Accessibility scan showing violations? Tackle the most common WCAG issues in the right order — with copy-paste HTML and CSS fixes you can ship today."
 date: 2026-02-21
 author: A11yScope Team
 tags: Accessibility, Automated Testing, WCAG
@@ -230,6 +230,7 @@ Once you have resolved the violations from your automated scan, do not stop ther
 1. **Keyboard testing.** Tab through every page and verify that all interactive elements are reachable, operable, and have visible focus indicators.
 2. **Screen reader testing.** Test with at least one screen reader (NVDA on Windows is free) to verify that the content makes sense when read linearly. Our [screen reader testing guide](/blog/screen-reader-testing-guide-for-developers) walks through the basics of NVDA and VoiceOver.
 3. **Rescan regularly.** New code deployments can introduce regressions. Schedule recurring scans to catch issues before they reach users. Learn why [continuous accessibility monitoring](/blog/website-accessibility-monitoring-weekly-scans) matters.
+4. **Publish an accessibility statement.** Once your core violations are resolved, document your remediation efforts and give users a way to report remaining barriers. Our [accessibility statement template](/blog/write-accessibility-statement-website-template) shows what to include and how to write one.
 
 ## Automate Your Accessibility Monitoring
 
