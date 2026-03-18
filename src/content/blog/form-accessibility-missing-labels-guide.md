@@ -374,7 +374,7 @@ Shopify's default themes (Dawn, Refresh) include accessible form markup for cart
 - **Newsletter signup forms** in the footer — often missing labels
 - **Product option selects** (size, color) — verify they have associated labels
 
-For Shopify-specific patterns, see our [Shopify accessibility guide](/blog/shopify-accessibility-guide).
+For Shopify-specific patterns, see our [Shopify accessibility guide](/blog/shopify-accessibility-guide). If you build on Webflow, our [Webflow accessibility guide](/blog/webflow-accessibility-guide) covers form label configuration in the Webflow Designer.
 
 ## Testing Your Forms for Accessibility
 

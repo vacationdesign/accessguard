@@ -84,7 +84,7 @@ The first step is to understand where you stand. An automated scan will identify
 Focus on the violations that completely block access for users with disabilities. In order of typical priority:
 
 1. **Add alt text to all images.** Every image needs a short description. If the image is decorative, mark it with an empty alt attribute.
-2. **Ensure all form fields have labels.** Every input on your contact form, search bar, and newsletter signup must have a label element associated with it.
+2. **Ensure all form fields have labels.** Every input on your contact form, search bar, and newsletter signup must have a label element associated with it. Our [form accessibility guide](/blog/form-accessibility-missing-labels-guide) covers the most common label issues and how to fix each one.
 3. **Fix color contrast.** Adjust text and background colors to meet the 4.5:1 ratio requirement.
 4. **Make navigation keyboard accessible.** Test your menus and links using only the Tab key.
 5. **Set the page language.** Add `lang="en"` (or your appropriate language code) to the HTML tag.
