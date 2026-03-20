@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import ScanForm from "@/components/ScanForm";
 import ScanReport from "@/components/ScanReport";
 import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
@@ -11,8 +11,6 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [checkoutLoading, setCheckoutLoading] = useState<string | null>(null);
   const [userEmail, setUserEmail] = useState<string | null>(null);
-  const checkoutTriggered = useRef(false);
-
   useEffect(() => {
     const supabase = createSupabaseBrowserClient();
     supabase.auth.getUser().then(({ data: { user } }) => {
@@ -22,26 +20,7 @@ export default function Home() {
     });
   }, []);
 
-  // Auto-trigger checkout after login redirect
-  useEffect(() => {
-    if (!userEmail || checkoutTriggered.current) return;
-    const params = new URLSearchParams(window.location.search);
-    const checkoutPlan = params.get("checkout");
-    if (checkoutPlan === "pro" || checkoutPlan === "agency") {
-      checkoutTriggered.current = true;
-      // Clean URL
-      window.history.replaceState({}, "", "/");
-      handleCheckout(checkoutPlan);
-    }
-  }, [userEmail]);
-
   const handleCheckout = async (plan: "pro" | "agency") => {
-    // Require login before checkout
-    if (!userEmail) {
-      window.location.href = `/login?next=${encodeURIComponent(`/?checkout=${plan}`)}`;
-      return;
-    }
-
     try {
       setCheckoutLoading(plan);
       const response = await fetch("/api/checkout", {
