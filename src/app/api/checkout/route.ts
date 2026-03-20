@@ -50,6 +50,7 @@ export async function POST(request: NextRequest) {
     // Create a Stripe Checkout session
     const session = await stripe.checkout.sessions.create({
       mode: "subscription",
+      locale: "auto",
       payment_method_types: ["card"],
       line_items: [
         {
