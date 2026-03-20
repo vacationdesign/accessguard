@@ -7,6 +7,10 @@
     "src/app/api/cron/weekly-scan/route.ts": {
       "memory": 1024,
       "maxDuration": 300
+    },
+    "src/app/api/scan/crawl/route.ts": {
+      "memory": 1024,
+      "maxDuration": 300
     }
   },
   "crons": [

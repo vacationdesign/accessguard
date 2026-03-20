@@ -12,6 +12,12 @@ import { sendWelcomeEmail, sendAdminNotification } from "@/lib/email";
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
+/** Safely convert a unix timestamp (seconds) to Date, returns undefined for missing/invalid values */
+function toDate(ts: unknown): Date | undefined {
+  if (typeof ts === "number" && ts > 0) return new Date(ts * 1000);
+  return undefined;
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.text();
@@ -84,20 +90,16 @@ export async function POST(request: NextRequest) {
           await stripe.subscriptions.retrieve(stripeSubscriptionId);
 
         // Create the subscription record in our database
-        // Note: Stripe SDK v20 removed some fields from TS types but they exist at runtime
         const subAny = stripeSubscription as any;
+
         await createSubscription(user.id, {
           stripeSubscriptionId,
           status: stripeSubscription.status,
           plan,
-          currentPeriodStart: new Date(subAny.current_period_start * 1000),
-          currentPeriodEnd: new Date(subAny.current_period_end * 1000),
-          trialStart: subAny.trial_start
-            ? new Date(subAny.trial_start * 1000)
-            : undefined,
-          trialEnd: subAny.trial_end
-            ? new Date(subAny.trial_end * 1000)
-            : undefined,
+          currentPeriodStart: toDate(subAny.current_period_start),
+          currentPeriodEnd: toDate(subAny.current_period_end),
+          trialStart: toDate(subAny.trial_start),
+          trialEnd: toDate(subAny.trial_end),
         });
 
         console.log(
@@ -151,14 +153,10 @@ export async function POST(request: NextRequest) {
         await updateSubscription(subscription.id, {
           status: subscription.status,
           plan,
-          currentPeriodStart: new Date(updSubAny.current_period_start * 1000),
-          currentPeriodEnd: new Date(updSubAny.current_period_end * 1000),
-          trialStart: updSubAny.trial_start
-            ? new Date(updSubAny.trial_start * 1000)
-            : undefined,
-          trialEnd: updSubAny.trial_end
-            ? new Date(updSubAny.trial_end * 1000)
-            : undefined,
+          currentPeriodStart: toDate(updSubAny.current_period_start),
+          currentPeriodEnd: toDate(updSubAny.current_period_end),
+          trialStart: toDate(updSubAny.trial_start),
+          trialEnd: toDate(updSubAny.trial_end),
           cancelAt: updSubAny.cancel_at
             ? new Date(updSubAny.cancel_at * 1000)
             : null,
@@ -234,8 +232,8 @@ export async function POST(request: NextRequest) {
 
           await updateSubscription(stripeSubscription.id, {
             status: stripeSubscription.status,
-            currentPeriodStart: new Date(succSubAny.current_period_start * 1000),
-            currentPeriodEnd: new Date(succSubAny.current_period_end * 1000),
+            currentPeriodStart: toDate(succSubAny.current_period_start),
+            currentPeriodEnd: toDate(succSubAny.current_period_end),
           });
 
           console.log(
@@ -293,9 +291,10 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ received: true });
   } catch (error: unknown) {
-    console.error("Webhook handler error:", error);
+    const message = error instanceof Error ? error.message : String(error);
+    console.error("Webhook handler error:", message, error);
     return NextResponse.json(
-      { error: "Webhook handler failed." },
+      { error: "Webhook handler failed.", detail: message },
       { status: 500 }
     );
   }

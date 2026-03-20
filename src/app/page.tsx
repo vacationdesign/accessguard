@@ -70,7 +70,7 @@ export default function Home() {
         name: "Is A11yScope free to use?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes. A11yScope offers a free tier with 3 scans per month. No account or credit card required. For unlimited scans, PDF report export, and continuous monitoring, the Pro plan is $49/month. The Agency plan at $149/month adds multi-site management, team access, and white-label reports.",
+          text: "Yes. A11yScope offers a free tier with 5 scans per hour. No account or credit card required. For unlimited scans, weekly full-site crawl monitoring, and PDF reports, the Pro plan is $49/month. The Agency plan at $149/month adds more monitored sites and white-label PDF reports.",
         },
       },
       {
@@ -349,15 +349,6 @@ export default function Home() {
               <h3 className="text-sm font-bold text-foreground mb-1">PDF Reports</h3>
               <p className="text-muted text-xs leading-relaxed">Professional compliance reports for stakeholders and legal teams.</p>
             </div>
-            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow p-5">
-              <div className="h-10 w-10 bg-slate-100 rounded-lg flex items-center justify-center mb-3">
-                <svg className="h-5 w-5 text-slate-600" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17l-5.1-5.1m0 0L12 4.37m-5.68 5.7h11.36m-5.68 5.7l5.1-5.1m0 0L12 4.37" />
-                </svg>
-              </div>
-              <h3 className="text-sm font-bold text-foreground mb-1">CI/CD Integration</h3>
-              <p className="text-muted text-xs leading-relaxed">Coming soon: Catch issues in your build pipeline before production.</p>
-            </div>
           </div>
         </div>
       </section>
@@ -479,7 +470,7 @@ export default function Home() {
                       clipRule="evenodd"
                     />
                   </svg>
-                  Full-site crawl (up to 500 pages)
+                  Weekly full-site crawl (up to 20 pages)
                 </li>
                 <li className="flex items-center gap-2">
                   <svg
@@ -572,7 +563,7 @@ export default function Home() {
                       clipRule="evenodd"
                     />
                   </svg>
-                  Everything in Pro
+                  Everything in Pro (crawl up to 50 pages)
                 </li>
                 <li className="flex items-center gap-2">
                   <svg
@@ -601,34 +592,6 @@ export default function Home() {
                     />
                   </svg>
                   White-label PDF reports
-                </li>
-                <li className="flex items-center gap-2">
-                  <svg
-                    className="h-5 w-5 text-success shrink-0"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  Team collaboration
-                </li>
-                <li className="flex items-center gap-2">
-                  <svg
-                    className="h-5 w-5 text-success shrink-0"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  Priority support
                 </li>
               </ul>
               <button
@@ -774,11 +737,6 @@ export default function Home() {
                   <li>
                     <a href="#pricing" className="hover:text-white transition-colors">
                       Pricing
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:text-white transition-colors">
-                      API Docs
                     </a>
                   </li>
                 </ul>

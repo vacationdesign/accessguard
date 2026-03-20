@@ -103,6 +103,7 @@ export default async function ScanDetailPage({
         }
         url={scan.url}
         score={scan.score}
+        brandName={user.plan === "agency" ? (user.brand_name ?? undefined) : undefined}
       />
     </div>
   );

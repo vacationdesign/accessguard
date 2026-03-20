@@ -8,6 +8,8 @@ export interface AppUser {
   stripe_customer_id: string | null;
   plan: "free" | "pro" | "agency";
   auth_id: string | null;
+  /** White-label brand name for Agency plan PDF reports */
+  brand_name: string | null;
   created_at: string;
   updated_at: string;
 }

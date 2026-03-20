@@ -167,8 +167,8 @@ export default function TermsOfServicePage() {
               </li>
             </ul>
             <p>
-              <strong>Rate limits:</strong> Free accounts are limited to 3 scans per
-              month. Paid plans include unlimited scans, subject to reasonable use.
+              <strong>Rate limits:</strong> Free accounts are limited to 5 scans per
+              hour. Paid plans include unlimited scans, subject to reasonable use.
               Excessive automated scanning may be throttled.
             </p>
           </section>

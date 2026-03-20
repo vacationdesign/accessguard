@@ -1,0 +1,4 @@
+Contact: mailto:support@a11yscope.com
+Expires: 2027-03-20T00:00:00.000Z
+Preferred-Languages: en, ja
+Canonical: https://www.a11yscope.com/.well-known/security.txt

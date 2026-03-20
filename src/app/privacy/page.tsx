@@ -331,10 +331,33 @@ export default function PrivacyPolicyPage() {
             </p>
           </section>
 
-          {/* 10. Changes */}
+          {/* 10. Data Processing Agreement */}
           <section>
             <h2 className="text-xl font-bold text-foreground">
-              10. Changes to This Policy
+              10. Data Processing
+            </h2>
+            <p>
+              When you use A11yScope to scan websites, we act as a{" "}
+              <strong>data processor</strong> on your behalf. The URLs you submit
+              and the resulting scan data are processed solely to provide the
+              accessibility scanning service. We do not use this data for any
+              other purpose.
+            </p>
+            <p>
+              If your organization requires a formal Data Processing Agreement
+              (DPA) to comply with GDPR or other data protection regulations,
+              please contact us at{" "}
+              <a href="mailto:support@a11yscope.com" className="text-primary hover:underline">
+                support@a11yscope.com
+              </a>{" "}
+              and we will provide one.
+            </p>
+          </section>
+
+          {/* 11. Changes */}
+          <section>
+            <h2 className="text-xl font-bold text-foreground">
+              11. Changes to This Policy
             </h2>
             <p>
               We may update this Privacy Policy from time to time. We will notify you of
@@ -344,9 +367,9 @@ export default function PrivacyPolicyPage() {
             </p>
           </section>
 
-          {/* 11. Contact */}
+          {/* 12. Contact */}
           <section>
-            <h2 className="text-xl font-bold text-foreground">11. Contact Us</h2>
+            <h2 className="text-xl font-bold text-foreground">12. Contact Us</h2>
             <p>
               If you have questions about this Privacy Policy or wish to exercise your
               data rights, contact us at:

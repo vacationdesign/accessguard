@@ -1,7 +1,14 @@
 import { jsPDF } from "jspdf";
 import { ScanResult } from "./scanner";
 
-export function generatePdfReport(result: ScanResult): void {
+/**
+ * Generate a PDF accessibility report.
+ * @param result - Scan result data
+ * @param brandName - Optional brand name for white-label reports (Agency plan).
+ *                    When provided, replaces "A11yScope" branding throughout.
+ */
+export function generatePdfReport(result: ScanResult, brandName?: string): void {
+  const brand = brandName?.trim() || "A11yScope";
   const doc = new jsPDF();
   const pageWidth = doc.internal.pageSize.getWidth();
   const margin = 20;
@@ -39,7 +46,7 @@ export function generatePdfReport(result: ScanResult): void {
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(20);
   doc.setFont("helvetica", "bold");
-  safeText("A11yScope", margin, 16);
+  safeText(brand, margin, 16);
 
   doc.setFontSize(10);
   doc.setFont("helvetica", "normal");
@@ -352,7 +359,7 @@ export function generatePdfReport(result: ScanResult): void {
       289,
       { align: "right" }
     );
-    doc.text("a11yscope.com", margin, 289);
+    doc.text(brandName ? brand : "a11yscope.com", margin, 289);
 
     // Tiny branding
     doc.setFontSize(6);
@@ -370,5 +377,8 @@ export function generatePdfReport(result: ScanResult): void {
     .replace(/https?:\/\//, "")
     .replace(/[^a-zA-Z0-9]/g, "-")
     .substring(0, 40);
-  doc.save(`a11yscope-report-${urlSlug}.pdf`);
+  const filePrefix = brandName
+    ? brand.toLowerCase().replace(/[^a-z0-9]/g, "-")
+    : "a11yscope";
+  doc.save(`${filePrefix}-report-${urlSlug}.pdf`);
 }

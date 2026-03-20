@@ -15,10 +15,12 @@ export default function ScanDetailClient({
   violations,
   url,
   score,
+  brandName,
 }: {
   violations: any[] | null;
   url: string;
   score: number | null;
+  brandName?: string;
 }) {
   const [pdfLoading, setPdfLoading] = useState(false);
 
@@ -35,7 +37,7 @@ export default function ScanDetailClient({
         incomplete: 0,
         score: score ?? 0,
         scanDuration: 0,
-      });
+      }, brandName);
     } catch (err) {
       console.error("PDF generation failed:", err);
       alert("Failed to generate PDF. Please try again.");

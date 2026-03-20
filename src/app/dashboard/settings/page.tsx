@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
-import { ExportDataButton, DeleteAccountButton } from "./AccountActions";
+import { BrandNameForm, ExportDataButton, DeleteAccountButton } from "./AccountActions";
 
 export const metadata: Metadata = {
   title: "Settings",
@@ -58,6 +58,20 @@ export default async function SettingsPage() {
           </div>
         </div>
       </div>
+
+      {/* White-Label Branding (Agency only) */}
+      {user.plan === "agency" && (
+        <div className="bg-white rounded-xl border border-gray-200 p-6">
+          <h2 className="font-semibold text-foreground mb-2">
+            White-Label Branding
+          </h2>
+          <p className="text-sm text-muted mb-4">
+            Customize the brand name on your PDF reports. Your brand replaces
+            &quot;A11yScope&quot; in the report header, footer, and filename.
+          </p>
+          <BrandNameForm initialValue={user.brand_name ?? ""} />
+        </div>
+      )}
 
       {/* Data Export */}
       <div className="bg-white rounded-xl border border-gray-200 p-6">

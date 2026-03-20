@@ -132,9 +132,9 @@ export default async function BillingPage() {
             name="Free"
             price="$0"
             features={[
-              "Single page scan",
-              "Basic score report",
-              "No monitoring",
+              "5 scans per hour",
+              "WCAG 2.1 AA checks",
+              "Fix suggestions",
             ]}
             current={user.plan === "free"}
           />
@@ -142,11 +142,12 @@ export default async function BillingPage() {
             name="Pro"
             price="$49/mo"
             features={[
+              "Unlimited scans",
               "3 monitored sites",
-              "Weekly auto-scans",
-              "Detailed violation reports",
-              "PDF export",
+              "Weekly full-site crawl",
+              "PDF compliance reports",
               "Email alerts",
+              "Full scan history",
               "14-day free trial",
             ]}
             current={user.plan === "pro"}
@@ -156,12 +157,10 @@ export default async function BillingPage() {
             name="Agency"
             price="$149/mo"
             features={[
+              "Everything in Pro",
               "10 monitored sites",
-              "Weekly auto-scans",
-              "Detailed violation reports",
-              "PDF export",
-              "Email alerts",
-              "Priority support",
+              "Larger crawl scope",
+              "White-label PDF reports",
               "14-day free trial",
             ]}
             current={user.plan === "agency"}

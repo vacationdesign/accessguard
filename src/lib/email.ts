@@ -202,6 +202,7 @@ interface SiteScanSummary {
   url: string;
   score: number | null;
   violationsCount: number;
+  pagesScanned?: number;
   previousScore: number | null;
 }
 
@@ -236,11 +237,15 @@ export async function sendWeeklySummaryEmail({
             : `<span style="color:#64748b;">—</span>`
           : "";
 
+      const pagesText = site.pagesScanned && site.pagesScanned > 1
+        ? `<br><span style="color:#64748b;font-size:11px;">${site.pagesScanned} pages scanned</span>`
+        : "";
+
       return `
         <tr>
           <td style="padding:12px 16px;border-bottom:1px solid #e2e8f0;">
             <strong style="color:#1e293b;font-size:14px;">${site.siteName}</strong><br>
-            <span style="color:#64748b;font-size:12px;">${site.url}</span>
+            <span style="color:#64748b;font-size:12px;">${site.url}</span>${pagesText}
           </td>
           <td style="padding:12px 16px;border-bottom:1px solid #e2e8f0;text-align:center;">
             <span style="color:${scoreColor};font-weight:700;font-size:18px;">${scoreText}</span>

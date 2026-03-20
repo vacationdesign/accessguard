@@ -30,7 +30,7 @@ The fastest way to get an accessibility baseline is to run your URL through an a
 - Fix-ready code snippets for every violation
 - A summary of which WCAG success criteria passed and failed
 
-A11yScope uses a real browser engine to render your page (including JavaScript), then runs axe-core — the same engine behind Google Lighthouse and Microsoft Accessibility Insights — to test against 38+ rules. The free tier gives you 3 scans per month with no account required.
+A11yScope uses a real browser engine to render your page (including JavaScript), then runs axe-core — the same engine behind Google Lighthouse and Microsoft Accessibility Insights — to test against 38+ rules. The free tier gives you 5 scans per hour with no account required.
 
 ### Google Lighthouse (Built Into Chrome)
 
@@ -197,7 +197,7 @@ The free tools covered in this guide are genuinely powerful. For a detailed side
 
 | Capability | Free Tools | A11yScope Pro ($49/mo) |
 |---|---|---|
-| Automated WCAG scanning | Yes (3 scans/mo on A11yScope) | Unlimited scans |
+| Automated WCAG scanning | Yes (5 scans/hr on A11yScope) | Unlimited scans |
 | Code fix suggestions | Yes | Yes, with priority support |
 | PDF report export | No | Yes |
 | Scheduled monitoring | No | Weekly automated scans |

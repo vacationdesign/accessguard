@@ -265,6 +265,307 @@ export async function scanUrl(url: string): Promise<ScanResult> {
   }
 }
 
+// ---------------------------------------------------------------------------
+// Full-site crawl: discover links and scan multiple pages
+// ---------------------------------------------------------------------------
+
+export interface CrawlResult {
+  seedUrl: string;
+  timestamp: string;
+  pagesScanned: number;
+  pagesFound: number;
+  totalDuration: number;
+  aggregateScore: number;
+  pageResults: PageResult[];
+  summary: {
+    totalViolations: number;
+    criticalCount: number;
+    seriousCount: number;
+    moderateCount: number;
+    minorCount: number;
+    totalPasses: number;
+    commonIssues: { id: string; count: number; impact: string; help: string }[];
+  };
+}
+
+export interface PageResult {
+  url: string;
+  score: number;
+  violations: Violation[];
+  passes: number;
+  incomplete: number;
+  scanDuration: number;
+  error?: string;
+}
+
+/**
+ * Discover same-origin links on a page.
+ * Returns deduplicated, normalized URLs (no hash, no query params for dedup).
+ */
+async function discoverLinks(
+  page: any,
+  seedUrl: URL,
+  maxLinks: number
+): Promise<string[]> {
+  const links: string[] = await page.evaluate((origin: string) => {
+    const anchors = Array.from(document.querySelectorAll("a[href]"));
+    const hrefs: string[] = [];
+    for (const a of anchors) {
+      try {
+        const href = (a as HTMLAnchorElement).href;
+        if (!href) continue;
+        const url = new URL(href);
+        // Same origin only, http/https only
+        if (url.origin === origin && (url.protocol === "http:" || url.protocol === "https:")) {
+          // Strip hash
+          url.hash = "";
+          hrefs.push(url.toString());
+        }
+      } catch {
+        // skip invalid URLs
+      }
+    }
+    return hrefs;
+  }, seedUrl.origin);
+
+  // Deduplicate and limit
+  const unique = [...new Set(links)];
+  // Remove the seed URL itself (already scanned)
+  const filtered = unique.filter((l) => l !== seedUrl.toString());
+  return filtered.slice(0, maxLinks);
+}
+
+/**
+ * Scan a single page using an existing browser instance.
+ * Unlike scanUrl(), this reuses the browser and handles errors gracefully.
+ */
+async function scanPage(
+  browser: any,
+  url: string
+): Promise<PageResult> {
+  const startTime = Date.now();
+  let page: any | null = null;
+  try {
+    page = await browser.newPage();
+    await page.setViewport({ width: 1280, height: 720 });
+    await page.setUserAgent(
+      "A11yScope/1.0 (Accessibility Scanner; +https://www.a11yscope.com)"
+    );
+    await page.setBypassCSP(true);
+
+    await page.goto(url, {
+      waitUntil: "networkidle2",
+      timeout: 20000, // Shorter timeout for crawl pages
+    });
+
+    await page.addScriptTag({
+      url: "https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.10.2/axe.min.js",
+    });
+    await page.waitForFunction(
+      () => typeof (window as any).axe !== "undefined",
+      { timeout: 10000 }
+    );
+
+    const axeResults: AxeResults = await page.evaluate(() => {
+      return (window as any).axe.run(document, {
+        runOnly: {
+          type: "tag",
+          values: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "best-practice"],
+        },
+        resultTypes: ["violations", "passes", "incomplete"],
+      });
+    });
+
+    const violations = axeResults.violations ?? [];
+    const passes = axeResults.passes ?? [];
+    const incomplete = axeResults.incomplete ?? [];
+    const totalChecks = violations.length + passes.length + incomplete.length;
+    const score = totalChecks > 0 ? Math.round((passes.length / totalChecks) * 100) : 100;
+
+    const mappedViolations: Violation[] = violations.map((v) => ({
+      id: v.id,
+      impact: v.impact as Violation["impact"],
+      description: v.description,
+      help: v.help,
+      helpUrl: v.helpUrl,
+      tags: v.tags,
+      nodes: v.nodes.map((n) => ({
+        html: n.html,
+        target: n.target.map(String),
+        failureSummary: n.failureSummary || "",
+        fixSuggestion: generateFixSuggestion(v.id, n.html),
+      })),
+    }));
+
+    const impactOrder = { critical: 0, serious: 1, moderate: 2, minor: 3 };
+    mappedViolations.sort((a, b) => impactOrder[a.impact] - impactOrder[b.impact]);
+
+    return {
+      url,
+      score,
+      violations: mappedViolations,
+      passes: passes.length,
+      incomplete: incomplete.length,
+      scanDuration: Date.now() - startTime,
+    };
+  } catch (err: any) {
+    return {
+      url,
+      score: 0,
+      violations: [],
+      passes: 0,
+      incomplete: 0,
+      scanDuration: Date.now() - startTime,
+      error: err.message || "Failed to scan page",
+    };
+  } finally {
+    if (page) {
+      await page.close().catch(() => {});
+    }
+  }
+}
+
+/**
+ * Crawl a site starting from a seed URL:
+ * 1. Scan the seed page and discover internal links
+ * 2. Scan discovered pages sequentially (reusing the browser)
+ * 3. Return aggregated results
+ *
+ * @param seedUrl - The starting URL to crawl
+ * @param maxPages - Maximum pages to scan (including seed). Pro: 20, Agency: 50
+ * @param deadlineMs - Hard deadline in epoch ms (to stay within Vercel timeout)
+ */
+export async function crawlAndScan(
+  seedUrl: string,
+  maxPages: number,
+  deadlineMs: number
+): Promise<CrawlResult> {
+  const startTime = Date.now();
+
+  // Validate seed URL
+  let validUrl: URL;
+  try {
+    validUrl = new URL(seedUrl);
+    if (!["http:", "https:"].includes(validUrl.protocol)) {
+      throw new Error("Only HTTP and HTTPS URLs are supported");
+    }
+  } catch {
+    throw new Error("Invalid URL provided");
+  }
+
+  await validateUrlSafety(validUrl);
+
+  const browser = await getBrowser();
+  const pageResults: PageResult[] = [];
+
+  try {
+    // Phase 1: Scan the seed page
+    const seedResult = await scanPage(browser, validUrl.toString());
+    pageResults.push(seedResult);
+
+    // Phase 2: Discover links on the seed page
+    let discoveredLinks: string[] = [];
+    if (!seedResult.error) {
+      const discoveryPage = await browser.newPage();
+      try {
+        await discoveryPage.setViewport({ width: 1280, height: 720 });
+        await discoveryPage.setUserAgent(
+          "A11yScope/1.0 (Accessibility Scanner; +https://www.a11yscope.com)"
+        );
+        await discoveryPage.goto(validUrl.toString(), {
+          waitUntil: "networkidle2",
+          timeout: 20000,
+        });
+        discoveredLinks = await discoverLinks(discoveryPage, validUrl, maxPages * 3);
+      } catch (err) {
+        console.error("Link discovery failed:", err);
+      } finally {
+        await discoveryPage.close().catch(() => {});
+      }
+    }
+
+    // Phase 3: Scan discovered pages (sequential, with deadline check)
+    const pagesToScan = discoveredLinks.slice(0, maxPages - 1); // -1 for seed
+
+    for (const pageUrl of pagesToScan) {
+      // Check deadline: stop if less than 30s remaining
+      if (Date.now() > deadlineMs - 30_000) {
+        console.log(`Crawl deadline approaching — scanned ${pageResults.length}/${pagesToScan.length + 1} pages`);
+        break;
+      }
+
+      const result = await scanPage(browser, pageUrl);
+      pageResults.push(result);
+    }
+
+    // Aggregate results
+    const successfulResults = pageResults.filter((r) => !r.error);
+    const aggregateScore =
+      successfulResults.length > 0
+        ? Math.round(
+            successfulResults.reduce((sum, r) => sum + r.score, 0) /
+              successfulResults.length
+          )
+        : 0;
+
+    // Count violations by impact
+    let criticalCount = 0;
+    let seriousCount = 0;
+    let moderateCount = 0;
+    let minorCount = 0;
+    let totalPasses = 0;
+
+    const issueCounter = new Map<string, { count: number; impact: string; help: string }>();
+
+    for (const result of successfulResults) {
+      totalPasses += result.passes;
+      for (const v of result.violations) {
+        switch (v.impact) {
+          case "critical": criticalCount++; break;
+          case "serious": seriousCount++; break;
+          case "moderate": moderateCount++; break;
+          case "minor": minorCount++; break;
+        }
+        const existing = issueCounter.get(v.id);
+        if (existing) {
+          existing.count++;
+        } else {
+          issueCounter.set(v.id, { count: 1, impact: v.impact, help: v.help });
+        }
+      }
+    }
+
+    // Sort common issues by frequency
+    const commonIssues = [...issueCounter.entries()]
+      .map(([id, data]) => ({ id, ...data }))
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 10);
+
+    const totalViolations = criticalCount + seriousCount + moderateCount + minorCount;
+
+    return {
+      seedUrl: validUrl.toString(),
+      timestamp: new Date().toISOString(),
+      pagesScanned: pageResults.length,
+      pagesFound: discoveredLinks.length + 1,
+      totalDuration: Date.now() - startTime,
+      aggregateScore,
+      pageResults,
+      summary: {
+        totalViolations,
+        criticalCount,
+        seriousCount,
+        moderateCount,
+        minorCount,
+        totalPasses,
+        commonIssues,
+      },
+    };
+  } finally {
+    await browser.close();
+  }
+}
+
 function generateFixSuggestion(ruleId: string, html: string): string {
   const fixes: Record<string, string> = {
     "image-alt":
