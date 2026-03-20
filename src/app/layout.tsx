@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import ProductHuntBadge from "@/components/ProductHuntBadge";
+import CookieBanner from "@/components/CookieBanner";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -95,6 +96,7 @@ export default function RootLayout({
         />
         {children}
         <ProductHuntBadge />
+        <CookieBanner />
         <Analytics />
       </body>
     </html>

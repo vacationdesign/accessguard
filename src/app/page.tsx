@@ -807,6 +807,16 @@ export default function Home() {
                 <p className="text-white font-semibold text-sm">Legal</p>
                 <ul className="space-y-2 text-sm">
                   <li>
+                    <a href="/privacy" className="hover:text-white transition-colors">
+                      Privacy Policy
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/terms" className="hover:text-white transition-colors">
+                      Terms of Service
+                    </a>
+                  </li>
+                  <li>
                     <a href="/tokushoho" className="hover:text-white transition-colors">
                       Legal Disclosure
                     </a>

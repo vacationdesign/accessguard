@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
+import { ExportDataButton, DeleteAccountButton } from "./AccountActions";
 
 export const metadata: Metadata = {
   title: "Settings",
@@ -58,6 +59,16 @@ export default async function SettingsPage() {
         </div>
       </div>
 
+      {/* Data Export */}
+      <div className="bg-white rounded-xl border border-gray-200 p-6">
+        <h2 className="font-semibold text-foreground mb-2">Export Your Data</h2>
+        <p className="text-sm text-muted mb-4">
+          Download all your data (account info, scan history, registered sites)
+          as a JSON file.
+        </p>
+        <ExportDataButton />
+      </div>
+
       {/* Sign Out */}
       <div className="bg-white rounded-xl border border-gray-200 p-6">
         <h2 className="font-semibold text-foreground mb-2">Sign Out</h2>
@@ -72,6 +83,16 @@ export default async function SettingsPage() {
             Sign Out
           </button>
         </form>
+      </div>
+
+      {/* Delete Account */}
+      <div className="bg-white rounded-xl border border-red-200 p-6">
+        <h2 className="font-semibold text-danger mb-2">Delete Account</h2>
+        <p className="text-sm text-muted mb-4">
+          Permanently delete your account and all associated data. Active
+          subscriptions will be cancelled.
+        </p>
+        <DeleteAccountButton />
       </div>
     </div>
   );

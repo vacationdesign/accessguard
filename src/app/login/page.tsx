@@ -194,10 +194,17 @@ export default function LoginPage() {
                 <p className="text-xs text-muted">
                   By signing in, you agree to our{" "}
                   <a
-                    href="/tokushoho"
+                    href="/terms"
                     className="text-primary hover:text-primary-dark underline"
                   >
                     Terms of Service
+                  </a>{" "}
+                  and{" "}
+                  <a
+                    href="/privacy"
+                    className="text-primary hover:text-primary-dark underline"
+                  >
+                    Privacy Policy
                   </a>
                   .
                 </p>
