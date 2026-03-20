@@ -645,6 +645,11 @@ export default function Home() {
         {/* Trust / Guarantee */}
         <p className="text-center text-sm text-muted mt-8">
           14-day free trial on all paid plans. 30-day money-back guarantee. Cancel anytime.
+          <br />
+          By subscribing, you agree to our{" "}
+          <a href="/terms" className="underline hover:text-foreground">Terms of Service</a>
+          {" "}and{" "}
+          <a href="/privacy" className="underline hover:text-foreground">Privacy Policy</a>.
         </p>
       </section>
 

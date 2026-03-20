@@ -121,6 +121,12 @@ export default function ScanReport({ result, onCheckout, checkoutLoading }: Scan
           >
             {checkoutLoading ? "Redirecting..." : "Start Full Site Audit — $49/month"}
           </button>
+          <p className="text-xs text-blue-200 mt-2">
+            By subscribing, you agree to our{" "}
+            <a href="/terms" className="underline hover:text-white">Terms</a>
+            {" "}and{" "}
+            <a href="/privacy" className="underline hover:text-white">Privacy Policy</a>.
+          </p>
         </div>
       )}
 
@@ -176,6 +182,12 @@ export default function ScanReport({ result, onCheckout, checkoutLoading }: Scan
             {pdfLoading ? "Generating..." : "Download PDF Report"}
           </button>
         </div>
+        <p className="text-xs text-muted">
+          By subscribing, you agree to our{" "}
+          <a href="/terms" className="underline hover:text-foreground">Terms of Service</a>
+          {" "}and{" "}
+          <a href="/privacy" className="underline hover:text-foreground">Privacy Policy</a>.
+        </p>
       </div>
     </div>
   );
