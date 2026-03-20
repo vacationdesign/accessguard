@@ -1,4 +1,5 @@
 import Link from "next/link";
+import LegalFooter from "@/components/LegalFooter";
 
 export const metadata = {
   title: "Checkout Cancelled - A11yScope",
@@ -135,6 +136,8 @@ export default function CheckoutCancelPage() {
           </a>
         </p>
       </div>
+
+      <LegalFooter />
     </div>
   );
 }

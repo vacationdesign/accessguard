@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import LegalFooter from "@/components/LegalFooter";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | A11yScope",
@@ -363,6 +364,8 @@ export default function PrivacyPolicyPage() {
           </section>
         </div>
       </main>
+
+      <LegalFooter />
     </div>
   );
 }

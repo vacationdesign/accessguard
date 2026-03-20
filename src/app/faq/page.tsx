@@ -1,6 +1,7 @@
 import { JsonLd } from "@/components/JsonLd";
 import Link from "next/link";
 import type { Metadata } from "next";
+import LegalFooter from "@/components/LegalFooter";
 
 export const metadata: Metadata = {
   title: "FAQ - Web Accessibility & WCAG Compliance Questions | A11yScope",
@@ -291,6 +292,8 @@ export default function FAQPage() {
           </Link>
         </div>
       </main>
+
+      <LegalFooter />
     </div>
   );
 }

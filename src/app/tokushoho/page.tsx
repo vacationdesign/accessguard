@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import LegalFooter from "@/components/LegalFooter";
 
 export const metadata: Metadata = {
   title: "Legal Disclosure - A11yScope",
@@ -150,7 +151,7 @@ export default function TokushohoPage() {
                   <span className="text-xs font-normal text-gray-500">支払時期</span>
                 </th>
                 <td className="px-6 py-4 text-sm text-gray-700">
-                  First charge at checkout when the subscription begins. Subsequent charges are billed automatically on each monthly renewal date.
+                  All paid plans include a 14-day free trial. No charge is made during the trial period. The first charge occurs automatically when the trial ends. Subsequent charges are billed on each monthly renewal date.
                 </td>
               </tr>
               <tr>
@@ -180,7 +181,7 @@ export default function TokushohoPage() {
                   <span className="text-xs font-normal text-gray-500">返品・返金</span>
                 </th>
                 <td className="px-6 py-4 text-sm text-gray-700">
-                  Due to the nature of digital services, refunds are not available once the service has been provided. If you experience a critical issue, please contact us by email and we will address it on a case-by-case basis.
+                  We offer a 30-day money-back guarantee on all paid plans. If you are not satisfied within the first 30 days of your paid subscription, contact us at support@a11yscope.com for a full refund. After 30 days, no prorated refunds are provided for mid-cycle cancellations. If you cancel during the 14-day free trial, no payment is collected.
                 </td>
               </tr>
               <tr>
@@ -198,11 +199,7 @@ export default function TokushohoPage() {
         </div>
       </main>
 
-      <footer className="bg-gray-900 text-gray-400 py-8 mt-12">
-        <div className="max-w-4xl mx-auto px-4 text-sm text-center">
-          &copy; 2026 A11yScope. All rights reserved.
-        </div>
-      </footer>
+      <LegalFooter />
     </div>
   );
 }

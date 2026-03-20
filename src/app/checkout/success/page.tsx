@@ -1,4 +1,5 @@
 import Link from "next/link";
+import LegalFooter from "@/components/LegalFooter";
 import { redirect } from "next/navigation";
 import { stripe } from "@/lib/stripe";
 
@@ -157,6 +158,8 @@ export default async function CheckoutSuccessPage({ searchParams }: CheckoutSucc
           </a>
         </p>
       </div>
+
+      <LegalFooter />
     </div>
   );
 }

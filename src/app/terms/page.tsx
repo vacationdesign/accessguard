@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import LegalFooter from "@/components/LegalFooter";
 
 export const metadata: Metadata = {
   title: "Terms of Service | A11yScope",
@@ -320,6 +321,8 @@ export default function TermsOfServicePage() {
           </section>
         </div>
       </main>
+
+      <LegalFooter />
     </div>
   );
 }
