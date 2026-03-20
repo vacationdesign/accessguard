@@ -114,6 +114,31 @@ const faqCategories = [
       },
     ],
   },
+  {
+    category: "Billing & Subscriptions",
+    questions: [
+      {
+        q: "How does the 14-day free trial work?",
+        a: "When you start a Pro or Agency trial, you enter your payment details but are not charged during the 14-day trial period. You get full access to all plan features immediately. If you cancel before the trial ends, you will not be charged. If you continue, your subscription begins automatically at the plan price ($49/month for Pro, $149/month for Agency).",
+      },
+      {
+        q: "How do I cancel my subscription?",
+        a: "You can cancel your subscription at any time from the Billing page in your dashboard, or by emailing support@a11yscope.com. Cancellation takes effect at the end of your current billing period — you keep access until then. There are no cancellation fees.",
+      },
+      {
+        q: "What is your refund policy?",
+        a: "We offer a 30-day money-back guarantee on all paid plans. If you are not satisfied within the first 30 days of your subscription, contact us at support@a11yscope.com for a full refund, no questions asked.",
+      },
+      {
+        q: "What payment methods do you accept?",
+        a: "We accept all major credit and debit cards (Visa, Mastercard, American Express, Discover) through Stripe, our secure payment processor. All payment data is handled by Stripe and never touches our servers.",
+      },
+      {
+        q: "Can I switch between Pro and Agency plans?",
+        a: "Yes. You can upgrade from Pro to Agency or downgrade from Agency to Pro at any time from the Billing page in your dashboard. When upgrading, the price difference is prorated. When downgrading, the change takes effect at the start of your next billing period.",
+      },
+    ],
+  },
 ];
 
 // Build schema.org FAQ data from all categories

@@ -1,22 +1,53 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import ScanForm from "@/components/ScanForm";
 import ScanReport from "@/components/ScanReport";
+import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
 
 export default function Home() {
   const [scanResult, setScanResult] = useState<any>(null);
   const [isScanning, setIsScanning] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [checkoutLoading, setCheckoutLoading] = useState<string | null>(null);
+  const [userEmail, setUserEmail] = useState<string | null>(null);
+  const checkoutTriggered = useRef(false);
+
+  useEffect(() => {
+    const supabase = createSupabaseBrowserClient();
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      if (user?.email) {
+        setUserEmail(user.email);
+      }
+    });
+  }, []);
+
+  // Auto-trigger checkout after login redirect
+  useEffect(() => {
+    if (!userEmail || checkoutTriggered.current) return;
+    const params = new URLSearchParams(window.location.search);
+    const checkoutPlan = params.get("checkout");
+    if (checkoutPlan === "pro" || checkoutPlan === "agency") {
+      checkoutTriggered.current = true;
+      // Clean URL
+      window.history.replaceState({}, "", "/");
+      handleCheckout(checkoutPlan);
+    }
+  }, [userEmail]);
 
   const handleCheckout = async (plan: "pro" | "agency") => {
+    // Require login before checkout
+    if (!userEmail) {
+      window.location.href = `/login?next=${encodeURIComponent(`/?checkout=${plan}`)}`;
+      return;
+    }
+
     try {
       setCheckoutLoading(plan);
       const response = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ plan }),
+        body: JSON.stringify({ plan, email: userEmail }),
       });
 
       const data = await response.json();
@@ -631,6 +662,11 @@ export default function Home() {
             </div>
           </div>
         </div>
+
+        {/* Trust / Guarantee */}
+        <p className="text-center text-sm text-muted mt-8">
+          14-day free trial on all paid plans. 30-day money-back guarantee. Cancel anytime.
+        </p>
       </section>
 
       {/* Credibility Metrics */}

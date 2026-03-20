@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { plan } = body as { plan: string };
+    const { plan, email } = body as { plan: string; email?: string };
 
     // Validate the plan
     if (!plan || !["pro", "agency"].includes(plan)) {
@@ -60,6 +60,7 @@ export async function POST(request: NextRequest) {
       subscription_data: {
         trial_period_days: selectedPlan.trialDays,
       },
+      ...(email ? { customer_email: email } : {}),
       success_url: `${baseUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${baseUrl}/checkout/cancel`,
       metadata: {

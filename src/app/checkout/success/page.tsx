@@ -25,6 +25,7 @@ export default async function CheckoutSuccessPage({ searchParams }: CheckoutSucc
 
   // Verify the session with Stripe
   let plan = "Pro";
+  let trialEndDate: string | null = null;
   try {
     const session = await stripe.checkout.sessions.retrieve(session_id);
 
@@ -36,6 +37,19 @@ export default async function CheckoutSuccessPage({ searchParams }: CheckoutSucc
     // Get the plan name from metadata
     if (session.metadata?.plan === "agency") {
       plan = "Agency";
+    }
+
+    // Get trial end date from subscription
+    if (session.subscription) {
+      const subscription = await stripe.subscriptions.retrieve(
+        session.subscription as string
+      );
+      if (subscription.trial_end) {
+        trialEndDate = new Date(subscription.trial_end * 1000).toLocaleDateString(
+          "en-US",
+          { year: "numeric", month: "long", day: "numeric" }
+        );
+      }
     }
   } catch {
     // Invalid or expired session_id — redirect to home
@@ -71,7 +85,16 @@ export default async function CheckoutSuccessPage({ searchParams }: CheckoutSucc
           </h1>
           <p className="text-lg text-muted">
             Your subscription is now active. Your 14-day free trial has started
-            &mdash; you won&apos;t be charged until the trial ends.
+            &mdash; you won&apos;t be charged until{" "}
+            {trialEndDate ? (
+              <span className="font-semibold text-foreground">{trialEndDate}</span>
+            ) : (
+              "the trial ends"
+            )}
+            .
+          </p>
+          <p className="text-sm text-muted">
+            30-day money-back guarantee. Cancel anytime from your dashboard.
           </p>
         </div>
 

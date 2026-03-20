@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
 import Link from "next/link";
 import ManageSubscriptionButton from "./ManageSubscriptionButton";
+import CheckoutButton from "./CheckoutButton";
 
 export const metadata: Metadata = {
   title: "Billing",
@@ -115,12 +116,10 @@ export default async function BillingPage() {
           {user.stripe_customer_id ? (
             <ManageSubscriptionButton />
           ) : user.plan === "free" ? (
-            <Link
-              href="/#pricing"
-              className="bg-primary text-white text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-primary-dark transition-colors whitespace-nowrap text-center"
-            >
-              Upgrade Plan
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-2">
+              <CheckoutButton plan="pro" email={user.email} />
+              <CheckoutButton plan="agency" email={user.email} />
+            </div>
           ) : null}
         </div>
       </div>
