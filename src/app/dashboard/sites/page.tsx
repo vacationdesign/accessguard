@@ -136,10 +136,14 @@ export default function SitesPage() {
             <h2 className="font-semibold text-foreground mb-1">
               Site Monitoring — Pro Feature
             </h2>
-            <p className="text-muted text-sm mb-4 max-w-md mx-auto">
+            <p className="text-muted text-sm mb-2 max-w-md mx-auto">
               Register and monitor your websites for accessibility compliance
               over time. Upgrade to Pro to track up to 3 sites, or Agency for
               up to 10.
+            </p>
+            <p className="text-muted text-xs mb-4 max-w-md mx-auto">
+              Free plan scans individual pages on-demand.
+              Pro and Agency plans monitor your registered sites with weekly automated scans.
             </p>
             <Link
               href="/dashboard/billing"

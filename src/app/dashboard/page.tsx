@@ -39,6 +39,31 @@ export default async function DashboardOverview() {
         </p>
       </div>
 
+      {/* Trial Banner */}
+      {activeSubscription?.status === "trialing" && activeSubscription.trial_end && (
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div>
+            <h3 className="font-semibold text-foreground">
+              Your {planLabel} trial ends{" "}
+              {new Date(activeSubscription.trial_end).toLocaleDateString("en-US", {
+                month: "long",
+                day: "numeric",
+                year: "numeric",
+              })}
+            </h3>
+            <p className="text-sm text-muted mt-1">
+              Billing starts automatically after the trial. You can cancel anytime from Billing settings.
+            </p>
+          </div>
+          <Link
+            href="/dashboard/billing"
+            className="bg-white border border-gray-200 text-foreground text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-gray-50 transition-colors whitespace-nowrap"
+          >
+            Manage Billing
+          </Link>
+        </div>
+      )}
+
       {/* Plan Banner (Free users) */}
       {user.plan === "free" && (
         <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">

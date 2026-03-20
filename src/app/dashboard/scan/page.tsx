@@ -137,6 +137,10 @@ export default function DashboardScanPage() {
           </button>
         </form>
 
+        {scanning && (
+          <p className="text-sm text-muted mt-3">This usually takes 10–30 seconds.</p>
+        )}
+
         {error && (
           <div className="bg-red-50 text-danger text-sm px-4 py-3 rounded-lg mt-4">
             {error}

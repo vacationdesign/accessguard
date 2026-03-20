@@ -144,6 +144,7 @@ export default function LoginPage() {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="you@company.com"
                     required
+                    autoComplete="email"
                     autoFocus
                     className="w-full px-4 py-3 border border-gray-200 rounded-lg text-foreground placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-shadow"
                   />

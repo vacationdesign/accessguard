@@ -117,10 +117,10 @@ export default function CheckoutCancelPage() {
             View Plans &amp; Try Again
           </Link>
           <Link
-            href="/"
+            href="/dashboard"
             className="inline-flex items-center justify-center px-6 py-3 border-2 border-gray-200 font-semibold rounded-xl hover:bg-gray-50 transition-colors"
           >
-            Continue with Free Plan
+            Go to Dashboard
           </Link>
         </div>
 
