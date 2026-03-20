@@ -61,6 +61,14 @@ export async function POST(request: NextRequest) {
         trial_period_days: selectedPlan.trialDays,
       },
       ...(email ? { customer_email: email } : {}),
+      consent_collection: {
+        terms_of_service: "required",
+      },
+      custom_text: {
+        terms_of_service_acceptance: {
+          message: "I agree to the [Terms of Service](https://www.a11yscope.com/terms) and [Privacy Policy](https://www.a11yscope.com/privacy).",
+        },
+      },
       success_url: `${baseUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${baseUrl}/checkout/cancel`,
       metadata: {
