@@ -15,6 +15,7 @@ export interface AdminStats {
   scansThisMonth: number;
   averageScore: number | null;
   mrr: number;
+  planBreakdown: { free: number; pro: number; agency: number };
 }
 
 export interface AdminUser {
@@ -84,6 +85,8 @@ export async function getAdminStats(): Promise<AdminStats> {
     scansWeekResult,
     scansMonthResult,
     scoresResult,
+    proUsersResult,
+    agencyUsersResult,
   ] = await Promise.all([
     // Total users
     supabase
@@ -130,6 +133,18 @@ export async function getAdminStats(): Promise<AdminStats> {
       .from("scan_logs")
       .select("score")
       .not("score", "is", null),
+
+    // Pro plan users
+    supabase
+      .from("users")
+      .select("*", { count: "exact", head: true })
+      .eq("plan", "pro"),
+
+    // Agency plan users
+    supabase
+      .from("users")
+      .select("*", { count: "exact", head: true })
+      .eq("plan", "agency"),
   ]);
 
   // Calculate MRR from active subscriptions
@@ -148,8 +163,12 @@ export async function getAdminStats(): Promise<AdminStats> {
     averageScore = Math.round(sum / scores.length);
   }
 
+  const totalUsers = usersResult.count ?? 0;
+  const proCount = proUsersResult.count ?? 0;
+  const agencyCount = agencyUsersResult.count ?? 0;
+
   return {
-    totalUsers: usersResult.count ?? 0,
+    totalUsers,
     paidUsers: activeSubs.length,
     trialUsers: trialSubsResult.count ?? 0,
     totalScans: totalScansResult.count ?? 0,
@@ -158,6 +177,11 @@ export async function getAdminStats(): Promise<AdminStats> {
     scansThisMonth: scansMonthResult.count ?? 0,
     averageScore,
     mrr,
+    planBreakdown: {
+      free: totalUsers - proCount - agencyCount,
+      pro: proCount,
+      agency: agencyCount,
+    },
   };
 }
 

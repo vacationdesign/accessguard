@@ -122,6 +122,16 @@ export default async function AdminOverviewPage() {
         </div>
       </div>
 
+      {/* Plan Distribution */}
+      <div className="bg-white rounded-xl border border-gray-200 p-6">
+        <h2 className="font-semibold text-foreground mb-4">Plan Distribution</h2>
+        <div className="flex flex-wrap gap-4">
+          <PlanCount label="Free" count={stats.planBreakdown.free} color="gray" />
+          <PlanCount label="Pro" count={stats.planBreakdown.pro} color="blue" />
+          <PlanCount label="Agency" count={stats.planBreakdown.agency} color="purple" />
+        </div>
+      </div>
+
       {/* Recent Activity */}
       <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
         <div className="px-6 py-4 border-b border-gray-100">
@@ -146,6 +156,31 @@ export default async function AdminOverviewPage() {
 // ---------------------------------------------------------------------------
 // Sub-components
 // ---------------------------------------------------------------------------
+
+function PlanCount({
+  label,
+  count,
+  color,
+}: {
+  label: string;
+  count: number;
+  color: "gray" | "blue" | "purple";
+}) {
+  const styles = {
+    gray: { pill: "bg-gray-100 text-gray-600", num: "text-gray-700" },
+    blue: { pill: "bg-blue-100 text-blue-700", num: "text-blue-700" },
+    purple: { pill: "bg-purple-100 text-purple-700", num: "text-purple-700" },
+  };
+  const s = styles[color];
+  return (
+    <div className="flex items-center gap-3">
+      <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${s.pill}`}>
+        {label}
+      </span>
+      <span className={`text-2xl font-bold ${s.num}`}>{count}</span>
+    </div>
+  );
+}
 
 function StatCard({
   label,
