@@ -285,7 +285,7 @@ Review every page template on your site. Confirm that help links, phone numbers,
 
 ### 5. Eliminate Redundant Data Entry
 
-Map out every multi-step form and checkout flow. Identify anywhere users are asked to provide information they have already entered, and add auto-population or "same as above" options. This addresses 3.3.7.
+Map out every multi-step form and checkout flow. Identify anywhere users are asked to provide information they have already entered, and add auto-population or "same as above" options. This addresses 3.3.7. If your site includes e-commerce functionality, our [WCAG compliance checklist for e-commerce websites](/blog/wcag-compliance-checklist-ecommerce-websites) covers accessibility requirements for product pages, shopping carts, and checkout flows in full detail.
 
 ### 6. Make Your Login Compatible With Password Managers
 

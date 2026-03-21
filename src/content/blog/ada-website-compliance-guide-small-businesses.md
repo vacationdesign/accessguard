@@ -104,6 +104,8 @@ If you use a website builder like Squarespace, Wix, or WordPress, check whether 
 
 If you work with a web development agency, include WCAG 2.1 AA compliance as an explicit requirement in your contract. Do not assume developers build accessible sites by default.
 
+Be cautious of shortcut solutions like accessibility overlay widgets, which claim to instantly fix WCAG compliance by adding a single script to your site. Courts have ruled that these products do not satisfy ADA requirements and do not prevent lawsuits. Our guide explains [why accessibility overlays don't work](/blog/accessibility-overlay-widgets-do-they-work) and what genuinely effective remediation looks like instead.
+
 ### Step 5: Monitor Continuously
 
 Accessibility is not a one-time project. Every time you add a page, change a design, or update content, you can introduce new accessibility issues. Regular scanning catches regressions before they become legal liabilities.
