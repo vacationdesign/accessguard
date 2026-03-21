@@ -15,7 +15,7 @@ export interface AdminStats {
   scansThisMonth: number;
   averageScore: number | null;
   mrr: number;
-  planBreakdown: { free: number; pro: number; agency: number };
+  planBreakdown: { free: number; pro: number; agency: number; canceling: number };
 }
 
 export interface AdminUser {
@@ -87,6 +87,7 @@ export async function getAdminStats(): Promise<AdminStats> {
     scoresResult,
     proUsersResult,
     agencyUsersResult,
+    cancelingSubsResult,
   ] = await Promise.all([
     // Total users
     supabase
@@ -145,6 +146,13 @@ export async function getAdminStats(): Promise<AdminStats> {
       .from("users")
       .select("*", { count: "exact", head: true })
       .eq("plan", "agency"),
+
+    // Subscriptions scheduled to cancel (cancel_at is set, still active/trialing)
+    supabase
+      .from("subscriptions")
+      .select("*", { count: "exact", head: true })
+      .not("cancel_at", "is", null)
+      .in("status", ["active", "trialing"]),
   ]);
 
   // Calculate MRR from active subscriptions
@@ -181,6 +189,7 @@ export async function getAdminStats(): Promise<AdminStats> {
       free: totalUsers - proCount - agencyCount,
       pro: proCount,
       agency: agencyCount,
+      canceling: cancelingSubsResult.count ?? 0,
     },
   };
 }
