@@ -58,7 +58,8 @@ export default async function CheckoutSuccessPage({ searchParams }: CheckoutSucc
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex items-center justify-center px-6">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex flex-col">
+      <div className="flex-1 flex items-center justify-center px-6 py-16">
       <div className="max-w-lg w-full text-center space-y-8">
         {/* Success Icon */}
         <div className="flex justify-center">
@@ -157,6 +158,7 @@ export default async function CheckoutSuccessPage({ searchParams }: CheckoutSucc
             support@a11yscope.com
           </a>
         </p>
+      </div>
       </div>
 
       <LegalFooter />
