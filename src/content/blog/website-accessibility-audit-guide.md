@@ -12,7 +12,7 @@ tags:
 
 # How to Conduct a Website Accessibility Audit: Step-by-Step Guide
 
-A website accessibility audit is a structured evaluation of your website against the Web Content Accessibility Guidelines (WCAG) to identify barriers that prevent people with disabilities from using your site. Whether you are a web agency managing client sites or a business owner responsible for your own online presence, knowing how to conduct a thorough audit is no longer optional. It is a fundamental part of maintaining a professional, legally compliant, and inclusive website.
+A website accessibility audit — often called an **a11y audit** by developers and accessibility practitioners, using the shorthand where "11" represents the eleven letters between the "a" and "y" in "accessibility" — is a structured evaluation of your website against the Web Content Accessibility Guidelines (WCAG) to identify barriers that prevent people with disabilities from using your site. Whether you are a web agency managing client sites or a business owner responsible for your own online presence, knowing how to conduct a thorough a11y audit is no longer optional. It is a fundamental part of maintaining a professional, legally compliant, and inclusive website.
 
 This guide walks you through the entire process from start to finish: what a website accessibility audit actually involves, how to combine automated and manual testing for maximum coverage, how to document and prioritize your findings, and how to set up ongoing monitoring so your site stays compliant as it evolves. No prior accessibility expertise is required, though developers will find the technical details immediately actionable.
 

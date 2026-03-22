@@ -96,6 +96,8 @@ Run a comprehensive accessibility audit against WCAG 2.1 Level AA. Start with an
 
 Address critical and serious violations first: missing alternative text, broken keyboard navigation, missing form labels, and insufficient color contrast. These are the issues most likely to block users entirely and the ones regulators will focus on during enforcement actions.
 
+If your business distributes digital documents — PDFs for terms of service, product manuals, invoices, or downloadable resources — those must also meet accessibility requirements under the EAA. See our [PDF accessibility guide](/blog/pdf-accessibility-guide) for the specific WCAG criteria that apply to PDF files and how to remediate them.
+
 ### Step 4: Document Your Compliance Efforts
 
 The EAA requires economic operators to be able to demonstrate compliance. Maintain records of your accessibility audits, the issues identified, remediation actions taken, and your ongoing monitoring practices. This documentation is essential if a market surveillance authority or consumer requests evidence of compliance.
