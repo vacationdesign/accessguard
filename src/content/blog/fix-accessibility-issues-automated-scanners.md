@@ -1,6 +1,6 @@
 ---
 title: "How to Fix Common Accessibility Issues Found by Automated Scanners"
-description: "Accessibility scan showing violations? Tackle the most common WCAG issues in the right order — with copy-paste HTML and CSS fixes you can ship today."
+description: "Ran an accessibility issues detector and got a list of violations? Tackle the most common WCAG issues in the right order — with copy-paste HTML and CSS fixes you can ship today."
 date: 2026-02-21
 author: A11yScope Team
 tags: Accessibility, Automated Testing, WCAG
@@ -10,7 +10,7 @@ tags: Accessibility, Automated Testing, WCAG
 
 You just ran an automated accessibility scan on your website and the report came back with dozens, maybe hundreds, of violations. The list looks overwhelming, but here is the good news: most automated scanners flag the same core set of issues, and every one of them has a straightforward fix. This guide walks you through the most frequently reported violations in the exact order you should tackle them, with code examples you can implement immediately.
 
-Automated accessibility scanners like A11yScope, axe-core, and Lighthouse can detect roughly 30-40% of all WCAG 2.1 issues. The issues they catch tend to be the most common and most impactful, which means fixing your scan results is the single highest-leverage accessibility improvement you can make. If you are not sure which tool to use, our [comparison of accessibility testing tools](/blog/website-accessibility-testing-tools-compared) covers the strengths and limitations of each option.
+An automated accessibility issues detector like A11yScope, axe-core, or Lighthouse can identify roughly 30-40% of all WCAG 2.1 issues. The issues these detectors catch tend to be the most common and most impactful, which means fixing your scan results is the single highest-leverage accessibility improvement you can make. If you are not sure which tool to use, our [comparison of accessibility testing tools](/blog/website-accessibility-testing-tools-compared) covers the strengths and limitations of each option.
 
 ## Understanding Your Scan Report
 

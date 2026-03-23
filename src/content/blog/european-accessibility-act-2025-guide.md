@@ -112,7 +112,7 @@ Accessibility is not a one-time fix. Every code deployment, content update, and 
 
 If your business is based outside the EU but provides covered services to EU consumers, you are subject to the EAA through the national laws of the member states where your customers are located. The directive applies based on where the service is consumed, not where the provider is established.
 
-This means US, UK, and other non-EU businesses with EU-facing websites need to comply. The practical approach is the same: align with WCAG 2.1 AA, document your compliance, and monitor continuously.
+This means US, UK, and other non-EU businesses with EU-facing websites need to comply. The practical approach is the same: align with WCAG 2.1 AA, document your compliance, and monitor continuously. US businesses with federal contracts or government technology should also ensure they meet [Section 508 compliance](/blog/section-508-compliance-guide) requirements — the overlap with WCAG 2.1 AA makes a single remediation effort effective for both frameworks.
 
 ## Start Your EAA Compliance Assessment Today
 
