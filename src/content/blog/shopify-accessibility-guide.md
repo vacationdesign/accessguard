@@ -237,4 +237,6 @@ Accessibility on Shopify is not a one-time checklist. Every new product, app ins
 - **Scan regularly.** Monthly at minimum, weekly if your store changes frequently. Automated scanning is the fastest way to catch the issues that accumulate over time.
 - **Educate your team.** If multiple people manage your store's content, share basic guidelines on alt text, heading structure, and link text. The most common accessibility failures come from content, not code.
 
+If you are a web agency managing Shopify accessibility for multiple client stores, see our guide on [how to sell accessibility services as a web agency](/blog/accessibility-for-web-agencies-sell-services) — including how to package audits, remediation, and ongoing monitoring into recurring revenue.
+
 Shopify gives you a functional platform. Making it accessible to all your customers is your responsibility  Eand it is achievable with the right awareness, the right tools, and a consistent effort to get the details right.
