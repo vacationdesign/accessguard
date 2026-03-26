@@ -151,7 +151,7 @@ export default function TokushohoPage() {
                   <span className="text-xs font-normal text-gray-500">支払時期</span>
                 </th>
                 <td className="px-6 py-4 text-sm text-gray-700">
-                  All paid plans include a 14-day free trial. No charge is made during the trial period. The first charge occurs automatically when the trial ends. Subsequent charges are billed on each monthly renewal date.
+                  All paid plans include a 7-day free trial. No charge is made during the trial period. The first charge occurs automatically when the trial ends. Subsequent charges are billed on each monthly renewal date.
                 </td>
               </tr>
               <tr>
@@ -181,7 +181,7 @@ export default function TokushohoPage() {
                   <span className="text-xs font-normal text-gray-500">返品・返金</span>
                 </th>
                 <td className="px-6 py-4 text-sm text-gray-700">
-                  We offer a 30-day money-back guarantee on all paid plans. If you are not satisfied within the first 30 days of your paid subscription, contact us at support@a11yscope.com for a full refund. After 30 days, no prorated refunds are provided for mid-cycle cancellations. If you cancel during the 14-day free trial, no payment is collected.
+                  We offer a 30-day money-back guarantee on all paid plans. If you are not satisfied within the first 30 days of your paid subscription, contact us at support@a11yscope.com for a full refund. After 30 days, no prorated refunds are provided for mid-cycle cancellations. If you cancel during the 7-day free trial, no payment is collected.
                 </td>
               </tr>
               <tr>

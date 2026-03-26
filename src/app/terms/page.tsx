@@ -105,12 +105,12 @@ export default function TermsOfServicePage() {
             </h2>
             <p>
               A11yScope offers Free, Pro ($49/month), and Agency ($149/month) plans.
-              Paid plans include a 14-day free trial. Payment is processed by Stripe.
+              Paid plans include a 7-day free trial. Payment is processed by Stripe.
             </p>
             <ul className="list-disc pl-6 space-y-1">
               <li>
                 <strong>Trial period</strong> &mdash; You will not be charged during the
-                14-day trial. If you cancel before the trial ends, no payment will be
+                7-day trial. If you cancel before the trial ends, no payment will be
                 collected.
               </li>
               <li>

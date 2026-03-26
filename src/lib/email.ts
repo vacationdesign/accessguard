@@ -82,7 +82,7 @@ export async function sendWelcomeEmail({
                 trialEndStr
                   ? `<div style="background-color:#eff6ff;border-left:4px solid #3b82f6;padding:16px;border-radius:0 8px 8px 0;margin:0 0 24px;">
                 <p style="margin:0;color:#1e40af;font-size:14px;">
-                  <strong>Your 14-day free trial is active.</strong><br>
+                  <strong>Your 7-day free trial is active.</strong><br>
                   You won't be charged until <strong>${trialEndStr}</strong>.
                 </p>
               </div>`

@@ -159,6 +159,36 @@ export async function getUserByEmail(email: string): Promise<User | null> {
 // ---------------------------------------------------------------------------
 
 /**
+ * Check if a user (by email) has ever had a subscription (active, canceled, etc.).
+ * Used to prevent trial abuse on re-subscription.
+ */
+export async function hasSubscriptionHistory(
+  email: string
+): Promise<boolean> {
+  const supabase = getSupabaseClient();
+
+  const { data: user } = await supabase
+    .from("users")
+    .select("id")
+    .eq("email", email)
+    .single();
+
+  if (!user) return false;
+
+  const { count, error } = await supabase
+    .from("subscriptions")
+    .select("*", { count: "exact", head: true })
+    .eq("user_id", user.id);
+
+  if (error) {
+    console.error("Error checking subscription history:", error.message);
+    return false;
+  }
+
+  return (count ?? 0) > 0;
+}
+
+/**
  * Create a new subscription record and update the user's plan.
  */
 export async function createSubscription(

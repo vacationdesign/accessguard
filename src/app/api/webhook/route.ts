@@ -123,7 +123,7 @@ export async function POST(request: NextRequest) {
           customerEmail,
           plan: plan === "agency" ? "Agency ($149/mo)" : "Pro ($49/mo)",
           details: subAny.trial_end
-            ? `14-day trial until ${new Date(subAny.trial_end * 1000).toLocaleDateString("en-US")}`
+            ? `7-day trial until ${new Date(subAny.trial_end * 1000).toLocaleDateString("en-US")}`
             : "No trial — charged immediately",
         }).catch((err) => {
           console.error("Admin notification failed (non-blocking):", err);

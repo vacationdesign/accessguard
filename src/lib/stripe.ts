@@ -22,13 +22,13 @@ export const PLANS = {
     name: "A11yScope Pro",
     priceId: process.env.STRIPE_PRO_PRICE_ID,
     price: 49,
-    trialDays: 14,
+    trialDays: 7,
   },
   agency: {
     name: "A11yScope Agency",
     priceId: process.env.STRIPE_AGENCY_PRICE_ID,
     price: 149,
-    trialDays: 14,
+    trialDays: 7,
   },
 } as const;
 

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe, PLANS, PlanKey } from "@/lib/stripe";
+import { hasSubscriptionHistory } from "@/lib/db";
 
 const ALLOWED_ORIGINS = [
   "https://www.a11yscope.com",
@@ -47,6 +48,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Check if the user has a past subscription — if so, no trial
+    const hadSub = email ? await hasSubscriptionHistory(email) : false;
+    const trialDays = hadSub ? undefined : selectedPlan.trialDays;
+
     // Create a Stripe Checkout session
     const session = await stripe.checkout.sessions.create({
       mode: "subscription",
@@ -59,7 +64,7 @@ export async function POST(request: NextRequest) {
         },
       ],
       subscription_data: {
-        trial_period_days: selectedPlan.trialDays,
+        ...(trialDays ? { trial_period_days: trialDays } : {}),
       },
       ...(email ? { customer_email: email } : {}),
       consent_collection: {

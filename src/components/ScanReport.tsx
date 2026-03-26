@@ -172,7 +172,7 @@ export default function ScanReport({ result, onCheckout, checkoutLoading }: Scan
             disabled={checkoutLoading !== null}
             className="bg-primary text-white font-bold px-8 py-3 rounded-xl hover:bg-primary-dark transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {checkoutLoading === "pro" ? "Redirecting..." : "Try Pro Free for 14 Days"}
+            {checkoutLoading === "pro" ? "Redirecting..." : "Try Pro Free for 7 Days"}
           </button>
           <button
             onClick={handleDownloadPdf}

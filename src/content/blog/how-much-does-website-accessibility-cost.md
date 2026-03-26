@@ -102,7 +102,7 @@ Medium-effort remediation for a small-to-midsize site generally falls in the ran
 The most expensive remediation work involves architectural issues that cannot be resolved with surface-level code changes:
 
 - **Replacing inaccessible third-party components**  Eif your site depends on a booking widget or chat tool that is fundamentally inaccessible, you may need to replace it entirely.
-- **Retrofitting a CMS theme**  Eif accessibility problems are baked into your base theme, every page inherits those issues. Fixing the theme requires deeper development effort than patching individual pages.
+- **Retrofitting a CMS theme**  Eif accessibility problems are baked into your base theme, every page inherits those issues. Fixing the theme requires deeper development effort than patching individual pages. If you use Webflow, see our [Webflow accessibility guide](/blog/webflow-accessibility-guide) for platform-specific remediation strategies.
 - **Making PDF documents accessible**  Eremediating a large library of untagged PDFs is time-intensive. Each document needs tagging, reading order, and alt text. Complex documents can take hours each.
 - **Video captioning and audio description**  Eadding accurate captions and audio descriptions to video content. Professional captioning services typically charge per minute of video.
 

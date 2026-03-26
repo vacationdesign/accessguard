@@ -148,7 +148,7 @@ export default async function BillingPage() {
               "PDF compliance reports",
               "Email alerts",
               "Full scan history",
-              "14-day free trial",
+              "7-day free trial",
             ]}
             current={user.plan === "pro"}
             highlighted
@@ -161,7 +161,7 @@ export default async function BillingPage() {
               "10 monitored sites",
               "Larger crawl scope",
               "White-label PDF reports",
-              "14-day free trial",
+              "7-day free trial",
             ]}
             current={user.plan === "agency"}
           />

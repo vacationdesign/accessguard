@@ -104,7 +104,7 @@ export default function CheckoutCancelPage() {
                   clipRule="evenodd"
                 />
               </svg>
-              14-day free trial &mdash; no charge until it ends
+              7-day free trial &mdash; no charge until it ends
             </li>
           </ul>
         </div>

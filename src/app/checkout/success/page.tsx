@@ -86,7 +86,7 @@ export default async function CheckoutSuccessPage({ searchParams }: CheckoutSucc
             Welcome to A11yScope {plan}!
           </h1>
           <p className="text-lg text-muted">
-            Your subscription is now active. Your 14-day free trial has started
+            Your subscription is now active. Your 7-day free trial has started
             &mdash; you won&apos;t be charged until{" "}
             {trialEndDate ? (
               <span className="font-semibold text-foreground">{trialEndDate}</span>

@@ -119,8 +119,8 @@ const faqCategories = [
     category: "Billing & Subscriptions",
     questions: [
       {
-        q: "How does the 14-day free trial work?",
-        a: "When you start a Pro or Agency trial, you enter your payment details but are not charged during the 14-day trial period. You get full access to all plan features immediately. If you cancel before the trial ends, you will not be charged. If you continue, your subscription begins automatically at the plan price ($49/month for Pro, $149/month for Agency).",
+        q: "How does the 7-day free trial work?",
+        a: "When you start a Pro or Agency trial, you enter your payment details but are not charged during the 7-day trial period. You get full access to all plan features immediately. If you cancel before the trial ends, you will not be charged. If you continue, your subscription begins automatically at the plan price ($49/month for Pro, $149/month for Agency).",
       },
       {
         q: "How do I cancel my subscription?",

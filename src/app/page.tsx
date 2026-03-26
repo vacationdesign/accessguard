@@ -534,7 +534,7 @@ export default function Home() {
                 disabled={checkoutLoading === "pro"}
                 className="w-full py-3 bg-primary text-white rounded-xl font-semibold hover:bg-primary-dark transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {checkoutLoading === "pro" ? "Redirecting..." : "Start 14-Day Free Trial"}
+                {checkoutLoading === "pro" ? "Redirecting..." : "Start 7-Day Free Trial"}
               </button>
             </div>
 
@@ -599,7 +599,7 @@ export default function Home() {
                 disabled={checkoutLoading === "agency"}
                 className="w-full py-3 border-2 border-gray-200 rounded-xl font-semibold hover:bg-gray-50 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {checkoutLoading === "agency" ? "Redirecting..." : "Start 14-Day Free Trial"}
+                {checkoutLoading === "agency" ? "Redirecting..." : "Start 7-Day Free Trial"}
               </button>
             </div>
           </div>
@@ -607,7 +607,7 @@ export default function Home() {
 
         {/* Trust / Guarantee */}
         <p className="text-center text-sm text-muted mt-8">
-          14-day free trial on all paid plans. 30-day money-back guarantee. Cancel anytime.
+          7-day free trial on all paid plans. 30-day money-back guarantee. Cancel anytime.
           <br />
           By subscribing, you agree to our{" "}
           <a href="/terms" className="underline hover:text-foreground">Terms of Service</a>
