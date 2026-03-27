@@ -74,7 +74,7 @@ This section is where many accessibility statements fail. Generic language like 
 **Example entries:**
 
 - **Video captions:** Some older videos in the blog archive do not have captions. We are adding captions to all videos, prioritized by traffic, with an estimated completion date of Q3 2026.
-- **PDF documents:** Several downloadable PDFs in our resources section are not tagged for screen reader accessibility. We are remediating these files and expect all current PDFs to be accessible by June 2026.
+- **PDF documents:** Several downloadable PDFs in our resources section are not tagged for screen reader accessibility — see our [PDF accessibility guide](/blog/pdf-accessibility-guide) for remediation steps. We are remediating these files and expect all current PDFs to be accessible by June 2026.
 - **Third-party embedded content:** Our live chat widget is provided by a third-party vendor and does not fully support keyboard navigation. We have raised this issue with the vendor and are evaluating alternatives.
 
 This specificity demonstrates genuine engagement with accessibility, not just performative compliance.

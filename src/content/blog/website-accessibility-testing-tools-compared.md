@@ -50,7 +50,7 @@ SaaS accessibility platforms go beyond single-page analysis. They crawl your ent
 
 For development teams that want to catch accessibility issues before code reaches production, CI/CD integrations embed accessibility checks directly into the build and deployment pipeline.
 
-**axe-core** is the open-source JavaScript library that powers many of the tools mentioned above. You can integrate it directly into your unit tests, integration tests, or end-to-end tests using frameworks like Jest, Cypress, Playwright, or Puppeteer. When a test detects a new accessibility violation, the build fails, preventing the regression from being deployed.
+**axe-core** is the open-source JavaScript library that powers many of the tools mentioned above. You can integrate it directly into your unit tests, integration tests, or end-to-end tests using frameworks like Jest, Cypress, Playwright, or Puppeteer. When a test detects a new accessibility violation, the build fails, preventing the regression from being deployed. If you are building a React or single-page application, our [React and SPA accessibility guide](/blog/react-accessibility-guide-spa) covers the additional patterns SPAs require — including focus management on route changes and live region announcements for dynamic content updates.
 
 **Pa11y** is another open-source tool that can run accessibility tests from the command line or as part of a CI pipeline. It supports WCAG 2.1 testing using HTML CodeSniffer as its default runner, with an option to use axe-core instead. Pa11y is straightforward to set up and works well for teams that want basic automated accessibility gating without the complexity of a full platform.
 
