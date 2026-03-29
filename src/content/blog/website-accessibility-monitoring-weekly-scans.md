@@ -80,7 +80,7 @@ Scan results should be automatically distributed to the people who need to act o
 
 ### Exportable Compliance Records
 
-For organizations subject to the ADA, Section 508, or the European Accessibility Act, historical scan data serves as evidence of ongoing compliance efforts. Your monitoring system should allow you to export reports for regulatory or legal purposes.
+For organizations subject to the ADA, [Section 508](/blog/section-508-compliance-guide), or the European Accessibility Act, historical scan data serves as evidence of ongoing compliance efforts. Your monitoring system should allow you to export reports for regulatory or legal purposes.
 
 ## How Monitoring Reduces Legal Risk
 

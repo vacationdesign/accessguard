@@ -100,7 +100,7 @@ Automated scanners catch roughly 30-40% of WCAG 2.1 success criteria. The remain
 - **Whether video captions are accurate.** A scanner might detect the presence of a caption track, but it cannot evaluate the quality of the captions.
 - **Whether visual presentation is accessible.** Content that relies on spatial positioning, visual grouping, or icon recognition to convey meaning requires human review.
 
-This is why a website accessibility audit that relies solely on automated scanning is fundamentally incomplete. Automated testing is step one, not the entire process.
+This is why a website accessibility audit that relies solely on automated scanning is fundamentally incomplete. Automated testing is step one, not the entire process. It is also why [accessibility overlay widgets do not work](/blog/accessibility-overlay-widgets-do-they-work) as an alternative to a genuine audit — they rely on the same category of automated detection but add a JavaScript layer that creates new problems without solving the ones that require human judgment.
 
 ### Running your automated scan
 
