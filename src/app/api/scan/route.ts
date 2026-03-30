@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { scanUrl, ScanResult } from "@/lib/scanner";
-import { canUserScan, logScan } from "@/lib/db";
+import { canUserScan, logScan, getDomainScanCount } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 
 // Vercel serverless function config: scanning needs up to 60s
@@ -94,7 +94,16 @@ export async function POST(request: NextRequest) {
       console.error("Failed to log scan:", err);
     }
 
-    return NextResponse.json(result);
+    // Count how many times this IP has scanned the same domain (for nudge)
+    let domainScanCount = 0;
+    try {
+      const hostname = new URL(normalizedUrl).hostname;
+      domainScanCount = await getDomainScanCount(ip, hostname);
+    } catch {
+      // ignore — non-critical
+    }
+
+    return NextResponse.json({ ...result, domainScanCount });
   } catch (error: any) {
     console.error("Scan error:", error);
 

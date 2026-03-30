@@ -1,12 +1,12 @@
 ---
-title: "How to Fix Common Accessibility Issues Found by Automated Scanners"
-description: "Ran an accessibility issues detector and got a list of violations? Tackle the most common WCAG issues in the right order — with copy-paste HTML and CSS fixes you can ship today."
+title: "Fix Accessibility Issues Found by Automated Scanners"
+description: "Step-by-step fixes for the most common WCAG violations your scanner found. Copy-paste HTML and CSS code examples you can ship today."
 date: 2026-02-21
 author: A11yScope Team
 tags: Accessibility, Automated Testing, WCAG
 ---
 
-# How to Fix Common Accessibility Issues Found by Automated Scanners
+# Fix Accessibility Issues Found by Automated Scanners
 
 You just ran an automated accessibility scan on your website and the report came back with dozens, maybe hundreds, of violations. The list looks overwhelming, but here is the good news: most automated scanners flag the same core set of issues, and every one of them has a straightforward fix. This guide walks you through the most frequently reported violations in the exact order you should tackle them, with code examples you can implement immediately.
 

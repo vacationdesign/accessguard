@@ -391,6 +391,33 @@ export async function logScan(
 }
 
 /**
+ * Count how many times an IP address has scanned URLs containing a given
+ * domain in the last 30 days.  Used to show a "repeated scan" nudge.
+ */
+export async function getDomainScanCount(
+  ip: string,
+  domain: string
+): Promise<number> {
+  const supabase = getSupabaseClient();
+
+  const since = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+
+  const { count, error } = await supabase
+    .from("scan_logs")
+    .select("*", { count: "exact", head: true })
+    .eq("ip_address", ip)
+    .ilike("url", `%${domain}%`)
+    .gte("created_at", since);
+
+  if (error) {
+    console.error("Error counting domain scans:", error.message);
+    return 0;
+  }
+
+  return count ?? 0;
+}
+
+/**
  * Count how many scans an IP address has made in the last `hours` hours.
  */
 export async function getRecentScanCount(

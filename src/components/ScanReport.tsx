@@ -6,7 +6,7 @@ import ViolationCard from "./ViolationCard";
 import { ScanResult } from "@/lib/scanner";
 
 interface ScanReportProps {
-  result: ScanResult;
+  result: ScanResult & { domainScanCount?: number };
   onCheckout: (plan: "pro" | "agency") => void;
   checkoutLoading: string | null;
 }
@@ -104,22 +104,42 @@ export default function ScanReport({ result, onCheckout, checkoutLoading }: Scan
         </div>
       </div>
 
+      {/* Repeated Scan Nudge */}
+      {(result.domainScanCount ?? 0) >= 3 && (
+        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6 text-center space-y-3">
+          <h3 className="text-lg font-bold text-amber-900">
+            You&apos;ve scanned this site {result.domainScanCount} times this month
+          </h3>
+          <p className="text-amber-700 text-sm">
+            A11yScope Pro monitors your site automatically every week — no manual
+            scanning needed. Get alerted when new issues appear.
+          </p>
+          <button
+            onClick={() => onCheckout("pro")}
+            disabled={checkoutLoading !== null}
+            className="bg-amber-500 text-white font-bold px-8 py-3 rounded-xl hover:bg-amber-600 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {checkoutLoading ? "Redirecting..." : "Start Automated Monitoring"}
+          </button>
+        </div>
+      )}
+
       {/* CTA Banner */}
       {result.violations.length > 0 && (
         <div className="bg-gradient-to-r from-primary to-blue-700 rounded-2xl p-6 text-white text-center space-y-3">
           <h3 className="text-xl font-bold">
-            {totalIssueNodes} accessibility issues could expose you to lawsuits
+            {totalIssueNodes} issues found on this page alone
           </h3>
           <p className="text-blue-100">
-            ADA website lawsuits increased 300% since 2018. Get full-site
-            monitoring and automated fix reports.
+            Most websites have accessibility problems on every page. Scan your
+            entire site and get fix-ready code snippets for each issue.
           </p>
           <button
             onClick={() => onCheckout("pro")}
             disabled={checkoutLoading !== null}
             className="bg-white text-primary font-bold px-8 py-3 rounded-xl hover:bg-blue-50 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {checkoutLoading ? "Redirecting..." : "Start Full Site Audit — $49/month"}
+            {checkoutLoading ? "Redirecting..." : "Start 7-Day Free Trial"}
           </button>
           <p className="text-xs text-blue-200 mt-2">
             By subscribing, you agree to our{" "}
@@ -157,15 +177,37 @@ export default function ScanReport({ result, onCheckout, checkoutLoading }: Scan
       )}
 
       {/* Footer CTA */}
-      <div className="bg-gray-50 rounded-2xl p-8 text-center space-y-4">
+      <div className="bg-gray-50 rounded-2xl p-8 text-center space-y-5">
         <h3 className="text-xl font-bold text-foreground">
           This was just one page.
         </h3>
         <p className="text-muted max-w-lg mx-auto">
-          Most websites have accessibility issues on every page. A11yScope Pro
-          scans your entire site, monitors for new issues weekly, and gives your
-          team fix-ready code snippets.
+          Create a free account to save your scan results, or upgrade to Pro
+          for full-site monitoring.
         </p>
+
+        <div className="max-w-md mx-auto text-left space-y-2">
+          <p className="text-sm font-semibold text-foreground">What you get with Pro:</p>
+          <ul className="text-sm text-muted space-y-1.5">
+            <li className="flex items-start gap-2">
+              <span className="text-success mt-0.5">&#10003;</span>
+              Full-site crawl — scan up to 20 pages at once
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-success mt-0.5">&#10003;</span>
+              Weekly automated monitoring &amp; email alerts
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-success mt-0.5">&#10003;</span>
+              PDF compliance reports for stakeholders
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-success mt-0.5">&#10003;</span>
+              Scan history &amp; score trends over time
+            </li>
+          </ul>
+        </div>
+
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <button
             onClick={() => onCheckout("pro")}
@@ -183,7 +225,10 @@ export default function ScanReport({ result, onCheckout, checkoutLoading }: Scan
           </button>
         </div>
         <p className="text-xs text-muted">
-          By subscribing, you agree to our{" "}
+          Or{" "}
+          <a href="/login" className="text-primary underline hover:text-primary-dark">create a free account</a>
+          {" "}to save this scan.
+          {" "}By subscribing, you agree to our{" "}
           <a href="/terms" className="underline hover:text-foreground">Terms of Service</a>
           {" "}and{" "}
           <a href="/privacy" className="underline hover:text-foreground">Privacy Policy</a>.
