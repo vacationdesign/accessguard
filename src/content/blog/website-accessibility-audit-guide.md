@@ -228,6 +228,8 @@ Classify each fix by implementation effort to help with sprint planning:
 - **Standard fix (30 minutes to 2 hours):** Refactoring a component to use semantic HTML, adding keyboard handling to a custom widget, fixing focus management in a modal
 - **Complex fix (half day or more):** Rebuilding a custom date picker to be accessible, redesigning a color system for sufficient contrast, adding caption support to a video player
 
+For a detailed breakdown of typical costs across different site sizes and complexity levels, see our guide on [how much website accessibility costs](/blog/how-much-does-website-accessibility-cost).
+
 ## Step 6: Setting Up Ongoing Monitoring
 
 A website accessibility audit is a snapshot. The moment it is complete, your site begins drifting. Code deployments, content updates, design changes, and third-party script updates all introduce new accessibility issues on an ongoing basis.

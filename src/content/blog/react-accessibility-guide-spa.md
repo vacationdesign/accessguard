@@ -12,7 +12,7 @@ Single-page applications built with React deliver fast, fluid user experiences b
 
 This is not a niche concern. According to the WebAIM Million analysis, React-based sites consistently show higher rates of detected accessibility errors than the average across all sites surveyed. The framework itself is not the problem  EReact supports accessible markup as well as any UI library can  Ebut the patterns that developers reach for by default tend to break accessibility in ways that are invisible during sighted, mouse-driven testing.
 
-This guide covers the specific accessibility challenges that React single-page applications create and provides concrete patterns to solve each one. It is written for agency developers building client projects where WCAG 2.1 AA compliance is a deliverable, not a nice-to-have.
+This guide covers the specific accessibility challenges that React single-page applications create and provides concrete patterns to solve each one. It is written for [agency developers](/blog/accessibility-for-web-agencies-sell-services) building client projects where WCAG 2.1 AA compliance is a deliverable, not a nice-to-have.
 
 ## Why Single-Page Applications Break Accessibility
 
