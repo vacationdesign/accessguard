@@ -41,7 +41,7 @@ The EAA applies to economic operators that place products on the EU market or pr
 - Banking and financial services for consumers
 - E-books and dedicated software
 
-If your business operates an e-commerce website that sells to EU customers, you are within scope regardless of where your company is headquartered. A US-based online retailer shipping to Germany or a UK-based SaaS company with EU subscribers is subject to the EAA through the national laws of the member states where their customers reside.
+If your business operates an e-commerce website that sells to EU customers, you are within scope regardless of where your company is headquartered. A US-based online retailer shipping to Germany or a UK-based SaaS company with EU subscribers is subject to the EAA through the national laws of the member states where their customers reside. For a practical walkthrough of the specific WCAG criteria that affect online stores, see our [WCAG compliance checklist for e-commerce websites](/blog/wcag-compliance-checklist-ecommerce-websites).
 
 ### Microenterprise Exemption
 
@@ -100,7 +100,7 @@ If your business distributes digital documents — PDFs for terms of service, pr
 
 ### Step 4: Document Your Compliance Efforts
 
-The EAA requires economic operators to be able to demonstrate compliance. Maintain records of your accessibility audits, the issues identified, remediation actions taken, and your ongoing monitoring practices. This documentation is essential if a market surveillance authority or consumer requests evidence of compliance.
+The EAA requires economic operators to be able to demonstrate compliance. Maintain records of your accessibility audits, the issues identified, remediation actions taken, and your ongoing monitoring practices. Publishing an [accessibility statement](/blog/write-accessibility-statement-website-template) on your website is a practical way to communicate your compliance status and provide a contact channel for users who encounter barriers. This documentation is essential if a market surveillance authority or consumer requests evidence of compliance.
 
 ### Step 5: Establish Ongoing Monitoring
 
