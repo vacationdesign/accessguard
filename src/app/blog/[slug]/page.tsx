@@ -89,18 +89,26 @@ function renderMarkdown(content: string): string {
     .replace(
       /\[([^\]]+)\]\(([^)]+)\)/g,
       (_match: string, text: string, url: string) => {
-        const trimmedUrl = url.trim().toLowerCase();
+        const trimmedUrl = url.trim();
+        const lowerUrl = trimmedUrl.toLowerCase();
         if (
-          trimmedUrl.startsWith("javascript:") ||
-          trimmedUrl.startsWith("data:") ||
-          trimmedUrl.startsWith("vbscript:")
+          lowerUrl.startsWith("javascript:") ||
+          lowerUrl.startsWith("data:") ||
+          lowerUrl.startsWith("vbscript:")
         ) {
           return text; // Strip dangerous links, keep text only
         }
-        // Encode URL in href attribute to prevent attribute injection
-        const safeUrl = escapeHtmlAttr(url.trim());
+        // Internal links (start with "/" or "#") stay in the same tab for
+        // better UX and SEO. External links open in a new tab with
+        // noopener/noreferrer for security.
+        const isInternal =
+          trimmedUrl.startsWith("/") || trimmedUrl.startsWith("#");
+        const safeUrl = escapeHtmlAttr(trimmedUrl);
         const safeText = text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-        return `<a href="${safeUrl}" class="text-primary hover:text-primary-dark underline" target="_blank" rel="noopener noreferrer">${safeText}</a>`;
+        const targetAttrs = isInternal
+          ? ""
+          : ' target="_blank" rel="noopener noreferrer"';
+        return `<a href="${safeUrl}" class="text-primary hover:text-primary-dark underline"${targetAttrs}>${safeText}</a>`;
       }
     )
     // Unordered lists
