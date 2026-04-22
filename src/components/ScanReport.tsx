@@ -311,13 +311,25 @@ export default function ScanReport({ result, onCheckout, checkoutLoading }: Scan
         )}
 
         {emailStatus === "sent" && (
-          <div className="max-w-md mx-auto bg-green-50 border border-green-200 rounded-xl p-4 text-center">
+          <div className="max-w-md mx-auto bg-green-50 border border-green-200 rounded-xl p-4 text-center space-y-2">
             <p className="text-sm font-semibold text-green-700">
               &#10003; Report sent to {emailValue}
             </p>
-            <p className="text-xs text-green-600 mt-1">
+            <p className="text-xs text-green-600">
               Check your inbox (and spam folder just in case).
             </p>
+            <button
+              type="button"
+              onClick={() => {
+                setEmailStatus("idle");
+                setEmailValue("");
+                setEmailError(null);
+                setEmailFormOpen(true);
+              }}
+              className="text-xs text-primary underline hover:text-primary-dark mt-1"
+            >
+              Send to another address
+            </button>
           </div>
         )}
         <p className="text-xs text-muted">

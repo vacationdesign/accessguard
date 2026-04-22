@@ -445,19 +445,57 @@ export async function getRecentScanCount(
 }
 
 /**
+ * Count scans a specific user (not IP) has made in the last N hours.
+ */
+export async function getUserScanCount(
+  userId: string,
+  hours: number
+): Promise<number> {
+  const supabase = getSupabaseClient();
+  const since = new Date(Date.now() - hours * 60 * 60 * 1000).toISOString();
+  const { count, error } = await supabase
+    .from("scan_logs")
+    .select("*", { count: "exact", head: true })
+    .eq("user_id", userId)
+    .gte("created_at", since);
+
+  if (error) {
+    console.error("Error counting user scans:", error.message);
+    return Infinity;
+  }
+  return count ?? 0;
+}
+
+/**
+ * Result of a scan authorization check.  `allowed === false` means block.
+ * `reason` describes which limit was hit, so the client can show the right
+ * CTA (free signup vs Pro upgrade).
+ */
+export type ScanAuthResult =
+  | { allowed: true }
+  | { allowed: false; reason: "anonymous_hourly" | "free_monthly" };
+
+/** Anonymous visitors: 5 scans/hour per IP. */
+const ANON_HOURLY_LIMIT = 5;
+/** Signed-in Free users: 50 scans/month per account. */
+const FREE_MONTHLY_LIMIT = 50;
+const MONTH_HOURS = 30 * 24;
+
+/**
  * Determine whether a user (identified by IP and optionally user ID) is
  * allowed to perform a scan.
  *
- * - Free tier (userId is null): 5 scans per hour per IP address
- * - Paid users: unlimited scans
- *
- * Returns `true` if the scan should be allowed.
+ * - Paid users (pro/agency): unlimited
+ * - Signed-in Free users: 50 scans per 30 days per account (higher than
+ *   the anonymous limit so a free account has a concrete benefit over
+ *   the no-signup experience)
+ * - Anonymous: 5 scans per hour per IP
  */
-export async function canUserScan(
+export async function canUserScanDetailed(
   ip: string,
   userId: string | null
-): Promise<boolean> {
-  // If we have a userId, check whether they have a paid plan
+): Promise<ScanAuthResult> {
+  // Signed-in user: look up plan first
   if (userId) {
     const supabase = getSupabaseClient();
     const { data: user } = await supabase
@@ -467,16 +505,108 @@ export async function canUserScan(
       .single();
 
     if (user && (user.plan === "pro" || user.plan === "agency")) {
-      return true; // Paid users get unlimited scans
+      return { allowed: true };
     }
+
+    // Signed-in Free user: monthly per-account limit
+    const monthCount = await getUserScanCount(userId, MONTH_HOURS);
+    if (monthCount < FREE_MONTHLY_LIMIT) return { allowed: true };
+    return { allowed: false, reason: "free_monthly" };
   }
 
-  // Free tier: rate limit by IP
-  const FREE_LIMIT = 5;
-  const WINDOW_HOURS = 1;
-  const recentCount = await getRecentScanCount(ip, WINDOW_HOURS);
+  // Anonymous: hourly per-IP limit
+  const recentCount = await getRecentScanCount(ip, 1);
+  if (recentCount < ANON_HOURLY_LIMIT) return { allowed: true };
+  return { allowed: false, reason: "anonymous_hourly" };
+}
 
-  return recentCount < FREE_LIMIT;
+/**
+ * Legacy boolean wrapper — kept so existing callers (weekly-scan cron, etc.)
+ * don't need to change. New callers should use `canUserScanDetailed`.
+ */
+export async function canUserScan(
+  ip: string,
+  userId: string | null
+): Promise<boolean> {
+  const res = await canUserScanDetailed(ip, userId);
+  return res.allowed;
+}
+
+// ---------------------------------------------------------------------------
+// Email event helpers
+// ---------------------------------------------------------------------------
+
+/**
+ * Log an outbound transactional email so we can rate-limit future sends
+ * from the same IP or to the same recipient. Failures are logged but never
+ * thrown — email sending should not be blocked by an audit write error.
+ */
+export async function logEmailEvent(
+  kind: string,
+  recipient: string,
+  ip: string | null
+): Promise<void> {
+  const supabase = getSupabaseClient();
+  const { error } = await supabase.from("email_events").insert({
+    kind,
+    recipient,
+    ip_address: ip,
+  });
+  if (error) {
+    console.error("Failed to log email_event:", error.message);
+  }
+}
+
+/**
+ * How many email events the given IP has triggered in the last `hours` hours.
+ * Used to cap the "email this report" endpoint.
+ */
+export async function getEmailEventCountByIp(
+  ip: string,
+  hours: number,
+  kind?: string
+): Promise<number> {
+  const supabase = getSupabaseClient();
+  const since = new Date(Date.now() - hours * 60 * 60 * 1000).toISOString();
+  let query = supabase
+    .from("email_events")
+    .select("*", { count: "exact", head: true })
+    .eq("ip_address", ip)
+    .gte("created_at", since);
+  if (kind) query = query.eq("kind", kind);
+  const { count, error } = await query;
+  if (error) {
+    console.error("Failed to count email_events by ip:", error.message);
+    // Fail closed — treat as over the limit
+    return Infinity;
+  }
+  return count ?? 0;
+}
+
+/**
+ * How many email events have targeted the given recipient in the last
+ * `hours` hours. Prevents rotating-IP attackers from bombing a single
+ * victim's inbox.
+ */
+export async function getEmailEventCountByRecipient(
+  recipient: string,
+  hours: number,
+  kind?: string
+): Promise<number> {
+  const supabase = getSupabaseClient();
+  const since = new Date(Date.now() - hours * 60 * 60 * 1000).toISOString();
+  let query = supabase
+    .from("email_events")
+    .select("*", { count: "exact", head: true })
+    .eq("recipient", recipient)
+    .gte("created_at", since);
+  if (kind) query = query.eq("kind", kind);
+  const { count, error } = await query;
+  if (error) {
+    console.error("Failed to count email_events by recipient:", error.message);
+    return Infinity;
+  }
+  return count ?? 0;
 }
 
 // ---------------------------------------------------------------------------

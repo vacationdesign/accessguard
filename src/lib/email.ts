@@ -684,9 +684,14 @@ export async function sendOnboardingDay3Email({
 
 function safeDomain(url: string): string {
   try {
-    return new URL(url).hostname;
+    const host = new URL(url).hostname;
+    // Extra belt-and-braces: strip any CR/LF just in case a weird URL shape
+    // survived parsing. Email headers and CRLF don't mix.
+    return host.replace(/[\r\n]/g, "");
   } catch {
-    return url;
+    // Never return the raw, attacker-controlled string — it could contain
+    // CRLF that would be injected into the email subject.
+    return "your page";
   }
 }
 

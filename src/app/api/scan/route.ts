@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { scanUrl, ScanResult } from "@/lib/scanner";
-import { canUserScan, logScan, getDomainScanCount } from "@/lib/db";
+import {
+  canUserScanDetailed,
+  logScan,
+  getDomainScanCount,
+} from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 
 // Vercel serverless function config: scanning needs up to 60s
@@ -29,23 +33,32 @@ export async function POST(request: NextRequest) {
       request.headers.get("x-real-ip") ||
       "unknown";
 
-    // Check rate limit (free tier: 5 scans/hour by IP, paid: unlimited)
+    // Rate limit. Three tiers:
+    //   anonymous    → 5/hour by IP             → push to free signup
+    //   free signed  → 50/month per account     → push to Pro trial
+    //   pro/agency   → unlimited
     // Try to get authenticated user — null for anonymous LP scans
     const appUser = await getCurrentUser().catch(() => null);
     const userId: string | null = appUser?.id ?? null;
-    const allowed = await canUserScan(ip, userId);
+    const auth = await canUserScanDetailed(ip, userId);
 
-    if (!allowed) {
-      // If the caller is anonymous, point them to a free account before Pro.
-      // Signed-in users hitting the limit are already on Free and the only
-      // remaining upgrade is Pro.
-      const isAnonymous = !userId;
+    if (!auth.allowed) {
+      if (auth.reason === "anonymous_hourly") {
+        return NextResponse.json(
+          {
+            error:
+              "You've hit the 5-scan hourly limit. Create a free account to get 50 scans per month plus scan history — no credit card required — or start a 7-day Pro trial for unlimited scanning and weekly monitoring.",
+            signup: true,
+            upgrade: true,
+          },
+          { status: 429 }
+        );
+      }
+      // reason === "free_monthly"
       return NextResponse.json(
         {
-          error: isAnonymous
-            ? "You've hit the free-tier limit of 5 scans per hour. Create a free account to keep scanning — no credit card required — or start a 7-day Pro trial for unlimited scans and weekly monitoring."
-            : "Rate limit exceeded. Free plan allows 5 scans per hour. Upgrade to Pro or Agency for unlimited scans and weekly site monitoring.",
-          signup: isAnonymous,
+          error:
+            "You've used all 50 free scans this month. Start a 7-day Pro trial for unlimited scans, full-site crawls, and weekly monitoring.",
           upgrade: true,
         },
         { status: 429 }

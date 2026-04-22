@@ -5,28 +5,25 @@ import {
   sendOnboardingDay3Email,
 } from "@/lib/email";
 
-// Run under default serverless limits — this is a lightweight query + a
-// handful of email sends, not a batch scan.
 export const maxDuration = 60;
 
 /**
  * GET /api/cron/onboarding-drip
  *
- * Triggered daily by Vercel Cron. Finds users who signed up in specific
- * windows and sends them onboarding emails:
+ * Triggered daily by Vercel Cron. Finds users whose signup age matches each
+ * drip step and who haven't already received that step's email, then sends
+ * and marks them.
  *
- *   Day 1 after signup → "register your first site"
- *   Day 3 after signup → "three Pro features worth trying"
+ * Dedupe: a per-step `onboarding_dayN_sent_at` column is set after each
+ * successful send. The query excludes anyone already marked, so retries,
+ * overlapping runs, and cron jitter all become no-ops.
  *
- * A user is considered in "Day N" if their `created_at` is between
- *   now - (N + 1) days  and  now - N days
- * (i.e. they signed up ~N days ago, +/- the cron cadence).
+ * Lookback: we only look back 14 days, so users who signed up during a
+ * Vercel cron outage longer than that miss the email (acceptable).
  *
- * This is intentionally simple: we re-query each day without tracking which
- * emails have been sent, because the signup-window query itself prevents
- * duplicates as long as the cron runs once per day. If the cron misfires,
- * a user might miss a drip email — acceptable for a best-effort nudge
- * system that doesn't need perfect delivery.
+ * Plan targeting: Pro and Agency subscribers skip these emails entirely.
+ * Welcome + weekly summary cover them; the drip is aimed at Free users
+ * who need a nudge to register a site or try Pro.
  */
 export async function GET(request: NextRequest) {
   const authHeader = request.headers.get("authorization");
@@ -37,36 +34,39 @@ export async function GET(request: NextRequest) {
   const supabase = getSupabaseClient();
   const now = Date.now();
   const day = 24 * 60 * 60 * 1000;
+  const lookbackStart = new Date(now - 14 * day).toISOString();
 
-  const windows: Array<{
-    label: "day1" | "day3";
-    startIso: string;
-    endIso: string;
+  type Step = "day1" | "day3";
+  const steps: Array<{
+    step: Step;
+    column: "onboarding_day1_sent_at" | "onboarding_day3_sent_at";
+    ageCutoffIso: string; // users created BEFORE this timestamp qualify
   }> = [
     {
-      label: "day1",
-      startIso: new Date(now - 2 * day).toISOString(),
-      endIso: new Date(now - 1 * day).toISOString(),
+      step: "day1",
+      column: "onboarding_day1_sent_at",
+      ageCutoffIso: new Date(now - 1 * day).toISOString(),
     },
     {
-      label: "day3",
-      startIso: new Date(now - 4 * day).toISOString(),
-      endIso: new Date(now - 3 * day).toISOString(),
+      step: "day3",
+      column: "onboarding_day3_sent_at",
+      ageCutoffIso: new Date(now - 3 * day).toISOString(),
     },
   ];
 
   const results: Record<string, { matched: number; sent: number }> = {};
 
-  for (const w of windows) {
+  for (const { step, column, ageCutoffIso } of steps) {
     const { data: users, error } = await supabase
       .from("users")
       .select("id, email, plan")
-      .gte("created_at", w.startIso)
-      .lt("created_at", w.endIso);
+      .gte("created_at", lookbackStart)
+      .lte("created_at", ageCutoffIso)
+      .is(column, null);
 
     if (error) {
-      console.error(`Drip ${w.label} query failed:`, error.message);
-      results[w.label] = { matched: 0, sent: 0 };
+      console.error(`Drip ${step} query failed:`, error.message);
+      results[step] = { matched: 0, sent: 0 };
       continue;
     }
 
@@ -74,23 +74,44 @@ export async function GET(request: NextRequest) {
     let sent = 0;
 
     for (const user of users ?? []) {
-      // Skip admin test account — we don't want to email ourselves the
-      // onboarding drip on every test run
+      // Skip admin test account — we don't want to email ourselves every
+      // time we test the drip pipeline
       if (user.email === process.env.ADMIN_EMAIL) continue;
 
+      // Plan targeting: the drip is for Free users. Pro/Agency subscribers
+      // already received the Welcome email with relevant messaging and get
+      // the Monday weekly summary.
+      if (user.plan !== "free") continue;
+
       try {
-        if (w.label === "day1") {
+        if (step === "day1") {
           await sendOnboardingDay1Email({ to: user.email });
-        } else if (w.label === "day3") {
+        } else {
           await sendOnboardingDay3Email({ to: user.email });
         }
+
+        // Mark as sent AFTER successful send. A failed send leaves the row
+        // un-marked so the next cron run tries again. The email functions
+        // themselves catch Resend errors non-blockingly, so "success" here
+        // means the HTTP call was accepted — not that the email landed.
+        const { error: markErr } = await supabase
+          .from("users")
+          .update({ [column]: new Date().toISOString() })
+          .eq("id", user.id);
+        if (markErr) {
+          console.error(
+            `Drip ${step} mark-sent failed for ${user.email}:`,
+            markErr.message
+          );
+        }
+
         sent++;
       } catch (err) {
-        console.error(`Drip ${w.label} send failed for ${user.email}:`, err);
+        console.error(`Drip ${step} send failed for ${user.email}:`, err);
       }
     }
 
-    results[w.label] = { matched, sent };
+    results[step] = { matched, sent };
   }
 
   return NextResponse.json({ ok: true, results });

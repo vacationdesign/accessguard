@@ -1,10 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sendScanReportEmail } from "@/lib/email";
-import { getRecentScanCount } from "@/lib/db";
+import {
+  logEmailEvent,
+  getEmailEventCountByIp,
+  getEmailEventCountByRecipient,
+} from "@/lib/db";
 
-// Rate limit: 3 email-report requests per IP per hour. Prevents abuse of
-// Resend as an email relay while still letting legitimate users re-send.
-const MAX_EMAIL_REPORTS_PER_HOUR = 3;
+// Dedicated rate limits for this endpoint. Both are enforced — the IP cap
+// stops a single attacker burning our Resend quota, and the recipient cap
+// stops a rotating-IP attacker from bombing one victim's inbox.
+const MAX_EMAIL_REPORTS_PER_IP_PER_HOUR = 3;
+const MAX_EMAIL_REPORTS_PER_RECIPIENT_PER_DAY = 3;
+
+// Guard against someone POSTing an enormous scanResult object to abuse our
+// serverless memory or email template rendering. Real scans top out at ~100
+// violations; 500 is a generous ceiling.
+const MAX_VIOLATIONS = 500;
 
 const ALLOWED_ORIGINS = [
   "https://www.a11yscope.com",
@@ -19,9 +30,10 @@ function isValidEmail(email: string): boolean {
 
 export async function POST(request: NextRequest) {
   try {
-    // CSRF: validate Origin header on POST
+    // CSRF: require a known Origin header. Non-browser clients (curl) are
+    // blocked — this endpoint is only meant to be called from our own UI.
     const origin = request.headers.get("origin");
-    if (origin && !ALLOWED_ORIGINS.includes(origin)) {
+    if (!origin || !ALLOWED_ORIGINS.includes(origin)) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
@@ -30,12 +42,13 @@ export async function POST(request: NextRequest) {
       request.headers.get("x-real-ip") ||
       "unknown";
 
-    // Soft rate limit via existing scan-count helper (same IP bucket)
-    const recent = await getRecentScanCount(ip, 1);
-    if (recent > 50) {
-      // 50 scans/hour is already abusive territory — block email sends too
+    // Per-IP rate limit on this specific endpoint
+    const ipCount = await getEmailEventCountByIp(ip, 1, "scan_report");
+    if (ipCount >= MAX_EMAIL_REPORTS_PER_IP_PER_HOUR) {
       return NextResponse.json(
-        { error: "Too many requests. Try again later." },
+        {
+          error: "Too many email-report requests. Try again in an hour.",
+        },
         { status: 429 }
       );
     }
@@ -57,22 +70,42 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Per-recipient rate limit: block sending to the same address more than
+    // 3 times per day even if the attacker rotates IPs
+    const recipCount = await getEmailEventCountByRecipient(
+      email,
+      24,
+      "scan_report"
+    );
+    if (recipCount >= MAX_EMAIL_REPORTS_PER_RECIPIENT_PER_DAY) {
+      return NextResponse.json(
+        {
+          error: "This address has already received 3 reports today.",
+        },
+        { status: 429 }
+      );
+    }
+
     const url: string =
       typeof scanResult.url === "string" ? scanResult.url : "";
     const score: number =
       typeof scanResult.score === "number" ? scanResult.score : 0;
-    const violations = Array.isArray(scanResult.violations)
+    const rawViolations = Array.isArray(scanResult.violations)
       ? scanResult.violations
       : [];
 
-    const violationsCount = violations.length;
-    const totalIssueNodes = violations.reduce(
-      (sum: number, v: unknown) => {
-        const nodes = (v as { nodes?: unknown[] })?.nodes;
-        return sum + (Array.isArray(nodes) ? nodes.length : 0);
-      },
-      0
-    );
+    if (rawViolations.length > MAX_VIOLATIONS) {
+      return NextResponse.json(
+        { error: "Scan result too large." },
+        { status: 413 }
+      );
+    }
+
+    const violationsCount = rawViolations.length;
+    const totalIssueNodes = rawViolations.reduce((sum: number, v: unknown) => {
+      const nodes = (v as { nodes?: unknown[] })?.nodes;
+      return sum + (Array.isArray(nodes) ? nodes.length : 0);
+    }, 0);
 
     // Pick the top 5 most impactful violations (critical > serious > moderate)
     const impactOrder: Record<string, number> = {
@@ -81,7 +114,7 @@ export async function POST(request: NextRequest) {
       moderate: 2,
       minor: 3,
     };
-    const topViolations = [...violations]
+    const topViolations = [...rawViolations]
       .sort((a: unknown, b: unknown) => {
         const ai = (a as { impact?: string }).impact ?? "moderate";
         const bi = (b as { impact?: string }).impact ?? "moderate";
@@ -105,7 +138,12 @@ export async function POST(request: NextRequest) {
         };
       });
 
-    // Send — non-blocking errors are logged inside sendScanReportEmail
+    // Log the event BEFORE sending so concurrent requests can see it and
+    // enforce the per-recipient cap. A failed send after a logged event is
+    // still counted — that's a safe fail-closed bias for an abuse-prevention
+    // counter.
+    await logEmailEvent("scan_report", email, ip);
+
     await sendScanReportEmail({
       to: email,
       url,
@@ -115,7 +153,7 @@ export async function POST(request: NextRequest) {
       topViolations,
     });
 
-    return NextResponse.json({ ok: true, maxPerHour: MAX_EMAIL_REPORTS_PER_HOUR });
+    return NextResponse.json({ ok: true });
   } catch (err: unknown) {
     console.error("email-report error:", err);
     return NextResponse.json(
