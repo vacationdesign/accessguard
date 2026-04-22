@@ -13,6 +13,12 @@ interface ScanReportProps {
 
 export default function ScanReport({ result, onCheckout, checkoutLoading }: ScanReportProps) {
   const [pdfLoading, setPdfLoading] = useState(false);
+  const [emailFormOpen, setEmailFormOpen] = useState(false);
+  const [emailValue, setEmailValue] = useState("");
+  const [emailStatus, setEmailStatus] = useState<
+    "idle" | "sending" | "sent" | "error"
+  >("idle");
+  const [emailError, setEmailError] = useState<string | null>(null);
 
   const handleDownloadPdf = async () => {
     setPdfLoading(true);
@@ -24,6 +30,37 @@ export default function ScanReport({ result, onCheckout, checkoutLoading }: Scan
       alert("Failed to generate PDF. Please try again.");
     } finally {
       setPdfLoading(false);
+    }
+  };
+
+  const handleEmailReport = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!emailValue.trim()) {
+      setEmailStatus("error");
+      setEmailError("Please enter an email address.");
+      return;
+    }
+    setEmailStatus("sending");
+    setEmailError(null);
+    try {
+      const response = await fetch("/api/scan/email-report", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: emailValue.trim(),
+          scanResult: result,
+        }),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        setEmailStatus("error");
+        setEmailError(data?.error ?? "Failed to send. Please try again.");
+        return;
+      }
+      setEmailStatus("sent");
+    } catch {
+      setEmailStatus("error");
+      setEmailError("Network error. Please try again.");
     }
   };
   const criticalCount = result.violations.filter(
@@ -223,7 +260,66 @@ export default function ScanReport({ result, onCheckout, checkoutLoading }: Scan
           >
             {pdfLoading ? "Generating..." : "Download PDF Report"}
           </button>
+          {!emailFormOpen && emailStatus !== "sent" && (
+            <button
+              onClick={() => setEmailFormOpen(true)}
+              className="border-2 border-gray-200 text-foreground font-bold px-8 py-3 rounded-xl hover:bg-gray-50 transition-colors cursor-pointer"
+            >
+              Email This Report
+            </button>
+          )}
         </div>
+
+        {emailFormOpen && emailStatus !== "sent" && (
+          <form
+            onSubmit={handleEmailReport}
+            className="max-w-md mx-auto text-left bg-white border border-gray-200 rounded-xl p-4 space-y-3"
+          >
+            <label
+              htmlFor="scan-report-email"
+              className="block text-sm font-semibold text-foreground"
+            >
+              Where should we send this report?
+            </label>
+            <div className="flex flex-col sm:flex-row gap-2">
+              <input
+                id="scan-report-email"
+                type="email"
+                required
+                value={emailValue}
+                onChange={(e) => setEmailValue(e.target.value)}
+                placeholder="you@example.com"
+                className="flex-1 px-4 py-2 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-colors text-sm"
+                disabled={emailStatus === "sending"}
+              />
+              <button
+                type="submit"
+                disabled={emailStatus === "sending"}
+                className="bg-primary text-white font-semibold px-5 py-2 rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50 cursor-pointer whitespace-nowrap"
+              >
+                {emailStatus === "sending" ? "Sending..." : "Send Report"}
+              </button>
+            </div>
+            {emailStatus === "error" && emailError && (
+              <p className="text-xs text-red-600">{emailError}</p>
+            )}
+            <p className="text-xs text-muted">
+              One-time send. No account created. We don&apos;t add you to a
+              mailing list.
+            </p>
+          </form>
+        )}
+
+        {emailStatus === "sent" && (
+          <div className="max-w-md mx-auto bg-green-50 border border-green-200 rounded-xl p-4 text-center">
+            <p className="text-sm font-semibold text-green-700">
+              &#10003; Report sent to {emailValue}
+            </p>
+            <p className="text-xs text-green-600 mt-1">
+              Check your inbox (and spam folder just in case).
+            </p>
+          </div>
+        )}
         <p className="text-xs text-muted">
           Or{" "}
           <a href="/login" className="text-primary underline hover:text-primary-dark">create a free account</a>

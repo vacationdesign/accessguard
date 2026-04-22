@@ -36,10 +36,16 @@ export async function POST(request: NextRequest) {
     const allowed = await canUserScan(ip, userId);
 
     if (!allowed) {
+      // If the caller is anonymous, point them to a free account before Pro.
+      // Signed-in users hitting the limit are already on Free and the only
+      // remaining upgrade is Pro.
+      const isAnonymous = !userId;
       return NextResponse.json(
         {
-          error:
-            "Rate limit exceeded. Free tier allows 5 scans per hour. Upgrade to Pro or Agency for unlimited scans.",
+          error: isAnonymous
+            ? "You've hit the free-tier limit of 5 scans per hour. Create a free account to keep scanning — no credit card required — or start a 7-day Pro trial for unlimited scans and weekly monitoring."
+            : "Rate limit exceeded. Free plan allows 5 scans per hour. Upgrade to Pro or Agency for unlimited scans and weekly site monitoring.",
+          signup: isAnonymous,
           upgrade: true,
         },
         { status: 429 }

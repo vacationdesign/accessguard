@@ -1,6 +1,6 @@
 ---
-title: "WCAG 2.2: What's New and How to Prepare Your Website"
-description: "WCAG 2.2 adds 9 new requirements your site may not meet. Learn what changed from 2.1, find your gaps, and apply ready-to-use CSS and HTML fixes — no full site rebuild needed."
+title: "WCAG 2.2 Explained: 9 New Rules and How to Pass Them"
+description: "Every WCAG 2.2 change in plain English. See the 9 new success criteria, check which apply to your site, and ship copy-paste HTML and CSS fixes today."
 date: 2026-03-08
 author: A11yScope Team
 tags:
@@ -10,7 +10,7 @@ tags:
   - Standards
 ---
 
-# WCAG 2.2: What's New and How to Prepare Your Website
+# WCAG 2.2 Explained: 9 New Rules and How to Pass Them
 
 **Key Takeaways:**
 - WCAG 2.2 adds **9 new success criteria** and removes 1 (SC 4.1.1 Parsing)

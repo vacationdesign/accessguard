@@ -2,10 +2,15 @@
 
 import { useState } from "react";
 
+interface ScanErrorMeta {
+  signup?: boolean;
+  upgrade?: boolean;
+}
+
 interface ScanFormProps {
   onScanComplete: (result: any) => void;
   onScanStart: () => void;
-  onError: (error: string) => void;
+  onError: (error: string, meta?: ScanErrorMeta) => void;
 }
 
 export default function ScanForm({
@@ -37,7 +42,10 @@ export default function ScanForm({
       const data = await response.json();
 
       if (!response.ok) {
-        onError(data.error || "Scan failed");
+        onError(data.error || "Scan failed", {
+          signup: Boolean(data.signup),
+          upgrade: Boolean(data.upgrade),
+        });
         return;
       }
 

@@ -9,6 +9,10 @@ export default function Home() {
   const [scanResult, setScanResult] = useState<any>(null);
   const [isScanning, setIsScanning] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [errorMeta, setErrorMeta] = useState<{
+    signup?: boolean;
+    upgrade?: boolean;
+  } | null>(null);
   const [checkoutLoading, setCheckoutLoading] = useState<string | null>(null);
   const [userEmail, setUserEmail] = useState<string | null>(null);
   useEffect(() => {
@@ -206,14 +210,17 @@ export default function Home() {
           onScanComplete={(result) => {
             setScanResult(result);
             setError(null);
+            setErrorMeta(null);
           }}
           onScanStart={() => {
             setIsScanning(true);
             setScanResult(null);
             setError(null);
+            setErrorMeta(null);
           }}
-          onError={(err) => {
+          onError={(err, meta) => {
             setError(err);
+            setErrorMeta(meta ?? null);
             setIsScanning(false);
           }}
         />
@@ -268,9 +275,45 @@ export default function Home() {
       {/* Error State */}
       {error && (
         <section className="max-w-4xl mx-auto px-6 pb-16">
-          <div className="bg-red-50 border-2 border-red-200 rounded-2xl p-8 text-center space-y-2">
-            <h3 className="text-xl font-bold text-red-700">Scan Failed</h3>
+          <div className="bg-red-50 border-2 border-red-200 rounded-2xl p-8 text-center space-y-4">
+            <h3 className="text-xl font-bold text-red-700">
+              {errorMeta?.signup || errorMeta?.upgrade
+                ? "You've hit the free scan limit"
+                : "Scan Failed"}
+            </h3>
             <p className="text-red-600">{error}</p>
+            {errorMeta?.signup && (
+              <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
+                <a
+                  href="/login"
+                  className="inline-flex items-center justify-center px-6 py-3 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-colors"
+                >
+                  Create a Free Account
+                </a>
+                <button
+                  onClick={() => handleCheckout("pro")}
+                  disabled={checkoutLoading !== null}
+                  className="inline-flex items-center justify-center px-6 py-3 border-2 border-primary text-primary font-semibold rounded-xl hover:bg-primary hover:text-white transition-colors disabled:opacity-50"
+                >
+                  {checkoutLoading === "pro"
+                    ? "Redirecting..."
+                    : "Start 7-Day Pro Trial"}
+                </button>
+              </div>
+            )}
+            {!errorMeta?.signup && errorMeta?.upgrade && (
+              <div className="flex justify-center pt-2">
+                <button
+                  onClick={() => handleCheckout("pro")}
+                  disabled={checkoutLoading !== null}
+                  className="inline-flex items-center justify-center px-6 py-3 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-colors disabled:opacity-50"
+                >
+                  {checkoutLoading === "pro"
+                    ? "Redirecting..."
+                    : "Upgrade to Pro"}
+                </button>
+              </div>
+            )}
           </div>
         </section>
       )}

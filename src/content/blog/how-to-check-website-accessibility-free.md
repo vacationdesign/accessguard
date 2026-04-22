@@ -1,6 +1,6 @@
 ---
 title: "How to Check Your Website Accessibility for Free (Step-by-Step Guide)"
-description: "Learn how to check your website for accessibility issues using free tools. This guide covers automated scanning, keyboard testing, screen reader checks, and browser DevTools — no budget required."
+description: "Check your website's accessibility for free — 4 no-cost methods including automated scanning, keyboard tests, screen readers, and DevTools. No tools to buy."
 date: 2026-03-03
 author: A11yScope Team
 tags:
