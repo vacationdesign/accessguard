@@ -12,6 +12,8 @@ export type AnalyticsEventKind =
   | "email_report_sent"
   | "signup_clicked"
   | "checkout_clicked"
+  | "trial_started"
+  | "subscription_canceled"
   | "crawl_started"
   | "crawl_completed";
 

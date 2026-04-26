@@ -9,6 +9,7 @@ import {
   updateSubscription,
 } from "@/lib/db";
 import { sendWelcomeEmail, sendAdminNotification } from "@/lib/email";
+import { logEvent } from "@/lib/analytics";
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
@@ -147,6 +148,20 @@ export async function POST(request: NextRequest) {
           console.error("Admin notification failed (non-blocking):", err);
         });
 
+        // Funnel telemetry: trial vs immediate-paid distinction matters for
+        // conversion math, so emit different kinds.
+        const startedTrial =
+          stripeSubscription.status === "trialing" && !!subTiming.trial_end;
+        void logEvent({
+          kind: startedTrial ? "trial_started" : "checkout_clicked",
+          userId: user.id,
+          meta: {
+            plan,
+            stripe_subscription_id: stripeSubscriptionId,
+            trial_end: subTiming.trial_end ?? null,
+          },
+        });
+
         break;
       }
 
@@ -224,6 +239,14 @@ export async function POST(request: NextRequest) {
             customerEmail: user.email,
           }).catch((err) => {
             console.error("Admin notification failed (non-blocking):", err);
+          });
+
+          void logEvent({
+            kind: "subscription_canceled",
+            userId: user.id,
+            meta: {
+              stripe_subscription_id: subscription.id,
+            },
           });
         }
         break;
