@@ -1,8 +1,9 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
 import { getCurrentUser } from "@/lib/auth";
+import { getErrorMessage } from "@/lib/errors";
 
-export async function POST(request: NextRequest) {
+export async function POST() {
   try {
     // Authenticate: only logged-in users can access their own portal
     const user = await getCurrentUser();
@@ -33,10 +34,15 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json({ url: session.url });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Portal session error:", error);
     return NextResponse.json(
-      { error: "Failed to create portal session. Please try again later." },
+      {
+        error: getErrorMessage(
+          error,
+          "Failed to create portal session. Please try again later."
+        ),
+      },
       { status: 500 }
     );
   }

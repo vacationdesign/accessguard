@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
+import { getErrorMessage } from "@/lib/errors";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -40,8 +42,8 @@ export default function LoginPage() {
       }
 
       setSent(true);
-    } catch (err: any) {
-      setError(err.message || "Something went wrong. Please try again.");
+    } catch (err: unknown) {
+      setError(getErrorMessage(err));
     } finally {
       setLoading(false);
     }
@@ -51,7 +53,7 @@ export default function LoginPage() {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex flex-col">
       {/* Navigation */}
       <nav className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between w-full">
-        <a href="/" className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2">
           <svg
             className="h-8 w-8 text-primary"
             fill="none"
@@ -68,7 +70,7 @@ export default function LoginPage() {
           <span className="text-xl font-bold text-foreground">
             A11yScope
           </span>
-        </a>
+        </Link>
       </nav>
 
       {/* Login Form */}
@@ -214,12 +216,12 @@ export default function LoginPage() {
 
           {/* Back to home */}
           <div className="mt-6 text-center">
-            <a
+            <Link
               href="/"
               className="text-sm text-muted hover:text-foreground transition-colors"
             >
               &larr; Back to A11yScope
-            </a>
+            </Link>
           </div>
         </div>
       </div>

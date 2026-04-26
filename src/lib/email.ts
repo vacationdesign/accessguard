@@ -463,7 +463,7 @@ export async function sendScanReportEmail({
   violationsCount,
   totalIssueNodes,
   topViolations,
-}: ScanReportEmailParams): Promise<void> {
+}: ScanReportEmailParams): Promise<boolean> {
   const subject = `Your A11yScope report for ${safeDomain(url)}`;
 
   const scoreColor =
@@ -554,11 +554,13 @@ export async function sendScanReportEmail({
     });
     if (error) {
       console.error("Failed to send scan report email:", error);
-      return;
+      return false;
     }
     console.log(`Scan report email sent to ${to}`);
+    return true;
   } catch (err) {
     console.error("Error sending scan report email:", err);
+    return false;
   }
 }
 
@@ -576,7 +578,7 @@ interface OnboardingEmailParams {
  */
 export async function sendOnboardingDay1Email({
   to,
-}: OnboardingEmailParams): Promise<void> {
+}: OnboardingEmailParams): Promise<boolean> {
   const subject = "Get the most out of A11yScope: register your first site";
   const html = `
 <!DOCTYPE html>
@@ -614,7 +616,7 @@ export async function sendOnboardingDay1Email({
   </table>
 </body>
 </html>`;
-  await safeSend({ to, subject, html, kind: "onboarding-day1" });
+  return safeSend({ to, subject, html, kind: "onboarding-day1" });
 }
 
 /**
@@ -622,7 +624,7 @@ export async function sendOnboardingDay1Email({
  */
 export async function sendOnboardingDay3Email({
   to,
-}: OnboardingEmailParams): Promise<void> {
+}: OnboardingEmailParams): Promise<boolean> {
   const subject = "The 3 Pro features worth trying during your free trial";
   const html = `
 <!DOCTYPE html>
@@ -675,7 +677,7 @@ export async function sendOnboardingDay3Email({
   </table>
 </body>
 </html>`;
-  await safeSend({ to, subject, html, kind: "onboarding-day3" });
+  return safeSend({ to, subject, html, kind: "onboarding-day3" });
 }
 
 // ---------------------------------------------------------------------------
@@ -714,7 +716,7 @@ async function safeSend({
   subject: string;
   html: string;
   kind: string;
-}): Promise<void> {
+}): Promise<boolean> {
   try {
     const { error } = await getResend().emails.send({
       from: FROM_EMAIL,
@@ -724,10 +726,12 @@ async function safeSend({
     });
     if (error) {
       console.error(`Failed to send ${kind} email:`, error);
-      return;
+      return false;
     }
     console.log(`Sent ${kind} email to ${to}`);
+    return true;
   } catch (err) {
     console.error(`Error sending ${kind} email:`, err);
+    return false;
   }
 }

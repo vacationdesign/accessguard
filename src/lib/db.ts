@@ -333,6 +333,9 @@ export async function getActiveSubscription(
 
 /**
  * Log a completed scan for analytics, rate-limiting, and history.
+ *
+ * Pass `crawlBatchId` when this scan was produced as part of a multi-page
+ * crawl so it can be grouped on the dashboard.
  */
 export async function logScan(
   userId: string | null,
@@ -343,7 +346,8 @@ export async function logScan(
   scanDurationMs?: number,
   violations?: unknown[],
   passes?: number,
-  incomplete?: number
+  incomplete?: number,
+  crawlBatchId?: string | null
 ): Promise<void> {
   const supabase = getSupabaseClient();
 
@@ -382,12 +386,110 @@ export async function logScan(
     passes: passes ?? null,
     incomplete: incomplete ?? null,
     site_id: siteId,
+    crawl_batch_id: crawlBatchId ?? null,
   });
 
   if (error) {
     // Log but don't throw -- scan logging should not break the scan response
     console.error("Error logging scan:", error.message);
   }
+}
+
+// ---------------------------------------------------------------------------
+// Crawl batch helpers
+// ---------------------------------------------------------------------------
+
+export interface CrawlBatchInsert {
+  userId: string;
+  rootUrl: string;
+  pagesScanned: number;
+  aggregateScore: number | null;
+  totalViolations: number;
+  durationMs: number | null;
+  status?: "running" | "completed" | "failed";
+  errorMessage?: string | null;
+}
+
+/**
+ * Persist a crawl batch summary so the dashboard can show "this crawl ran
+ * X pages with average score Y" instead of treating each scan_logs row as
+ * an independent run. Returns the new batch's id (or null on failure — the
+ * caller's per-page logging still works without it).
+ */
+export async function createCrawlBatch(
+  input: CrawlBatchInsert
+): Promise<string | null> {
+  const supabase = getSupabaseClient();
+
+  // Find a registered site that matches the root URL, if any
+  let siteId: string | null = null;
+  try {
+    const rootHost = new URL(input.rootUrl).origin;
+    const { data: site } = await supabase
+      .from("sites")
+      .select("id")
+      .eq("user_id", input.userId)
+      .or(`url.eq.${input.rootUrl},url.eq.${rootHost},url.eq.${rootHost}/`)
+      .limit(1)
+      .maybeSingle();
+    siteId = site?.id ?? null;
+  } catch {
+    // ignore — site linkage is best-effort
+  }
+
+  const { data, error } = await supabase
+    .from("crawl_batches")
+    .insert({
+      user_id: input.userId,
+      site_id: siteId,
+      root_url: input.rootUrl,
+      pages_scanned: input.pagesScanned,
+      aggregate_score: input.aggregateScore,
+      total_violations: input.totalViolations,
+      duration_ms: input.durationMs,
+      status: input.status ?? "completed",
+      error_message: input.errorMessage ?? null,
+    })
+    .select("id")
+    .single();
+
+  if (error) {
+    console.error("Failed to create crawl_batch:", error.message);
+    return null;
+  }
+  return data?.id ?? null;
+}
+
+/**
+ * Fetch the most recent crawl batches for a user, newest first.
+ */
+export async function getRecentCrawlBatches(
+  userId: string,
+  limit = 10
+): Promise<Array<{
+  id: string;
+  root_url: string;
+  pages_scanned: number;
+  aggregate_score: number | null;
+  total_violations: number;
+  duration_ms: number | null;
+  status: string;
+  created_at: string;
+}>> {
+  const supabase = getSupabaseClient();
+  const { data, error } = await supabase
+    .from("crawl_batches")
+    .select(
+      "id, root_url, pages_scanned, aggregate_score, total_violations, duration_ms, status, created_at"
+    )
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false })
+    .limit(limit);
+  if (error) {
+    console.error("Failed to fetch crawl_batches:", error.message);
+    return [];
+  }
+  return data ?? [];
 }
 
 /**

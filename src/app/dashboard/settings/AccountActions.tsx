@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { getErrorMessage } from "@/lib/errors";
 
 export function BrandNameForm({ initialValue }: { initialValue: string }) {
   const [brandName, setBrandName] = useState(initialValue);
@@ -22,8 +23,8 @@ export function BrandNameForm({ initialValue }: { initialValue: string }) {
       }
       setSaved(true);
       setTimeout(() => setSaved(false), 3000);
-    } catch (err: any) {
-      alert(err.message || "Failed to save brand name.");
+    } catch (err: unknown) {
+      alert(getErrorMessage(err, "Failed to save brand name."));
     } finally {
       setSaving(false);
     }
@@ -110,8 +111,8 @@ export function DeleteAccountButton() {
         throw new Error(data.error || "Deletion failed");
       }
       window.location.href = "/?deleted=1";
-    } catch (err: any) {
-      alert(err.message || "Failed to delete account. Please contact support.");
+    } catch (err: unknown) {
+      alert(getErrorMessage(err, "Failed to delete account. Please contact support."));
       setStep("idle");
     }
   };

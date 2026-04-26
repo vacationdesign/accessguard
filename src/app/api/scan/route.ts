@@ -6,6 +6,8 @@ import {
   getDomainScanCount,
 } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { getErrorMessage } from "@/lib/errors";
+import { logEvent } from "@/lib/analytics";
 
 // Vercel serverless function config: scanning needs up to 60s
 export const maxDuration = 60;
@@ -43,6 +45,12 @@ export async function POST(request: NextRequest) {
     const auth = await canUserScanDetailed(ip, userId);
 
     if (!auth.allowed) {
+      void logEvent({
+        kind: "scan_rate_limited",
+        userId,
+        ip,
+        meta: { reason: auth.reason },
+      });
       if (auth.reason === "anonymous_hourly") {
         return NextResponse.json(
           {
@@ -90,10 +98,29 @@ export async function POST(request: NextRequest) {
 
     const normalizedUrl = url.startsWith("http") ? url : `https://${url}`;
 
+    void logEvent({
+      kind: "scan_started",
+      userId,
+      ip,
+      url: normalizedUrl,
+    });
+
     // Run the scan
     const scanStart = Date.now();
     const result: ScanResult = await scanUrl(normalizedUrl);
     const scanDurationMs = Date.now() - scanStart;
+
+    void logEvent({
+      kind: "scan_completed",
+      userId,
+      ip,
+      url: normalizedUrl,
+      meta: {
+        score: result.score,
+        violations_count: result.violations?.length ?? 0,
+        duration_ms: scanDurationMs,
+      },
+    });
 
     // Log the scan to the database (must await to prevent Vercel from
     // terminating the function before the write completes)
@@ -123,17 +150,18 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json({ ...result, domainScanCount });
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const message = getErrorMessage(error, "Scan failed");
     console.error("Scan error:", error);
 
-    if (error.message === "Invalid URL provided") {
+    if (message === "Invalid URL provided") {
       return NextResponse.json(
         { error: "Invalid URL provided" },
         { status: 400 }
       );
     }
 
-    if (error.message?.includes("not allowed")) {
+    if (message.includes("not allowed")) {
       return NextResponse.json(
         { error: "This URL cannot be scanned for security reasons." },
         { status: 400 }

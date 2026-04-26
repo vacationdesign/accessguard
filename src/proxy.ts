@@ -2,14 +2,17 @@ import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 
 /**
- * Middleware — protects /dashboard/* and /admin/* routes, redirects auth flows.
+ * Proxy — protects /dashboard/* and /admin/* routes, redirects auth flows.
  *
  * - /dashboard/*  → if not authenticated, redirect to /login
  * - /admin/*      → if not authenticated, redirect to /login
  * - /login        → if already authenticated, redirect to /dashboard
  * - All other routes (LP, blog, API, etc.) are unaffected.
+ *
+ * Renamed from `middleware.ts` for Next.js 16 file-convention deprecation:
+ * https://nextjs.org/docs/app/api-reference/file-conventions/proxy
  */
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   let response = NextResponse.next({ request });
 

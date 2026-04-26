@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { getErrorMessage } from "@/lib/errors";
 
 export default function CheckoutButton({
   plan,
@@ -29,8 +30,8 @@ export default function CheckoutButton({
       if (data.url) {
         window.location.href = data.url;
       }
-    } catch (err: any) {
-      alert(err.message || "Something went wrong. Please try again.");
+    } catch (err: unknown) {
+      alert(getErrorMessage(err));
     } finally {
       setLoading(false);
     }

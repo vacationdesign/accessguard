@@ -1,12 +1,26 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import ScanForm from "@/components/ScanForm";
 import ScanReport from "@/components/ScanReport";
 import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
+import type { ScanResult } from "@/lib/scanner";
+import { getErrorMessage } from "@/lib/errors";
+
+type HomeScanResult = ScanResult & { domainScanCount?: number };
+
+interface HomeFaqItem {
+  "@type": "Question";
+  name: string;
+  acceptedAnswer: {
+    "@type": "Answer";
+    text: string;
+  };
+}
 
 export default function Home() {
-  const [scanResult, setScanResult] = useState<any>(null);
+  const [scanResult, setScanResult] = useState<HomeScanResult | null>(null);
   const [isScanning, setIsScanning] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [errorMeta, setErrorMeta] = useState<{
@@ -42,23 +56,27 @@ export default function Home() {
       if (data.url) {
         window.location.href = data.url;
       }
-    } catch (err: any) {
-      alert(err.message || "Something went wrong. Please try again.");
+    } catch (err: unknown) {
+      alert(getErrorMessage(err));
     } finally {
       setCheckoutLoading(null);
     }
   };
 
-  const faqJsonLd = {
+  const faqJsonLd: {
+    "@context": "https://schema.org";
+    "@type": "FAQPage";
+    mainEntity: HomeFaqItem[];
+  } = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: [
       {
         "@type": "Question",
-        name: "What is WCAG 2.1 and why does it matter?",
+        name: "What is WCAG 2.1, WCAG 2.2, and why does it matter?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "WCAG 2.1 (Web Content Accessibility Guidelines) is the international standard for web accessibility published by the W3C. It defines how to make web content accessible to people with disabilities, covering visual, auditory, motor, and cognitive impairments. Compliance is increasingly required by law — ADA in the US, European Accessibility Act in the EU, and Section 508 for government sites.",
+          text: "WCAG 2.1 is the baseline accessibility standard referenced by many laws and policies. WCAG 2.2 adds newer success criteria for focus visibility, target size, dragging movements, redundant entry, and accessible authentication. A11yScope currently scans the automated WCAG 2.1 AA rule set in axe-core and highlights issues teams should review as they move toward WCAG 2.2 readiness.",
         },
       },
       {
@@ -66,7 +84,7 @@ export default function Home() {
         name: "How does A11yScope scan websites for accessibility issues?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "A11yScope uses a headless browser to fully render your page including JavaScript, then runs axe-core — the industry-standard accessibility testing engine by Deque Systems — to check against 38+ WCAG 2.1 AA rules. Results are returned in about 6 seconds with specific code fixes for each issue found.",
+          text: "A11yScope uses a headless browser to fully render your page including JavaScript, then runs axe-core — the industry-standard accessibility testing engine by Deque Systems — to check against 38+ automated WCAG 2.1 AA and best-practice rules. Results are returned in seconds with specific code fixes for each issue found.",
         },
       },
       {
@@ -74,7 +92,7 @@ export default function Home() {
         name: "Is A11yScope free to use?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes. A11yScope offers a free tier with 5 scans per hour. No account or credit card required. For unlimited scans, weekly full-site crawl monitoring, and PDF reports, the Pro plan is $49/month. The Agency plan at $149/month adds more monitored sites and white-label PDF reports.",
+          text: "Yes. Anonymous visitors can run 5 scans per hour without an account. A free account gives 50 scans per month and scan history. For unlimited scans, weekly full-site crawl monitoring, and PDF reports, the Pro plan is $49/month. The Agency plan at $149/month adds more monitored sites, larger crawls, and white-label PDF reports.",
         },
       },
       {
@@ -112,7 +130,7 @@ export default function Home() {
     applicationCategory: "DeveloperApplication",
     operatingSystem: "Web",
     description:
-      "Scan your website for accessibility issues in seconds. Get actionable fixes for WCAG 2.1 compliance.",
+      "Scan your website for accessibility issues in seconds. Get actionable WCAG 2.1 AA findings and WCAG 2.2 readiness guidance.",
     offers: [
       { "@type": "Offer", price: "0", priceCurrency: "USD", name: "Free" },
       { "@type": "Offer", price: "49", priceCurrency: "USD", name: "Pro" },
@@ -192,16 +210,16 @@ export default function Home() {
                 clipRule="evenodd"
               />
             </svg>
-            ADA lawsuits up 300% — Is your site compliant?
+            ADA, EAA, SEO, and conversion teams all depend on accessible UX
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-foreground leading-tight">
             Find Accessibility Issues
             <br />
-            <span className="text-primary">Before Lawyers Do</span>
+            <span className="text-primary">Before Users Leave</span>
           </h1>
           <p className="text-lg sm:text-xl text-muted max-w-xl mx-auto leading-relaxed">
-            Scan any webpage for WCAG 2.1 compliance issues in seconds. Get
-            actionable fixes with code snippets. No sign-up required.
+            Scan any webpage for WCAG 2.1 AA issues in seconds, spot WCAG 2.2
+            readiness gaps, and get fix-ready guidance. No sign-up required.
           </p>
         </div>
 
@@ -227,7 +245,9 @@ export default function Home() {
 
         {/* Trust Indicators */}
         <div className="flex flex-wrap items-center justify-center gap-2 text-sm text-muted">
-          <span>WCAG 2.1 AA Standard</span>
+          <span>WCAG 2.1 AA checks</span>
+          <span className="text-gray-300">·</span>
+          <span>WCAG 2.2-ready guidance</span>
           <span className="text-gray-300">·</span>
           <span>Powered by axe-core®</span>
           <span className="text-gray-300">·</span>
@@ -265,8 +285,8 @@ export default function Home() {
               Scanning your page...
             </h3>
             <p className="text-muted">
-              Loading page, analyzing DOM structure, and checking WCAG 2.1
-              compliance rules. This usually takes 10-30 seconds.
+              Loading page, analyzing DOM structure, and checking WCAG rules.
+              This usually takes 10-30 seconds.
             </p>
           </div>
         </section>
@@ -347,7 +367,7 @@ export default function Home() {
               </div>
               <h3 className="text-xl font-bold text-foreground mb-2">Instant Scanning</h3>
               <p className="text-muted leading-relaxed">
-                Get results in under 30 seconds. No browser extensions or code changes needed. Just paste your URL and get a full WCAG 2.1 audit.
+                Get results in under 30 seconds. No browser extensions or code changes needed. Just paste your URL and get a focused WCAG 2.1 AA scan.
               </p>
             </div>
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow p-8">
@@ -380,8 +400,8 @@ export default function Home() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
                 </svg>
               </div>
-              <h3 className="text-sm font-bold text-foreground mb-1">WCAG 2.1 AA</h3>
-              <p className="text-muted text-xs leading-relaxed">Tests against all Level A and AA criteria required by ADA and EU law.</p>
+              <h3 className="text-sm font-bold text-foreground mb-1">WCAG 2.2 Ready</h3>
+              <p className="text-muted text-xs leading-relaxed">Automated checks plus guidance for newer focus, target-size, and authentication criteria.</p>
             </div>
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow p-5">
               <div className="h-10 w-10 bg-rose-100 rounded-lg flex items-center justify-center mb-3">
@@ -432,7 +452,7 @@ export default function Home() {
                       clipRule="evenodd"
                     />
                   </svg>
-                  5 page scans per hour
+                  5 page scans per hour without signup
                 </li>
                 <li className="flex items-center gap-2">
                   <svg
@@ -461,6 +481,20 @@ export default function Home() {
                     />
                   </svg>
                   Fix suggestions
+                </li>
+                <li className="flex items-center gap-2">
+                  <svg
+                    className="h-5 w-5 text-success shrink-0"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  Free account: 50 scans/month + history
                 </li>
               </ul>
               <button
@@ -691,7 +725,7 @@ export default function Home() {
             </p>
             <div className="space-y-3">
               <p className="text-2xl sm:text-3xl font-bold">
-                Don&apos;t wait for a lawsuit.{" "}
+            Don&apos;t let accessibility defects leak into growth.{" "}
                 <span className="text-primary">Scan your site now.</span>
               </p>
               <button
@@ -715,7 +749,7 @@ export default function Home() {
             Frequently Asked Questions
           </h2>
           <div className="space-y-6">
-            {faqJsonLd.mainEntity.map((item: any, i: number) => (
+            {faqJsonLd.mainEntity.map((item, i) => (
               <details
                 key={i}
                 className="group bg-white rounded-xl border border-gray-100 shadow-sm"
@@ -763,9 +797,9 @@ export default function Home() {
                 </svg>
                 <span className="font-bold">A11yScope</span>
               </div>
-              <p className="text-sm max-w-xs">
-                Making the web accessible for everyone. WCAG 2.1 compliance
-                scanning and monitoring for modern teams.
+                <p className="text-sm max-w-xs">
+                Making the web accessible for everyone. WCAG 2.1 AA scanning,
+                WCAG 2.2 readiness guidance, and monitoring for modern teams.
               </p>
             </div>
             <div className="flex gap-12">
@@ -782,25 +816,35 @@ export default function Home() {
                       Pricing
                     </a>
                   </li>
+                  <li>
+                    <Link href="/use-cases/ecommerce-accessibility-checker" className="hover:text-white transition-colors">
+                      Ecommerce
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/use-cases/web-agency-accessibility-audits" className="hover:text-white transition-colors">
+                      Agencies
+                    </Link>
+                  </li>
                 </ul>
               </div>
               <div className="space-y-3">
                 <p className="text-white font-semibold text-sm">Resources</p>
                 <ul className="space-y-2 text-sm">
                   <li>
-                    <a href="/blog" className="hover:text-white transition-colors">
+                    <Link href="/blog" className="hover:text-white transition-colors">
                       Blog
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="/blog/wcag-compliance-checklist-2026" className="hover:text-white transition-colors">
+                    <Link href="/blog/wcag-compliance-checklist-2026" className="hover:text-white transition-colors">
                       WCAG Guide
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="/blog/ada-website-compliance-guide-small-businesses" className="hover:text-white transition-colors">
+                    <Link href="/blog/ada-website-compliance-guide-small-businesses" className="hover:text-white transition-colors">
                       ADA Compliance
-                    </a>
+                    </Link>
                   </li>
                   <li>
                     <a href="/faq" className="hover:text-white transition-colors">

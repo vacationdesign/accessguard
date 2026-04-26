@@ -141,6 +141,67 @@ export default function ScanReport({ result, onCheckout, checkoutLoading }: Scan
         </div>
       </div>
 
+      {/* Lead capture / report delivery */}
+      <div className="bg-blue-50 border border-blue-100 rounded-2xl p-6 space-y-4">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h3 className="text-lg font-bold text-foreground">
+              Keep this report for your backlog
+            </h3>
+            <p className="text-sm text-blue-900 mt-1">
+              Send the summary to yourself, then create a free account for 50
+              monthly scans and saved history.
+            </p>
+          </div>
+          <a
+            href="/login"
+            className="inline-flex items-center justify-center bg-white border border-blue-200 text-primary text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-blue-50 transition-colors"
+          >
+            Create Free Account
+          </a>
+        </div>
+
+        {emailStatus !== "sent" ? (
+          <form onSubmit={handleEmailReport} className="flex flex-col sm:flex-row gap-2">
+            <div className="flex-1">
+              <label htmlFor="scan-report-email-top" className="sr-only">
+                Email address for this report
+              </label>
+              <input
+                id="scan-report-email-top"
+                type="email"
+                required
+                value={emailValue}
+                onChange={(e) => setEmailValue(e.target.value)}
+                placeholder="you@example.com"
+                className="w-full px-4 py-2.5 border-2 border-blue-100 rounded-lg focus:border-primary focus:outline-none transition-colors text-sm bg-white"
+                disabled={emailStatus === "sending"}
+              />
+            </div>
+            <button
+              type="submit"
+              disabled={emailStatus === "sending"}
+              className="bg-primary text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50 cursor-pointer whitespace-nowrap"
+            >
+              {emailStatus === "sending" ? "Sending..." : "Email Report"}
+            </button>
+          </form>
+        ) : (
+          <div className="bg-white border border-green-200 rounded-xl px-4 py-3">
+            <p className="text-sm font-semibold text-green-700">
+              Report sent to {emailValue}
+            </p>
+          </div>
+        )}
+
+        {emailStatus === "error" && emailError && (
+          <p className="text-xs text-red-600">{emailError}</p>
+        )}
+        <p className="text-xs text-blue-900">
+          One-time send. No account created unless you choose to sign in.
+        </p>
+      </div>
+
       {/* Repeated Scan Nudge */}
       {(result.domainScanCount ?? 0) >= 3 && (
         <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6 text-center space-y-3">

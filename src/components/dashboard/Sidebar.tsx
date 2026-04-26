@@ -2,8 +2,16 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import type { ReactNode } from "react";
 
-const navItems = [
+interface NavItem {
+  label: string;
+  href: string;
+  icon: ReactNode;
+  iconExtra?: ReactNode;
+}
+
+const navItems: NavItem[] = [
   {
     label: "Overview",
     href: "/dashboard",
@@ -139,7 +147,7 @@ export default function Sidebar({
                 stroke="currentColor"
               >
                 {item.icon}
-                {(item as any).iconExtra}
+                {item.iconExtra}
               </svg>
               {item.label}
             </Link>

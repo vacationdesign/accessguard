@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getCurrentUser } from "@/lib/auth";
 import { getUserSites, addSite, removeSite, getSiteLimit } from "@/lib/db";
+import { getErrorMessage } from "@/lib/errors";
 
 /**
  * GET /api/sites — List authenticated user's sites
@@ -15,8 +16,8 @@ export async function GET() {
     const sites = await getUserSites(user.id);
     const siteLimit = getSiteLimit(user.plan);
     return NextResponse.json({ sites, plan: user.plan, siteLimit });
-  } catch (error: any) {
-    console.error("Error fetching sites:", error.message);
+  } catch (error: unknown) {
+    console.error("Error fetching sites:", getErrorMessage(error));
     return NextResponse.json(
       { error: "Failed to fetch sites" },
       { status: 500 }
@@ -57,16 +58,17 @@ export async function POST(request: NextRequest) {
 
     const site = await addSite(user.id, user.plan, url, name);
     return NextResponse.json({ site }, { status: 201 });
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const message = getErrorMessage(error);
     // Handle plan limit or duplicate errors from addSite
     if (
-      error.message?.includes("limit") ||
-      error.message?.includes("already registered") ||
-      error.message?.includes("Free plan")
+      message.includes("limit") ||
+      message.includes("already registered") ||
+      message.includes("Free plan")
     ) {
-      return NextResponse.json({ error: error.message }, { status: 403 });
+      return NextResponse.json({ error: message }, { status: 403 });
     }
-    console.error("Error adding site:", error.message);
+    console.error("Error adding site:", message);
     return NextResponse.json(
       { error: "Failed to add site" },
       { status: 500 }
@@ -97,8 +99,8 @@ export async function DELETE(request: NextRequest) {
 
     await removeSite(siteId, user.id);
     return NextResponse.json({ success: true });
-  } catch (error: any) {
-    console.error("Error removing site:", error.message);
+  } catch (error: unknown) {
+    console.error("Error removing site:", getErrorMessage(error));
     return NextResponse.json(
       { error: "Failed to remove site" },
       { status: 500 }

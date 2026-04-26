@@ -36,7 +36,7 @@ export async function GET() {
     // Get registered sites
     const { data: sites } = await adminClient
       .from("sites")
-      .select("id, url, name, last_scan_score, last_scanned_at, created_at")
+      .select("id, url, name, last_scan_score, last_scan_at, created_at")
       .eq("user_id", user.id);
 
     const exportData = {
@@ -58,7 +58,7 @@ export async function GET() {
         "Content-Disposition": `attachment; filename="a11yscope-data-export-${new Date().toISOString().split("T")[0]}.json"`,
       },
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Data export error:", error);
     return NextResponse.json(
       { error: "Failed to export data. Please try again." },

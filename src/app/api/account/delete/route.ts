@@ -56,7 +56,7 @@ export async function POST() {
     await adminClient.auth.admin.deleteUser(authUser.id);
 
     return NextResponse.json({ success: true });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Account deletion error:", error);
     return NextResponse.json(
       { error: "Failed to delete account. Please contact support." },

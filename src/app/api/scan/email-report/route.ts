@@ -5,6 +5,7 @@ import {
   getEmailEventCountByIp,
   getEmailEventCountByRecipient,
 } from "@/lib/db";
+import { logEvent } from "@/lib/analytics";
 
 // Dedicated rate limits for this endpoint. Both are enforced — the IP cap
 // stops a single attacker burning our Resend quota, and the recipient cap
@@ -144,13 +145,27 @@ export async function POST(request: NextRequest) {
     // counter.
     await logEmailEvent("scan_report", email, ip);
 
-    await sendScanReportEmail({
+    const sent = await sendScanReportEmail({
       to: email,
       url,
       score,
       violationsCount,
       totalIssueNodes,
       topViolations,
+    });
+
+    if (!sent) {
+      return NextResponse.json(
+        { error: "Failed to send email. Please try again." },
+        { status: 502 }
+      );
+    }
+
+    void logEvent({
+      kind: "email_report_sent",
+      ip,
+      url,
+      meta: { score, violations_count: violationsCount },
     });
 
     return NextResponse.json({ ok: true });

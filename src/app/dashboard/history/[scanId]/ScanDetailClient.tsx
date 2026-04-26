@@ -1,15 +1,7 @@
 "use client";
 
 import { useState } from "react";
-
-interface Violation {
-  id: string;
-  impact: string;
-  description: string;
-  help: string;
-  helpUrl: string;
-  nodes: { html: string; failureSummary: string; target: string[] }[];
-}
+import type { ScanResult, Violation, ViolationNode } from "@/lib/scanner";
 
 export default function ScanDetailClient({
   violations,
@@ -17,7 +9,7 @@ export default function ScanDetailClient({
   score,
   brandName,
 }: {
-  violations: any[] | null;
+  violations: Violation[] | null;
   url: string;
   score: number | null;
   brandName?: string;
@@ -29,15 +21,16 @@ export default function ScanDetailClient({
     setPdfLoading(true);
     try {
       const { generatePdfReport } = await import("@/lib/pdf-report");
-      generatePdfReport({
+      const report: ScanResult = {
         url,
         timestamp: new Date().toISOString(),
-        violations: violations as any,
+        violations,
         passes: 0,
         incomplete: 0,
         score: score ?? 0,
         scanDuration: 0,
-      }, brandName);
+      };
+      generatePdfReport(report, brandName);
     } catch (err) {
       console.error("PDF generation failed:", err);
       alert("Failed to generate PDF. Please try again.");
@@ -114,7 +107,7 @@ export default function ScanDetailClient({
                 Affected elements ({v.nodes.length}):
               </p>
               <div className="space-y-2 max-h-40 overflow-y-auto">
-                {v.nodes.slice(0, 5).map((node: any, j: number) => (
+                {v.nodes.slice(0, 5).map((node: ViolationNode, j: number) => (
                   <div key={j} className="text-xs">
                     <code className="bg-white px-2 py-1 rounded border border-gray-200 text-foreground block overflow-x-auto">
                       {node.html}

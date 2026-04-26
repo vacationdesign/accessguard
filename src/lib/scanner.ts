@@ -1,7 +1,23 @@
 import puppeteer from "puppeteer";
 import puppeteerCore from "puppeteer-core";
 import { AxeResults } from "axe-core";
+import type { Browser, Page } from "puppeteer-core";
 import dns from "dns/promises";
+import { getErrorMessage } from "@/lib/errors";
+
+declare global {
+  interface Window {
+    axe?: {
+      run: (
+        context: Document,
+        options: {
+          runOnly: { type: "tag"; values: string[] };
+          resultTypes: string[];
+        }
+      ) => Promise<AxeResults>;
+    };
+  }
+}
 
 // ---------------------------------------------------------------------------
 // SSRF protection: block private/internal IPs and cloud metadata endpoints
@@ -91,8 +107,8 @@ async function validateUrlSafety(url: URL): Promise<void> {
         throw new Error("Scanning private or internal IP addresses is not allowed");
       }
     }
-  } catch (err: any) {
-    if (err.message?.includes("not allowed")) throw err;
+  } catch (err: unknown) {
+    if (getErrorMessage(err).includes("not allowed")) throw err;
     // DNS resolution failure — let the browser handle it (will fail with timeout)
   }
 }
@@ -127,7 +143,7 @@ export interface ViolationNode {
 const CHROMIUM_REMOTE_URL =
   "https://github.com/Sparticuz/chromium/releases/download/v143.0.0/chromium-v143.0.0-pack.x64.tar";
 
-async function getBrowser() {
+async function getBrowser(): Promise<Browser> {
   if (process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME) {
     // Serverless environment (Vercel, AWS Lambda)
     const chromium = (await import("@sparticuz/chromium-min")).default;
@@ -192,12 +208,15 @@ export async function scanUrl(url: string): Promise<ScanResult> {
       url: "https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.10.2/axe.min.js",
     });
     // Wait for axe to be available
-    await page.waitForFunction(() => typeof (window as any).axe !== "undefined", {
+    await page.waitForFunction(() => typeof window.axe !== "undefined", {
       timeout: 10000,
     });
 
     const axeResults: AxeResults = await page.evaluate(() => {
-      return (window as any).axe.run(document, {
+      if (!window.axe) {
+        throw new Error("axe-core failed to load");
+      }
+      return window.axe.run(document, {
         runOnly: {
           type: "tag",
           values: [
@@ -241,7 +260,7 @@ export async function scanUrl(url: string): Promise<ScanResult> {
         html: n.html,
         target: n.target.map(String),
         failureSummary: n.failureSummary || "",
-        fixSuggestion: generateFixSuggestion(v.id, n.html),
+        fixSuggestion: generateFixSuggestion(v.id),
       })),
     }));
 
@@ -303,7 +322,7 @@ export interface PageResult {
  * Returns deduplicated, normalized URLs (no hash, no query params for dedup).
  */
 async function discoverLinks(
-  page: any,
+  page: Page,
   seedUrl: URL,
   maxLinks: number
 ): Promise<string[]> {
@@ -340,11 +359,11 @@ async function discoverLinks(
  * Unlike scanUrl(), this reuses the browser and handles errors gracefully.
  */
 async function scanPage(
-  browser: any,
+  browser: Browser,
   url: string
 ): Promise<PageResult> {
   const startTime = Date.now();
-  let page: any | null = null;
+  let page: Page | null = null;
   try {
     page = await browser.newPage();
     await page.setViewport({ width: 1280, height: 720 });
@@ -362,12 +381,15 @@ async function scanPage(
       url: "https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.10.2/axe.min.js",
     });
     await page.waitForFunction(
-      () => typeof (window as any).axe !== "undefined",
+      () => typeof window.axe !== "undefined",
       { timeout: 10000 }
     );
 
     const axeResults: AxeResults = await page.evaluate(() => {
-      return (window as any).axe.run(document, {
+      if (!window.axe) {
+        throw new Error("axe-core failed to load");
+      }
+      return window.axe.run(document, {
         runOnly: {
           type: "tag",
           values: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "best-practice"],
@@ -393,7 +415,7 @@ async function scanPage(
         html: n.html,
         target: n.target.map(String),
         failureSummary: n.failureSummary || "",
-        fixSuggestion: generateFixSuggestion(v.id, n.html),
+        fixSuggestion: generateFixSuggestion(v.id),
       })),
     }));
 
@@ -408,7 +430,7 @@ async function scanPage(
       incomplete: incomplete.length,
       scanDuration: Date.now() - startTime,
     };
-  } catch (err: any) {
+  } catch (err: unknown) {
     return {
       url,
       score: 0,
@@ -416,7 +438,7 @@ async function scanPage(
       passes: 0,
       incomplete: 0,
       scanDuration: Date.now() - startTime,
-      error: err.message || "Failed to scan page",
+      error: getErrorMessage(err, "Failed to scan page"),
     };
   } finally {
     if (page) {
@@ -566,7 +588,7 @@ export async function crawlAndScan(
   }
 }
 
-function generateFixSuggestion(ruleId: string, html: string): string {
+function generateFixSuggestion(ruleId: string): string {
   const fixes: Record<string, string> = {
     "image-alt":
       'Add a descriptive alt attribute to the image. Example: <img alt="Description of image content" ...>',

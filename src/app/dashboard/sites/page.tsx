@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import { getErrorMessage } from "@/lib/errors";
 
 interface Site {
   id: string;
@@ -68,8 +69,8 @@ export default function SitesPage() {
       setUrl("");
       setName("");
       fetchSites();
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      setError(getErrorMessage(err, "Failed to add site"));
     } finally {
       setAdding(false);
     }
@@ -179,21 +180,33 @@ export default function SitesPage() {
                 onSubmit={handleAdd}
                 className="flex flex-col sm:flex-row gap-3"
               >
-                <input
-                  type="url"
-                  value={url}
-                  onChange={(e) => setUrl(e.target.value)}
-                  placeholder="https://example.com"
-                  required
-                  className="flex-1 px-4 py-2.5 border border-gray-200 rounded-lg text-foreground placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                />
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="Site name (optional)"
-                  className="sm:w-48 px-4 py-2.5 border border-gray-200 rounded-lg text-foreground placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                />
+                <div className="flex-1">
+                  <label htmlFor="site-url" className="sr-only">
+                    Site URL
+                  </label>
+                  <input
+                    id="site-url"
+                    type="url"
+                    value={url}
+                    onChange={(e) => setUrl(e.target.value)}
+                    placeholder="https://example.com"
+                    required
+                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-foreground placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  />
+                </div>
+                <div className="sm:w-48">
+                  <label htmlFor="site-name" className="sr-only">
+                    Site name
+                  </label>
+                  <input
+                    id="site-name"
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Site name (optional)"
+                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-foreground placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  />
+                </div>
                 <button
                   type="submit"
                   disabled={adding || !url.trim()}
@@ -303,6 +316,12 @@ export default function SitesPage() {
                           className="text-primary hover:text-primary-dark text-sm font-medium"
                         >
                           Scan
+                        </Link>
+                        <Link
+                          href={`/dashboard/scan?mode=crawl&url=${encodeURIComponent(site.url)}`}
+                          className="text-primary hover:text-primary-dark text-sm font-medium"
+                        >
+                          Crawl
                         </Link>
                         <button
                           onClick={() => handleDelete(site.id)}

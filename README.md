@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# A11yScope
 
-## Getting Started
+Web アクセシビリティ自動監査 SaaS。URL を登録し、Puppeteer + axe-core で WCAG 2.1 AA 観点のスキャンを実行し、履歴、PDF レポート、週次自動スキャン、Stripe サブスクリプションを提供する。
 
-First, run the development server:
+**本番 URL**: https://www.a11yscope.com  
+**最終確認**: 2026-04-13
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 現在の役割
+
+- 単発アクセシビリティスキャン
+- サイトクロールと複数ページ監査
+- スキャン履歴管理
+- PDF レポート生成
+- Supabase Magic Link 認証
+- Stripe Checkout / Customer Portal / Webhook
+- Pro / Agency プラン管理
+- Vercel Cron による週次スキャン
+- Agency 向けブランド設定、データエクスポート、アカウント削除
+
+## 技術スタック
+
+| 項目 | 内容 |
+|---|---|
+| Framework | Next.js 16.1.6 App Router |
+| Runtime | React 19.2.3 / TypeScript 5 |
+| DB / Auth | Supabase SSR 0.8 / supabase-js 2.97 |
+| Scanner | puppeteer-core 24, @sparticuz/chromium-min 143, axe-core 4.11 |
+| Billing | Stripe 20.3 |
+| PDF | jsPDF 4.2 |
+| Email | Resend 6.9 |
+| Hosting | Vercel |
+
+## 主要ディレクトリ
+
+```text
+src/app/api/scan/          # スキャン実行、履歴、クロール
+src/app/api/sites/         # 登録サイト管理
+src/app/api/checkout/      # Stripe Checkout
+src/app/api/portal/        # Stripe Customer Portal
+src/app/api/webhook/       # Stripe Webhook
+src/app/api/cron/          # 週次自動スキャン
+src/app/api/account/       # 削除、エクスポート、ブランド設定
+src/content/blog/          # SEO / アクセシビリティ記事
+src/lib/                   # Supabase, Stripe, scan helpers
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 開発コマンド
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+npm run dev
+npm run lint
+npm run build
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Vercel 設定
 
-## Learn More
+`vercel.json` でスキャン系 Serverless Function のメモリと実行時間を拡張している。
 
-To learn more about Next.js, take a look at the following resources:
+| Path | Memory | Max Duration |
+|---|---:|---:|
+| `src/app/api/scan/route.ts` | 1024 MB | 60 s |
+| `src/app/api/scan/crawl/route.ts` | 1024 MB | 300 s |
+| `src/app/api/cron/weekly-scan/route.ts` | 1024 MB | 300 s |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Cron は `/api/cron/weekly-scan` を毎週月曜 09:00 UTC に実行する。
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 関連ドキュメント
 
-## Deploy on Vercel
+- `SYSTEM-SPEC.md` — システム仕様
+- `HANDOVER.md` — 運用引き継ぎ
+- `.claude/seo-monitor.md` — SEO 監視運用メモ
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 注意点
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Chromium バイナリと Vercel Function サイズ、タイムアウトに注意する。
+- Supabase service role、Stripe secret、Webhook secret はサーバー側でのみ使用する。
+- 既存の未コミット SEO 記事と監視ログがあるため、文書更新時も差分を分離して確認する。

@@ -13,9 +13,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.a11yscope.com"),
   title:
-    "A11yScope - Free Website Accessibility Checker | WCAG 2.1 Compliance Scanner",
+    "A11yScope - Free Website Accessibility Checker | WCAG 2.1 & 2.2 Scanner",
   description:
-    "Scan your website for accessibility issues in seconds. Get actionable fixes for WCAG 2.1 compliance. Avoid ADA lawsuits. Free instant scan.",
+    "Scan your website for accessibility issues in seconds. Get actionable WCAG 2.1 AA findings, WCAG 2.2 readiness guidance, and fix-ready code suggestions.",
   other: {
     google: "notranslate",
   },
@@ -26,9 +26,11 @@ export const metadata: Metadata = {
     "website accessibility",
     "accessibility scanner",
     "WCAG 2.1",
+    "WCAG 2.2",
     "accessibility audit",
     "a11y checker",
     "web accessibility testing",
+    "EAA compliance",
   ],
   alternates: {
     canonical: "/",
@@ -36,7 +38,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "A11yScope - Free Website Accessibility Checker",
     description:
-      "Scan your website for accessibility issues in seconds. Get actionable fixes for WCAG 2.1 compliance.",
+      "Scan your website for accessibility issues in seconds. Get actionable WCAG 2.1 AA findings and WCAG 2.2 readiness guidance.",
     type: "website",
     locale: "en_US",
     url: "https://www.a11yscope.com",
@@ -46,7 +48,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "A11yScope - Free Website Accessibility Checker",
     description:
-      "Scan your website for accessibility issues in seconds. Get actionable fixes for WCAG 2.1 compliance.",
+      "Scan your website for accessibility issues in seconds. Get actionable WCAG 2.1 AA findings and WCAG 2.2 readiness guidance.",
   },
   robots: {
     index: true,
@@ -64,7 +66,7 @@ const organizationJsonLd = {
   url: "https://www.a11yscope.com",
   logo: "https://www.a11yscope.com/favicon.ico",
   description:
-    "Free website accessibility checker and WCAG 2.1 compliance scanner.",
+    "Free website accessibility checker with WCAG 2.1 AA scanning and WCAG 2.2 readiness guidance.",
 };
 
 const websiteJsonLd = {

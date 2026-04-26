@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe, PLANS, PlanKey } from "@/lib/stripe";
 import { hasSubscriptionHistory } from "@/lib/db";
+import { getErrorMessage } from "@/lib/errors";
+import { logEvent, ipFromRequest } from "@/lib/analytics";
 
 const ALLOWED_ORIGINS = [
   "https://www.a11yscope.com",
@@ -82,11 +84,22 @@ export async function POST(request: NextRequest) {
       },
     });
 
+    void logEvent({
+      kind: "checkout_clicked",
+      ip: ipFromRequest(request),
+      meta: { plan, had_prior_sub: hadSub, trial_days: trialDays ?? null },
+    });
+
     return NextResponse.json({ url: session.url });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Stripe checkout error:", error);
     return NextResponse.json(
-      { error: "Failed to create checkout session. Please try again later." },
+      {
+        error: getErrorMessage(
+          error,
+          "Failed to create checkout session. Please try again later."
+        ),
+      },
       { status: 500 }
     );
   }

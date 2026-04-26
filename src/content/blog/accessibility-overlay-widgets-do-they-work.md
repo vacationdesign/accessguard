@@ -136,6 +136,8 @@ Before you can fix accessibility issues, you need to know what they are. Start w
 
 Automated scanning should be supplemented with manual testing  Ekeyboard navigation testing, screen reader testing, and content review  Ebecause automated tools can only detect a portion of all WCAG violations. But automated scanning is the right starting point because it identifies the highest-volume issues efficiently.
 
+If you are deciding which scanners and workflows to rely on, review our comparison of [website accessibility testing tools](/blog/website-accessibility-testing-tools-compared) before committing to a vendor stack.
+
 ### Step 2: Fix the High-Impact Issues First
 
 Not all accessibility issues carry equal weight. Prioritize fixes that remove barriers from your site's core user journeys:
@@ -150,6 +152,8 @@ Focus on these critical paths first. You do not need to achieve zero violations 
 ### Step 3: Integrate Accessibility Into Your Workflow
 
 A one-time remediation effort will decay over time as new content is added and new features are deployed. Sustainable accessibility requires process changes:
+
+For a practical operating rhythm, our guide to [website accessibility monitoring with weekly scans](/blog/website-accessibility-monitoring-weekly-scans) explains how to turn one-off cleanup into an ongoing process.
 
 - **Design reviews**  ECheck color contrast, readability, and interactive element sizing before designs reach development.
 - **Development standards**  ERequire semantic HTML, proper ARIA usage, and keyboard operability as acceptance criteria for every component.

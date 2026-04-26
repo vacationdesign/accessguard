@@ -3,15 +3,10 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import type { CrawlResult, ScanResult, ViolationNode } from "@/lib/scanner";
+import { getErrorMessage } from "@/lib/errors";
 
-interface ScanResult {
-  url: string;
-  score: number;
-  violations: any[];
-  passes: number;
-  incomplete: number;
-  scanDuration: number;
-}
+type ScanMode = "page" | "crawl";
 
 interface RecentScan {
   id: string;
@@ -25,8 +20,12 @@ interface RecentScan {
 export default function DashboardScanPage() {
   const searchParams = useSearchParams();
   const [url, setUrl] = useState(searchParams.get("url") || "");
+  const [mode, setMode] = useState<ScanMode>(
+    searchParams.get("mode") === "crawl" ? "crawl" : "page"
+  );
   const [scanning, setScanning] = useState(false);
   const [result, setResult] = useState<ScanResult | null>(null);
+  const [crawlResult, setCrawlResult] = useState<CrawlResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [recentScans, setRecentScans] = useState<RecentScan[]>([]);
 
@@ -44,6 +43,8 @@ export default function DashboardScanPage() {
   useEffect(() => {
     const paramUrl = searchParams.get("url");
     if (paramUrl) setUrl(paramUrl);
+    const paramMode = searchParams.get("mode");
+    if (paramMode === "crawl" || paramMode === "page") setMode(paramMode);
   }, [searchParams]);
 
   const handleScan = async (e: React.FormEvent) => {
@@ -52,10 +53,11 @@ export default function DashboardScanPage() {
 
     setScanning(true);
     setResult(null);
+    setCrawlResult(null);
     setError(null);
 
     try {
-      const response = await fetch("/api/scan", {
+      const response = await fetch(mode === "crawl" ? "/api/scan/crawl" : "/api/scan", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ url: url.trim() }),
@@ -67,7 +69,11 @@ export default function DashboardScanPage() {
         throw new Error(data.error || "Scan failed");
       }
 
-      setResult(data);
+      if (mode === "crawl") {
+        setCrawlResult(data as CrawlResult);
+      } else {
+        setResult(data as ScanResult);
+      }
 
       // Refresh recent scans after a successful scan
       fetch("/api/scan/history?limit=3")
@@ -76,8 +82,8 @@ export default function DashboardScanPage() {
           if (d.scans) setRecentScans(d.scans);
         })
         .catch(() => {});
-    } catch (err: any) {
-      setError(err.message || "Something went wrong. Please try again.");
+    } catch (err: unknown) {
+      setError(getErrorMessage(err));
     } finally {
       setScanning(false);
     }
@@ -88,21 +94,59 @@ export default function DashboardScanPage() {
       <div>
         <h1 className="text-2xl font-bold text-foreground">New Scan</h1>
         <p className="text-muted mt-1">
-          Run an accessibility scan on any webpage.
+          Run a page scan or full-site crawl for accessibility issues.
         </p>
       </div>
 
       {/* Scan Form */}
       <div className="bg-white rounded-xl border border-gray-200 p-6">
+        <div className="mb-4 inline-flex rounded-lg border border-gray-200 bg-gray-50 p-1">
+          <button
+            type="button"
+            onClick={() => setMode("page")}
+            className={`px-4 py-2 text-sm font-semibold rounded-md transition-colors ${
+              mode === "page"
+                ? "bg-white text-foreground shadow-sm"
+                : "text-muted hover:text-foreground"
+            }`}
+          >
+            Page Scan
+          </button>
+          <button
+            type="button"
+            onClick={() => setMode("crawl")}
+            className={`px-4 py-2 text-sm font-semibold rounded-md transition-colors ${
+              mode === "crawl"
+                ? "bg-white text-foreground shadow-sm"
+                : "text-muted hover:text-foreground"
+            }`}
+          >
+            Full-Site Crawl
+          </button>
+        </div>
+
+        {mode === "crawl" && (
+          <div className="mb-4 rounded-lg border border-blue-100 bg-blue-50 px-4 py-3 text-sm text-blue-900">
+            Full-site crawl scans same-origin pages and is available on Pro and
+            Agency plans. Free users can still run individual page scans.
+          </div>
+        )}
+
         <form onSubmit={handleScan} className="flex flex-col sm:flex-row gap-3">
-          <input
-            type="url"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            placeholder="https://example.com"
-            required
-            className="flex-1 px-4 py-3 border border-gray-200 rounded-lg text-foreground placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-base"
-          />
+          <div className="flex-1">
+            <label htmlFor="dashboard-scan-url" className="sr-only">
+              Website URL to scan
+            </label>
+            <input
+              id="dashboard-scan-url"
+              type="url"
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+              placeholder="https://example.com"
+              required
+              className="w-full px-4 py-3 border border-gray-200 rounded-lg text-foreground placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-base"
+            />
+          </div>
           <button
             type="submit"
             disabled={scanning || !url.trim()}
@@ -129,16 +173,22 @@ export default function DashboardScanPage() {
                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                   />
                 </svg>
-                Scanning...
+                {mode === "crawl" ? "Crawling..." : "Scanning..."}
               </>
+            ) : mode === "crawl" ? (
+              "Run Full-Site Crawl"
             ) : (
-              "Run Scan"
+              "Run Page Scan"
             )}
           </button>
         </form>
 
         {scanning && (
-          <p className="text-sm text-muted mt-3">This usually takes 10–30 seconds.</p>
+          <p className="text-sm text-muted mt-3">
+            {mode === "crawl"
+              ? "Crawls can take several minutes depending on page count."
+              : "This usually takes 10-30 seconds."}
+          </p>
         )}
 
         {error && (
@@ -147,6 +197,86 @@ export default function DashboardScanPage() {
           </div>
         )}
       </div>
+
+      {/* Crawl Result */}
+      {crawlResult && (
+        <div className="space-y-6">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div className="bg-white rounded-xl border border-gray-200 p-4 text-center">
+              <p className="text-sm text-muted">Aggregate Score</p>
+              <p className={`text-3xl font-bold mt-1 ${scoreColor(crawlResult.aggregateScore)}`}>
+                {crawlResult.aggregateScore}%
+              </p>
+            </div>
+            <div className="bg-white rounded-xl border border-gray-200 p-4 text-center">
+              <p className="text-sm text-muted">Pages Scanned</p>
+              <p className="text-3xl font-bold text-foreground mt-1">
+                {crawlResult.pagesScanned}
+              </p>
+            </div>
+            <div className="bg-white rounded-xl border border-gray-200 p-4 text-center">
+              <p className="text-sm text-muted">Issues</p>
+              <p className="text-3xl font-bold text-red-600 mt-1">
+                {crawlResult.summary.totalViolations}
+              </p>
+            </div>
+            <div className="bg-white rounded-xl border border-gray-200 p-4 text-center">
+              <p className="text-sm text-muted">Duration</p>
+              <p className="text-3xl font-bold text-foreground mt-1">
+                {(crawlResult.totalDuration / 1000).toFixed(0)}s
+              </p>
+            </div>
+          </div>
+
+          {crawlResult.summary.commonIssues.length > 0 && (
+            <div className="bg-white rounded-xl border border-gray-200 p-6">
+              <h2 className="text-lg font-semibold text-foreground mb-4">
+                Most Common Issues
+              </h2>
+              <div className="space-y-3">
+                {crawlResult.summary.commonIssues.slice(0, 5).map((issue) => (
+                  <div key={issue.id} className="flex items-start justify-between gap-4 rounded-lg bg-gray-50 px-4 py-3">
+                    <div>
+                      <p className="font-medium text-foreground">{issue.help}</p>
+                      <p className="text-xs text-muted mt-1">{issue.id} - {issue.impact}</p>
+                    </div>
+                    <span className="text-sm font-bold text-foreground">{issue.count}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+            <div className="px-6 py-4 border-b border-gray-100">
+              <h2 className="text-lg font-semibold text-foreground">
+                Page Results
+              </h2>
+            </div>
+            <div className="divide-y divide-gray-100">
+              {crawlResult.pageResults.map((page) => (
+                <div key={page.url} className="px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div className="min-w-0">
+                    <p className="font-medium text-foreground truncate">{page.url}</p>
+                    {page.error ? (
+                      <p className="text-sm text-danger mt-1">{page.error}</p>
+                    ) : (
+                      <p className="text-sm text-muted mt-1">
+                        {page.violations.length} issue rules - {page.passes} passes
+                      </p>
+                    )}
+                  </div>
+                  {!page.error && (
+                    <span className={`text-sm font-bold ${scoreColor(page.score)}`}>
+                      {page.score}%
+                    </span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Scan Result */}
       {result && (
@@ -193,7 +323,7 @@ export default function DashboardScanPage() {
               <h2 className="text-lg font-semibold text-foreground">
                 Violations ({result.violations.length})
               </h2>
-              {result.violations.map((v: any, i: number) => {
+              {result.violations.map((v, i) => {
                 const impactColors: Record<string, string> = {
                   critical: "bg-red-100 text-red-800 border-red-200",
                   serious: "bg-orange-100 text-orange-800 border-orange-200",
@@ -236,7 +366,7 @@ export default function DashboardScanPage() {
                           Affected elements ({v.nodes.length}):
                         </p>
                         <div className="space-y-2 max-h-40 overflow-y-auto">
-                          {v.nodes.slice(0, 3).map((node: any, j: number) => (
+                          {v.nodes.slice(0, 3).map((node: ViolationNode, j: number) => (
                             <code
                               key={j}
                               className="bg-white px-2 py-1 rounded border border-gray-200 text-xs text-foreground block overflow-x-auto"
@@ -346,4 +476,10 @@ export default function DashboardScanPage() {
       )}
     </div>
   );
+}
+
+function scoreColor(score: number): string {
+  if (score >= 90) return "text-green-600";
+  if (score >= 70) return "text-yellow-600";
+  return "text-red-600";
 }

@@ -6,7 +6,7 @@ import LegalFooter from "@/components/LegalFooter";
 export const metadata: Metadata = {
   title: "FAQ - Web Accessibility & WCAG Compliance Questions | A11yScope",
   description:
-    "Answers to common questions about web accessibility, WCAG 2.1 compliance, ADA requirements, automated testing, and A11yScope features.",
+    "Answers to common questions about web accessibility, WCAG 2.1 and 2.2 compliance, ADA requirements, automated testing, and A11yScope features.",
   alternates: {
     canonical: "/faq",
   },
@@ -74,7 +74,7 @@ const faqCategories = [
       },
       {
         q: "Is A11yScope free to use?",
-        a: "Yes. A11yScope offers a free tier with 5 scans per hour. No account or credit card is required. Simply enter a URL on the homepage and get your accessibility report in seconds. For unlimited scans, weekly full-site crawl monitoring, and PDF reports, the Pro plan is available at $49/month. The Agency plan at $149/month adds more monitored sites and white-label PDF reports.",
+        a: "Yes. Anonymous visitors can run 5 scans per hour without an account. A free account gives 50 scans per month and scan history. For unlimited scans, weekly full-site crawl monitoring, and PDF reports, the Pro plan is available at $49/month. The Agency plan at $149/month adds more monitored sites, larger crawls, and white-label PDF reports.",
       },
       {
         q: "What is axe-core and why does A11yScope use it?",
@@ -281,8 +281,9 @@ export default function FAQPage() {
           <h2 className="text-xl font-bold text-foreground">
             Ready to check your website?
           </h2>
-          <p className="text-muted">
-            Scan for WCAG 2.1 issues in seconds. Free, no sign-up required.
+          <p className="text-slate-700">
+            Scan for WCAG 2.1 AA issues in seconds and get WCAG 2.2 readiness guidance.
+            Free, no sign-up required.
           </p>
           <Link
             href="/"

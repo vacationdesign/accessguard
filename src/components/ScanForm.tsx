@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import type { ScanResult } from "@/lib/scanner";
 
 interface ScanErrorMeta {
   signup?: boolean;
@@ -8,7 +9,7 @@ interface ScanErrorMeta {
 }
 
 interface ScanFormProps {
-  onScanComplete: (result: any) => void;
+  onScanComplete: (result: ScanResult & { domainScanCount?: number }) => void;
   onScanStart: () => void;
   onError: (error: string, meta?: ScanErrorMeta) => void;
 }
@@ -61,6 +62,9 @@ export default function ScanForm({
     <form onSubmit={handleSubmit} className="w-full max-w-2xl mx-auto">
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="relative flex-1">
+          <label htmlFor="homepage-scan-url" className="sr-only">
+            Website URL to scan
+          </label>
           <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
             <svg
               className="h-5 w-5 text-muted"
@@ -77,6 +81,7 @@ export default function ScanForm({
             </svg>
           </div>
           <input
+            id="homepage-scan-url"
             type="text"
             value={url}
             onChange={(e) => setUrl(e.target.value)}

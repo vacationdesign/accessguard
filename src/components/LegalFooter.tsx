@@ -13,7 +13,7 @@ export default function LegalFooter() {
         <Link href="/tokushoho" className="hover:text-foreground transition-colors">
           Legal Disclosure
         </Link>
-        <span className="text-gray-300">&copy; 2026 A11yScope</span>
+        <span className="text-gray-600">&copy; 2026 A11yScope</span>
       </div>
     </footer>
   );

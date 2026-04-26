@@ -219,7 +219,7 @@ export async function getAllUsers(options: {
   const userIds = userList.map((u) => u.id);
 
   // Single query to get scan counts for all users in the page
-  let scanCountMap: Record<string, number> = {};
+  const scanCountMap: Record<string, number> = {};
   if (userIds.length > 0) {
     const { data: countRows } = await supabase
       .rpc("get_scan_counts_by_users", { user_ids: userIds });

@@ -3,6 +3,7 @@ import { getSupabaseClient } from "@/lib/supabase";
 import { crawlAndScan } from "@/lib/scanner";
 import { logScan } from "@/lib/db";
 import { sendWeeklySummaryEmail } from "@/lib/email";
+import { getErrorMessage } from "@/lib/errors";
 
 // Allow up to 5 minutes for batch scanning
 export const maxDuration = 300;
@@ -12,6 +13,13 @@ const CRAWL_LIMITS: Record<string, number> = {
   pro: 20,
   agency: 50,
 };
+
+interface CronSite {
+  id: string;
+  url: string;
+  name: string | null;
+  last_scan_score: number | null;
+}
 
 /**
  * GET /api/cron/weekly-scan
@@ -54,7 +62,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Count total sites to budget time fairly
-    const userSitesMap: Map<string, any[]> = new Map();
+    const userSitesMap: Map<string, CronSite[]> = new Map();
     let totalSiteCount = 0;
     for (const user of users) {
       const { data: sites } = await supabase
@@ -154,10 +162,10 @@ export async function GET(request: NextRequest) {
           });
 
           totalPagesScanned += crawlResult.pagesScanned;
-        } catch (scanError: any) {
+        } catch (scanError: unknown) {
           console.error(
             `Cron crawl failed for ${site.url}:`,
-            scanError.message
+            getErrorMessage(scanError)
           );
 
           siteSummaries.push({
@@ -203,10 +211,11 @@ export async function GET(request: NextRequest) {
       errors: totalErrors,
       durationMs: Date.now() - cronStart,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const message = getErrorMessage(error, "Weekly scan failed");
     console.error("Weekly cron error:", error);
     return NextResponse.json(
-      { error: "Weekly scan failed", details: error.message },
+      { error: "Weekly scan failed", details: message },
       { status: 500 }
     );
   }

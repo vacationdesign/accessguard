@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { getErrorMessage } from "@/lib/errors";
 
 export default function ManageSubscriptionButton() {
   const [loading, setLoading] = useState(false);
@@ -21,8 +22,8 @@ export default function ManageSubscriptionButton() {
       if (data.url) {
         window.location.href = data.url;
       }
-    } catch (err: any) {
-      alert(err.message || "Something went wrong. Please try again.");
+    } catch (err: unknown) {
+      alert(getErrorMessage(err));
     } finally {
       setLoading(false);
     }

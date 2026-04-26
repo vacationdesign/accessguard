@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
-import Link from "next/link";
 import ManageSubscriptionButton from "./ManageSubscriptionButton";
 import CheckoutButton from "./CheckoutButton";
 

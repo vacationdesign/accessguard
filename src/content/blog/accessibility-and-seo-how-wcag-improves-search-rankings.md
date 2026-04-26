@@ -26,6 +26,8 @@ Screen readers operate the same way. They parse the Document Object Model (DOM),
 
 This shared dependency on structured, well-labeled HTML is the reason accessibility and SEO are so deeply connected. Here are the primary areas of overlap:
 
+For teams that want a broader validation workflow, pair these structural fixes with regular [screen reader testing for developers](/blog/screen-reader-testing-guide-for-developers) so the experience is checked from both the crawler and assistive-technology perspective.
+
 ### Semantic HTML
 
 Semantic HTML means using the right element for the right purpose: `<nav>` for navigation, `<main>` for primary content, `<article>` for self-contained pieces, `<button>` for interactive controls. This is a Level A requirement under WCAG (4.1.2 Name, Role, Value) and a direct SEO signal.
@@ -33,6 +35,8 @@ Semantic HTML means using the right element for the right purpose: `<nav>` for n
 Search engines use semantic elements to understand page structure. A `<nav>` element tells Google where your site navigation lives. A `<main>` element identifies your primary content, helping the crawler distinguish it from sidebars, footers, and boilerplate. An `<article>` element signals a discrete, indexable piece of content.
 
 When you use `<div>` and `<span>` for everything, both screen readers and search engines lose that context. The page becomes a flat wall of undifferentiated markup.
+
+If you are cleaning up these structural issues after a scan, our guide on [fixing issues found by automated scanners](/blog/fix-accessibility-issues-automated-scanners) covers the most common markup problems in practical terms.
 
 ### Alt Text for Images
 

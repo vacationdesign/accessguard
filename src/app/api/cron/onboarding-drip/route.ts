@@ -84,16 +84,20 @@ export async function GET(request: NextRequest) {
       if (user.plan !== "free") continue;
 
       try {
-        if (step === "day1") {
-          await sendOnboardingDay1Email({ to: user.email });
-        } else {
-          await sendOnboardingDay3Email({ to: user.email });
+        const accepted =
+          step === "day1"
+            ? await sendOnboardingDay1Email({ to: user.email })
+            : await sendOnboardingDay3Email({ to: user.email });
+
+        if (!accepted) {
+          console.error(`Drip ${step} send was not accepted for ${user.email}`);
+          continue;
         }
 
         // Mark as sent AFTER successful send. A failed send leaves the row
         // un-marked so the next cron run tries again. The email functions
-        // themselves catch Resend errors non-blockingly, so "success" here
-        // means the HTTP call was accepted — not that the email landed.
+        // return true only when Resend accepts the HTTP call. This does not
+        // guarantee inbox delivery, but it avoids marking rejected sends.
         const { error: markErr } = await supabase
           .from("users")
           .update({ [column]: new Date().toISOString() })

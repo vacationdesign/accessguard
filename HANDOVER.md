@@ -1,7 +1,8 @@
 # A11yScope 引き継ぎ書（Handover Document）
 
-**最終更新**: 2026-03-21
-**プロジェクトパス**: `C:\Users\g5501\dev\accessguard`
+**最終更新**: 2026-04-13
+**プロジェクトパス**: `C:\Users\g5501\projects\a11yscope\a11yscope`
+**GitHub**: `vacationdesign/accessguard`
 **本番URL**: https://www.a11yscope.com
 **ドメイン管理**: Namecheap（a11yscope.com）
 **デプロイ**: Vercel（自動デプロイ: GitHub main ブランチ push）

@@ -3,6 +3,11 @@ import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://www.a11yscope.com";
+  const useCaseSlugs = [
+    "ecommerce-accessibility-checker",
+    "web-agency-accessibility-audits",
+    "saas-accessibility-monitoring",
+  ];
 
   // Static pages
   const staticPages: MetadataRoute.Sitemap = [
@@ -53,5 +58,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticPages, ...blogPages];
+  const useCasePages: MetadataRoute.Sitemap = useCaseSlugs.map((slug) => ({
+    url: `${baseUrl}/use-cases/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.75,
+  }));
+
+  return [...staticPages, ...useCasePages, ...blogPages];
 }

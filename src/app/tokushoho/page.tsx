@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import LegalFooter from "@/components/LegalFooter";
 
 export const metadata: Metadata = {
@@ -11,7 +12,7 @@ export default function TokushohoPage() {
     <div className="min-h-screen bg-gray-50">
       <header className="bg-white border-b border-gray-200">
         <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
-          <a href="/" className="flex items-center gap-2 text-gray-900">
+          <Link href="/" className="flex items-center gap-2 text-gray-900">
             <svg
               className="w-6 h-6 text-blue-600"
               fill="none"
@@ -26,13 +27,13 @@ export default function TokushohoPage() {
               />
             </svg>
             <span className="font-bold text-lg">A11yScope</span>
-          </a>
-          <a
+          </Link>
+          <Link
             href="/"
             className="text-sm text-blue-600 hover:text-blue-800 transition-colors"
           >
             Back to Home
-          </a>
+          </Link>
         </div>
       </header>
 
