@@ -37,11 +37,31 @@ curl -s -o /dev/null -w "%{http_code}\n" https://www.a11yscope.com/blog
 
 If any returns non-200, flag CRITICAL and escalate to `standard` immediately.
 
-### Step 1.2 — Run the four heartbeat SQL queries
+### Step 1.2 — Run the five heartbeat SQL queries
 
 Use the Supabase MCP (`execute_sql`, project_id `hxsiqqyimzeyomesmkeh`).
 
-**a) Funnel last 2 days (kinds × day):**
+**a) Absolute-value snapshot (totals you always want visible):**
+```sql
+SELECT
+  (SELECT COUNT(*) FROM users)                                                 AS total_users,
+  (SELECT COUNT(*) FROM users WHERE plan='free')                               AS free_users,
+  (SELECT COUNT(*) FROM users WHERE plan='pro')                                AS pro_users,
+  (SELECT COUNT(*) FROM users WHERE plan='agency')                             AS agency_users,
+  (SELECT COUNT(*) FROM subscriptions WHERE status='active')                   AS subs_active,
+  (SELECT COUNT(*) FROM subscriptions WHERE status='trialing')                 AS subs_trialing,
+  (SELECT COUNT(*) FROM scan_logs)                                             AS total_scans_alltime,
+  (SELECT COUNT(*) FROM scan_logs WHERE created_at >= date_trunc('month', now())) AS scans_this_month,
+  (SELECT COUNT(*) FROM scan_logs WHERE created_at >= now() - interval '24 hour') AS scans_24h,
+  (SELECT MAX(created_at) FROM scan_logs)                                      AS last_scan_at,
+  (SELECT COUNT(*) FROM crawl_batches)                                         AS total_crawl_batches;
+```
+
+This is the "where do we stand right now" snapshot. Always include in the
+report header so a one-glance read shows current state — not only what
+moved.
+
+**b) Funnel last 2 days (kinds × day):**
 ```sql
 SELECT
   date_trunc('day', created_at) AS day,
@@ -61,7 +81,7 @@ GROUP BY 1
 ORDER BY 1 DESC;
 ```
 
-**b) New users in the last 24h:**
+**c) New users in the last 24h:**
 ```sql
 SELECT id, email, plan, created_at
 FROM users
@@ -69,7 +89,7 @@ WHERE created_at >= now() - interval '24 hour'
 ORDER BY created_at DESC;
 ```
 
-**c) Email events last 24h (column is `kind`, not `event_type`):**
+**d) Email events last 24h (column is `kind`, not `event_type`):**
 ```sql
 SELECT kind, COUNT(*) AS n
 FROM email_events
@@ -78,7 +98,7 @@ GROUP BY kind
 ORDER BY n DESC;
 ```
 
-**d) Crawl-batch reliability (column is `status`, not `completed_at`):**
+**e) Crawl-batch reliability (column is `status`, not `completed_at`):**
 ```sql
 SELECT
   COUNT(*) FILTER (WHERE created_at >= now() - interval '24 hour') AS batches_24h,
@@ -110,18 +130,28 @@ If no tripwire fired:
 
 - Write `.claude/seo-reports/{YYYY-MM-DD}.md`
 - 3-8 lines max
-- Required fields:
+- Required fields (from queries `a` snapshot + `b` funnel):
   ```
   mode: quick
   data_sources: supabase_only
   degraded_flags: []
   escalated: false
+  # absolute snapshot
+  total_users: N
+  free_users: N / pro_users: N / agency_users: N
+  subs_active: N / subs_trialing: N
+  total_scans_alltime: N
+  scans_this_month: N
+  scans_24h: N
+  last_scan_at: <timestamp>
+  # funnel deltas (today)
   scan_started_today: N
   scan_completed_today: N
   signup_clicked_today: N
   trial_started_today: N
   checkout_clicked_today: N
   scan_rate_limited_today: N
+  email_report_sent_today: N
   ```
 - One sentence on day-over-day delta.
 - One sentence on what to watch next run.
