@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Write(.claude/seo-reports/**)",
+      "Edit(.claude/seo-reports/**)",
+      "Read(.claude/seo-reports/**)",
+      "Bash(git add .claude/seo-reports/*)",
+      "Bash(git add .claude/seo-reports/**)",
+      "Bash(git commit *)",
+      "Bash(git push)",
+      "Bash(git push:*)",
+      "Bash(git status)",
+      "Bash(git status:*)",
+      "Bash(git log:*)",
+      "Bash(git diff:*)",
+      "Bash(curl -s -o /dev/null *)",
+      "Bash(curl -s -o NUL *)",
+      "mcp__e72d7088-1ba2-473f-a5e3-c4edc72f7977__*"
+    ]
+  }
+}
