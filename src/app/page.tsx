@@ -7,6 +7,7 @@ import ScanReport from "@/components/ScanReport";
 import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
 import type { ScanResult } from "@/lib/scanner";
 import { getErrorMessage } from "@/lib/errors";
+import { track } from "@/lib/track";
 
 type HomeScanResult = ScanResult & { domainScanCount?: number };
 
@@ -39,6 +40,7 @@ export default function Home() {
   }, []);
 
   const handleCheckout = async (plan: "pro" | "agency") => {
+    track("checkout_clicked", { plan, from: "home_limit_error" });
     try {
       setCheckoutLoading(plan);
       const response = await fetch("/api/checkout", {
@@ -183,6 +185,7 @@ export default function Home() {
           </a>
           <a
             href="/login"
+            onMouseDown={() => track("signup_clicked", { from: "home_top_nav" })}
             className="text-sm text-muted hover:text-foreground transition-colors hidden sm:block"
           >
             Sign In
@@ -306,6 +309,7 @@ export default function Home() {
               <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
                 <a
                   href="/login"
+                  onMouseDown={() => track("signup_clicked", { from: "home_limit_error" })}
                   className="inline-flex items-center justify-center px-6 py-3 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-colors"
                 >
                   Create a Free Account

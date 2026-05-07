@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { getErrorMessage } from "@/lib/errors";
+import { track } from "@/lib/track";
 
 export default function CheckoutButton({
   plan,
@@ -13,6 +14,7 @@ export default function CheckoutButton({
   const [loading, setLoading] = useState(false);
 
   const handleCheckout = async () => {
+    track("checkout_clicked", { plan, from: "dashboard_billing" });
     setLoading(true);
     try {
       const res = await fetch("/api/checkout", {

@@ -4,6 +4,7 @@ import { useState } from "react";
 import ScoreGauge from "./ScoreGauge";
 import ViolationCard from "./ViolationCard";
 import { ScanResult } from "@/lib/scanner";
+import { track } from "@/lib/track";
 
 interface ScanReportProps {
   result: ScanResult & { domainScanCount?: number };
@@ -155,6 +156,7 @@ export default function ScanReport({ result, onCheckout, checkoutLoading }: Scan
           </div>
           <a
             href="/login"
+            onMouseDown={() => track("signup_clicked", { from: "scan_result_card" })}
             className="inline-flex items-center justify-center bg-white border border-blue-200 text-primary text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-blue-50 transition-colors"
           >
             Create Free Account
@@ -395,7 +397,11 @@ export default function ScanReport({ result, onCheckout, checkoutLoading }: Scan
         )}
         <p className="text-xs text-muted">
           Or{" "}
-          <a href="/login" className="text-primary underline hover:text-primary-dark">create a free account</a>
+          <a
+            href="/login"
+            onMouseDown={() => track("signup_clicked", { from: "scan_result_inline" })}
+            className="text-primary underline hover:text-primary-dark"
+          >create a free account</a>
           {" "}to save this scan.
           {" "}By subscribing, you agree to our{" "}
           <a href="/terms" className="underline hover:text-foreground">Terms of Service</a>

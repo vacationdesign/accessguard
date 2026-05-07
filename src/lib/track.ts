@@ -10,8 +10,7 @@
  */
 export type ClientEventKind =
   | "signup_clicked"
-  | "checkout_clicked"
-  | "email_report_opened";
+  | "checkout_clicked";
 
 export function track(
   kind: ClientEventKind,

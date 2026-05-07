@@ -9,12 +9,13 @@ const ALLOWED_ORIGINS = [
 ];
 
 const ALLOWED_KINDS: AnalyticsEventKind[] = [
-  // Most client-fired events. Server-only events (scan_completed,
-  // crawl_completed, scan_rate_limited) are recorded directly inside their
-  // respective API handlers and should not be POSTable from the client.
+  // Client-fired events only. Server-only events (scan_completed,
+  // crawl_completed, scan_rate_limited, email_report_sent) are recorded
+  // directly inside their respective API handlers and should not be POSTable
+  // from the client. `email_report_opened` is intentionally not allowlisted
+  // until an email-side tracker (pixel or redirect URL) actually exists.
   "signup_clicked",
   "checkout_clicked",
-  "email_report_opened",
 ];
 
 /**
