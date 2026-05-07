@@ -288,11 +288,28 @@ export async function updateSubscription(
     throw new Error(`Error updating subscription: ${error.message}`);
   }
 
-  // If plan changed, update user record too
-  if (data.plan) {
+  // Sync user.plan with subscription state.
+  //
+  // When Stripe sends `customer.subscription.updated` with a terminal status
+  // (typically after `cancel_at_period_end` reaches the period end), the
+  // payload still carries the original priceId — so a naive `data.plan`
+  // mirror would re-stamp `users.plan = 'pro'` even though the customer is
+  // no longer paying. Override to 'free' for terminal statuses so admin
+  // counts and feature gates stay truthful. `past_due` and `unpaid` keep
+  // the user on their plan during the dunning window.
+  const TERMINAL_STATUSES = new Set([
+    "canceled",
+    "incomplete_expired",
+  ]);
+  const planForUser =
+    data.status !== undefined && TERMINAL_STATUSES.has(data.status)
+      ? "free"
+      : data.plan;
+
+  if (planForUser !== undefined) {
     const { error: userUpdateError } = await supabase
       .from("users")
-      .update({ plan: data.plan, updated_at: new Date().toISOString() })
+      .update({ plan: planForUser, updated_at: new Date().toISOString() })
       .eq("id", subscription.user_id);
 
     if (userUpdateError) {
