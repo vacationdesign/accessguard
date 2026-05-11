@@ -115,7 +115,8 @@ Escalate to `standard` mode if **any** condition is true:
 |----------|-----------|
 | New paid attempt | `trial_started > 0` OR `checkout_clicked > 0` (today) |
 | New signup | New row in `users` in last 24h |
-| Funnel break | `scan_started > 0 AND scan_completed = 0` |
+| Funnel break (zero) | `scan_started > 0 AND scan_completed = 0` |
+| Funnel break (low ratio) | `scan_completed / scan_started < 0.5` (with `scan_started` ≥ 5) — catches degraded days like 2026-05-08 (5 started, 1 completed) that the strict-zero rule misses |
 | High rate-limit ratio | `scan_rate_limited / scan_started > 0.20` (with denom ≥ 5) |
 | Crawl problems | `stuck_running > 0` OR `failed_7d ≥ 2` |
 | Feature undiscovered | `email_report_sent = 0 AND scan_completed > 30` (sustained 7d signal) |
