@@ -336,7 +336,7 @@ Commit + push.
   - `email_events.kind` (not `event_type`)
   - `crawl_batches.status` (not `completed_at`)
 - **Day boundary**: SQL uses `now() - interval '24 hour'`; the report should call out timezone explicitly when summarising "today".
-- **Use Japanese for user-facing chat.** Use English for code, commits, and report files.
+- **Use Japanese for user-facing chat AND for report files** (`.claude/seo-reports/*.md`). The machine-readable YAML front-matter keys stay in English (`mode`, `total_users`, `scan_started_today`, etc.) so they remain greppable, but all prose — one-line deltas, "next watch" sentences, narrative sections, hypothesis bullets — is written in Japanese. Use English for code, git commits, and SQL.
 
 ## What was removed from the older skill
 
