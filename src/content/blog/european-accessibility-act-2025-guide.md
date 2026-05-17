@@ -38,7 +38,7 @@ The EAA applies to economic operators that place products on the EU market or pr
 - Electronic communications services
 - Services providing access to audiovisual media
 - Passenger transport services (air, bus, rail, waterborne) including websites and mobile apps for booking and ticketing
-- Banking and financial services for consumers
+- [Banking and financial services for consumers](/blog/banking-financial-services-website-accessibility)
 - E-books and dedicated software
 
 If your business operates an e-commerce website that sells to EU customers, you are within scope regardless of where your company is headquartered. A US-based online retailer shipping to Germany or a UK-based SaaS company with EU subscribers is subject to the EAA through the national laws of the member states where their customers reside. For a practical walkthrough of the specific WCAG criteria that affect online stores, see our [WCAG compliance checklist for e-commerce websites](/blog/wcag-compliance-checklist-ecommerce-websites).

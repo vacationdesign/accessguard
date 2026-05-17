@@ -34,6 +34,10 @@ Plaintiff attorneys know that small businesses typically cannot afford protracte
 
 There is no minimum revenue or employee count that exempts a business from the ADA. If your business serves the public and has a website, the ADA applies to you. A single-person LLC with a brochure website faces the same legal framework as a publicly traded corporation.
 
+### Some Sectors Carry Outsized Risk
+
+Even at small-business scale, a few sectors attract disproportionate accessibility litigation. Small community banks and independent financial advisors face heightened exposure because consumer financial services are explicitly named in regulations like the [European Accessibility Act](/blog/european-accessibility-act-2025-guide) and routinely cited in ADA complaints — see our [banking and financial services accessibility guide](/blog/banking-financial-services-website-accessibility) if you operate in this space. Nonprofits and charitable organizations are likewise high-risk: tight budgets, donated themes, and third-party donation widgets make accessibility regressions easy to ship and hard to catch — our [nonprofit website accessibility guide](/blog/nonprofit-website-accessibility-guide) walks through the patterns that show up most often.
+
 ## What the ADA Requires for Your Website
 
 While the ADA itself does not list specific technical requirements for websites, the standard that has emerged through court rulings and DOJ guidance is WCAG 2.1 Level AA. Here is what that means for your website in practical terms:

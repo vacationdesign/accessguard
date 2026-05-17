@@ -1,12 +1,12 @@
 ---
-title: "Shopify Accessibility: How to Make Your Shopify Store WCAG Compliant"
-description: "Make your Shopify store accessible and WCAG compliant. Fix common accessibility issues in themes, product pages, checkout, and third-party apps."
+title: "Shopify Accessibility Audit: How to Make Your Shopify Store WCAG Compliant"
+description: "How to audit your Shopify store for accessibility issues and make it WCAG compliant. Covers theme audits, product page fixes, checkout limits, and third-party app accessibility risks."
 date: 2026-02-25
 author: A11yScope Team
 tags: [Shopify, Accessibility, WCAG, E-commerce]
 ---
 
-# Shopify Accessibility: How to Make Your Shopify Store WCAG Compliant
+# Shopify Accessibility Audit: How to Make Your Shopify Store WCAG Compliant
 
 Shopify makes it remarkably easy to launch an online store, but launching accessible is a different matter. The platform handles hosting, payment processing, and a polished storefront out of the box, yet the accessibility of what your customers actually experience depends on decisions Shopify has made for you, decisions your theme developer made, and decisions you make every time you add a product, install an app, or customize your store. Most Shopify stores fail basic WCAG 2.1 Level AA checks, and the store owners do not realize it until they receive a demand letter or lose a customer who simply could not use their site.
 

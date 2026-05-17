@@ -14,7 +14,7 @@ This checklist is designed specifically for online store owners, Shopify merchan
 
 ## Why E-commerce Accessibility Is a Legal Priority
 
-Online retail is one of the most heavily targeted sectors in ADA digital accessibility litigation. The reasons are straightforward: e-commerce sites are clearly "places of public accommodation" under Title III of the ADA, they process financial transactions that directly affect consumers, and their accessibility failures are easy to document and reproduce.
+Online retail is one of the most heavily targeted sectors in ADA digital accessibility litigation. The reasons are straightforward: e-commerce sites are clearly "places of public accommodation" under Title III of the ADA, they process financial transactions that directly affect consumers, and their accessibility failures are easy to document and reproduce. Adjacent regulated sectors face the same scrutiny — our [banking and financial services accessibility guide](/blog/banking-financial-services-website-accessibility) covers the patterns specific to consumer financial sites.
 
 The European Accessibility Act, which took effect in June 2025, adds another layer of obligation for any store selling to EU customers. If your e-commerce site is not WCAG 2.1 AA compliant, you are exposed on both sides of the Atlantic. Our [general WCAG compliance checklist](/blog/wcag-compliance-checklist-2026) covers the full standard beyond e-commerce-specific requirements.
 

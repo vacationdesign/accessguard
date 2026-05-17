@@ -10,7 +10,7 @@ tags: [Accessibility, Statement, Compliance, Template]
 
 An **accessibility statement** is a public page on your website that explains your commitment to digital accessibility, describes the current conformance status of your site, acknowledges known limitations, and tells users how to get help if they encounter a barrier. It is one of the most practical, high-impact pages you can add to any website, and yet most businesses either skip it entirely or publish a vague paragraph that fails to serve anyone.
 
-Whether you run a web agency delivering client sites or you own a small business managing your own online presence, a well-crafted accessibility statement protects you legally, builds trust with your users, and gives your team a concrete framework for tracking and improving accessibility over time. This guide walks through everything you need to include, provides a complete copy-paste template, and explains how to keep your statement accurate as your site evolves.
+Whether you run a web agency delivering client sites, you own a small business managing your own online presence, or you steward a [nonprofit website on a tight budget](/blog/nonprofit-website-accessibility-guide), a well-crafted accessibility statement protects you legally, builds trust with your users, and gives your team a concrete framework for tracking and improving accessibility over time. This guide walks through everything you need to include, provides a complete copy-paste template, and explains how to keep your statement accurate as your site evolves.
 
 ## Why You Need an Accessibility Statement
 
