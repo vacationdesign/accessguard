@@ -134,10 +134,65 @@ export default function Home() {
     description:
       "Scan your website for accessibility issues in seconds. Get actionable WCAG 2.1 AA findings and WCAG 2.2 readiness guidance.",
     offers: [
-      { "@type": "Offer", price: "0", priceCurrency: "USD", name: "Free" },
-      { "@type": "Offer", price: "49", priceCurrency: "USD", name: "Pro" },
-      { "@type": "Offer", price: "149", priceCurrency: "USD", name: "Agency" },
+      {
+        "@type": "Offer",
+        name: "Free",
+        price: "0",
+        priceCurrency: "USD",
+        availability: "https://schema.org/InStock",
+      },
+      {
+        "@type": "Offer",
+        name: "Pro",
+        price: "49",
+        priceCurrency: "USD",
+        availability: "https://schema.org/InStock",
+        url: "https://www.a11yscope.com/#pricing",
+      },
+      {
+        "@type": "Offer",
+        name: "Agency",
+        price: "149",
+        priceCurrency: "USD",
+        availability: "https://schema.org/InStock",
+        url: "https://www.a11yscope.com/#pricing",
+      },
     ],
+  };
+
+  // Product JSON-LD for the Pro plan. SoftwareApplication above covers the
+  // generic "app" rich snippet path; this Product entry unlocks the
+  // shopping/SaaS rich-result paths that Google's recent Search Central
+  // guidance highlights as still-effective (vs. AI-only LLMO tweaks).
+  // When customer-story reviews land, this is where aggregateRating + review
+  // will be wired in.
+  const proProductJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: "A11yScope Pro",
+    description:
+      "Unlimited WCAG 2.1 AA accessibility scans, weekly automated full-site crawl monitoring, PDF compliance reports, and email alerts for up to 3 websites. 7-day free trial, no credit card required.",
+    brand: { "@type": "Brand", name: "A11yScope" },
+    category: "SaaS / Web Accessibility Testing",
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "USD",
+      price: "49",
+      availability: "https://schema.org/InStock",
+      url: "https://www.a11yscope.com/#pricing",
+      seller: { "@type": "Organization", name: "A11yScope" },
+      priceSpecification: {
+        "@type": "UnitPriceSpecification",
+        price: 49,
+        priceCurrency: "USD",
+        unitCode: "MON",
+        referenceQuantity: {
+          "@type": "QuantitativeValue",
+          value: 1,
+          unitCode: "MON",
+        },
+      },
+    },
   };
 
   return (
@@ -145,6 +200,10 @@ export default function Home() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(proProductJsonLd) }}
       />
       <script
         type="application/ld+json"
