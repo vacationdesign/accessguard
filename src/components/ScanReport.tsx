@@ -3,6 +3,7 @@
 import { useState } from "react";
 import ScoreGauge from "./ScoreGauge";
 import ViolationCard from "./ViolationCard";
+import FeedbackWidget from "./FeedbackWidget";
 import { ScanResult } from "@/lib/scanner";
 import { track } from "@/lib/track";
 
@@ -352,6 +353,9 @@ export default function ScanReport({ result, onCheckout, checkoutLoading }: Scan
           </p>
         </div>
       )}
+
+      {/* Feedback */}
+      <FeedbackWidget scannedUrl={result.url} />
 
       {/* Footer CTA */}
       <div className="bg-gray-50 rounded-2xl p-8 text-center space-y-5">

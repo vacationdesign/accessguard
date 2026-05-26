@@ -15,7 +15,8 @@ export type AnalyticsEventKind =
   | "trial_started"
   | "subscription_canceled"
   | "crawl_started"
-  | "crawl_completed";
+  | "crawl_completed"
+  | "feedback_submitted";
 
 interface LogEventParams {
   kind: AnalyticsEventKind;

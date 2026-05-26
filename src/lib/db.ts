@@ -703,6 +703,31 @@ export async function getEmailEventCountByIp(
 }
 
 /**
+ * How many analytics events of a given kind the IP has triggered in the
+ * last `hours` hours. Used to cap user-submitted endpoints (e.g. feedback)
+ * that bypass the strict client-only allowlist on /api/events.
+ */
+export async function getAnalyticsEventCountByIp(
+  ip: string,
+  hours: number,
+  kind: string
+): Promise<number> {
+  const supabase = getSupabaseClient();
+  const since = new Date(Date.now() - hours * 60 * 60 * 1000).toISOString();
+  const { count, error } = await supabase
+    .from("analytics_events")
+    .select("*", { count: "exact", head: true })
+    .eq("ip_address", ip)
+    .eq("kind", kind)
+    .gte("created_at", since);
+  if (error) {
+    console.error("Failed to count analytics_events by ip:", error.message);
+    return Infinity; // fail closed
+  }
+  return count ?? 0;
+}
+
+/**
  * How many email events have targeted the given recipient in the last
  * `hours` hours. Prevents rotating-IP attackers from bombing a single
  * victim's inbox.
