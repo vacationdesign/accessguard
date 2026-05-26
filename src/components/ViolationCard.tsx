@@ -55,7 +55,10 @@ export default function ViolationCard({
   const style = impactStyles[violation.impact];
 
   return (
-    <div className={`rounded-xl border-2 ${style.border} ${style.bg} overflow-hidden`}>
+    <div
+      id={`violation-${violation.id}`}
+      className={`rounded-xl border-2 ${style.border} ${style.bg} overflow-hidden scroll-mt-24`}
+    >
       {/* Header */}
       <button
         onClick={() => setIsExpanded(!isExpanded)}

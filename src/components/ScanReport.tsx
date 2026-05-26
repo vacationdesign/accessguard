@@ -82,6 +82,27 @@ export default function ScanReport({ result, onCheckout, checkoutLoading }: Scan
     0
   );
 
+  // "Start here" picks the three violations with the largest expected score
+  // impact: severity first (critical > serious > moderate > minor), then by
+  // affected-element count as a tiebreaker. This is the only place in the
+  // report that explicitly orders the work — without it, users scanning
+  // repeatedly can miss that two of their issues account for most of the
+  // score gap.
+  const impactRank: Record<string, number> = {
+    critical: 0,
+    serious: 1,
+    moderate: 2,
+    minor: 3,
+  };
+  const topFixes = [...result.violations]
+    .sort((a, b) => {
+      const ra = impactRank[a.impact] ?? 4;
+      const rb = impactRank[b.impact] ?? 4;
+      if (ra !== rb) return ra - rb;
+      return b.nodes.length - a.nodes.length;
+    })
+    .slice(0, 3);
+
   return (
     <div className="w-full max-w-4xl mx-auto space-y-8">
       {/* Header */}
@@ -141,6 +162,62 @@ export default function ScanReport({ result, onCheckout, checkoutLoading }: Scan
           </div>
         </div>
       </div>
+
+      {/* Start here: top 3 highest-impact fixes */}
+      {topFixes.length > 0 && (
+        <div className="bg-white rounded-2xl border-2 border-primary/30 p-6 space-y-4">
+          <div className="flex flex-wrap items-baseline justify-between gap-2">
+            <h3 className="text-lg font-bold text-foreground">
+              Start here: top {topFixes.length} fix{topFixes.length !== 1 ? "es" : ""}
+            </h3>
+            <span className="text-xs text-muted">
+              Highest impact first
+            </span>
+          </div>
+          <p className="text-sm text-muted">
+            Fixing these moves your score the most. Each item links to the
+            full guidance below.
+          </p>
+          <ol className="space-y-3">
+            {topFixes.map((v, i) => {
+              const firstFix = v.nodes[0]?.fixSuggestion;
+              return (
+                <li key={v.id}>
+                  <a
+                    href={`#violation-${v.id}`}
+                    className="flex gap-3 p-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors group"
+                  >
+                    <span className="shrink-0 w-7 h-7 rounded-full bg-primary text-white text-sm font-bold flex items-center justify-center">
+                      {i + 1}
+                    </span>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-semibold text-foreground group-hover:text-primary">
+                        {v.help}
+                      </p>
+                      <p className="text-xs text-muted mt-0.5 capitalize">
+                        {v.impact} &middot; affects {v.nodes.length} element
+                        {v.nodes.length !== 1 ? "s" : ""}
+                      </p>
+                      {firstFix && (
+                        <p className="text-sm text-foreground mt-2">
+                          {firstFix}
+                        </p>
+                      )}
+                    </div>
+                  </a>
+                </li>
+              );
+            })}
+          </ol>
+          {result.violations.length > topFixes.length && (
+            <p className="text-xs text-muted">
+              {result.violations.length - topFixes.length} more issue
+              {result.violations.length - topFixes.length !== 1 ? "s" : ""}{" "}
+              below — work through them in order after the top {topFixes.length}.
+            </p>
+          )}
+        </div>
+      )}
 
       {/* Lead capture / report delivery */}
       <div className="bg-blue-50 border border-blue-100 rounded-2xl p-6 space-y-4">
