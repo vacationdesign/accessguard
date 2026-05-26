@@ -7,6 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "ecommerce-accessibility-checker",
     "web-agency-accessibility-audits",
     "saas-accessibility-monitoring",
+    "dental-practice-accessibility",
   ];
 
   // Static pages

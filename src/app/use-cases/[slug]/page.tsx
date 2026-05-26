@@ -95,6 +95,32 @@ const useCases: UseCasePage[] = [
     ],
     cta: "Check Your SaaS Site",
   },
+  {
+    slug: "dental-practice-accessibility",
+    title: "Dental Practice Website Accessibility",
+    metaTitle: "Dental Practice Website Accessibility | ADA WCAG Scans",
+    description:
+      "Find ADA Title III risk areas on your dental practice website — appointment booking, new-patient forms, insurance pages — before a serial-plaintiff law firm does. Same-minute WCAG 2.1 AA scans your practice manager or web vendor can actually act on.",
+    audience: "For dentists, orthodontists, oral surgeons, DSO networks, and the agencies who run their sites",
+    pains: [
+      "Dental and healthcare sites are a top target for ADA Title III demand letters and serial-plaintiff lawsuits",
+      "Appointment-booking and new-patient intake forms often have missing labels and inaccessible error messages",
+      "Insurance and HIPAA-form embeds inherit accessibility issues from third-party widgets",
+      "Most practices have no in-house developer and need findings written in plain language",
+    ],
+    outcomes: [
+      "Prioritized WCAG 2.1 AA issue list for the pages an attorney is most likely to test",
+      "Plain-language fix suggestions you can hand to your web vendor or DSO marketing team",
+      "PDF compliance reports for legal counsel, insurance, or a settlement file",
+      "Weekly monitoring so a theme update or new patient-portal embed doesn't reopen risk",
+    ],
+    workflow: [
+      "Scan your homepage, /book or /appointments, /new-patient, /contact, and any insurance page",
+      "Fix top contrast, form-label, and link-name issues first — these drive most lawsuit claims",
+      "Register the site for weekly monitoring after the first remediation pass",
+    ],
+    cta: "Scan Your Practice Site",
+  },
 ];
 
 function getUseCase(slug: string): UseCasePage | undefined {
