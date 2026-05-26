@@ -54,11 +54,28 @@ export async function POST(request: NextRequest) {
     const hadSub = email ? await hasSubscriptionHistory(email) : false;
     const trialDays = hadSub ? undefined : selectedPlan.trialDays;
 
-    // Create a Stripe Checkout session
+    // Create a Stripe Checkout session.
+    //
+    // Notes on the parameter choices below:
+    //
+    // - We intentionally do NOT pass `payment_method_types`. When omitted,
+    //   Stripe uses whatever methods are enabled in the Dashboard, which
+    //   surfaces iDEAL, SEPA, Klarna, and other regional methods to EU users.
+    //   A prior hardcoded `["card"]` likely suppressed conversions from
+    //   non-US visitors (a 2026-05-25 Polish visitor bailed at this step).
+    //
+    // - `payment_method_collection: "if_required"` makes the trial a true
+    //   "no credit card required" trial: Stripe will not ask for a card
+    //   during the trial period, and the user is prompted to add one only
+    //   when the trial ends. Lifts top-of-funnel trial sign-ups at the
+    //   cost of some self-selection, which is the right trade at this
+    //   stage (0 paying users).
+    //
+    // - `allow_promotion_codes` enables coupons (e.g. extended-trial codes
+    //   that future review-collection flows can hand out).
     const session = await stripe.checkout.sessions.create({
       mode: "subscription",
       locale: "auto",
-      payment_method_types: ["card"],
       line_items: [
         {
           price: selectedPlan.priceId,
@@ -68,6 +85,8 @@ export async function POST(request: NextRequest) {
       subscription_data: {
         ...(trialDays ? { trial_period_days: trialDays } : {}),
       },
+      ...(trialDays ? { payment_method_collection: "if_required" } : {}),
+      allow_promotion_codes: true,
       ...(email ? { customer_email: email } : {}),
       consent_collection: {
         terms_of_service: "required",
