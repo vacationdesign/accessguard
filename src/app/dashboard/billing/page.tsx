@@ -121,6 +121,14 @@ export default async function BillingPage() {
             </div>
           ) : null}
         </div>
+        {user.stripe_customer_id && (
+          <p className="text-xs text-muted">
+            Manage Subscription opens the Stripe billing portal. From there
+            you can update your payment method, download invoices, or cancel
+            the subscription. Cancellations take effect at the end of the
+            current billing period — there are no cancellation fees.
+          </p>
+        )}
       </div>
 
       {/* Plan Features */}

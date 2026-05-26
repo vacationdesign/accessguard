@@ -120,11 +120,11 @@ const faqCategories = [
     questions: [
       {
         q: "How does the 7-day free trial work?",
-        a: "When you start a Pro or Agency trial, you enter your payment details but are not charged during the 7-day trial period. You get full access to all plan features immediately. If you cancel before the trial ends, you will not be charged. If you continue, your subscription begins automatically at the plan price ($49/month for Pro, $149/month for Agency).",
+        a: "No credit card is required to start a Pro or Agency trial. You get full access to all plan features immediately for 7 days. When the trial is about to end, Stripe (our payment processor) will ask you to add a payment method to continue — if you don't, the subscription simply does not start and you are never charged. If you decide to continue, your subscription begins automatically at the plan price ($49/month for Pro, $149/month for Agency).",
       },
       {
         q: "How do I cancel my subscription?",
-        a: "You can cancel your subscription at any time from the Billing page in your dashboard, or by emailing support@a11yscope.com. Cancellation takes effect at the end of your current billing period — you keep access until then. There are no cancellation fees.",
+        a: "You can cancel at any time from the Billing page in your dashboard — click Manage Subscription to open the secure Stripe billing portal, then choose Cancel. If you are mid-trial and have not added a card yet, there is nothing to cancel: simply ignore the trial-end prompt. For account help, email support@a11yscope.com. Cancellation takes effect at the end of your current billing period — you keep access until then. There are no cancellation fees.",
       },
       {
         q: "What is your refund policy?",
@@ -132,7 +132,7 @@ const faqCategories = [
       },
       {
         q: "What payment methods do you accept?",
-        a: "We accept all major credit and debit cards (Visa, Mastercard, American Express, Discover) through Stripe, our secure payment processor. All payment data is handled by Stripe and never touches our servers.",
+        a: "We accept all major credit and debit cards (Visa, Mastercard, American Express, Discover) through Stripe, our secure payment processor. Depending on your country, Stripe Checkout may also surface regional methods such as SEPA Direct Debit, iDEAL, Bancontact, Klarna, or Apple Pay / Google Pay. All payment data is handled by Stripe and never touches our servers.",
       },
       {
         q: "Can I switch between Pro and Agency plans?",
