@@ -39,30 +39,43 @@ export default async function DashboardOverview() {
         </p>
       </div>
 
-      {/* Trial Banner */}
-      {activeSubscription?.status === "trialing" && activeSubscription.trial_end && (
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div>
-            <h3 className="font-semibold text-foreground">
-              Your {planLabel} trial ends{" "}
-              {new Date(activeSubscription.trial_end).toLocaleDateString("en-US", {
-                month: "long",
-                day: "numeric",
-                year: "numeric",
-              })}
-            </h3>
-            <p className="text-sm text-muted mt-1">
-              Billing starts automatically after the trial. You can cancel anytime from Billing settings.
-            </p>
+      {/* Trial Banner — copy depends on whether a payment method is on file.
+          When checkout uses payment_method_collection: "if_required", Stripe
+          sets cancel_at = trial_end on the subscription; we detect that to
+          avoid telling cardless trial users that "billing starts automatically"
+          (it doesn't — the trial silently expires). */}
+      {activeSubscription?.status === "trialing" && activeSubscription.trial_end && (() => {
+        const willAutoCancel =
+          !!activeSubscription.cancel_at && !activeSubscription.canceled_at;
+        const trialEndLabel = new Date(activeSubscription.trial_end).toLocaleDateString(
+          "en-US",
+          { month: "long", day: "numeric", year: "numeric" }
+        );
+        return (
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div>
+              <h3 className="font-semibold text-foreground">
+                Your {planLabel} trial ends {trialEndLabel}
+              </h3>
+              <p className="text-sm text-muted mt-1">
+                {willAutoCancel
+                  ? `To keep ${planLabel} after ${trialEndLabel}, add a payment method before then. Without one, your trial will expire and your account will return to the Free plan.`
+                  : "Billing starts automatically after the trial. You can cancel anytime from Billing settings."}
+              </p>
+            </div>
+            <Link
+              href="/dashboard/billing"
+              className={
+                willAutoCancel
+                  ? "bg-primary text-white text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-primary-dark transition-colors whitespace-nowrap"
+                  : "bg-white border border-gray-200 text-foreground text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-gray-50 transition-colors whitespace-nowrap"
+              }
+            >
+              {willAutoCancel ? "Add Payment Method" : "Manage Billing"}
+            </Link>
           </div>
-          <Link
-            href="/dashboard/billing"
-            className="bg-white border border-gray-200 text-foreground text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-gray-50 transition-colors whitespace-nowrap"
-          >
-            Manage Billing
-          </Link>
-        </div>
-      )}
+        );
+      })()}
 
       {/* Plan Banner (Free users) */}
       {user.plan === "free" && (

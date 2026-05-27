@@ -681,6 +681,123 @@ export async function sendOnboardingDay3Email({
 }
 
 // ---------------------------------------------------------------------------
+// Trial-ending reminder emails (sent by daily cron)
+// ---------------------------------------------------------------------------
+
+interface TrialEndingEmailParams {
+  to: string;
+  plan: PlanKey;
+  trialEndDate: Date;
+  /** When true, the trial is scheduled to expire without auto-renewal
+   *  (Stripe set cancel_at = trial_end because no payment method is on file).
+   *  When false, the trial will convert to paid automatically. */
+  willAutoCancel: boolean;
+}
+
+/** 3 days before trial_end. */
+export async function sendTrialEndingT3Email(
+  params: TrialEndingEmailParams
+): Promise<boolean> {
+  return sendTrialEndingEmail({ ...params, daysRemaining: 3 });
+}
+
+/** 1 day before trial_end. */
+export async function sendTrialEndingT1Email(
+  params: TrialEndingEmailParams
+): Promise<boolean> {
+  return sendTrialEndingEmail({ ...params, daysRemaining: 1 });
+}
+
+async function sendTrialEndingEmail({
+  to,
+  plan,
+  trialEndDate,
+  willAutoCancel,
+  daysRemaining,
+}: TrialEndingEmailParams & { daysRemaining: 1 | 3 }): Promise<boolean> {
+  const planInfo = PLANS[plan];
+  const trialEndStr = trialEndDate.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+  const dayWord = daysRemaining === 1 ? "tomorrow" : `in ${daysRemaining} days`;
+
+  const subject = willAutoCancel
+    ? `Your ${planInfo.name} trial ends ${dayWord} — add a payment method to continue`
+    : `Your ${planInfo.name} trial ends ${dayWord}`;
+
+  const ctaLabel = willAutoCancel ? "Add Payment Method" : "Manage Subscription";
+  const ctaUrl = "https://www.a11yscope.com/dashboard/billing";
+
+  const heroMessage = willAutoCancel
+    ? `Your free trial of <strong>${planInfo.name}</strong> ends on <strong>${trialEndStr}</strong>. Because we didn't ask for a card upfront, your account will simply return to the Free plan unless you add a payment method before then.`
+    : `Heads up: your <strong>${planInfo.name}</strong> trial ends on <strong>${trialEndStr}</strong>, and your subscription will start at $${planInfo.price}/month. No action needed if you want to continue — and you can cancel anytime from your billing page.`;
+
+  const featuresReminder = willAutoCancel
+    ? `<p style="margin:0 0 12px;color:#334155;font-size:15px;line-height:1.6;">If A11yScope has been useful, the three Pro features most worth keeping are:</p>
+       <ul style="margin:0 0 20px;padding-left:20px;color:#475569;font-size:14px;line-height:1.7;">
+         <li>Full-site crawls — scan up to 20 pages at once</li>
+         <li>Weekly automated monitoring — catch regressions before they ship</li>
+         <li>PDF compliance reports — share with clients or stakeholders</li>
+       </ul>`
+    : "";
+
+  const html = `
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+<body style="margin:0;padding:0;background-color:#f8fafc;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f8fafc;padding:40px 20px;">
+    <tr><td align="center">
+      <table role="presentation" width="560" cellpadding="0" cellspacing="0" style="background-color:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.1);">
+        <tr>
+          <td style="background-color:${willAutoCancel ? "#d97706" : "#1e40af"};padding:28px 36px;text-align:center;">
+            <h1 style="margin:0;color:#ffffff;font-size:22px;font-weight:700;">
+              Your ${planInfo.name} trial ends ${dayWord}
+            </h1>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:28px 36px;">
+            <p style="margin:0 0 20px;color:#334155;font-size:15px;line-height:1.6;">
+              ${heroMessage}
+            </p>
+            ${featuresReminder}
+            <div style="text-align:center;padding:8px 0 4px;">
+              <a href="${ctaUrl}" style="display:inline-block;background-color:#2563eb;color:#ffffff;font-size:15px;font-weight:600;text-decoration:none;padding:12px 28px;border-radius:8px;">
+                ${ctaLabel} &rarr;
+              </a>
+            </div>
+            <p style="margin:16px 0 0;color:#94a3b8;font-size:12px;text-align:center;line-height:1.6;">
+              ${
+                willAutoCancel
+                  ? "No charge today. You only pay if you add a payment method."
+                  : "Cancel anytime — no questions asked."
+              }
+            </p>
+            <hr style="border:none;border-top:1px solid #e2e8f0;margin:24px 0 16px;">
+            <p style="margin:0;color:#94a3b8;font-size:12px;text-align:center;line-height:1.6;">
+              Questions? Reply to this email or write to
+              <a href="mailto:support@a11yscope.com" style="color:#2563eb;">support@a11yscope.com</a>.
+            </p>
+          </td>
+        </tr>
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`;
+
+  return safeSend({
+    to,
+    subject,
+    html,
+    kind: `trial-ending-t${daysRemaining}${willAutoCancel ? "-cardless" : "-carded"}`,
+  });
+}
+
+// ---------------------------------------------------------------------------
 // Shared helpers
 // ---------------------------------------------------------------------------
 
