@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import type { CrawlResult, ScanResult, ViolationNode } from "@/lib/scanner";
 import { getErrorMessage } from "@/lib/errors";
+import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
 
 type ScanMode = "page" | "crawl";
 
@@ -29,7 +30,17 @@ export default function DashboardScanPage() {
   const [error, setError] = useState<string | null>(null);
   const [recentScans, setRecentScans] = useState<RecentScan[]>([]);
 
-  // Load recent scans on mount
+  // PDF + Email report state for the page-scan result. These belong to the
+  // logged-in scan flow — Pro features the user is paying for that were
+  // previously only surfaced on the anonymous homepage scan.
+  const [pdfLoading, setPdfLoading] = useState(false);
+  const [emailValue, setEmailValue] = useState("");
+  const [emailStatus, setEmailStatus] = useState<
+    "idle" | "sending" | "sent" | "error"
+  >("idle");
+  const [emailError, setEmailError] = useState<string | null>(null);
+
+  // Load recent scans + the user's email (prefilling the email-report field)
   useEffect(() => {
     fetch("/api/scan/history?limit=3")
       .then((res) => res.json())
@@ -37,7 +48,65 @@ export default function DashboardScanPage() {
         if (data.scans) setRecentScans(data.scans);
       })
       .catch(() => {});
+
+    const supabase = createSupabaseBrowserClient();
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      if (user?.email) setEmailValue(user.email);
+    });
   }, []);
+
+  // Reset the report-actions state whenever a new scan starts so the
+  // success/error message from the previous scan doesn't bleed through.
+  useEffect(() => {
+    if (scanning) {
+      setEmailStatus("idle");
+      setEmailError(null);
+    }
+  }, [scanning]);
+
+  const handleDownloadPdf = async () => {
+    if (!result) return;
+    setPdfLoading(true);
+    try {
+      const { generatePdfReport } = await import("@/lib/pdf-report");
+      generatePdfReport(result);
+    } catch (err) {
+      console.error("PDF generation failed:", err);
+      alert("Failed to generate PDF. Please try again.");
+    } finally {
+      setPdfLoading(false);
+    }
+  };
+
+  const handleEmailReport = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!result) return;
+    const email = emailValue.trim();
+    if (!email) {
+      setEmailStatus("error");
+      setEmailError("Please enter an email address.");
+      return;
+    }
+    setEmailStatus("sending");
+    setEmailError(null);
+    try {
+      const response = await fetch("/api/scan/email-report", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, scanResult: result }),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        setEmailStatus("error");
+        setEmailError(data?.error ?? "Failed to send. Please try again.");
+        return;
+      }
+      setEmailStatus("sent");
+    } catch {
+      setEmailStatus("error");
+      setEmailError("Network error. Please try again.");
+    }
+  };
 
   // Update URL from search params when they change
   useEffect(() => {
@@ -281,6 +350,65 @@ export default function DashboardScanPage() {
       {/* Scan Result */}
       {result && (
         <div className="space-y-6">
+          {/* Report actions: PDF + Email. Surfacing these explicitly is the
+              whole reason a paying user runs scans here — without them the
+              dashboard scan looks like a feature-less viewer. */}
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 rounded-xl p-5 space-y-4">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
+              <div>
+                <h2 className="font-semibold text-foreground">
+                  Share or save this report
+                </h2>
+                <p className="text-sm text-muted mt-0.5">
+                  Download a branded PDF or email a summary to a teammate or
+                  stakeholder.
+                </p>
+              </div>
+              <button
+                onClick={handleDownloadPdf}
+                disabled={pdfLoading}
+                className="bg-primary text-white text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50 cursor-pointer whitespace-nowrap"
+              >
+                {pdfLoading ? "Generating PDF..." : "Download PDF"}
+              </button>
+            </div>
+
+            {emailStatus !== "sent" ? (
+              <form onSubmit={handleEmailReport} className="flex flex-col sm:flex-row gap-2">
+                <label htmlFor="dashboard-scan-email" className="sr-only">
+                  Email address to send this report to
+                </label>
+                <input
+                  id="dashboard-scan-email"
+                  type="email"
+                  required
+                  value={emailValue}
+                  onChange={(e) => setEmailValue(e.target.value)}
+                  placeholder="you@example.com"
+                  className="flex-1 px-4 py-2.5 border-2 border-blue-100 rounded-lg focus:border-primary focus:outline-none transition-colors text-sm bg-white"
+                  disabled={emailStatus === "sending"}
+                />
+                <button
+                  type="submit"
+                  disabled={emailStatus === "sending"}
+                  className="bg-white border border-primary text-primary font-semibold px-5 py-2.5 rounded-lg hover:bg-blue-50 transition-colors disabled:opacity-50 cursor-pointer whitespace-nowrap"
+                >
+                  {emailStatus === "sending" ? "Sending..." : "Email PDF report"}
+                </button>
+              </form>
+            ) : (
+              <div className="bg-white border border-green-200 rounded-lg px-4 py-3">
+                <p className="text-sm font-semibold text-green-700">
+                  Report sent to {emailValue}
+                </p>
+              </div>
+            )}
+
+            {emailStatus === "error" && emailError && (
+              <p className="text-xs text-red-600">{emailError}</p>
+            )}
+          </div>
+
           {/* Score Summary */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             <div className="bg-white rounded-xl border border-gray-200 p-4 text-center">

@@ -404,7 +404,13 @@ export default function Home() {
       {/* Scan Results */}
       {scanResult && (
         <section className="max-w-6xl mx-auto px-6 pb-16">
-          <ScanReport result={scanResult} onCheckout={handleCheckout} checkoutLoading={checkoutLoading} />
+          <ScanReport
+            result={scanResult}
+            onCheckout={handleCheckout}
+            checkoutLoading={checkoutLoading}
+            isLoggedIn={userEmail !== null}
+            prefillEmail={userEmail}
+          />
         </section>
       )}
 

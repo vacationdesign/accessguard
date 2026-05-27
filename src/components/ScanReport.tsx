@@ -11,12 +11,25 @@ interface ScanReportProps {
   result: ScanResult & { domainScanCount?: number };
   onCheckout: (plan: "pro" | "agency") => void;
   checkoutLoading: string | null;
+  /** When true, the anonymous "Create Free Account" CTA is hidden and the
+   *  email-report card is reframed as a Pro feature (PDF in the inbox)
+   *  rather than a lead-capture form. */
+  isLoggedIn?: boolean;
+  /** Prefill for the email-report input. Used when the viewer is logged in
+   *  so they don't have to retype their own address. */
+  prefillEmail?: string | null;
 }
 
-export default function ScanReport({ result, onCheckout, checkoutLoading }: ScanReportProps) {
+export default function ScanReport({
+  result,
+  onCheckout,
+  checkoutLoading,
+  isLoggedIn = false,
+  prefillEmail = null,
+}: ScanReportProps) {
   const [pdfLoading, setPdfLoading] = useState(false);
   const [emailFormOpen, setEmailFormOpen] = useState(false);
-  const [emailValue, setEmailValue] = useState("");
+  const [emailValue, setEmailValue] = useState(prefillEmail ?? "");
   const [emailStatus, setEmailStatus] = useState<
     "idle" | "sending" | "sent" | "error"
   >("idle");
@@ -220,25 +233,33 @@ export default function ScanReport({ result, onCheckout, checkoutLoading }: Scan
         </div>
       )}
 
-      {/* Lead capture / report delivery */}
+      {/* Email-report card. For logged-in viewers the "Create Free Account"
+          CTA is dropped — they already have an account — and the heading is
+          rewritten so the action reads as a Pro feature (PDF in the inbox)
+          rather than a lead-capture form. */}
       <div className="bg-blue-50 border border-blue-100 rounded-2xl p-6 space-y-4">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h3 className="text-lg font-bold text-foreground">
-              Keep this report for your backlog
+              {isLoggedIn
+                ? "Email this report as a PDF"
+                : "Keep this report for your backlog"}
             </h3>
             <p className="text-sm text-blue-900 mt-1">
-              Send the summary to yourself, then create a free account for 50
-              monthly scans and saved history.
+              {isLoggedIn
+                ? "We'll send a branded PDF summary to your inbox — share it with your team or a stakeholder."
+                : "Send the summary to yourself, then create a free account for 50 monthly scans and saved history."}
             </p>
           </div>
-          <a
-            href="/login"
-            onMouseDown={() => track("signup_clicked", { from: "scan_result_card" })}
-            className="inline-flex items-center justify-center bg-white border border-blue-200 text-primary text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-blue-50 transition-colors"
-          >
-            Create Free Account
-          </a>
+          {!isLoggedIn && (
+            <a
+              href="/login"
+              onMouseDown={() => track("signup_clicked", { from: "scan_result_card" })}
+              className="inline-flex items-center justify-center bg-white border border-blue-200 text-primary text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-blue-50 transition-colors"
+            >
+              Create Free Account
+            </a>
+          )}
         </div>
 
         {emailStatus !== "sent" ? (
@@ -263,7 +284,7 @@ export default function ScanReport({ result, onCheckout, checkoutLoading }: Scan
               disabled={emailStatus === "sending"}
               className="bg-primary text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50 cursor-pointer whitespace-nowrap"
             >
-              {emailStatus === "sending" ? "Sending..." : "Email Report"}
+              {emailStatus === "sending" ? "Sending..." : "Email PDF report"}
             </button>
           </form>
         ) : (
@@ -409,7 +430,7 @@ export default function ScanReport({ result, onCheckout, checkoutLoading }: Scan
               onClick={() => setEmailFormOpen(true)}
               className="border-2 border-gray-200 text-foreground font-bold px-8 py-3 rounded-xl hover:bg-gray-50 transition-colors cursor-pointer"
             >
-              Email This Report
+              Email PDF Report
             </button>
           )}
         </div>
