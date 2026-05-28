@@ -5,19 +5,31 @@ Project directory: `C:\Users\g5501\projects\a11yscope\a11yscope`.
 
 ## Operating principle
 
-A11yScope has 6 users and $0 MRR. Daily fluctuations in GSC clicks or
-Vercel visitors are not actionable. The actionable signal is in the
-**conversion funnel** (`analytics_events`) and **operational health**
-(Vercel deploys, email deliverability, crawl batch completion).
+A11yScope has 6 users and $0 MRR. A single day's GSC/Vercel number is not
+individually actionable — but the **trend** across days is. So we **capture**
+the headline traffic numbers daily (cheap, one Chrome pass) and watch the
+trajectory, while only **narrating/escalating** on tripwires. The actionable
+decision signal still lives in the **conversion funnel** (`analytics_events`)
+and **operational health** (Vercel deploys, email deliverability, crawl batch
+completion); the daily traffic snapshot is trend data, not a daily to-do list.
 
-This skill follows a **heartbeat + tripwire + exception drilldown**
-pattern. Default to the cheapest mode. Escalate only on tripwires.
+This skill follows a **heartbeat + daily traffic snapshot + tripwire +
+exception drilldown** pattern. Measure every day; narrate only on movement.
 
 ## Modes
 
-- `quick` — default daily run, ~5 min, DB-only, no Chrome
-- `standard` — escalation when a tripwire fires, ~15 min, adds Chrome MCP
+- `quick` — default daily run, ~6-8 min. DB heartbeat + bounded daily traffic
+  snapshot (GSC + Vercel headline numbers via Chrome, best-effort). Quiet-day
+  prose stays short; the numbers go in the machine-readable header.
+- `standard` — escalation when a tripwire fires, ~15 min. Full Chrome drilldown
+  (page/query breakdowns, repeat domains, Admin) + narrative sections.
 - `weekly` — once every 7 days (Mondays), ~30 min, conversion math + audits
+
+**Owner decision (2026-05-29):** daily traffic capture was promoted from
+weekly to a default Quick-mode step. Rationale: trend visibility on Visitors /
+Page Views / Bounce / GSC clicks / top referrer (esp. AI-assistant referrals
+like chatgpt.com) only emerges from a daily series. Cost is one bounded Chrome
+pass; it degrades cleanly to `supabase_only` when Chrome is unavailable.
 
 If unsure which mode to run, check the date of the most recent file in
 `.claude/seo-reports/`. If the last `weekly-*.md` is older than 7 days,
@@ -107,7 +119,41 @@ SELECT
 FROM crawl_batches;
 ```
 
-### Step 1.3 — Evaluate tripwires
+### Step 1.3 — Daily traffic snapshot (bounded Chrome, best-effort)
+
+Capture the headline traffic numbers every day so the trend series stays
+complete. This is a **lightweight** pass — headline numbers only, no
+page/query drilldown (that stays in `standard`).
+
+Use **Claude in Chrome** (the logged-in `仕事用chrome` session — GSC and Vercel
+both require auth, so `chrome-devtools` fresh sessions will not work here).
+Apply the **same bounded retry as standard**: 2 attempts (15s, then 45s). If
+Chrome is unavailable (common in unattended 07:00 cron runs when the browser
+extension is not connected), do **not** block:
+
+- Set `degraded_flags: [chrome_unavailable]`
+- Leave the traffic fields blank / `null` in the header
+- Continue with the DB-only quiet report
+
+**Always use `browser_batch`** to chain navigate → wait → screenshot.
+
+Capture exactly these (one screenshot each):
+
+1. **GSC, 28-day window** (stable trailing window — less noisy than 7d at this
+   volume): `https://search.google.com/search-console/performance/search-analytics?resource_id=https%3A%2F%2Fwww.a11yscope.com%2F&num_of_days=28`
+   - Record total clicks, total impressions, CTR, average position.
+   - Glance at the ページ tab for the top page (clicks/impressions) — one line.
+2. **Vercel Analytics, 7-day window** (Vercel default):
+   `https://vercel.com/vacationdesigns-projects/accessguard/analytics`
+   - Record Visitors (+ WoW %), Page Views (+ WoW %), Bounce Rate, top referrer.
+   - If a 2FA-setup interstitial appears, click "Skip securing my account" only —
+     never set up new credentials.
+
+Write these into the header (see Step 1.5 fields). Do **not** narrate them on a
+quiet day beyond the one-line delta sentence — the point is the series, not a
+daily essay.
+
+### Step 1.4 — Evaluate tripwires
 
 Escalate to `standard` mode if **any** condition is true:
 
@@ -125,17 +171,17 @@ Escalate to `standard` mode if **any** condition is true:
 
 **Do not** treat absolute scan volume above 30 as a primary trigger — it is too noisy at this scale.
 
-### Step 1.4 — Quiet-day report
+### Step 1.5 — Quiet-day report
 
 If no tripwire fired:
 
 - Write `.claude/seo-reports/{YYYY-MM-DD}.md`
-- 3-8 lines max
-- Required fields (from queries `a` snapshot + `b` funnel):
+- Keep prose to 3-8 lines (the traffic series lives in the header, not in paragraphs)
+- Required fields (from queries `a` snapshot + `b` funnel + Step 1.3 traffic):
   ```
   mode: quick
-  data_sources: supabase_only
-  degraded_flags: []
+  data_sources: supabase + chrome   (or supabase_only when chrome degraded)
+  degraded_flags: []                (or [chrome_unavailable])
   escalated: false
   # absolute snapshot
   total_users: N
@@ -153,12 +199,26 @@ If no tripwire fired:
   checkout_clicked_today: N
   scan_rate_limited_today: N
   email_report_sent_today: N
+  # daily traffic snapshot (Step 1.3; blank when chrome_unavailable)
+  gsc_clicks_28d: N
+  gsc_impressions_28d: N
+  gsc_ctr_28d: N%
+  gsc_avg_position_28d: N
+  gsc_top_page: <url> (clicks/impressions)
+  vercel_visitors_7d: N
+  vercel_visitors_wow: ±N%
+  vercel_pageviews_7d: N
+  vercel_pageviews_wow: ±N%
+  vercel_bounce_rate: N%
+  vercel_top_referrer: <domain> (N)
   ```
-- One sentence on day-over-day delta.
+- One sentence on day-over-day funnel delta.
+- One sentence on the traffic-trend direction (vs recent daily reports).
 - One sentence on what to watch next run.
 - Commit + push.
 
-Stop here. Do not run Chrome. Do not write 200-line narratives on quiet days.
+Stop here. Keep the daily traffic pass lightweight; do not run the full
+page/query drilldown or write 200-line narratives on quiet days.
 
 ---
 
