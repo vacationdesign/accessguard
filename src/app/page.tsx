@@ -124,11 +124,18 @@ export default function Home() {
     ],
   };
 
+  // Single canonical commercial schema for the product. A11yScope is a SaaS,
+  // so SoftwareApplication (Google's recommended type for software) is the
+  // right type — not Product, which pulls the page into the retail "merchant
+  // listings" experience that requires image/shipping/return fields a monthly
+  // subscription doesn't have. When customer-story reviews land,
+  // aggregateRating + review wire in here.
   const softwareAppJsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: "A11yScope",
     url: "https://www.a11yscope.com",
+    image: "https://www.a11yscope.com/opengraph-image",
     applicationCategory: "DeveloperApplication",
     operatingSystem: "Web",
     description:
@@ -160,50 +167,11 @@ export default function Home() {
     ],
   };
 
-  // Product JSON-LD for the Pro plan. SoftwareApplication above covers the
-  // generic "app" rich snippet path; this Product entry unlocks the
-  // shopping/SaaS rich-result paths that Google's recent Search Central
-  // guidance highlights as still-effective (vs. AI-only LLMO tweaks).
-  // When customer-story reviews land, this is where aggregateRating + review
-  // will be wired in.
-  const proProductJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: "A11yScope Pro",
-    description:
-      "Unlimited WCAG 2.1 AA accessibility scans, weekly automated full-site crawl monitoring, PDF compliance reports, and email alerts for up to 3 websites. 7-day free trial, no credit card required.",
-    brand: { "@type": "Brand", name: "A11yScope" },
-    category: "SaaS / Web Accessibility Testing",
-    offers: {
-      "@type": "Offer",
-      priceCurrency: "USD",
-      price: "49",
-      availability: "https://schema.org/InStock",
-      url: "https://www.a11yscope.com/#pricing",
-      seller: { "@type": "Organization", name: "A11yScope" },
-      priceSpecification: {
-        "@type": "UnitPriceSpecification",
-        price: 49,
-        priceCurrency: "USD",
-        unitCode: "MON",
-        referenceQuantity: {
-          "@type": "QuantitativeValue",
-          value: 1,
-          unitCode: "MON",
-        },
-      },
-    },
-  };
-
   return (
     <div className="min-h-screen bg-background">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(proProductJsonLd) }}
       />
       <script
         type="application/ld+json"
