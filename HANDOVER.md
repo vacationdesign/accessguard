@@ -1,6 +1,6 @@
 # A11yScope 引き継ぎ書（Handover Document）
 
-**最終更新**: 2026-04-13
+**最終更新**: 2026-06-12
 **プロジェクトパス**: `C:\Users\g5501\projects\a11yscope\a11yscope`
 **GitHub**: `vacationdesign/accessguard`
 **本番URL**: https://www.a11yscope.com
@@ -13,7 +13,15 @@
 
 A11yScope は **Webアクセシビリティ自動スキャン＆コンプライアンスプラットフォーム**。
 ユーザーがURLを入力するとWCAG 2.1 AA準拠の自動監査を行い、修正提案を提示する。
-SaaSモデル（Free / Pro / Agency）で、有料プランでは週次自動スキャン・サイト監視・PDFレポート機能を提供。
+SaaSモデル（Free / Starter $10 / Pro $49 / Agency $149）で、有料プランでは週次自動スキャン・サイト監視・PDFレポート機能を提供。
+
+### 2026-06-12 の重要決定（プラン階段・デザイン・終了条件）
+
+- **Starter $10/月 を新設**（無制限スキャン・監視1サイト・週次スキャン・メール通知・PDF・履歴・7日トライアル）。全アップセル CTA の入口を Starter に変更。Pro は監視10サイト（旧3）、Agency は30サイト（旧10）に再定義。無料枠は不変更（がっかりさせない原則）。
+- **デザイン全面刷新**: 「検査報告書」言語（Fraunces + IBM Plex Sans/Mono、紙×インク×検査オレンジ、AAA コントラスト、report-sheet カード）。テンプレ感による信頼毀損への対策。
+- **実験の終了条件**: 2026-09-12 までに有料1件も入らなければサービスを畳む（オーナー決定）。
+- DB: `users_plan_check` / `subscriptions_plan_check` 制約に `starter` を追加（migration 適用済み）。Stripe に Starter Product/Price 作成済み（`STRIPE_STARTER_PRICE_ID`、Vercel 全環境設定済み）。
+- コンテンツ: 一次データ記事（244ドメイン統計）と価格比較記事を追加（AI アシスタント経由流入の強化が今後の主戦場）。
 
 ---
 

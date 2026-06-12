@@ -92,7 +92,7 @@ a11yscope/
 | サービス | 用途 |
 |----------|------|
 | Supabase | DB + Magic Link 認証 |
-| Stripe | 定期課金 (Pro / Agency) |
+| Stripe | 定期課金 (Starter / Pro / Agency) |
 | Resend | メール通知 |
 | Vercel | ホスティング + Cron |
 
@@ -107,6 +107,7 @@ a11yscope/
 | `SUPABASE_SERVICE_ROLE_KEY` | Yes | Supabase サービスロールキー |
 | `STRIPE_SECRET_KEY` | Yes | Stripe シークレットキー |
 | `STRIPE_WEBHOOK_SECRET` | Yes | Stripe Webhook シークレット |
+| `STRIPE_STARTER_PRICE_ID` | Yes | Starter プラン Price ID（2026-06-12 追加） |
 | `STRIPE_PRO_PRICE_ID` | Yes | Pro プラン Price ID |
 | `STRIPE_AGENCY_PRICE_ID` | Yes | Agency プラン Price ID |
 | `RESEND_API_KEY` | Yes | Resend API キー |
