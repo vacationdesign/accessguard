@@ -16,6 +16,8 @@ export default async function SettingsPage() {
       ? "Agency"
       : user.plan === "pro"
       ? "Pro"
+      : user.plan === "starter"
+      ? "Starter"
       : "Free";
 
   return (

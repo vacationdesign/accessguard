@@ -10,6 +10,7 @@ export const maxDuration = 300;
 
 /** Max pages per site crawl, by plan */
 const CRAWL_LIMITS: Record<string, number> = {
+  starter: 5,
   pro: 20,
   agency: 50,
 };
@@ -48,7 +49,7 @@ export async function GET(request: NextRequest) {
     const { data: users, error: usersError } = await supabase
       .from("users")
       .select("id, email, plan")
-      .in("plan", ["pro", "agency"]);
+      .in("plan", ["starter", "pro", "agency"]);
 
     if (usersError) {
       throw new Error(`Error fetching users: ${usersError.message}`);

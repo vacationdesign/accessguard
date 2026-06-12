@@ -18,6 +18,14 @@ export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
 });
 
 export const PLANS = {
+  starter: {
+    name: "A11yScope Starter",
+    // Optional during rollout: checkout returns a clear error if unset
+    // rather than crashing every import of this module.
+    priceId: process.env.STRIPE_STARTER_PRICE_ID ?? "",
+    price: 10,
+    trialDays: 7,
+  },
   pro: {
     name: "A11yScope Pro",
     priceId: process.env.STRIPE_PRO_PRICE_ID,

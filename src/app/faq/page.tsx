@@ -74,7 +74,7 @@ const faqCategories = [
       },
       {
         q: "Is A11yScope free to use?",
-        a: "Yes. Anonymous visitors can run 5 scans per hour without an account. A free account gives 50 scans per month and scan history. For unlimited scans, weekly full-site crawl monitoring, and PDF reports, the Pro plan is available at $49/month. The Agency plan at $149/month adds more monitored sites, larger crawls, and white-label PDF reports.",
+        a: "Yes. Anonymous visitors can run 5 scans per hour without an account. A free account gives 50 scans per month and scan history. Paid plans start at $10/month (Starter) with unlimited scans, weekly automated monitoring for one site, email alerts, and PDF reports. Pro ($49/month) covers up to 10 monitored sites with 20-page full-site crawls, and Agency ($149/month) adds up to 30 sites, larger crawls, and white-label PDF reports.",
       },
       {
         q: "What is axe-core and why does A11yScope use it?",
@@ -120,7 +120,7 @@ const faqCategories = [
     questions: [
       {
         q: "How does the 7-day free trial work?",
-        a: "No credit card is required to start a Pro or Agency trial. You get full access to all plan features immediately for 7 days. When the trial is about to end, Stripe (our payment processor) will ask you to add a payment method to continue — if you don't, the subscription simply does not start and you are never charged. If you decide to continue, your subscription begins automatically at the plan price ($49/month for Pro, $149/month for Agency).",
+        a: "No credit card is required to start a Starter, Pro, or Agency trial. You get full access to all plan features immediately for 7 days. When the trial is about to end, Stripe (our payment processor) will ask you to add a payment method to continue — if you don't, the subscription simply does not start and you are never charged. If you decide to continue, your subscription begins automatically at the plan price ($10/month for Starter, $49/month for Pro, $149/month for Agency).",
       },
       {
         q: "How do I cancel my subscription?",

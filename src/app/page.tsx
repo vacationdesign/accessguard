@@ -39,7 +39,7 @@ export default function Home() {
     });
   }, []);
 
-  const handleCheckout = async (plan: "pro" | "agency") => {
+  const handleCheckout = async (plan: "starter" | "pro" | "agency") => {
     track("checkout_clicked", { plan, from: "home_limit_error" });
     try {
       setCheckoutLoading(plan);
@@ -94,7 +94,7 @@ export default function Home() {
         name: "Is A11yScope free to use?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes. Anonymous visitors can run 5 scans per hour without an account. A free account gives 50 scans per month and scan history. For unlimited scans, weekly full-site crawl monitoring, and PDF reports, the Pro plan is $49/month. The Agency plan at $149/month adds more monitored sites, larger crawls, and white-label PDF reports.",
+          text: "Yes. Anonymous visitors can run 5 scans per hour without an account. A free account gives 50 scans per month and scan history. Paid plans start at $10/month (Starter) with unlimited scans, weekly automated monitoring for one site, and PDF reports. Pro ($49/month) covers up to 10 monitored sites with 20-page full-site crawls, and Agency ($149/month) adds up to 30 sites, larger crawls, and white-label PDF reports.",
         },
       },
       {
@@ -342,26 +342,26 @@ export default function Home() {
                   Create a Free Account
                 </a>
                 <button
-                  onClick={() => handleCheckout("pro")}
+                  onClick={() => handleCheckout("starter")}
                   disabled={checkoutLoading !== null}
                   className="inline-flex items-center justify-center px-6 py-3 border-2 border-primary text-primary font-semibold rounded-xl hover:bg-primary hover:text-white transition-colors disabled:opacity-50"
                 >
-                  {checkoutLoading === "pro"
+                  {checkoutLoading === "starter"
                     ? "Redirecting..."
-                    : "Start 7-Day Pro Trial"}
+                    : "Start 7-Day Starter Trial — $10/mo"}
                 </button>
               </div>
             )}
             {!errorMeta?.signup && errorMeta?.upgrade && (
               <div className="flex justify-center pt-2">
                 <button
-                  onClick={() => handleCheckout("pro")}
+                  onClick={() => handleCheckout("starter")}
                   disabled={checkoutLoading !== null}
                   className="inline-flex items-center justify-center px-6 py-3 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-colors disabled:opacity-50"
                 >
-                  {checkoutLoading === "pro"
+                  {checkoutLoading === "starter"
                     ? "Redirecting..."
-                    : "Upgrade to Pro"}
+                    : "Upgrade to Starter — $10/mo"}
                 </button>
               </div>
             )}
@@ -465,7 +465,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
             {/* Free */}
             <div className="bg-white rounded-2xl border border-gray-200 p-8 space-y-6">
               <div>
@@ -542,11 +542,56 @@ export default function Home() {
               </button>
             </div>
 
-            {/* Pro */}
+            {/* Starter */}
             <div className="bg-white rounded-2xl border-2 border-primary shadow-xl p-8 space-y-6 relative">
               <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary to-blue-500 text-white text-sm font-bold px-4 py-1 rounded-full">
                 Most Popular
               </div>
+              <div>
+                <h3 className="text-xl font-bold text-foreground">Starter</h3>
+                <p className="text-muted text-sm mt-1">
+                  For one site, watched weekly
+                </p>
+              </div>
+              <div className="flex items-baseline gap-1">
+                <span className="text-4xl font-extrabold">$10</span>
+                <span className="text-muted">/month</span>
+              </div>
+              <ul className="space-y-3 text-sm">
+                {[
+                  "Unlimited page scans",
+                  "1 monitored site, scanned weekly",
+                  "Email alerts for new issues",
+                  "PDF compliance reports",
+                  "Full scan history",
+                ].map((feature) => (
+                  <li key={feature} className="flex items-center gap-2">
+                    <svg
+                      className="h-5 w-5 text-success shrink-0"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+              <button
+                onClick={() => handleCheckout("starter")}
+                disabled={checkoutLoading === "starter"}
+                className="w-full py-3 bg-primary text-white rounded-xl font-semibold hover:bg-primary-dark transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {checkoutLoading === "starter" ? "Redirecting..." : "Start 7-Day Free Trial"}
+              </button>
+            </div>
+
+            {/* Pro */}
+            <div className="bg-white rounded-2xl border border-gray-200 p-8 space-y-6">
               <div>
                 <h3 className="text-xl font-bold text-foreground">Pro</h3>
                 <p className="text-muted text-sm mt-1">
@@ -558,95 +603,32 @@ export default function Home() {
                 <span className="text-muted">/month</span>
               </div>
               <ul className="space-y-3 text-sm">
-                <li className="flex items-center gap-2">
-                  <svg
-                    className="h-5 w-5 text-success shrink-0"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  Unlimited page scans
-                </li>
-                <li className="flex items-center gap-2">
-                  <svg
-                    className="h-5 w-5 text-success shrink-0"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  Weekly full-site crawl (up to 20 pages)
-                </li>
-                <li className="flex items-center gap-2">
-                  <svg
-                    className="h-5 w-5 text-success shrink-0"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  Weekly automated monitoring
-                </li>
-                <li className="flex items-center gap-2">
-                  <svg
-                    className="h-5 w-5 text-success shrink-0"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  PDF compliance reports
-                </li>
-                <li className="flex items-center gap-2">
-                  <svg
-                    className="h-5 w-5 text-success shrink-0"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  Fix-ready code snippets
-                </li>
-                <li className="flex items-center gap-2">
-                  <svg
-                    className="h-5 w-5 text-success shrink-0"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  Email alerts for new issues
-                </li>
+                {[
+                  "Everything in Starter",
+                  "Up to 10 monitored sites",
+                  "Weekly full-site crawl (up to 20 pages)",
+                  "Fix-ready code snippets",
+                ].map((feature) => (
+                  <li key={feature} className="flex items-center gap-2">
+                    <svg
+                      className="h-5 w-5 text-success shrink-0"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    {feature}
+                  </li>
+                ))}
               </ul>
               <button
                 onClick={() => handleCheckout("pro")}
                 disabled={checkoutLoading === "pro"}
-                className="w-full py-3 bg-primary text-white rounded-xl font-semibold hover:bg-primary-dark transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full py-3 border-2 border-gray-200 rounded-xl font-semibold hover:bg-gray-50 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {checkoutLoading === "pro" ? "Redirecting..." : "Start 7-Day Free Trial"}
               </button>
@@ -691,7 +673,7 @@ export default function Home() {
                       clipRule="evenodd"
                     />
                   </svg>
-                  Up to 10 sites
+                  Up to 30 sites
                 </li>
                 <li className="flex items-center gap-2">
                   <svg

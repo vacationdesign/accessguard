@@ -27,6 +27,8 @@ export default async function DashboardOverview() {
       ? "Agency"
       : user.plan === "pro"
       ? "Pro"
+      : user.plan === "starter"
+      ? "Starter"
       : "Free";
 
   return (
@@ -117,10 +119,12 @@ export default async function DashboardOverview() {
           label="Registered Sites"
           value={String(stats.sitesCount)}
           sub={
-            user.plan === "pro"
-              ? "/ 3 max"
-              : user.plan === "agency"
+            user.plan === "starter"
+              ? "/ 1 max"
+              : user.plan === "pro"
               ? "/ 10 max"
+              : user.plan === "agency"
+              ? "/ 30 max"
               : "Upgrade to add"
           }
           color="green"

@@ -159,7 +159,11 @@ export async function getAdminStats(): Promise<AdminStats> {
   const activeSubs = activeSubsResult.data ?? [];
   const mrr = activeSubs.reduce((sum, sub) => {
     const planPrice =
-      sub.plan === "agency" ? PLANS.agency.price : PLANS.pro.price;
+      sub.plan === "agency"
+        ? PLANS.agency.price
+        : sub.plan === "starter"
+          ? PLANS.starter.price
+          : PLANS.pro.price;
     return sum + planPrice;
   }, 0);
 
@@ -313,7 +317,12 @@ export async function getRecentActivity(
 
   // Map subscriptions
   for (const sub of subsResult.data ?? []) {
-    const planLabel = sub.plan === "agency" ? "Agency" : "Pro";
+    const planLabel =
+      sub.plan === "agency"
+        ? "Agency"
+        : sub.plan === "starter"
+          ? "Starter"
+          : "Pro";
     const statusLabel =
       sub.status === "trialing"
         ? "started trial"

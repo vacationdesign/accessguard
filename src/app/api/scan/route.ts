@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
         return NextResponse.json(
           {
             error:
-              "You've hit the 5-scan hourly limit. Create a free account to get 50 scans per month plus scan history — no credit card required — or start a 7-day Pro trial for unlimited scanning and weekly monitoring.",
+              "You've hit the 5-scan hourly limit. Create a free account to get 50 scans per month plus scan history — no credit card required — or start a 7-day Starter trial ($10/mo) for unlimited scanning and weekly monitoring.",
             signup: true,
             upgrade: true,
           },
@@ -66,7 +66,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           error:
-            "You've used all 50 free scans this month. Start a 7-day Pro trial for unlimited scans, full-site crawls, and weekly monitoring.",
+            "You've used all 50 free scans this month. Start a 7-day Starter trial ($10/mo) for unlimited scans and weekly monitoring.",
           upgrade: true,
         },
         { status: 429 }

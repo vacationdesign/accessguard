@@ -118,6 +118,7 @@ export default function TokushohoPage() {
                   <span className="text-xs font-normal text-gray-500">販売価格</span>
                 </th>
                 <td className="px-6 py-4 text-sm text-gray-700">
+                  Starter Plan: $10 USD / month<br />
                   Pro Plan: $49 USD / month<br />
                   Agency Plan: $149 USD / month<br />
                   <span className="text-gray-500 text-xs">All prices are tax-inclusive.</span>

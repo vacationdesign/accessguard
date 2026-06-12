@@ -25,9 +25,9 @@ export async function POST(request: NextRequest) {
     const { plan, email } = body as { plan: string; email?: string };
 
     // Validate the plan
-    if (!plan || !["pro", "agency"].includes(plan)) {
+    if (!plan || !["starter", "pro", "agency"].includes(plan)) {
       return NextResponse.json(
-        { error: "Invalid plan. Must be 'pro' or 'agency'." },
+        { error: "Invalid plan. Must be 'starter', 'pro', or 'agency'." },
         { status: 400 }
       );
     }

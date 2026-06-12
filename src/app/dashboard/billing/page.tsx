@@ -21,6 +21,8 @@ export default async function BillingPage() {
       ? "Agency"
       : user.plan === "pro"
       ? "Pro"
+      : user.plan === "starter"
+      ? "Starter"
       : "Free";
 
   const planPrice =
@@ -28,6 +30,8 @@ export default async function BillingPage() {
       ? "$149/mo"
       : user.plan === "pro"
       ? "$49/mo"
+      : user.plan === "starter"
+      ? "$10/mo"
       : "$0";
 
   return (
@@ -116,8 +120,8 @@ export default async function BillingPage() {
             <ManageSubscriptionButton />
           ) : user.plan === "free" ? (
             <div className="flex flex-col sm:flex-row gap-2">
+              <CheckoutButton plan="starter" email={user.email} />
               <CheckoutButton plan="pro" email={user.email} />
-              <CheckoutButton plan="agency" email={user.email} />
             </div>
           ) : null}
         </div>
@@ -134,7 +138,7 @@ export default async function BillingPage() {
       {/* Plan Features */}
       <div className="bg-white rounded-xl border border-gray-200 p-6">
         <h2 className="font-semibold text-foreground mb-4">Plan Features</h2>
-        <div className="grid sm:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           <PlanColumn
             name="Free"
             price="$0"
@@ -146,27 +150,38 @@ export default async function BillingPage() {
             current={user.plan === "free"}
           />
           <PlanColumn
-            name="Pro"
-            price="$49/mo"
+            name="Starter"
+            price="$10/mo"
             features={[
               "Unlimited scans",
-              "3 monitored sites",
-              "Weekly full-site crawl",
+              "1 monitored site",
+              "Weekly automated scans",
               "PDF compliance reports",
               "Email alerts",
               "Full scan history",
               "7-day free trial",
             ]}
-            current={user.plan === "pro"}
+            current={user.plan === "starter"}
             highlighted
+          />
+          <PlanColumn
+            name="Pro"
+            price="$49/mo"
+            features={[
+              "Everything in Starter",
+              "10 monitored sites",
+              "Weekly full-site crawl (20 pages)",
+              "7-day free trial",
+            ]}
+            current={user.plan === "pro"}
           />
           <PlanColumn
             name="Agency"
             price="$149/mo"
             features={[
               "Everything in Pro",
-              "10 monitored sites",
-              "Larger crawl scope",
+              "30 monitored sites",
+              "Larger crawl scope (50 pages)",
               "White-label PDF reports",
               "7-day free trial",
             ]}

@@ -11,6 +11,7 @@ export const maxDuration = 300;
 
 /** Page limits per plan */
 const PLAN_LIMITS: Record<string, number> = {
+  starter: 5,
   pro: 20,
   agency: 50,
 };
@@ -41,7 +42,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           error:
-            "Full-site crawl is available on Pro and Agency plans. Upgrade to scan your entire site.",
+            "Full-site crawl is available on paid plans (Starter, Pro, and Agency). Upgrade to scan your entire site.",
           upgrade: true,
         },
         { status: 403 }

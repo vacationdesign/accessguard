@@ -8,7 +8,7 @@ export interface User {
   id: string;
   email: string;
   stripe_customer_id: string | null;
-  plan: "free" | "pro" | "agency";
+  plan: "free" | "starter" | "pro" | "agency";
   auth_id: string | null;
   created_at: string;
   updated_at: string;
@@ -19,7 +19,7 @@ export interface Subscription {
   user_id: string;
   stripe_subscription_id: string;
   status: string;
-  plan: "pro" | "agency";
+  plan: "starter" | "pro" | "agency";
   current_period_start: string | null;
   current_period_end: string | null;
   trial_start: string | null;
@@ -196,7 +196,7 @@ export async function createSubscription(
   data: {
     stripeSubscriptionId: string;
     status: string;
-    plan: "pro" | "agency";
+    plan: "starter" | "pro" | "agency";
     currentPeriodStart?: Date;
     currentPeriodEnd?: Date;
     trialStart?: Date;
@@ -246,7 +246,7 @@ export async function updateSubscription(
   stripeSubscriptionId: string,
   data: {
     status?: string;
-    plan?: "pro" | "agency";
+    plan?: "starter" | "pro" | "agency";
     currentPeriodStart?: Date;
     currentPeriodEnd?: Date;
     trialStart?: Date;
@@ -604,7 +604,7 @@ const MONTH_HOURS = 30 * 24;
  * Determine whether a user (identified by IP and optionally user ID) is
  * allowed to perform a scan.
  *
- * - Paid users (pro/agency): unlimited
+ * - Paid users (starter/pro/agency): unlimited
  * - Signed-in Free users: 50 scans per 30 days per account (higher than
  *   the anonymous limit so a free account has a concrete benefit over
  *   the no-signup experience)
@@ -623,7 +623,10 @@ export async function canUserScanDetailed(
       .eq("id", userId)
       .single();
 
-    if (user && (user.plan === "pro" || user.plan === "agency")) {
+    if (
+      user &&
+      (user.plan === "starter" || user.plan === "pro" || user.plan === "agency")
+    ) {
       return { allowed: true };
     }
 
@@ -770,8 +773,9 @@ export interface Site {
 
 const SITE_LIMITS: Record<string, number> = {
   free: 0,
-  pro: 3,
-  agency: 10,
+  starter: 1,
+  pro: 10,
+  agency: 30,
 };
 
 /**

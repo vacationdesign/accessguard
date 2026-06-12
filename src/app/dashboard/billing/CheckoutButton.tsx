@@ -8,7 +8,7 @@ export default function CheckoutButton({
   plan,
   email,
 }: {
-  plan: "pro" | "agency";
+  plan: "starter" | "pro" | "agency";
   email: string;
 }) {
   const [loading, setLoading] = useState(false);
@@ -39,8 +39,13 @@ export default function CheckoutButton({
     }
   };
 
-  const label = plan === "pro" ? "Start Pro Trial — $49/mo" : "Start Agency Trial — $149/mo";
-  const isPrimary = plan === "pro";
+  const label =
+    plan === "starter"
+      ? "Start Starter Trial — $10/mo"
+      : plan === "pro"
+        ? "Start Pro Trial — $49/mo"
+        : "Start Agency Trial — $149/mo";
+  const isPrimary = plan === "starter";
 
   return (
     <button

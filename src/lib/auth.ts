@@ -6,7 +6,7 @@ export interface AppUser {
   id: string;
   email: string;
   stripe_customer_id: string | null;
-  plan: "free" | "pro" | "agency";
+  plan: "free" | "starter" | "pro" | "agency";
   auth_id: string | null;
   /** White-label brand name for Agency plan PDF reports */
   brand_name: string | null;
@@ -19,7 +19,7 @@ export interface AppUserWithSubscription extends AppUser {
     id: string;
     stripe_subscription_id: string;
     status: string;
-    plan: "pro" | "agency";
+    plan: "starter" | "pro" | "agency";
     current_period_start: string | null;
     current_period_end: string | null;
     trial_start: string | null;

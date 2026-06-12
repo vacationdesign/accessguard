@@ -38,6 +38,8 @@ export default async function CheckoutSuccessPage({ searchParams }: CheckoutSucc
     // Get the plan name from metadata
     if (session.metadata?.plan === "agency") {
       plan = "Agency";
+    } else if (session.metadata?.plan === "starter") {
+      plan = "Starter";
     }
 
     // Get trial end date from subscription

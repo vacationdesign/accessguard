@@ -108,7 +108,7 @@ export async function sendWelcomeEmail({
               <!-- 2. Pro Dashboard -->
               <div style="margin:0 0 16px;padding:16px;background-color:#f8fafc;border-radius:8px;">
                 <p style="margin:0 0 4px;color:#1e293b;font-size:15px;font-weight:600;">
-                  Pro Dashboard
+                  Your Dashboard
                 </p>
                 <p style="margin:0;color:#475569;font-size:14px;line-height:1.6;">
                   Your dedicated dashboard to register the sites you want to monitor, review past scan results, and track accessibility trends over time.
@@ -525,8 +525,8 @@ export async function sendScanReportEmail({
                 <p style="margin:0;color:#1e3a8a;font-size:13px;line-height:1.6;">
                   <a href="https://www.a11yscope.com/login" style="color:#2563eb;font-weight:600;text-decoration:none;">Create a free account</a>
                   to save scan history, or
-                  <a href="https://www.a11yscope.com/#pricing" style="color:#2563eb;font-weight:600;text-decoration:none;">start a 7-day Pro trial</a>
-                  for full-site crawling, weekly monitoring, and PDF reports.
+                  <a href="https://www.a11yscope.com/#pricing" style="color:#2563eb;font-weight:600;text-decoration:none;">start a 7-day free trial (from $10/mo)</a>
+                  for weekly monitoring, PDF reports, and full-site crawling.
                 </p>
               </div>
             </td>
@@ -625,7 +625,7 @@ export async function sendOnboardingDay1Email({
 export async function sendOnboardingDay3Email({
   to,
 }: OnboardingEmailParams): Promise<boolean> {
-  const subject = "The 3 Pro features worth trying during your free trial";
+  const subject = "The 3 paid features worth trying during your free trial";
   const html = `
 <!DOCTYPE html>
 <html lang="en">
@@ -638,7 +638,7 @@ export async function sendOnboardingDay3Email({
           <td style="padding:28px 36px;">
             <h1 style="margin:0 0 12px;color:#1e293b;font-size:22px;font-weight:700;">Three things to try next</h1>
             <p style="margin:0 0 20px;color:#334155;font-size:15px;line-height:1.6;">
-              If you're evaluating whether A11yScope is worth paying for, here are the three things to test during a free 7-day Pro trial. They're the features free users consistently ask about.
+              If you're evaluating whether A11yScope is worth paying for, here are the three things to test during a free 7-day trial (plans start at $10/mo). They're the features free users consistently ask about.
             </p>
 
             <div style="margin:0 0 16px;padding:16px;background-color:#f1f5f9;border-radius:8px;">
@@ -735,11 +735,11 @@ async function sendTrialEndingEmail({
     : `Heads up: your <strong>${planInfo.name}</strong> trial ends on <strong>${trialEndStr}</strong>, and your subscription will start at $${planInfo.price}/month. No action needed if you want to continue — and you can cancel anytime from your billing page.`;
 
   const featuresReminder = willAutoCancel
-    ? `<p style="margin:0 0 12px;color:#334155;font-size:15px;line-height:1.6;">If A11yScope has been useful, the three Pro features most worth keeping are:</p>
+    ? `<p style="margin:0 0 12px;color:#334155;font-size:15px;line-height:1.6;">If A11yScope has been useful, the three paid features most worth keeping are:</p>
        <ul style="margin:0 0 20px;padding-left:20px;color:#475569;font-size:14px;line-height:1.7;">
-         <li>Full-site crawls — scan up to 20 pages at once</li>
          <li>Weekly automated monitoring — catch regressions before they ship</li>
          <li>PDF compliance reports — share with clients or stakeholders</li>
+         <li>Full-site crawls — scan multiple pages at once</li>
        </ul>`
     : "";
 

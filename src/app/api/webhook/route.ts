@@ -73,7 +73,11 @@ export async function POST(request: NextRequest) {
       case "checkout.session.completed": {
         const session = event.data.object as Stripe.Checkout.Session;
         const customerEmail = session.customer_details?.email;
-        const plan = session.metadata?.plan as "pro" | "agency" | undefined;
+        const plan = session.metadata?.plan as
+          | "starter"
+          | "pro"
+          | "agency"
+          | undefined;
         const stripeCustomerId = session.customer as string;
         const stripeSubscriptionId = session.subscription as string;
 
@@ -140,7 +144,12 @@ export async function POST(request: NextRequest) {
         sendAdminNotification({
           event: "new_subscription",
           customerEmail,
-          plan: plan === "agency" ? "Agency ($149/mo)" : "Pro ($49/mo)",
+          plan:
+            plan === "agency"
+              ? "Agency ($149/mo)"
+              : plan === "starter"
+                ? "Starter ($10/mo)"
+                : "Pro ($49/mo)",
           details: subTiming.trial_end
             ? `7-day trial until ${new Date(subTiming.trial_end * 1000).toLocaleDateString("en-US")}`
             : "No trial — charged immediately",
@@ -175,9 +184,11 @@ export async function POST(request: NextRequest) {
 
         // Determine the plan from the subscription's price
         // We look at the first item's price to figure out which plan it is
-        let plan: "pro" | "agency" | undefined;
+        let plan: "starter" | "pro" | "agency" | undefined;
         const priceId = subscription.items.data[0]?.price?.id;
-        if (priceId === process.env.STRIPE_PRO_PRICE_ID) {
+        if (priceId === process.env.STRIPE_STARTER_PRICE_ID) {
+          plan = "starter";
+        } else if (priceId === process.env.STRIPE_PRO_PRICE_ID) {
           plan = "pro";
         } else if (priceId === process.env.STRIPE_AGENCY_PRICE_ID) {
           plan = "agency";

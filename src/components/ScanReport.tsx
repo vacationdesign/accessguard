@@ -9,7 +9,7 @@ import { track } from "@/lib/track";
 
 interface ScanReportProps {
   result: ScanResult & { domainScanCount?: number };
-  onCheckout: (plan: "pro" | "agency") => void;
+  onCheckout: (plan: "starter" | "pro" | "agency") => void;
   checkoutLoading: string | null;
   /** When true, the anonymous "Create Free Account" CTA is hidden and the
    *  email-report card is reframed as a Pro feature (PDF in the inbox)
@@ -310,11 +310,12 @@ export default function ScanReport({
             You&apos;ve scanned this site {result.domainScanCount} times this month
           </h3>
           <p className="text-amber-700 text-sm">
-            A11yScope Pro monitors your site automatically every week — no manual
-            scanning needed. Get alerted when new issues appear.
+            A11yScope Starter monitors your site automatically every week for
+            $10/month — no manual scanning needed. Get alerted when new issues
+            appear.
           </p>
           <button
-            onClick={() => onCheckout("pro")}
+            onClick={() => onCheckout("starter")}
             disabled={checkoutLoading !== null}
             className="bg-amber-500 text-white font-bold px-8 py-3 rounded-xl hover:bg-amber-600 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
@@ -330,11 +331,11 @@ export default function ScanReport({
             {totalIssueNodes} issues found on this page alone
           </h3>
           <p className="text-blue-100">
-            Most websites have accessibility problems on every page. Scan your
-            entire site and get fix-ready code snippets for each issue.
+            Most websites have accessibility problems on every page. Get weekly
+            automated scans, email alerts, and PDF reports from $10/month.
           </p>
           <button
-            onClick={() => onCheckout("pro")}
+            onClick={() => onCheckout("starter")}
             disabled={checkoutLoading !== null}
             className="bg-white text-primary font-bold px-8 py-3 rounded-xl hover:bg-blue-50 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
@@ -384,17 +385,13 @@ export default function ScanReport({
           This was just one page.
         </h3>
         <p className="text-muted max-w-lg mx-auto">
-          Create a free account to save your scan results, or upgrade to Pro
-          for full-site monitoring.
+          Create a free account to save your scan results, or let Starter watch
+          this site for you every week — from $10/month.
         </p>
 
         <div className="max-w-md mx-auto text-left space-y-2">
-          <p className="text-sm font-semibold text-foreground">What you get with Pro:</p>
+          <p className="text-sm font-semibold text-foreground">What you get with Starter:</p>
           <ul className="text-sm text-muted space-y-1.5">
-            <li className="flex items-start gap-2">
-              <span className="text-success mt-0.5">&#10003;</span>
-              Full-site crawl — scan up to 20 pages at once
-            </li>
             <li className="flex items-start gap-2">
               <span className="text-success mt-0.5">&#10003;</span>
               Weekly automated monitoring &amp; email alerts
@@ -405,18 +402,22 @@ export default function ScanReport({
             </li>
             <li className="flex items-start gap-2">
               <span className="text-success mt-0.5">&#10003;</span>
-              Scan history &amp; score trends over time
+              Unlimited scans, history &amp; score trends over time
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-success mt-0.5">&#10003;</span>
+              Need more sites or deeper crawls? Pro covers 10 sites at $49
             </li>
           </ul>
         </div>
 
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <button
-            onClick={() => onCheckout("pro")}
+            onClick={() => onCheckout("starter")}
             disabled={checkoutLoading !== null}
             className="bg-primary text-white font-bold px-8 py-3 rounded-xl hover:bg-primary-dark transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {checkoutLoading === "pro" ? "Redirecting..." : "Try Pro Free for 7 Days"}
+            {checkoutLoading === "starter" ? "Redirecting..." : "Try Starter Free for 7 Days"}
           </button>
           <button
             onClick={handleDownloadPdf}
