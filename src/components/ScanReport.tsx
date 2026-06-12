@@ -131,34 +131,34 @@ export default function ScanReport({
       </div>
 
       {/* Score and Summary */}
-      <div className="bg-white rounded-2xl border border-gray-200 p-8 flex flex-col md:flex-row items-center gap-8">
+      <div className="report-sheet crop-ticks p-8 flex flex-col md:flex-row items-center gap-8">
         <ScoreGauge score={result.score} />
 
         <div className="flex-1 space-y-4">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <div className="text-center p-3 rounded-lg bg-red-50">
+            <div className="text-center p-3 rounded-[2px] bg-red-50">
               <p className="text-2xl font-bold text-red-600">{criticalCount}</p>
               <p className="text-xs text-muted font-medium">Critical</p>
             </div>
-            <div className="text-center p-3 rounded-lg bg-orange-50">
+            <div className="text-center p-3 rounded-[2px] bg-orange-50">
               <p className="text-2xl font-bold text-orange-500">
                 {seriousCount}
               </p>
               <p className="text-xs text-muted font-medium">Serious</p>
             </div>
-            <div className="text-center p-3 rounded-lg bg-yellow-50">
+            <div className="text-center p-3 rounded-[2px] bg-yellow-50">
               <p className="text-2xl font-bold text-yellow-500">
                 {moderateCount}
               </p>
               <p className="text-xs text-muted font-medium">Moderate</p>
             </div>
-            <div className="text-center p-3 rounded-lg bg-blue-50">
+            <div className="text-center p-3 rounded-[2px] bg-blue-50">
               <p className="text-2xl font-bold text-blue-500">{minorCount}</p>
               <p className="text-xs text-muted font-medium">Minor</p>
             </div>
           </div>
 
-          <div className="bg-gray-50 rounded-lg p-4 space-y-2">
+          <div className="bg-gray-50 rounded-[2px] p-4 space-y-2">
             <div className="flex justify-between text-sm">
               <span className="text-muted">Total Issues Found</span>
               <span className="font-bold text-foreground">
@@ -179,7 +179,7 @@ export default function ScanReport({
 
       {/* Start here: top 3 highest-impact fixes */}
       {topFixes.length > 0 && (
-        <div className="bg-white rounded-2xl border-2 border-primary/30 p-6 space-y-4">
+        <div className="report-sheet p-6 space-y-4">
           <div className="flex flex-wrap items-baseline justify-between gap-2">
             <h3 className="text-lg font-bold text-foreground">
               Start here: top {topFixes.length} fix{topFixes.length !== 1 ? "es" : ""}
@@ -199,9 +199,9 @@ export default function ScanReport({
                 <li key={v.id}>
                   <a
                     href={`#violation-${v.id}`}
-                    className="flex gap-3 p-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors group"
+                    className="flex gap-3 p-3 rounded-[2px] bg-gray-50 hover:bg-gray-100 transition-colors group"
                   >
-                    <span className="shrink-0 w-7 h-7 rounded-full bg-primary text-white text-sm font-bold flex items-center justify-center">
+                    <span className="shrink-0 w-7 h-7 rounded-full bg-primary text-background text-sm font-bold flex items-center justify-center">
                       {i + 1}
                     </span>
                     <div className="flex-1 min-w-0">
@@ -237,7 +237,7 @@ export default function ScanReport({
           CTA is dropped — they already have an account — and the heading is
           rewritten so the action reads as a Pro feature (PDF in the inbox)
           rather than a lead-capture form. */}
-      <div className="bg-blue-50 border border-blue-100 rounded-2xl p-6 space-y-4">
+      <div className="report-sheet p-6 space-y-4">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h3 className="text-lg font-bold text-foreground">
@@ -255,7 +255,7 @@ export default function ScanReport({
             <a
               href="/login"
               onMouseDown={() => track("signup_clicked", { from: "scan_result_card" })}
-              className="inline-flex items-center justify-center bg-white border border-blue-200 text-primary text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-blue-50 transition-colors"
+              className="inline-flex items-center justify-center bg-white border border-blue-200 text-primary text-sm font-semibold px-5 py-2.5 rounded-[2px] hover:bg-blue-50 transition-colors"
             >
               Create Free Account
             </a>
@@ -275,20 +275,20 @@ export default function ScanReport({
                 value={emailValue}
                 onChange={(e) => setEmailValue(e.target.value)}
                 placeholder="you@example.com"
-                className="w-full px-4 py-2.5 border-2 border-blue-100 rounded-lg focus:border-primary focus:outline-none transition-colors text-sm bg-white"
+                className="w-full px-4 py-2.5 border-2 border-blue-100 rounded-[2px] focus:border-primary focus:outline-none transition-colors text-sm bg-white"
                 disabled={emailStatus === "sending"}
               />
             </div>
             <button
               type="submit"
               disabled={emailStatus === "sending"}
-              className="bg-primary text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50 cursor-pointer whitespace-nowrap"
+              className="bg-primary text-background font-semibold px-5 py-2.5 rounded-[2px] hover:bg-primary-dark transition-colors disabled:opacity-50 cursor-pointer whitespace-nowrap"
             >
               {emailStatus === "sending" ? "Sending..." : "Email PDF report"}
             </button>
           </form>
         ) : (
-          <div className="bg-white border border-green-200 rounded-xl px-4 py-3">
+          <div className="bg-white border border-green-200 rounded-[2px] px-4 py-3">
             <p className="text-sm font-semibold text-green-700">
               Report sent to {emailValue}
             </p>
@@ -305,7 +305,7 @@ export default function ScanReport({
 
       {/* Repeated Scan Nudge */}
       {(result.domainScanCount ?? 0) >= 3 && (
-        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6 text-center space-y-3">
+        <div className="bg-[#fbf4e4] border border-[#dcc89a] rounded-[3px] p-6 text-center space-y-3">
           <h3 className="text-lg font-bold text-amber-900">
             You&apos;ve scanned this site {result.domainScanCount} times this month
           </h3>
@@ -317,7 +317,7 @@ export default function ScanReport({
           <button
             onClick={() => onCheckout("starter")}
             disabled={checkoutLoading !== null}
-            className="bg-amber-500 text-white font-bold px-8 py-3 rounded-xl hover:bg-amber-600 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+            className="bg-accent text-white font-bold px-8 py-3 rounded-[2px] hover:bg-[#9a330b] transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {checkoutLoading ? "Redirecting..." : "Start Automated Monitoring"}
           </button>
@@ -326,7 +326,7 @@ export default function ScanReport({
 
       {/* CTA Banner */}
       {result.violations.length > 0 && (
-        <div className="bg-gradient-to-r from-primary to-blue-700 rounded-2xl p-6 text-white text-center space-y-3">
+        <div className="bg-ink-band rounded-[3px] p-8 text-[#f5f2ea] text-center space-y-3">
           <h3 className="text-xl font-bold">
             {totalIssueNodes} issues found on this page alone
           </h3>
@@ -337,7 +337,7 @@ export default function ScanReport({
           <button
             onClick={() => onCheckout("starter")}
             disabled={checkoutLoading !== null}
-            className="bg-white text-primary font-bold px-8 py-3 rounded-xl hover:bg-blue-50 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+            className="bg-[#f5f2ea] text-foreground font-bold px-8 py-3 rounded-[2px] hover:bg-white transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {checkoutLoading ? "Redirecting..." : "Start 7-Day Free Trial"}
           </button>
@@ -380,7 +380,7 @@ export default function ScanReport({
       <FeedbackWidget scannedUrl={result.url} />
 
       {/* Footer CTA */}
-      <div className="bg-gray-50 rounded-2xl p-8 text-center space-y-5">
+      <div className="bg-gray-50 border border-line rounded-[3px] p-8 text-center space-y-5">
         <h3 className="text-xl font-bold text-foreground">
           This was just one page.
         </h3>
@@ -415,21 +415,21 @@ export default function ScanReport({
           <button
             onClick={() => onCheckout("starter")}
             disabled={checkoutLoading !== null}
-            className="bg-primary text-white font-bold px-8 py-3 rounded-xl hover:bg-primary-dark transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+            className="bg-primary text-background font-bold px-8 py-3 rounded-[2px] hover:bg-primary-dark transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {checkoutLoading === "starter" ? "Redirecting..." : "Try Starter Free for 7 Days"}
           </button>
           <button
             onClick={handleDownloadPdf}
             disabled={pdfLoading}
-            className="border-2 border-gray-200 text-foreground font-bold px-8 py-3 rounded-xl hover:bg-gray-50 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+            className="border-2 border-gray-200 text-foreground font-bold px-8 py-3 rounded-[2px] hover:bg-gray-50 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {pdfLoading ? "Generating..." : "Download PDF Report"}
           </button>
           {!emailFormOpen && emailStatus !== "sent" && (
             <button
               onClick={() => setEmailFormOpen(true)}
-              className="border-2 border-gray-200 text-foreground font-bold px-8 py-3 rounded-xl hover:bg-gray-50 transition-colors cursor-pointer"
+              className="border-2 border-gray-200 text-foreground font-bold px-8 py-3 rounded-[2px] hover:bg-gray-50 transition-colors cursor-pointer"
             >
               Email PDF Report
             </button>
@@ -439,7 +439,7 @@ export default function ScanReport({
         {emailFormOpen && emailStatus !== "sent" && (
           <form
             onSubmit={handleEmailReport}
-            className="max-w-md mx-auto text-left bg-white border border-gray-200 rounded-xl p-4 space-y-3"
+            className="max-w-md mx-auto text-left bg-white border border-gray-200 rounded-[2px] p-4 space-y-3"
           >
             <label
               htmlFor="scan-report-email"
@@ -455,13 +455,13 @@ export default function ScanReport({
                 value={emailValue}
                 onChange={(e) => setEmailValue(e.target.value)}
                 placeholder="you@example.com"
-                className="flex-1 px-4 py-2 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-colors text-sm"
+                className="flex-1 px-4 py-2 border-2 border-gray-200 rounded-[2px] focus:border-primary focus:outline-none transition-colors text-sm"
                 disabled={emailStatus === "sending"}
               />
               <button
                 type="submit"
                 disabled={emailStatus === "sending"}
-                className="bg-primary text-white font-semibold px-5 py-2 rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50 cursor-pointer whitespace-nowrap"
+                className="bg-primary text-background font-semibold px-5 py-2 rounded-[2px] hover:bg-primary-dark transition-colors disabled:opacity-50 cursor-pointer whitespace-nowrap"
               >
                 {emailStatus === "sending" ? "Sending..." : "Send Report"}
               </button>
@@ -477,7 +477,7 @@ export default function ScanReport({
         )}
 
         {emailStatus === "sent" && (
-          <div className="max-w-md mx-auto bg-green-50 border border-green-200 rounded-xl p-4 text-center space-y-2">
+          <div className="max-w-md mx-auto bg-green-50 border border-green-200 rounded-[2px] p-4 text-center space-y-2">
             <p className="text-sm font-semibold text-green-700">
               &#10003; Report sent to {emailValue}
             </p>

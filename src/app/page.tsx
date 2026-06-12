@@ -150,6 +150,14 @@ export default function Home() {
       },
       {
         "@type": "Offer",
+        name: "Starter",
+        price: "10",
+        priceCurrency: "USD",
+        availability: "https://schema.org/InStock",
+        url: "https://www.a11yscope.com/#pricing",
+      },
+      {
+        "@type": "Offer",
         name: "Pro",
         price: "49",
         priceCurrency: "USD",
@@ -178,76 +186,70 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       {/* Navigation */}
-      <nav className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <svg
-            className="h-8 w-8 text-primary"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2}
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"
-            />
-          </svg>
-          <span className="text-xl font-bold text-foreground">
-            A11yScope
-          </span>
-        </div>
-        <div className="flex items-center gap-6">
-          <a
-            href="#features"
-            className="text-sm text-muted hover:text-foreground transition-colors hidden sm:block"
-          >
-            Features
-          </a>
-          <a
-            href="#pricing"
-            className="text-sm text-muted hover:text-foreground transition-colors hidden sm:block"
-          >
-            Pricing
-          </a>
-          <a
-            href="/login"
-            onMouseDown={() => track("signup_clicked", { from: "home_top_nav" })}
-            className="text-sm text-muted hover:text-foreground transition-colors hidden sm:block"
-          >
-            Sign In
-          </a>
-          <a
-            href="/dashboard"
-            className="bg-primary text-white text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-primary-dark transition-colors"
-          >
-            Dashboard
-          </a>
-        </div>
-      </nav>
+      <div className="border-b border-line bg-background/90 backdrop-blur-sm sticky top-0 z-40">
+        <nav className="max-w-6xl mx-auto px-6 py-3.5 flex items-center justify-between">
+          <div className="flex items-center gap-2.5">
+            <svg
+              className="h-7 w-7 text-foreground"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"
+              />
+            </svg>
+            <span className="font-display text-xl font-semibold text-foreground tracking-tight">
+              A11yScope
+            </span>
+          </div>
+          <div className="flex items-center gap-6">
+            <a
+              href="#features"
+              className="meta-label hover:text-foreground transition-colors hidden sm:block"
+            >
+              Features
+            </a>
+            <a
+              href="#pricing"
+              className="meta-label hover:text-foreground transition-colors hidden sm:block"
+            >
+              Pricing
+            </a>
+            <a
+              href="/login"
+              onMouseDown={() => track("signup_clicked", { from: "home_top_nav" })}
+              className="meta-label hover:text-foreground transition-colors hidden sm:block"
+            >
+              Sign In
+            </a>
+            <a
+              href="/dashboard"
+              className="bg-primary text-background text-sm font-semibold px-5 py-2 rounded-[3px] hover:bg-primary-dark transition-colors"
+            >
+              Dashboard
+            </a>
+          </div>
+        </nav>
+      </div>
 
       <main>
       {/* Hero Section */}
-      <section className="bg-dot-pattern pt-20 pb-28 text-center">
+      <section className="bg-graph-paper border-b border-line pt-16 pb-24 text-center">
         <div className="max-w-6xl mx-auto px-6 space-y-8">
-        <div className="space-y-5">
-          <div className="w-12 h-1 bg-primary rounded-full mx-auto" />
-          <div className="inline-flex items-center gap-2 bg-red-50 text-red-700 text-sm font-medium px-4 py-1.5 rounded-full border border-red-200">
-            <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
-              <path
-                fillRule="evenodd"
-                d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 5a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 5zm0 9a1 1 0 100-2 1 1 0 000 2z"
-                clipRule="evenodd"
-              />
-            </svg>
-            ADA, EAA, SEO, and conversion teams all depend on accessible UX
-          </div>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-foreground leading-tight">
-            Find Accessibility Issues
+        <div className="space-y-6">
+          <p className="meta-label reveal reveal-1">
+            Automated WCAG inspection &mdash; est. 2026 &mdash; 986 scans on record
+          </p>
+          <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-semibold text-foreground leading-[1.05] reveal reveal-2">
+            Find accessibility issues
             <br />
-            <span className="text-primary">Before Users Leave</span>
+            <span className="ink-underline">before users leave.</span>
           </h1>
-          <p className="text-lg sm:text-xl text-muted max-w-xl mx-auto leading-relaxed">
+          <p className="text-lg sm:text-xl text-muted max-w-xl mx-auto leading-relaxed reveal reveal-3">
             Scan any webpage for WCAG 2.1 AA issues in seconds, spot WCAG 2.2
             readiness gaps, and get fix-ready guidance. No sign-up required.
           </p>
@@ -274,14 +276,22 @@ export default function Home() {
         />
 
         {/* Trust Indicators */}
-        <div className="flex flex-wrap items-center justify-center gap-2 text-sm text-muted">
-          <span>WCAG 2.1 AA checks</span>
-          <span className="text-gray-300">·</span>
-          <span>WCAG 2.2-ready guidance</span>
-          <span className="text-gray-300">·</span>
-          <span>Powered by axe-core®</span>
-          <span className="text-gray-300">·</span>
-          <span>No sign-up required</span>
+        <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 reveal reveal-4">
+          {[
+            "WCAG 2.1 AA checks",
+            "WCAG 2.2-ready guidance",
+            "Powered by axe-core®",
+            "No sign-up required",
+          ].map((item, i) => (
+            <span key={item} className="flex items-center gap-x-3">
+              {i > 0 && (
+                <span aria-hidden="true" className="text-accent font-mono text-xs">
+                  /
+                </span>
+              )}
+              <span className="meta-label !text-foreground/70">{item}</span>
+            </span>
+          ))}
         </div>
         </div>
       </section>
@@ -289,7 +299,7 @@ export default function Home() {
       {/* Loading State */}
       {isScanning && !scanResult && (
         <section className="max-w-4xl mx-auto px-6 pb-16">
-          <div className="bg-white rounded-2xl border border-gray-200 p-12 text-center space-y-4">
+          <div className="report-sheet crop-ticks p-12 text-center space-y-4">
             <div className="flex justify-center">
               <svg
                 className="animate-spin h-12 w-12 text-primary"
@@ -325,26 +335,26 @@ export default function Home() {
       {/* Error State */}
       {error && (
         <section className="max-w-4xl mx-auto px-6 pb-16">
-          <div className="bg-red-50 border-2 border-red-200 rounded-2xl p-8 text-center space-y-4">
-            <h3 className="text-xl font-bold text-red-700">
+          <div className="bg-[#fdf3ed] border border-[#e6c4ae] rounded-[3px] p-8 text-center space-y-4">
+            <h3 className="font-display text-2xl font-semibold text-danger">
               {errorMeta?.signup || errorMeta?.upgrade
                 ? "You've hit the free scan limit"
                 : "Scan Failed"}
             </h3>
-            <p className="text-red-600">{error}</p>
+            <p className="text-foreground/80">{error}</p>
             {errorMeta?.signup && (
               <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
                 <a
                   href="/login"
                   onMouseDown={() => track("signup_clicked", { from: "home_limit_error" })}
-                  className="inline-flex items-center justify-center px-6 py-3 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-colors"
+                  className="inline-flex items-center justify-center px-6 py-3 bg-primary text-background font-semibold rounded-[2px] hover:bg-primary-dark transition-colors"
                 >
                   Create a Free Account
                 </a>
                 <button
                   onClick={() => handleCheckout("starter")}
                   disabled={checkoutLoading !== null}
-                  className="inline-flex items-center justify-center px-6 py-3 border-2 border-primary text-primary font-semibold rounded-xl hover:bg-primary hover:text-white transition-colors disabled:opacity-50"
+                  className="inline-flex items-center justify-center px-6 py-3 border-2 border-primary text-primary font-semibold rounded-[2px] hover:bg-primary hover:text-white transition-colors disabled:opacity-50"
                 >
                   {checkoutLoading === "starter"
                     ? "Redirecting..."
@@ -357,7 +367,7 @@ export default function Home() {
                 <button
                   onClick={() => handleCheckout("starter")}
                   disabled={checkoutLoading !== null}
-                  className="inline-flex items-center justify-center px-6 py-3 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-colors disabled:opacity-50"
+                  className="inline-flex items-center justify-center px-6 py-3 bg-primary text-background font-semibold rounded-[2px] hover:bg-primary-dark transition-colors disabled:opacity-50"
                 >
                   {checkoutLoading === "starter"
                     ? "Redirecting..."
@@ -382,98 +392,94 @@ export default function Home() {
         </section>
       )}
 
-      {/* Features Section — Bento Grid */}
-      <section id="features" className="py-24">
+      {/* Features Section — inspection index */}
+      <section id="features" className="py-24 border-b border-line">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="space-y-2 mb-12">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-foreground">
+          <div className="mb-14">
+            <p className="meta-label mb-3">Section 01 — Capabilities</p>
+            <h2 className="font-display text-4xl sm:text-5xl font-semibold text-foreground">
               Why teams choose A11yScope
             </h2>
-            <p className="text-lg text-muted">
+            <p className="text-lg text-muted mt-3 max-w-2xl">
               More than a scanner. A complete accessibility compliance platform.
             </p>
           </div>
 
           {/* Top row — 2 hero features */}
           <div className="grid md:grid-cols-2 gap-6 mb-6">
-            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow p-8">
-              <div className="h-12 w-12 bg-blue-100 rounded-xl flex items-center justify-center mb-5">
-                <svg className="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
-                </svg>
+            {[
+              {
+                index: "01",
+                title: "Instant Scanning",
+                body: "Get results in under 30 seconds. No browser extensions or code changes needed. Just paste your URL and get a focused WCAG 2.1 AA scan.",
+              },
+              {
+                index: "02",
+                title: "Fix-Ready Code",
+                body: "Every issue comes with specific code snippets to fix it. Copy, paste, deploy. No accessibility expertise required.",
+              },
+            ].map((f) => (
+              <div key={f.index} className="report-sheet p-8">
+                <p className="font-mono text-sm text-accent mb-5">{f.index}</p>
+                <h3 className="font-display text-2xl font-semibold text-foreground mb-2">
+                  {f.title}
+                </h3>
+                <p className="text-muted leading-relaxed">{f.body}</p>
               </div>
-              <h3 className="text-xl font-bold text-foreground mb-2">Instant Scanning</h3>
-              <p className="text-muted leading-relaxed">
-                Get results in under 30 seconds. No browser extensions or code changes needed. Just paste your URL and get a focused WCAG 2.1 AA scan.
-              </p>
-            </div>
-            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow p-8">
-              <div className="h-12 w-12 bg-emerald-100 rounded-xl flex items-center justify-center mb-5">
-                <svg className="h-6 w-6 text-emerald-600" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M14.25 9.75L16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-foreground mb-2">Fix-Ready Code</h3>
-              <p className="text-muted leading-relaxed">
-                Every issue comes with specific code snippets to fix it. Copy, paste, deploy. No accessibility expertise required.
-              </p>
-            </div>
+            ))}
           </div>
 
-          {/* Bottom row — 4 compact features */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow p-5">
-              <div className="h-10 w-10 bg-amber-100 rounded-lg flex items-center justify-center mb-3">
-                <svg className="h-5 w-5 text-amber-600" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
+          {/* Bottom row — compact features */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {[
+              {
+                index: "03",
+                title: "Weekly Monitoring",
+                body: "Automated scans alert you to new issues before they become problems.",
+              },
+              {
+                index: "04",
+                title: "WCAG 2.2 Ready",
+                body: "Automated checks plus guidance for newer focus, target-size, and authentication criteria.",
+              },
+              {
+                index: "05",
+                title: "PDF Reports",
+                body: "Professional compliance reports for stakeholders and legal teams.",
+              },
+            ].map((f) => (
+              <div key={f.index} className="report-sheet p-5">
+                <p className="font-mono text-xs text-accent mb-3">{f.index}</p>
+                <h3 className="text-sm font-bold text-foreground mb-1">{f.title}</h3>
+                <p className="text-muted text-xs leading-relaxed">{f.body}</p>
               </div>
-              <h3 className="text-sm font-bold text-foreground mb-1">Weekly Monitoring</h3>
-              <p className="text-muted text-xs leading-relaxed">Automated scans alert you to new issues before they become problems.</p>
-            </div>
-            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow p-5">
-              <div className="h-10 w-10 bg-violet-100 rounded-lg flex items-center justify-center mb-3">
-                <svg className="h-5 w-5 text-violet-600" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
-                </svg>
-              </div>
-              <h3 className="text-sm font-bold text-foreground mb-1">WCAG 2.2 Ready</h3>
-              <p className="text-muted text-xs leading-relaxed">Automated checks plus guidance for newer focus, target-size, and authentication criteria.</p>
-            </div>
-            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow p-5">
-              <div className="h-10 w-10 bg-rose-100 rounded-lg flex items-center justify-center mb-3">
-                <svg className="h-5 w-5 text-rose-600" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                </svg>
-              </div>
-              <h3 className="text-sm font-bold text-foreground mb-1">PDF Reports</h3>
-              <p className="text-muted text-xs leading-relaxed">Professional compliance reports for stakeholders and legal teams.</p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="py-24">
+      <section id="pricing" className="py-24 border-b border-line bg-graph-paper">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="space-y-2 mb-12">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-foreground">
+          <div className="mb-14">
+            <p className="meta-label mb-3">Section 02 — Pricing</p>
+            <h2 className="font-display text-4xl sm:text-5xl font-semibold text-foreground">
               Simple, transparent pricing
             </h2>
-            <p className="text-lg text-muted">
+            <p className="text-lg text-muted mt-3">
               Start free. Upgrade when you need full-site coverage.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
             {/* Free */}
-            <div className="bg-white rounded-2xl border border-gray-200 p-8 space-y-6">
+            <div className="report-sheet p-8 space-y-6">
               <div>
                 <h3 className="text-xl font-bold text-foreground">Free</h3>
                 <p className="text-muted text-sm mt-1">For quick checks</p>
               </div>
               <div className="flex items-baseline gap-1">
-                <span className="text-4xl font-extrabold">$0</span>
+                <span className="font-display text-5xl font-semibold">$0</span>
                 <span className="text-muted">/month</span>
               </div>
               <ul className="space-y-3 text-sm">
@@ -536,15 +542,15 @@ export default function Home() {
               </ul>
               <button
                 onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                className="w-full py-3 border-2 border-gray-200 rounded-xl font-semibold hover:bg-gray-50 transition-colors cursor-pointer"
+                className="w-full py-3 border-2 border-gray-200 rounded-[2px] font-semibold hover:bg-gray-50 transition-colors cursor-pointer"
               >
                 Scan Now — Free
               </button>
             </div>
 
             {/* Starter */}
-            <div className="bg-white rounded-2xl border-2 border-primary shadow-xl p-8 space-y-6 relative">
-              <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary to-blue-500 text-white text-sm font-bold px-4 py-1 rounded-full">
+            <div className="report-sheet crop-ticks p-8 space-y-6 relative">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-white font-mono text-[11px] font-semibold uppercase tracking-[0.14em] px-3 py-1 rounded-[2px]">
                 Most Popular
               </div>
               <div>
@@ -554,7 +560,7 @@ export default function Home() {
                 </p>
               </div>
               <div className="flex items-baseline gap-1">
-                <span className="text-4xl font-extrabold">$10</span>
+                <span className="font-display text-5xl font-semibold">$10</span>
                 <span className="text-muted">/month</span>
               </div>
               <ul className="space-y-3 text-sm">
@@ -584,14 +590,14 @@ export default function Home() {
               <button
                 onClick={() => handleCheckout("starter")}
                 disabled={checkoutLoading === "starter"}
-                className="w-full py-3 bg-primary text-white rounded-xl font-semibold hover:bg-primary-dark transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full py-3 bg-primary text-background rounded-[2px] font-semibold hover:bg-primary-dark transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {checkoutLoading === "starter" ? "Redirecting..." : "Start 7-Day Free Trial"}
               </button>
             </div>
 
             {/* Pro */}
-            <div className="bg-white rounded-2xl border border-gray-200 p-8 space-y-6">
+            <div className="report-sheet p-8 space-y-6">
               <div>
                 <h3 className="text-xl font-bold text-foreground">Pro</h3>
                 <p className="text-muted text-sm mt-1">
@@ -599,7 +605,7 @@ export default function Home() {
                 </p>
               </div>
               <div className="flex items-baseline gap-1">
-                <span className="text-4xl font-extrabold">$49</span>
+                <span className="font-display text-5xl font-semibold">$49</span>
                 <span className="text-muted">/month</span>
               </div>
               <ul className="space-y-3 text-sm">
@@ -628,14 +634,14 @@ export default function Home() {
               <button
                 onClick={() => handleCheckout("pro")}
                 disabled={checkoutLoading === "pro"}
-                className="w-full py-3 border-2 border-gray-200 rounded-xl font-semibold hover:bg-gray-50 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full py-3 border-2 border-gray-200 rounded-[2px] font-semibold hover:bg-gray-50 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {checkoutLoading === "pro" ? "Redirecting..." : "Start 7-Day Free Trial"}
               </button>
             </div>
 
             {/* Agency */}
-            <div className="bg-white rounded-2xl border border-gray-200 p-8 space-y-6">
+            <div className="report-sheet p-8 space-y-6">
               <div>
                 <h3 className="text-xl font-bold text-foreground">Agency</h3>
                 <p className="text-muted text-sm mt-1">
@@ -643,7 +649,7 @@ export default function Home() {
                 </p>
               </div>
               <div className="flex items-baseline gap-1">
-                <span className="text-4xl font-extrabold">$149</span>
+                <span className="font-display text-5xl font-semibold">$149</span>
                 <span className="text-muted">/month</span>
               </div>
               <ul className="space-y-3 text-sm">
@@ -693,7 +699,7 @@ export default function Home() {
               <button
                 onClick={() => handleCheckout("agency")}
                 disabled={checkoutLoading === "agency"}
-                className="w-full py-3 border-2 border-gray-200 rounded-xl font-semibold hover:bg-gray-50 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full py-3 border-2 border-gray-200 rounded-[2px] font-semibold hover:bg-gray-50 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {checkoutLoading === "agency" ? "Redirecting..." : "Start 7-Day Free Trial"}
               </button>
@@ -712,44 +718,50 @@ export default function Home() {
         </p>
       </section>
 
-      {/* Credibility Metrics */}
-      <section className="py-20 bg-gray-900 text-white">
+      {/* Credibility Metrics — instrument readout */}
+      <section className="py-20 bg-ink-band text-[#f5f2ea]">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+          <p className="meta-label !text-[#a89f8c] text-center mb-10">
+            Section 03 — Instrument readings
+          </p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-[#34302a] border border-[#34302a] mb-12">
             {[
               { value: "38+", label: "WCAG rules checked" },
               { value: "~6s", label: "Average scan time" },
               { value: "98", label: "Our own A11yScope score" },
               { value: "$0", label: "Cost to get started" },
             ].map((metric, i) => (
-              <div key={i} className="text-center">
-                <div className="text-4xl sm:text-5xl font-extrabold tracking-tight">{metric.value}</div>
-                <div className="text-sm text-gray-400 mt-2">{metric.label}</div>
+              <div key={i} className="text-center bg-ink-band py-8 px-2">
+                <div className="font-mono text-4xl sm:text-5xl font-semibold tracking-tight">
+                  {metric.value}
+                </div>
+                <div className="font-mono text-[11px] uppercase tracking-[0.14em] text-[#a89f8c] mt-3">
+                  {metric.label}
+                </div>
               </div>
             ))}
           </div>
 
-          <div className="text-center space-y-6 pt-8 border-t border-gray-800">
-            <p className="text-sm text-gray-400">
+          <div className="text-center space-y-6 pt-8">
+            <p className="text-sm text-[#a89f8c]">
               Built on{" "}
               <a
                 href="https://github.com/dequelabs/axe-core"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-300 underline underline-offset-2 hover:text-white transition-colors"
+                className="text-[#d4cec2] underline underline-offset-2 hover:text-white transition-colors"
               >
                 axe-core®
               </a>
               {" "}— the world&apos;s most trusted accessibility testing engine
             </p>
-            <div className="space-y-3">
-              <p className="text-2xl sm:text-3xl font-bold">
-            Don&apos;t let accessibility defects leak into growth.{" "}
-                <span className="text-primary">Scan your site now.</span>
+            <div className="space-y-5">
+              <p className="font-display text-3xl sm:text-4xl font-semibold">
+                Don&apos;t let accessibility defects leak into growth.
               </p>
               <button
                 onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                className="inline-flex items-center gap-2 bg-white text-gray-900 font-semibold px-8 py-3 rounded-xl hover:bg-gray-100 transition-colors cursor-pointer"
+                className="inline-flex items-center gap-2 bg-[#f5f2ea] text-foreground font-semibold px-8 py-3 rounded-[2px] hover:bg-white transition-colors cursor-pointer"
               >
                 <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 10.5L12 3m0 0l7.5 7.5M12 3v18" />
@@ -764,16 +776,17 @@ export default function Home() {
       {/* FAQ */}
       <section className="py-24 bg-background">
         <div className="max-w-3xl mx-auto px-6">
-          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-12">
+          <p className="meta-label mb-3">Section 04 — Notes</p>
+          <h2 className="font-display text-4xl sm:text-5xl font-semibold text-foreground mb-12">
             Frequently Asked Questions
           </h2>
-          <div className="space-y-6">
+          <div className="space-y-4">
             {faqJsonLd.mainEntity.map((item, i) => (
               <details
                 key={i}
-                className="group bg-white rounded-xl border border-gray-100 shadow-sm"
+                className="group report-sheet"
               >
-                <summary className="flex items-center justify-between gap-4 p-6 cursor-pointer text-left font-semibold text-foreground hover:text-primary transition-colors list-none [&::-webkit-details-marker]:hidden">
+                <summary className="flex items-center justify-between gap-4 p-6 cursor-pointer text-left font-semibold text-foreground hover:text-accent transition-colors list-none [&::-webkit-details-marker]:hidden">
                   <span>{item.name}</span>
                   <svg
                     className="h-5 w-5 shrink-0 text-muted group-open:rotate-180 transition-transform"
@@ -814,7 +827,7 @@ export default function Home() {
                     d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"
                   />
                 </svg>
-                <span className="font-bold">A11yScope</span>
+                <span className="font-display font-semibold text-lg">A11yScope</span>
               </div>
                 <p className="text-sm max-w-xs">
                 Making the web accessible for everyone. WCAG 2.1 AA scanning,
