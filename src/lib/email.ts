@@ -798,6 +798,85 @@ async function sendTrialEndingEmail({
 }
 
 // ---------------------------------------------------------------------------
+// Win-back email (sent when a subscription is canceled / a trial expires)
+// ---------------------------------------------------------------------------
+
+interface WinBackEmailParams {
+  to: string;
+  /** The plan the user was on before cancellation, for a personalized line.
+   *  null when we couldn't map the canceled subscription back to a plan. */
+  plan: PlanKey | null;
+}
+
+/**
+ * Sent from the `customer.subscription.deleted` webhook, right after the user
+ * is downgraded to Free. Covers both paths that reach that event:
+ *   - a cardless trial that auto-expired (the common case at this stage), and
+ *   - an explicit cancellation.
+ *
+ * Tone is deliberately low-pressure: the account keeps working on Free, and
+ * the user has already used their one trial (`hasSubscriptionHistory` blocks a
+ * second), so we do NOT promise another free trial — we invite them back to
+ * the paid features they tried, honestly. This is funnel automation, not
+ * outreach: it fires on the Stripe event, with no human in the loop.
+ */
+export async function sendWinBackEmail({
+  to,
+  plan,
+}: WinBackEmailParams): Promise<boolean> {
+  const planName = plan ? PLANS[plan].name : "your A11yScope plan";
+  const subject = "Your A11yScope trial has ended — your account is back on Free";
+
+  const html = `
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+<body style="margin:0;padding:0;background-color:#f8fafc;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f8fafc;padding:40px 20px;">
+    <tr><td align="center">
+      <table role="presentation" width="560" cellpadding="0" cellspacing="0" style="background-color:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.1);">
+        <tr>
+          <td style="background-color:#1e40af;padding:28px 36px;text-align:center;">
+            <h1 style="margin:0;color:#ffffff;font-size:22px;font-weight:700;">Your account is back on Free</h1>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:28px 36px;">
+            <p style="margin:0 0 16px;color:#334155;font-size:15px;line-height:1.6;">
+              Your ${planName} access has ended and your account has returned to the Free plan. Nothing is lost — you can still run on-demand accessibility scans any time at
+              <a href="https://www.a11yscope.com" style="color:#2563eb;text-decoration:none;">www.a11yscope.com</a>.
+            </p>
+            <p style="margin:0 0 12px;color:#334155;font-size:15px;line-height:1.6;">
+              If the paid features were useful while you were trying them, these are the three worth coming back for:
+            </p>
+            <ul style="margin:0 0 20px;padding-left:20px;color:#475569;font-size:14px;line-height:1.7;">
+              <li>Weekly automated monitoring — catch regressions before they ship</li>
+              <li>Full-site crawls — scan up to 20 pages at once, not just the homepage</li>
+              <li>PDF compliance reports — share with clients, your team, or a legal file</li>
+            </ul>
+            <div style="text-align:center;padding:8px 0 4px;">
+              <a href="https://www.a11yscope.com/dashboard/billing" style="display:inline-block;background-color:#2563eb;color:#ffffff;font-size:15px;font-weight:600;text-decoration:none;padding:12px 28px;border-radius:8px;">
+                Pick up where you left off &rarr;
+              </a>
+            </div>
+            <hr style="border:none;border-top:1px solid #e2e8f0;margin:24px 0 16px;">
+            <p style="margin:0;color:#94a3b8;font-size:12px;text-align:center;line-height:1.6;">
+              Not ready? No problem — the Free plan stays available with no time limit.
+              Questions or feedback? Just reply, or write to
+              <a href="mailto:support@a11yscope.com" style="color:#2563eb;">support@a11yscope.com</a>.
+            </p>
+          </td>
+        </tr>
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`;
+
+  return safeSend({ to, subject, html, kind: "win-back" });
+}
+
+// ---------------------------------------------------------------------------
 // Shared helpers
 // ---------------------------------------------------------------------------
 
