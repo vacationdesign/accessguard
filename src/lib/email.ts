@@ -1,5 +1,6 @@
 import { Resend } from "resend";
 import { PLANS, PlanKey } from "@/lib/stripe";
+import { safeDomain, escapeHtml } from "@/lib/html";
 
 // ---------------------------------------------------------------------------
 // Resend client (lazy init to avoid build-time errors when env var is missing)
@@ -879,28 +880,6 @@ export async function sendWinBackEmail({
 // ---------------------------------------------------------------------------
 // Shared helpers
 // ---------------------------------------------------------------------------
-
-function safeDomain(url: string): string {
-  try {
-    const host = new URL(url).hostname;
-    // Extra belt-and-braces: strip any CR/LF just in case a weird URL shape
-    // survived parsing. Email headers and CRLF don't mix.
-    return host.replace(/[\r\n]/g, "");
-  } catch {
-    // Never return the raw, attacker-controlled string — it could contain
-    // CRLF that would be injected into the email subject.
-    return "your page";
-  }
-}
-
-function escapeHtml(s: string): string {
-  return s
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
 
 async function safeSend({
   to,
