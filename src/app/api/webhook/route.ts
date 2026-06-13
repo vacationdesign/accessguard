@@ -8,7 +8,7 @@ import {
   createSubscription,
   updateSubscription,
 } from "@/lib/db";
-import { sendWelcomeEmail, sendAdminNotification } from "@/lib/email";
+import { sendWelcomeEmail, sendAdminNotification, sendWinBackEmail } from "@/lib/email";
 import { logEvent } from "@/lib/analytics";
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
@@ -251,6 +251,24 @@ export async function POST(request: NextRequest) {
           }).catch((err) => {
             console.error("Admin notification failed (non-blocking):", err);
           });
+
+          // Win-back the user (non-blocking). Covers both an expired cardless
+          // trial and an explicit cancellation. Map the canceled price back to
+          // a plan for a personalized line; null is fine (generic copy).
+          const canceledPriceId = subscription.items.data[0]?.price?.id;
+          const canceledPlan: "starter" | "pro" | "agency" | null =
+            canceledPriceId === process.env.STRIPE_STARTER_PRICE_ID
+              ? "starter"
+              : canceledPriceId === process.env.STRIPE_PRO_PRICE_ID
+                ? "pro"
+                : canceledPriceId === process.env.STRIPE_AGENCY_PRICE_ID
+                  ? "agency"
+                  : null;
+          sendWinBackEmail({ to: user.email, plan: canceledPlan }).catch(
+            (err) => {
+              console.error("Win-back email failed (non-blocking):", err);
+            }
+          );
 
           void logEvent({
             kind: "subscription_canceled",
