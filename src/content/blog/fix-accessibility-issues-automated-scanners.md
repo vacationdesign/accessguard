@@ -16,7 +16,7 @@ An automated accessibility issues detector like A11yScope, axe-core, or Lighthou
 
 Before you start fixing issues, take a moment to understand how scan reports are organized. Most tools categorize violations by severity: critical, serious, moderate, and minor. They also reference specific WCAG 2.1 success criteria, such as 1.1.1 (Non-text Content) or 4.1.2 (Name, Role, Value).
 
-Start with critical and serious violations. These are the issues most likely to completely block users from accessing your content and the ones most likely to trigger legal complaints. Work through moderate and minor issues afterward.
+Start with critical and serious violations. These are the issues most likely to completely block users from accessing your content and the ones most likely to trigger legal complaints. Work through moderate and minor issues afterward. This ordering matters more than it sounds: in [our severity breakdown of 244 real sites](/blog/critical-accessibility-barriers-study-2026), 34% had at least one critical, task-blocking barrier and 82% had a serious-or-worse one — so for most sites, the critical-and-serious tier is where nearly all the real harm lives.
 
 Each violation in your report should include three things: the WCAG rule that was broken, the specific HTML element that failed, and guidance on how to fix it. If your scanner provides element selectors or XPath references, use those to locate the exact code you need to change.
 

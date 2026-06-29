@@ -12,7 +12,7 @@ Most accessibility statistics you see quoted online trace back to one source: We
 
 A11yScope has run **1,012 automated accessibility scans** since launch. After deduplicating to one result per domain (keeping each domain's most recent scan), that gives us **243 distinct real-world websites** — small-business sites, dental and medical practices, e-commerce stores, SaaS products, agencies' client sites — scanned against the automated **WCAG 2.1 AA** rule set in axe-core.
 
-This is what the data says.
+This is what the data says. (For how *severe* these failures are — how many sites carry a critical, task-blocking barrier versus a minor one — see the companion [accessibility severity breakdown](/blog/critical-accessibility-barriers-study-2026).)
 
 ## Key findings
 

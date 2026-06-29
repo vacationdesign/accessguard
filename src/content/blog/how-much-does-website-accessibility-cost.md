@@ -152,7 +152,7 @@ Start by running an automated scan to understand your current state. You need a 
 
 ### Step 2: Fix the critical issues
 
-Address the highest-impact, highest-severity issues first. These are the problems that create the most significant barriers for users and represent the greatest legal risk. Many of the most common critical issues  Emissing alt text, missing form labels, broken heading structure, and insufficient color contrast  Eare also among the least expensive to fix.
+Address the highest-impact, highest-severity issues first. These are the problems that create the most significant barriers for users and represent the greatest legal risk. In [our severity study of 244 real sites](/blog/critical-accessibility-barriers-study-2026), about one in three carried a critical, task-blocking barrier — and those are exactly the issues a plaintiff's tester will find first. Many of the most common critical issues  Emissing alt text, missing form labels, broken heading structure, and insufficient color contrast  Eare also among the least expensive to fix.
 
 For guidance on resolving the issues automated scanners find, see our guide on [how to fix accessibility issues found by automated scanners](/blog/fix-accessibility-issues-automated-scanners).
 
