@@ -42,7 +42,7 @@ Several free tools exist that can scan individual pages and flag common issues. 
 
 Paid scanning platforms typically range from $30 to $300 per month for small-to-midsize businesses, depending on page volume, scan frequency, and reporting depth. At the lower end, you get basic periodic scanning. At the higher end, you get continuous monitoring, detailed remediation guidance, trend tracking, and multi-site management.
 
-A11yScope's [Pro plan](/#pricing) sits at $49 per month  Ethorough automated scanning with clear, actionable reporting, without the enterprise-level pricing that many platforms charge. For most small and midsize businesses, this tier covers the automated scanning portion of an accessibility program effectively.
+A11yScope's [Pro plan](/#pricing) sits at $49 per month  Ethorough automated scanning with clear, actionable reporting, without the enterprise-level pricing that many platforms charge. For most small and midsize businesses, this tier covers the automated scanning portion of an accessibility program effectively. For a side-by-side comparison of what the major scanning platforms actually charge — and where per-page limits quietly cap the cheaper tiers — see our [accessibility tool pricing comparison for 2026](/blog/accessibility-tool-pricing-comparison-2026).
 
 ### Enterprise platforms
 

@@ -44,7 +44,7 @@ tags: [Accessibility, Pricing, Comparison, Testing Tools]
 
 ## The honest caveat about every tool on this list
 
-Automated scanners — ours included — detect roughly 30–40% of WCAG success criteria. They catch the most common failures (which, per [our scan data across 244 sites](/blog/accessibility-scan-data-study-2026), are color contrast, landmarks, headings, and unnamed links/buttons) but can't judge whether your alt text is *meaningful* or your keyboard flow makes *sense*. Use automation for continuous coverage and regression-catching; bring in humans for depth.
+Automated scanners — ours included — detect roughly 30–40% of WCAG success criteria. They catch the most common failures (which, per [our scan data across 243 sites](/blog/accessibility-scan-data-study-2026), are color contrast, landmarks, headings, and unnamed links/buttons) but can't judge whether your alt text is *meaningful* or your keyboard flow makes *sense*. Use automation for continuous coverage and regression-catching; bring in humans for depth.
 
 The pricing logic follows from that: pay for **continuity** (monitoring, alerts, history), not for a one-time scan you can get free — and never pay for a widget that promises compliance without changing your code.
 

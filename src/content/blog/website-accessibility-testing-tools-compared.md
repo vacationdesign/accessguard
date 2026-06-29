@@ -83,7 +83,7 @@ Automated tools are reliable at detecting structural and code-level violations:
 - **Missing ARIA attributes.** It can verify that custom widgets have the required ARIA roles and properties.
 - **Duplicate IDs.** It can scan the DOM for ID values that are used more than once, which breaks label associations and ARIA references.
 
-These are the issues that appear most frequently in scan results, and they are also the issues that affect the largest number of users. Fixing everything automation finds is the single highest-leverage accessibility improvement you can make. For a detailed walkthrough of fixing these specific issues, see our guide on how to [fix accessibility issues with automated scanners](/blog/fix-accessibility-issues-automated-scanners).
+These are the issues that appear most frequently in scan results, and they are also the issues that affect the largest number of users. In [our own scan data across 243 real websites](/blog/accessibility-scan-data-study-2026), color contrast, missing landmarks, skipped heading levels, and unnamed links and buttons are exactly the violations that top the list. Fixing everything automation finds is the single highest-leverage accessibility improvement you can make. For a detailed walkthrough of fixing these specific issues, see our guide on how to [fix accessibility issues with automated scanners](/blog/fix-accessibility-issues-automated-scanners).
 
 ### What Automation Cannot Evaluate
 
@@ -148,7 +148,7 @@ Accessibility tooling ranges from completely free to tens of thousands of dollar
 - **Mid-range SaaS tools** like A11yScope provide automated site-wide scanning, monitoring, and reporting at price points designed for small businesses and agencies. This tier offers the best balance of capability and cost for most organizations.
 - **Enterprise platforms** (Siteimprove, Deque enterprise products) offer extensive features including multi-site management, advanced workflow integrations, and dedicated support. These are appropriate when your organization has dozens of properties and a dedicated accessibility team, but the pricing reflects that scope.
 
-The question is not which tool is cheapest. It is which tool provides the monitoring, reporting, and ease of use you need at a price that makes it sustainable to use continuously rather than sporadically.
+The question is not which tool is cheapest. It is which tool provides the monitoring, reporting, and ease of use you need at a price that makes it sustainable to use continuously rather than sporadically. For a side-by-side breakdown of what each of these tools actually costs — including free tiers, per-page limits, and where the hidden ceilings are — see our [accessibility tool pricing comparison for 2026](/blog/accessibility-tool-pricing-comparison-2026).
 
 ## Tool-by-Tool Summary
 

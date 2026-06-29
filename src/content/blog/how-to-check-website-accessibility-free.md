@@ -193,7 +193,7 @@ For teams that want automated monitoring without manual effort, [A11yScope's Pro
 
 ## Free vs. Paid Accessibility Testing: What You Get
 
-The free tools covered in this guide are genuinely powerful. For a detailed side-by-side comparison of both free and paid options, see our [accessibility testing tools comparison](/blog/website-accessibility-testing-tools-compared). Here is what changes when you move to a paid solution:
+The free tools covered in this guide are genuinely powerful. For a detailed side-by-side comparison of both free and paid options, see our [accessibility testing tools comparison](/blog/website-accessibility-testing-tools-compared). If cost is your deciding factor, our [accessibility tool pricing comparison for 2026](/blog/accessibility-tool-pricing-comparison-2026) breaks down exactly what each scanner charges and where the free tiers run out. Here is what changes when you move to a paid solution:
 
 | Capability | Free Tools | A11yScope Pro ($49/mo) |
 |---|---|---|
