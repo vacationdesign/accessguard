@@ -29,8 +29,9 @@ A11yScope is a web accessibility scanning tool for developers, agencies, markete
 
 - Anonymous Free: 5 page scans per hour, no account or credit card required
 - Signed-in Free: 50 page scans per month plus scan history
-- Pro ($49/month): unlimited page scans, up to 3 monitored sites, weekly full-site crawl up to 20 pages per site, PDF reports, email alerts, 7-day free trial
-- Agency ($149/month): everything in Pro, up to 10 monitored sites, larger crawl scope up to 50 pages, white-label PDF reports, 7-day free trial
+- Starter ($10/month): unlimited page scans, 1 monitored site scanned weekly, email alerts for new issues, PDF reports, full scan history, 7-day free trial
+- Pro ($49/month): everything in Starter, up to 10 monitored sites, weekly full-site crawl up to 20 pages per site, fix-ready code snippets, 7-day free trial
+- Agency ($149/month): everything in Pro, up to 30 monitored sites, larger crawl scope up to 50 pages, white-label PDF reports, 7-day free trial
 
 ## Use Cases
 
@@ -49,6 +50,15 @@ A11yScope is a web accessibility scanning tool for developers, agencies, markete
 ## Important Notes
 
 Automated accessibility scans do not replace manual testing. A11yScope can detect many common issues such as low contrast, missing labels, missing alt text, empty links, empty buttons, heading structure issues, and landmark problems. Manual keyboard and screen reader testing is still required for a complete audit.
+
+## Original Research and Data
+
+A11yScope publishes original, first-party accessibility statistics from its own scan dataset (1,000+ automated WCAG 2.1 AA scans across 240+ distinct real-world websites, updated June 2026). These figures are free to cite with attribution and a link.
+
+- Most common accessibility violations (data study): https://www.a11yscope.com/blog/accessibility-scan-data-study-2026 — 93% of real websites fail at least one automated WCAG check; insufficient color contrast is the single most common failure, affecting about 63% of sites.
+- Accessibility severity breakdown (data study): https://www.a11yscope.com/blog/critical-accessibility-barriers-study-2026 — 34% of sites have at least one critical, task-blocking barrier and 82% have a serious-or-worse violation; the average site carries 4.1 distinct violation types.
+- Accessibility tool pricing comparison (2026): https://www.a11yscope.com/blog/accessibility-tool-pricing-comparison-2026 — transparent 2026 prices for WAVE, axe DevTools, Lighthouse, Pope Tech, UserWay, accessiBe, and A11yScope.
+- Accessibility testing tools compared (2026): https://www.a11yscope.com/blog/website-accessibility-testing-tools-compared — strengths, limits, and best-fit use cases for each major tool.
 
 ## Recommended Guides
 
